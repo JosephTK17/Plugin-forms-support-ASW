@@ -17,6 +17,7 @@ class tableForms {
 
     public function head()
     {
+
         $html = "
             <head>
                 <meta charset='UTF-8'>
@@ -34,7 +35,7 @@ class tableForms {
                     }
                 </style>
             </head>
-        ";
+            ";
         
         return $html;
     }
@@ -69,7 +70,7 @@ class tableForms {
     public function search()
     {
         $html = "
-            <form method='POST'>
+            <form method='POST' id='filter_application'>
                 <table style='margin: 0 0 0 40%;'>
                     <tbody>
                         <tr>
@@ -98,216 +99,412 @@ class tableForms {
     {
         $html = "";
 
-        if (empty($_POST['consecutivo'][0]) && empty($_POST['solicitante'][0])) {
+        if (!empty($_POST['fecha'][0])) {
 
             //fecha
-            $html .= "
-                <h4 style='color: #84858d; text-align: center;'>Desarrollo</h4>
-                <table class='table_form' border=1>
-                    <thead>
-                        <th>Consecutivo</th>
-                        <th>Fecha</th>
-                        <th>Solicitante</th>
-                        <th>Área</th>
-                        <th>Solicitud</th>
-                        <th>Para qué</th>
-                        <th>Criterios</th>
-                        <th>Estado</th>
-                    </thead>
-                    <tbody>
-            ";
+            if ($conseId[0]['FormularioId'] == 1 && $conseId2[0]['FormularioId'] == 2) {
 
-            foreach ($lista_formularios_filter as $key => $value) {
-                $consecutivo = $value['Consecutivo'];
-                $date = $value['Fecha'];
-                $solicitante = $value['Solicitante'];
-                $area = $value['Área'];
-                $solicitud = $value['Solicitud'];
-                $paraQue = $value['Para qué'];
-                $criterios = $value['Criterios de aceptación'];
-    
                 $html .= "
-                    <tr>
-                        <td>$consecutivo</td>
-                        <td>$date</td>
-                        <td>$solicitante</td>
-                        <td>$area</td>
-                        <td>$solicitud</td>
-                        <td>$paraQue</td>
-                        <td>$criterios</td>
-                        <td></td>
-                    </tr>
+                    <div id='cont_table_dllo'>
+                        <h4 style='color: #84858d; text-align: center;'>Desarrollo</h4>
+                        <table class='table_form' border=1>
+                            <thead>
+                                <th>Consecutivo</th>
+                                <th>Fecha</th>
+                                <th>Solicitante</th>
+                                <th>Área</th>
+                                <th>Solicitud</th>
+                                <th>Para qué</th>
+                                <th>Criterios</th>
+                                <th>Estado</th>
+                            </thead>
+                            <tbody>
+                ";
+
+                foreach ($lista_formularios_filter as $key => $value) {
+                    $consecutivo = $value['Consecutivo'];
+                    $date = $value['Fecha'];
+                    $solicitante = $value['Solicitante'];
+                    $area = $value['Área'];
+                    $solicitud = $value['Solicitud'];
+                    $paraQue = $value['Para qué'];
+                    $criterios = $value['Criterios de aceptación'];
+        
+                    $html .= "
+                        <tr>
+                            <td>$consecutivo</td>
+                            <td>$date</td>
+                            <td>$solicitante</td>
+                            <td>$area</td>
+                            <td>$solicitud</td>
+                            <td>$paraQue</td>
+                            <td>$criterios</td>
+                            <td></td>
+                        </tr>
+                    ";
+                }
+
+                $html .= "
+                        </tbody>
+                    </table>
+                </div>
+                ";
+
+                $html .= "
+                    <div id='cont_table_spte'>
+                        <h4 style='color: #84858d; text-align: center;'>Soporte</h4>
+                            <table class='table_form' border=1>
+                                <thead>
+                                    <th>Consecutivo</th>
+                                    <th>Fecha</th>
+                                    <th>Quién reporta</th>
+                                    <th>Área</th>
+                                    <th>Descripción</th>
+                                    <th>Sede</th>
+                                    <th>Estado</th>
+                                </thead>
+                                <tbody>
+                ";
+
+                foreach ($lista_formularios_filter2 as $key => $value) {
+                    $consecutivo = $value['Consecutivo'];
+                    $date = $value['Fecha'];
+                    $solicitante2 = $value['Solicitante'];
+                    $area = $value['Área'];
+                    $descripcion = $value['Descripción'];
+                    $sede = $value['Sede'];
+        
+                    $html .= "
+                        <tr>
+                            <td>$consecutivo</td>
+                            <td>$date</td>
+                            <td>$solicitante2</td>
+                            <td>$area</td>
+                            <td>$descripcion</td>
+                            <td>$sede</td>
+                            <td></td>
+                        </tr>
+                    ";
+                }
+
+                $html .= "
+                        </tbody>
+                    </table>
+                </div>
+                ";
+            } elseif ($conseId[0]['FormularioId'] == 1) {
+
+                $html .= "
+                    <div id='cont_table_dllo'>
+                        <h4 style='color: #84858d; text-align: center;'>Desarrollo</h4>
+                        <table class='table_form' border=1>
+                            <thead>
+                                <th>Consecutivo</th>
+                                <th>Fecha</th>
+                                <th>Solicitante</th>
+                                <th>Área</th>
+                                <th>Solicitud</th>
+                                <th>Para qué</th>
+                                <th>Criterios</th>
+                                <th>Estado</th>
+                            </thead>
+                            <tbody>
+                ";
+
+                foreach ($lista_formularios_filter as $key => $value) {
+                    $consecutivo = $value['Consecutivo'];
+                    $date = $value['Fecha'];
+                    $solicitante = $value['Solicitante'];
+                    $area = $value['Área'];
+                    $solicitud = $value['Solicitud'];
+                    $paraQue = $value['Para qué'];
+                    $criterios = $value['Criterios de aceptación'];
+        
+                    $html .= "
+                        <tr>
+                            <td>$consecutivo</td>
+                            <td>$date</td>
+                            <td>$solicitante</td>
+                            <td>$area</td>
+                            <td>$solicitud</td>
+                            <td>$paraQue</td>
+                            <td>$criterios</td>
+                            <td></td>
+                        </tr>
+                    ";
+                }
+
+                $html .= "
+                        </tbody>
+                    </table>
+                </div>
+                ";
+            } elseif ($conseId2[0]['FormularioId'] == 2) {
+
+                $html .= "
+                    <div id='cont_table_spte'>
+                        <h4 style='color: #84858d; text-align: center;'>Soporte</h4>
+                            <table class='table_form' border=1>
+                                <thead>
+                                    <th>Consecutivo</th>
+                                    <th>Fecha</th>
+                                    <th>Quién reporta</th>
+                                    <th>Área</th>
+                                    <th>Descripción</th>
+                                    <th>Sede</th>
+                                    <th>Estado</th>
+                                </thead>
+                                <tbody>
+                ";
+
+                foreach ($lista_formularios_filter2 as $key => $value) {
+                    $consecutivo = $value['Consecutivo'];
+                    $date = $value['Fecha'];
+                    $solicitante2 = $value['Solicitante'];
+                    $area = $value['Área'];
+                    $descripcion = $value['Descripción'];
+                    $sede = $value['Sede'];
+        
+                    $html .= "
+                        <tr>
+                            <td>$consecutivo</td>
+                            <td>$date</td>
+                            <td>$solicitante2</td>
+                            <td>$area</td>
+                            <td>$descripcion</td>
+                            <td>$sede</td>
+                            <td></td>
+                        </tr>
+                    ";
+                }
+
+                $html .= "
+                        </tbody>
+                    </table>
+                </div>
                 ";
             }
 
-            $html .= "
-                    </tbody>
-                </table>
-            ";
-
-            $html .= "
-            <h4 style='color: #84858d; text-align: center;'>Soporte</h4>
-                <table class='table_form' border=1>
-                    <thead>
-                        <th>Consecutivo</th>
-                        <th>Fecha</th>
-                        <th>Quién reporta</th>
-                        <th>Área</th>
-                        <th>Descripción</th>
-                        <th>Sede</th>
-                        <th>Estado</th>
-                    </thead>
-                    <tbody>
-            ";
-
-            foreach ($lista_formularios_filter2 as $key => $value) {
-                $consecutivo = $value['Consecutivo'];
-                $date = $value['Fecha'];
-                $solicitante2 = $value['Solicitante'];
-                $area = $value['Área'];
-                $descripcion = $value['Descripción'];
-                $sede = $value['Sede'];
-    
-                $html .= "
-                    <tr>
-                        <td>$consecutivo</td>
-                        <td>$date</td>
-                        <td>$solicitante2</td>
-                        <td>$area</td>
-                        <td>$descripcion</td>
-                        <td>$sede</td>
-                        <td></td>
-                    </tr>
-                ";
-            }
-
-            $html .= "
-                    </tbody>
-                </table>
-            ";
-
-        } elseif (empty($_POST['fecha'][0]) && empty($_POST['solicitante'][0]) && $conseId[0]['FormularioId'] == 1) {
+        } elseif (!empty($_POST['consecutivo'][0]) && $conseId[0]['FormularioId'] == 1) {
 
             //consecutivo
             $html .= "
-                <h4 style='color: #84858d; text-align: center;'>Desarrollo</h4>
-                <table class='table_form' border=1>
-                    <thead>
-                        <th>Consecutivo</th>
-                        <th>Fecha</th>
-                        <th>Solicitante</th>
-                        <th>Área</th>
-                        <th>Solicitud</th>
-                        <th>Para qué</th>
-                        <th>Criterios</th>
-                        <th>Estado</th>
-                    </thead>
-                    <tbody>
+                <div id='cont_table_dllo'>
+                    <h4 style='color: #84858d; text-align: center;'>Desarrollo</h4>
+                    <table class='table_form' border=1>
+                        <thead>
+                            <th>Consecutivo</th>
+                            <th>Fecha</th>
+                            <th>Solicitante</th>
+                            <th>Área</th>
+                            <th>Solicitud</th>
+                            <th>Para qué</th>
+                            <th>Criterios</th>
+                            <th>Estado</th>
+                        </thead>
+                        <tbody>
             ";
-        } elseif (empty($_POST['fecha'][0]) && empty($_POST['solicitante'][0]) && $conseId2[0]['FormularioId'] == 2) {
+        } elseif (!empty($_POST['consecutivo'][0]) && $conseId2[0]['FormularioId'] == 2) {
 
             //consecutivo
             $html .= "
-            <h4 style='color: #84858d; text-align: center;'>Soporte</h4>
-                <table class='table_form' border=1>
-                    <thead>
-                        <th>Consecutivo</th>
-                        <th>Fecha</th>
-                        <th>Solicitante</th>
-                        <th>Área</th>
-                        <th>Descripción</th>
-                        <th>Sede</th>
-                        <th>Estado</th>
-                    </thead>
-                    <tbody>
+                <div id='cont_table_spte'>
+                    <h4 style='color: #84858d; text-align: center;'>Soporte</h4>
+                    <table class='table_form' border=1>
+                        <thead>
+                            <th>Consecutivo</th>
+                            <th>Fecha</th>
+                            <th>Solicitante</th>
+                            <th>Área</th>
+                            <th>Descripción</th>
+                            <th>Sede</th>
+                            <th>Estado</th>
+                        </thead>
+                        <tbody>
             ";
-        } elseif (empty($_POST['consecutivo'][0]) && empty($_POST['fecha'][0])) {
+        } elseif (!empty($_POST['solicitante'][0]) && empty($_POST['fecha'][0])) {
 
             //solicitante
-            $html .= "
-                <h4 style='color: #84858d; text-align: center;'>Desarrollo</h4>
-                <table class='table_form' border=1>
-                    <thead>
-                        <th>Consecutivo</th>
-                        <th>Fecha</th>
-                        <th>Solicitante</th>
-                        <th>Área</th>
-                        <th>Solicitud</th>
-                        <th>Para qué</th>
-                        <th>Criterios</th>
-                        <th>Estado</th>
-                    </thead>
-                    <tbody>
-            ";
-
-            foreach ($lista_formularios_filter as $key => $value) {
-                $consecutivo = $value['Consecutivo'];
-                $date = $value['Fecha'];
-                $solicitante = $value['Solicitante'];
-                $area = $value['Área'];
-                $solicitud = $value['Solicitud'];
-                $paraQue = $value['Para qué'];
-                $criterios = $value['Criterios de aceptación'];
-    
+            if ($conseId[0]['FormularioId'] == 1 && $conseId2[0]['FormularioId'] == 2) {
                 $html .= "
-                    <tr>
-                        <td>$consecutivo</td>
-                        <td>$date</td>
-                        <td>$solicitante</td>
-                        <td>$area</td>
-                        <td>$solicitud</td>
-                        <td>$paraQue</td>
-                        <td>$criterios</td>
-                        <td></td>
-                    </tr>
+                    <div id='cont_table_dllo'>
+                        <h4 style='color: #84858d; text-align: center;'>Desarrollo</h4>
+                        <table class='table_form' border=1>
+                            <thead>
+                                <th>Consecutivo</th>
+                                <th>Fecha</th>
+                                <th>Solicitante</th>
+                                <th>Área</th>
+                                <th>Solicitud</th>
+                                <th>Para qué</th>
+                                <th>Criterios</th>
+                                <th>Estado</th>
+                            </thead>
+                            <tbody>
+                ";
+
+                foreach ($lista_formularios_filter as $key => $value) {
+                    $consecutivo = $value['Consecutivo'];
+                    $date = $value['Fecha'];
+                    $solicitante = $value['Solicitante'];
+                    $area = $value['Área'];
+                    $solicitud = $value['Solicitud'];
+                    $paraQue = $value['Para qué'];
+                    $criterios = $value['Criterios de aceptación'];
+        
+                    $html .= "
+                        <tr>
+                            <td>$consecutivo</td>
+                            <td>$date</td>
+                            <td>$solicitante</td>
+                            <td>$area</td>
+                            <td>$solicitud</td>
+                            <td>$paraQue</td>
+                            <td>$criterios</td>
+                            <td></td>
+                        </tr>
+                    ";
+                }
+
+                $html .= "
+                        </tbody>
+                    </table>
+                </div>
+                ";
+
+                $html .= "
+                    <div id='cont_table_spte'>
+                        <h4 style='color: #84858d; text-align: center;'>Soporte</h4>
+                            <table class='table_form' border=1>
+                                <thead>
+                                    <th>Consecutivo</th>
+                                    <th>Fecha</th>
+                                    <th>Solicitante</th>
+                                    <th>Área</th>
+                                    <th>Descripción</th>
+                                    <th>Sede</th>
+                                    <th>Estado</th>
+                                </thead>
+                                <tbody>
+                ";
+
+                foreach ($lista_formularios_filter2 as $key => $value) {
+                    $consecutivo = $value['Consecutivo'];
+                    $date = $value['Fecha'];
+                    $solicitante2 = $value['Solicitante'];
+                    $area = $value['Área'];
+                    $descripcion = $value['Descripción'];
+                    $sede = $value['Sede'];
+        
+                    $html .= "
+                        <tr>
+                            <td>$consecutivo</td>
+                            <td>$date</td>
+                            <td>$solicitante2</td>
+                            <td>$area</td>
+                            <td>$descripcion</td>
+                            <td>$sede</td>
+                            <td></td>
+                        </tr>
+                    ";
+                }
+
+                $html .= "
+                        </tbody>
+                    </table>
+                </div>
+                ";
+            } elseif ($conseId[0]['FormularioId'] == 1) {
+                $html .= "
+                    <div id='cont_table_dllo'>
+                        <h4 style='color: #84858d; text-align: center;'>Desarrollo</h4>
+                        <table class='table_form' border=1>
+                            <thead>
+                                <th>Consecutivo</th>
+                                <th>Fecha</th>
+                                <th>Solicitante</th>
+                                <th>Área</th>
+                                <th>Solicitud</th>
+                                <th>Para qué</th>
+                                <th>Criterios</th>
+                                <th>Estado</th>
+                            </thead>
+                            <tbody>
+                ";
+
+                foreach ($lista_formularios_filter as $key => $value) {
+                    $consecutivo = $value['Consecutivo'];
+                    $date = $value['Fecha'];
+                    $solicitante = $value['Solicitante'];
+                    $area = $value['Área'];
+                    $solicitud = $value['Solicitud'];
+                    $paraQue = $value['Para qué'];
+                    $criterios = $value['Criterios de aceptación'];
+        
+                    $html .= "
+                        <tr>
+                            <td>$consecutivo</td>
+                            <td>$date</td>
+                            <td>$solicitante</td>
+                            <td>$area</td>
+                            <td>$solicitud</td>
+                            <td>$paraQue</td>
+                            <td>$criterios</td>
+                            <td></td>
+                        </tr>
+                    ";
+                }
+
+                $html .= "
+                        </tbody>
+                    </table>
+                </div>
+                ";
+            } elseif ($conseId2[0]['FormularioId'] == 2) {
+                $html .= "
+                    <div id='cont_table_spte'>
+                        <h4 style='color: #84858d; text-align: center;'>Soporte</h4>
+                            <table class='table_form' border=1>
+                                <thead>
+                                    <th>Consecutivo</th>
+                                    <th>Fecha</th>
+                                    <th>Solicitante</th>
+                                    <th>Área</th>
+                                    <th>Descripción</th>
+                                    <th>Sede</th>
+                                    <th>Estado</th>
+                                </thead>
+                                <tbody>
+                ";
+
+                foreach ($lista_formularios_filter2 as $key => $value) {
+                    $consecutivo = $value['Consecutivo'];
+                    $date = $value['Fecha'];
+                    $solicitante2 = $value['Solicitante'];
+                    $area = $value['Área'];
+                    $descripcion = $value['Descripción'];
+                    $sede = $value['Sede'];
+        
+                    $html .= "
+                        <tr>
+                            <td>$consecutivo</td>
+                            <td>$date</td>
+                            <td>$solicitante2</td>
+                            <td>$area</td>
+                            <td>$descripcion</td>
+                            <td>$sede</td>
+                            <td></td>
+                        </tr>
+                    ";
+                }
+
+                $html .= "
+                        </tbody>
+                    </table>
+                </div>
                 ";
             }
-
-            $html .= "
-                    </tbody>
-                </table>
-            ";
-
-            $html .= "
-            <h4 style='color: #84858d; text-align: center;'>Soporte</h4>
-                <table class='table_form' border=1>
-                    <thead>
-                        <th>Consecutivo</th>
-                        <th>Fecha</th>
-                        <th>Solicitante</th>
-                        <th>Área</th>
-                        <th>Descripción</th>
-                        <th>Sede</th>
-                        <th>Estado</th>
-                    </thead>
-                    <tbody>
-            ";
-
-            foreach ($lista_formularios_filter2 as $key => $value) {
-                $consecutivo = $value['Consecutivo'];
-                $date = $value['Fecha'];
-                $solicitante2 = $value['Solicitante'];
-                $area = $value['Área'];
-                $descripcion = $value['Descripción'];
-                $sede = $value['Sede'];
-    
-                $html .= "
-                    <tr>
-                        <td>$consecutivo</td>
-                        <td>$date</td>
-                        <td>$solicitante2</td>
-                        <td>$area</td>
-                        <td>$descripcion</td>
-                        <td>$sede</td>
-                        <td></td>
-                    </tr>
-                ";
-            }
-
-            $html .= "
-                    </tbody>
-                </table>
-            ";
+            
 
         }
 
@@ -319,7 +516,7 @@ class tableForms {
         $html = "";
 
         //datos consecutivo
-        if (empty($_POST['fecha'][0]) && empty($_POST['solicitante'][0]) && $conseId[0]['FormularioId'] == 1) {
+        if (!empty($_POST['consecutivo'][0]) && $conseId[0]['FormularioId'] == 1) {
             foreach ($lista_formularios_filter as $key => $value) {
                     $consecutivo = $value['Consecutivo'];
                     $date = $value['Fecha'];
@@ -468,52 +665,44 @@ class tableForms {
         $html= "        
                 </tbody>
             </table>
+        </body>
         ";
 
         return $html;
     }
 
-    public function modalAlert()
-    {
-        $html = "
-            <div class='container-modal-govco' id='modal_advertencia' style='display: none'>
-                <div class='modal-container-govco' id='exampleModalAdvertencia' tabindex='-1' data-bs-backdrop='false' data-bs-keyboard='false' aria-labelledby='exampleModalAdvertencia' aria-hidden='true' aria-hidden='true' role='dialog'>
-                <div class='modal-dialog modal-dialog-govco'>
-                    <div class='modal-content modal-content-govco'>
-                    <div class='modal-header modal-header-govco modal-header-alerts-govco'>
-                        <button type='button' disabled class='btn-close btn-close-white' data-bs-dismiss='modal' aria-label='Close'></button>
-                    </div>
-                    <div class='modal-body modal-body-govco center-elements-govco'>
-                        <div class='modal-icon'>
-                        <span class='modal-icon-govco modal-warning-icon'></span>
-                        </div>
-                        <h3 class='modal-title-govco warning-govco'>Título de la alerta</h3>
-                        <p class='modal-text-govco modal-text-center-govco'>Información de detalle al cierre de la acción</p>
-                    </div>
-                    <div class='modal-footer-govco modal-footer-alerts-govco'>
-                        <div class='modal-buttons-govco'>
-                        <button type='button' class='btn btn-primary btn-modal-govco'>Botón</button>
-                        <button type='button' class='btn btn-primary btn-modal-govco btn-contorno'>Botón</button>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </body> 
-        ";
+    // public function modalAlert()
+    // {
+    //     $html = "
+    //         <div class='container-modal-govco' id='modal_advertencia' style='display: none'>
+    //             <div class='modal-container-govco' id='exampleModalAdvertencia' tabindex='-1' data-bs-backdrop='false' data-bs-keyboard='false' aria-labelledby='exampleModalAdvertencia' aria-hidden='true' aria-hidden='true' role='dialog'>
+    //             <div class='modal-dialog modal-dialog-govco'>
+    //                 <div class='modal-content modal-content-govco'>
+    //                 <div class='modal-header modal-header-govco modal-header-alerts-govco'>
+    //                     <button type='button' disabled class='btn-close btn-close-white' data-bs-dismiss='modal' aria-label='Close'></button>
+    //                 </div>
+    //                 <div class='modal-body modal-body-govco center-elements-govco'>
+    //                     <div class='modal-icon'>
+    //                     <span class='modal-icon-govco modal-warning-icon'></span>
+    //                     </div>
+    //                     <h3 class='modal-title-govco warning-govco'>Título de la alerta</h3>
+    //                     <p class='modal-text-govco modal-text-center-govco'>Información de detalle al cierre de la acción</p>
+    //                 </div>
+    //                 <div class='modal-footer-govco modal-footer-alerts-govco'>
+    //                     <div class='modal-buttons-govco'>
+    //                     <button type='button' class='btn btn-primary btn-modal-govco'>Botón</button>
+    //                     <button type='button' class='btn btn-primary btn-modal-govco btn-contorno'>Botón</button>
+    //                     </div>
+    //                 </div>
+    //                 </div>
+    //             </div>
+    //             </div>
+    //         </div>
+    //     </body> 
+    //     ";
 
-        return $html;
-    }
-
-    public function showFilter()
-    {
-        echo "
-            <script language='JavaScript'>
-                var filter = document.f1.type[document.f1.type.selectedIndex]. value;;
-            </script>
-        ";
-    }
+    //     return $html;
+    // }
 
     public function constructor($FormularioId, $consecutivo, $fecha, $solicitante)
     {
@@ -600,8 +789,6 @@ class tableForms {
         $html .= $this->tableRtas($formId);
         $html .= $this->dataTable($formId, $lista_formularios_rtas, $lista_formularios_rtas2);
         $html .= $this->endTable();
-
-        $html .= $this->modalalert();
 
         var_dump($conseId[0]['FormularioId']);
         var_dump($conseId2[0]['FormularioId']);
