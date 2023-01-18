@@ -35,6 +35,26 @@ class searchApplication {
                 <meta http-equiv='X-UA-Compatible' content='IE=edge'>
                 <meta name='viewport' content='width=device-width, initial-scale=1.0'>
                 <style>
+
+                    .cont_single{
+                        background-color: #ca0004;
+                        width: 150px;
+                    }
+
+                    .btn_nav{
+                        text-align: center;
+                    }
+
+                    #create{
+                        display: inline-block;
+                    }
+
+                    .btn_nav a {
+                        text-decoration: none;
+                        border-radius: 3px;
+                        color: #b3b3b3;
+                    }
+
                     .table_form{
                         border-collapse: collapse;
                     }
@@ -51,12 +71,16 @@ class searchApplication {
         return $html;
     }
 
-    public function btnAtras()
+    public function buttonsNav()
     {
         $html = "
             <body>
-                <div>
-                    <a id='btn_atras' href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/crear-ticket/'><- atras</a>
+                <div id='cont_btns_nav'>
+                    <div class='cont_single' id='create'>
+                        <div class='btn_nav'>
+                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/formularios/'>Crear Ticket</a>
+                        </div>
+                    </div>
                 </div>
         ";
 
@@ -215,7 +239,7 @@ class searchApplication {
         $html = $this->getApplication($consecutivo);
         $html = $this->head();
         
-        $html .= $this->btnAtras();
+        $html .= $this->buttonsNav();
         $html .= $this->search();
         $html .= $this->openTableApplication($id, $id2);
         $html .= $this->dataTableApplication($id, $id2, $consecutivo, $lista_formularios, $lista_formularios2);

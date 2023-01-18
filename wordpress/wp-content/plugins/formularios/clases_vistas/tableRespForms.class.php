@@ -24,6 +24,54 @@ class tableForms {
                 <meta http-equiv='X-UA-Compatible' content='IE=edge'>
                 <meta name='viewport' content='width=device-width, initial-scale=1.0'>
                 <style>
+
+                    .cont_single{
+                        background-color: #ca0004;
+                        width: 150px;
+                    }
+
+                    .btn_nav{
+                        text-align: center;
+                    }
+
+                    #create{
+                        display: inline-block;
+                    }
+
+                    #admin{
+                        display: inline-block;
+                    }
+
+                    #user{
+                        display: inline-block;
+                    }
+
+                    .btn_nav a {
+                        text-decoration: none;
+                        border-radius: 3px;
+                        color: #b3b3b3;
+                    }
+
+                    #cont_btns_tables{
+                        margin: 50px 0 0 0;
+                        text-align: center;
+                    }
+                
+                    #cont_btn_rtas button{
+                        cursor: pointer;
+                        height:25px;
+                        width:100px;
+                        border: transparent;
+                        background-color: #ca0004;
+                        color: #b3b3b3;
+                        border-radius: 5px;
+                    }
+
+                    #cont_table_dllo h4{
+                        color: #84858d;
+                        text-align: center;
+                    }
+
                     .table_form{
                         border-collapse: collapse;
                     }
@@ -33,6 +81,37 @@ class tableForms {
                         color: white;
                         border-right-color: white;
                     }
+
+                    #cont_table_spte h4{
+                        color: #84858d;
+                        text-align: center;
+                    }
+
+                    #cont_table_rtas h4{
+                        color: #84858d;
+                        text-align: center;
+                    }
+
+                    .table_rtas{
+                        margin: 0 25% 0 25%;
+                        border-collapse: collapse;   
+                    }
+
+                    .table_rtas thead th{
+                        background-color: gray; 
+                        color: white;
+                        border-right-color: white;
+                    }
+
+                    .inpt_filter{
+                        margin: 0 10px 20px 0;
+                        float: left;
+                    }
+
+                    #btn_buscar{
+                        width: 100px;
+                    }
+
                 </style>
             </head>
             ";
@@ -40,28 +119,22 @@ class tableForms {
         return $html;
     }
 
-    public function btnAtras()
+    public function buttonsNav()
     {
         $html = "
             <body>
-                <div>
-                    <a id='btn_atras' href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/crear-ticket/'><- atras</a>
+                <div id='cont_btns_nav'>
+                    <div class='cont_single' id='create'>
+                        <div class='btn_nav'>
+                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/formularios/'>Crear Ticket</a>
+                        </div>
+                    </div>
+                    <div class='cont_single' id='user'>
+                        <div class='btn_nav'>
+                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/'>Ver Tickets User</a>
+                        </div>
+                    </div>
                 </div>
-        ";
-
-        return $html;
-    }
-
-    public function selectTable()
-    {
-        $html = "
-        
-            <form method='POST'>
-                <div>
-                    <button type='submit' name='Table1[]' id='btnTable1' value='1'>Desarrollo</button>
-                    <button type='submit' name='Table1[]' id='btnTable2' value='2'>Soporte</button>
-                </div>
-            </form>
         ";
 
         return $html;
@@ -70,26 +143,42 @@ class tableForms {
     public function search()
     {
         $html = "
-            <form method='POST' id='filter_application'>
-                <table style='margin: 0 0 0 40%;'>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <input type='text' name='consecutivo[]' placeholder='Consecutivo' style='height:25px; text-align: center;'>
-                            </td>
-                            <td>
-                                <input type='' name='fecha[]' placeholder='Fecha' style='height:25px; text-align: center;'>
-                            </td>
-                            <td>
-                                <input type='' name='solicitante[]' placeholder='Solicitante' style='height:25px; text-align: center;'>
-                            </td>
-                            <td>
-                                <button type='submit' name='buscar' style='cursor: pointer; height:25px; width:150%; border: transparent; background-color: #ca0004; color: #b3b3b3; border-radius: 5px;'><strong>Buscar</strong></button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </form>
+            <div id='cont_form_filter'>
+                <form method='POST' id='filter_application'>
+                    <div>
+                        <div id='cont_inpt'>
+                            <div class='inpt_filter' id='inpt_consecutivo'>
+                                <input type='text' name='consecutivo[]' id='consecutivo' placeholder='Consecutivo' style='height:25px; text-align: center;'>
+                            </div>
+                            <div class='inpt_filter' id='inpt_fecha' style='display: none;'>
+                                <input type='text' name='fecha[]' id='fecha' placeholder='Fecha ej: 20-05-2023' style='display: none; height:25px; text-align: center;'>
+                            </div>
+                            <div class='inpt_filter' id='inpt_solicitante' style='display: none;'>
+                                <input type='text' name='solicitante[]' id='solicitante'placeholder='Solicitante' style='display: none; height:25px; text-align: center;'>
+                            </div> 
+                            <div class='inpt_filter' id='btn_buscar'>
+                                <button type='submit' name='buscar' style='cursor: pointer; height:25px; width:100%; border: transparent; background-color: #ca0004; color: #b3b3b3; border-radius: 5px;'><strong>Buscar</strong></button>
+                            </div>
+                        </div>
+                        <div id='cont_btn'>
+                            <div class='btn_filter' id='btn_mostrar'>
+                                <button type='button' name='mostrar' onclick='showMoreFilter()' style='cursor: pointer; height:25px; width: 100px; border: transparent; background-color: #ca0004; color: #b3b3b3; border-radius: 5px;'><strong>Mas</strong></button>
+                            </div>
+                            <div class='btn_filter' id='btn_ocultar' style ='display: none;'>
+                                <button type='button' name='ocultar' onclick='hideFilter()' style='cursor: pointer; height:25px; width: 100px; border: transparent; background-color: #ca0004; color: #b3b3b3; border-radius: 5px;'><strong>Menos</strong></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div id='cont_btns_tables'>
+                <form method='POST'>
+                    <div id='cont_btn_rtas'>
+                        <button type='submit' name='Table1[]' id='btnTable1' value='1'><strong>Desarrollo</strong></button>
+                        <button type='submit' name='Table1[]' id='btnTable2' value='2'><strong>Soporte</strong></button>
+                    </div>
+                </form>
+            </div>
         ";
         
         return $html;
@@ -106,7 +195,7 @@ class tableForms {
 
                 $html .= "
                     <div id='cont_table_dllo'>
-                        <h4 style='color: #84858d; text-align: center;'>Desarrollo</h4>
+                        <h4>Desarrollo</h4>
                         <table class='table_form' border=1>
                             <thead>
                                 <th>Consecutivo</th>
@@ -152,7 +241,7 @@ class tableForms {
 
                 $html .= "
                     <div id='cont_table_spte'>
-                        <h4 style='color: #84858d; text-align: center;'>Soporte</h4>
+                        <h4>Soporte</h4>
                             <table class='table_form' border=1>
                                 <thead>
                                     <th>Consecutivo</th>
@@ -196,7 +285,7 @@ class tableForms {
 
                 $html .= "
                     <div id='cont_table_dllo'>
-                        <h4 style='color: #84858d; text-align: center;'>Desarrollo</h4>
+                        <h4>Desarrollo</h4>
                         <table class='table_form' border=1>
                             <thead>
                                 <th>Consecutivo</th>
@@ -243,7 +332,7 @@ class tableForms {
 
                 $html .= "
                     <div id='cont_table_spte'>
-                        <h4 style='color: #84858d; text-align: center;'>Soporte</h4>
+                        <h4>Soporte</h4>
                             <table class='table_form' border=1>
                                 <thead>
                                     <th>Consecutivo</th>
@@ -290,7 +379,7 @@ class tableForms {
             //consecutivo
             $html .= "
                 <div id='cont_table_dllo'>
-                    <h4 style='color: #84858d; text-align: center;'>Desarrollo</h4>
+                    <h4>Desarrollo</h4>
                     <table class='table_form' border=1>
                         <thead>
                             <th>Consecutivo</th>
@@ -309,7 +398,7 @@ class tableForms {
             //consecutivo
             $html .= "
                 <div id='cont_table_spte'>
-                    <h4 style='color: #84858d; text-align: center;'>Soporte</h4>
+                    <h4>Soporte</h4>
                     <table class='table_form' border=1>
                         <thead>
                             <th>Consecutivo</th>
@@ -328,7 +417,7 @@ class tableForms {
             if ($conseId[0]['FormularioId'] == 1 && $conseId2[0]['FormularioId'] == 2) {
                 $html .= "
                     <div id='cont_table_dllo'>
-                        <h4 style='color: #84858d; text-align: center;'>Desarrollo</h4>
+                        <h4>Desarrollo</h4>
                         <table class='table_form' border=1>
                             <thead>
                                 <th>Consecutivo</th>
@@ -374,7 +463,7 @@ class tableForms {
 
                 $html .= "
                     <div id='cont_table_spte'>
-                        <h4 style='color: #84858d; text-align: center;'>Soporte</h4>
+                        <h4>Soporte</h4>
                             <table class='table_form' border=1>
                                 <thead>
                                     <th>Consecutivo</th>
@@ -417,7 +506,7 @@ class tableForms {
             } elseif ($conseId[0]['FormularioId'] == 1) {
                 $html .= "
                     <div id='cont_table_dllo'>
-                        <h4 style='color: #84858d; text-align: center;'>Desarrollo</h4>
+                        <h4>Desarrollo</h4>
                         <table class='table_form' border=1>
                             <thead>
                                 <th>Consecutivo</th>
@@ -463,7 +552,7 @@ class tableForms {
             } elseif ($conseId2[0]['FormularioId'] == 2) {
                 $html .= "
                     <div id='cont_table_spte'>
-                        <h4 style='color: #84858d; text-align: center;'>Soporte</h4>
+                        <h4>Soporte</h4>
                             <table class='table_form' border=1>
                                 <thead>
                                     <th>Consecutivo</th>
@@ -505,6 +594,13 @@ class tableForms {
                 ";
             }
             
+        } elseif (!empty($_POST['consecutivo'][0]) && empty($_POST['fecha'][0]) && empty($_POST['solicitante'][0])) {
+
+            $html .= "
+                <div>
+                    <h1>Lo senimos, no hemos encontrado tu ticket</h1>
+                </div>
+            "; 
 
         }
 
@@ -539,7 +635,7 @@ class tableForms {
                     </tr>
                 ";
             }
-        } elseif (empty($_POST['fecha'][0]) && empty($_POST['solicitante'][0]) && $conseId2[0]['FormularioId'] == 2) {
+        } elseif (!empty($_POST['consecutivo'][0]) && $conseId2[0]['FormularioId'] == 2) {
             foreach ($lista_formularios_filter2 as $key => $value) {
                     $consecutivo = $value['Consecutivo'];
                     $date = $value['Fecha'];
@@ -570,6 +666,7 @@ class tableForms {
         $html = "
                 </tbody>
             </table>
+        </div>
         ";
 
         return $html;
@@ -579,8 +676,9 @@ class tableForms {
     {
         if ($id == 1) {
             $html = "
+            <div id='cont_table_rtas'>
                 <h4>Desarrollo</h4>
-                    <table class='table_form' border=1>
+                    <table class='table_rtas' border=1>
                         <thead>
                             <th>Consecutivo</th>
                             <th>Fecha</th>
@@ -594,8 +692,9 @@ class tableForms {
             ";
         } elseif ($id == 2) {
             $html = "
+            <div id='cont_table_rtas'>
                 <h4>Soporte</h4>
-                    <table class='table_form' border=1>
+                    <table class='table_rtas' border=1>
                         <thead>
                             <th>Consecutivo</th>
                             <th>Fecha</th>
@@ -663,12 +762,43 @@ class tableForms {
     public function endTable()
     {
         $html= "        
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </body>
         ";
 
         return $html;
+    }
+
+    public function moreFilters()
+    {
+        echo "
+            <script language='JavaScript'>
+                function showMoreFilter(){
+                    document.getElementById('btn_mostrar').style.display = 'none'
+                    document.getElementById('btn_ocultar').style.display = 'block'
+
+                    document.getElementById('inpt_fecha').style.display = 'block'
+                    document.getElementById('fecha').style.display = 'block'
+                    
+                    document.getElementById('inpt_solicitante').style.display = 'block'
+                    document.getElementById('solicitante').style.display = 'block'
+
+                }
+
+                function hideFilter(){
+                    document.getElementById('btn_mostrar').style.display = 'block'
+                    document.getElementById('btn_ocultar').style.display = 'none'
+
+                    document.getElementById('inpt_fecha').style.display = 'none'
+                    document.getElementById('fecha').style.display = 'none'
+                    
+                    document.getElementById('inpt_solicitante').style.display = 'none'
+                    document.getElementById('solicitante').style.display = 'none'
+                }
+            </script>
+        ";
     }
 
     // public function modalAlert()
@@ -729,7 +859,16 @@ class tableForms {
 
         //----------------------------
 
-        if(empty($_POST['fecha'][0]) && empty($_POST['solicitante'][0])){
+        if (!empty($_POST['fecha'][0]) && !empty($_POST['solicitante'][0])) {
+
+            $queryData = "SELECT * FROM $tableR1 WHERE Fecha = '$fecha' AND Solicitante = '$solicitante'"; 
+            $queryData2 = "SELECT * FROM $tableR2 WHERE Fecha = '$fecha' AND Solicitante = '$solicitante'";
+
+            //idForm
+            $queryId = "SELECT FormularioId FROM $tableR1 WHERE Fecha = '$fecha' AND Solicitante = '$solicitante'";
+            $queryId2 = "SELECT FormularioId FROM $tableR2 WHERE Fecha = '$fecha' AND Solicitante = '$solicitante'";
+
+        } elseif(!empty($_POST['consecutivo'][0])){
 
             $queryData = "SELECT * FROM $tableR1 WHERE Consecutivo = '$consecutivo'";
             $queryData2 = "SELECT * FROM $tableR2 WHERE Consecutivo = '$consecutivo'"; 
@@ -738,7 +877,7 @@ class tableForms {
             $queryId = "SELECT FormularioId FROM $tableR1 WHERE Consecutivo = '$consecutivo'";
             $queryId2 = "SELECT FormularioId FROM $tableR2 WHERE Consecutivo = '$consecutivo'";
 
-        } elseif (empty($_POST['consecutivo'][0]) && empty($_POST['solicitante'][0])) {
+        } elseif (!empty($_POST['fecha'][0])) {
 
             $queryData = "SELECT * FROM $tableR1 WHERE Fecha = '$fecha'";
             $queryData2 = "SELECT * FROM $tableR2 WHERE Fecha = '$fecha'";
@@ -747,7 +886,7 @@ class tableForms {
             $queryId = "SELECT FormularioId FROM $tableR1 WHERE Fecha = '$fecha'";
             $queryId2 = "SELECT FormularioId FROM $tableR2 WHERE Fecha = '$fecha'";
             
-        } elseif (empty($_POST['consecutivo'][0]) && empty($_POST['fecha'][0])) {
+        } elseif (!empty($_POST['solicitante'][0])) {
 
             $queryData = "SELECT * FROM $tableR1 WHERE Solicitante = '$solicitante'"; 
             $queryData2 = "SELECT * FROM $tableR2 WHERE Solicitante = '$solicitante'";
@@ -755,6 +894,7 @@ class tableForms {
             //idForm
             $queryId = "SELECT FormularioId FROM $tableR1 WHERE Solicitante = '$solicitante'";
             $queryId2 = "SELECT FormularioId FROM $tableR2 WHERE Solicitante = '$solicitante'";
+
         }
 
         $lista_formularios_filter = $wpdb->get_results($queryData, ARRAY_A);
@@ -776,8 +916,7 @@ class tableForms {
 
         $html = $this->head();
 
-        $html .= $this->btnAtras();
-        $html .= $this->selectTable();
+        $html .= $this->buttonsNav();
 
         //tabla filtro
         $html .= $this->search();
@@ -789,6 +928,8 @@ class tableForms {
         $html .= $this->tableRtas($formId);
         $html .= $this->dataTable($formId, $lista_formularios_rtas, $lista_formularios_rtas2);
         $html .= $this->endTable();
+
+        $html .= $this->moreFilters();
 
         var_dump($conseId[0]['FormularioId']);
         var_dump($conseId2[0]['FormularioId']);

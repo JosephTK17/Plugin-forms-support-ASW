@@ -24,14 +24,49 @@ class formFuntions{
                 <meta http-equiv='X-UA-Compatible' content='IE=edge'>
                 <meta name='viewport' content='width=device-width, initial-scale=1.0'>
                 <style>
-                    .table_form{
-                        border-collapse: collapse;
+                    
+                    .cont_single{
+                        background-color: #ca0004;
+                        width: 150px;
                     }
 
-                    .table_form thead th{
-                        background-color: gray; 
-                        color: white;
-                        border-right-color: white;
+                    .btn_nav{
+                        text-align: center;
+                    }
+
+                    #admin{
+                        display: inline-block;
+                    }
+
+                    #user{
+                        display: inline-block;
+                    }
+
+                    .btn_nav a {
+                        text-decoration: none;
+                        border-radius: 3px;
+                        color: #b3b3b3;
+                    }
+
+                    .cont_forms{
+                        border: 1px solid black;
+                    }
+
+                    .form-group div label{
+                        padding:  0 0 0 150px;
+                    }
+
+                    .cont_inpt_form{
+                        text-align: center;
+                    }
+
+                    .inpt_form{
+                        border: 2px solid #e0e0ec!important;
+                        border-radius: 0;
+                        margin-top: 15px;
+                        padding: 0.75rem!important;
+                        box-shadow: inset 0 .25rem .125rem 0 rgba(0, 0, 0, .05)!important;
+                        width: 350px;
                     }
                 </style>
             </head>
@@ -40,12 +75,21 @@ class formFuntions{
         return $html;
     }
 
-    public function btnAtras()
+    public function buttonsNav()
     {
         $html = "
             <body>
-                <div>
-                    <a id='btn_atras' href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/crear-ticket/'><- atras</a>
+                <div id='cont_btns_nav'>
+                    <div class='cont_single' id='admin'>
+                        <div class='btn_nav'>
+                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets'>Ver Tickets Admin</a>
+                        </div>
+                    </div>
+                    <div class='cont_single' id='user'>
+                        <div class='btn_nav'>
+                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/'>Ver Tickets User</a>
+                        </div>
+                    </div>
                 </div>
         ";
 
@@ -72,49 +116,68 @@ class formFuntions{
     public function desarrolloForm($userName)
     {
         $html = "
-            <div id='cont_dllo' style='display:none'>
+            <div class='cont_forms' id='cont_dllo' style='display:none'>
                 <h4 style='color: #84858d; text-align: center;'>Desarrollo</h4>
                 <form id='desarrollo' name='f2' method='POST'>
                     <div class='form-group'>
                         <div>
-                            <input name='solicitante[]' id='solicitante' value='$userName'>
+                            <label>Correo*</label>
+                            <br>
+                            <div class='cont_inpt_form'>
+                                <input class='inpt_form' name='solicitante[]' id='solicitante' value='$userName'>
+                            </div>
                         </div>
                         <br>
 
                         <div>
-                            <select name='area[]' id='area' class='col-sm-8' required>
-                                <option value=''>Área</option>
-                                <option value='Academico'>Académico</option>
-                                <option value='Admisiones'>Admisiones</option>
-                                <option value='Administrativa'>Administrativa</option>
-                                <option value='Atención al Cliente'>Atención al Cliente</option>
-                                <option value='Contact Center'>Contact Center</option>
-                                <option value='Compras'>Compras</option>
-                                <option value='Calidad'>Calidad</option>
-                                <option value='Apoyo Financiero y SST'>Apoyo Financiero y SST</option>
-                                <option value='Talento Humano'>Talento Humano</option>
-                                <option value='Mercadeo'>Mercadeo</option>
-                                <option value='TICS'>TICS</option>
-                                <option value='Juridico'>Jurídico</option>
-                                <option value='Contabilidad'>Contabilidad</option>
-                                <option value='Infraestructura'>Infraestructura</option>
-                                <option value='PEI'>PEI</option>
-                            </select>
+                            <label>Área*</label>
+                            <br>
+                            <div class='cont_inpt_form'>
+                                <select class='inpt_form' name='area[]' id='area' class='col-sm-8' required>
+                                    <option value='Academico'>Académico</option>
+                                    <option value='Admisiones'>Admisiones</option>
+                                    <option value='Administrativa'>Administrativa</option>
+                                    <option value='Atención al Cliente'>Atención al Cliente</option>
+                                    <option value='Contact Center'>Contact Center</option>
+                                    <option value='Compras'>Compras</option>
+                                    <option value='Calidad'>Calidad</option>
+                                    <option value='Apoyo Financiero y SST'>Apoyo Financiero y SST</option>
+                                    <option value='Talento Humano'>Talento Humano</option>
+                                    <option value='Mercadeo'>Mercadeo</option>
+                                    <option value='TICS'>TICS</option>
+                                    <option value='Juridico'>Jurídico</option>
+                                    <option value='Contabilidad'>Contabilidad</option>
+                                    <option value='Infraestructura'>Infraestructura</option>
+                                    <option value='PEI'>PEI</option>
+                                </select>
+                            </div>
                         </div>
                         <br>
 
                         <div>
-                            <textarea name='solicitud[]' id='solicitud' placeholder='Solicitud' required></textarea>
+                            <label>Solicitud*</label>
+                            <br>
+                            <div class='cont_inpt_form'>
+                                <textarea class='inpt_form' name='solicitud[]' id='solicitud' required></textarea>
+                            </div>
                         </div>
                         <br>
 
                         <div>
-                            <textarea name='paraQue[]' id='paraQue' placeholder='Para qué' required></textarea>
+                            <label>Para Que*</label>
+                            <br>
+                            <div class='cont_inpt_form'>
+                                <textarea class='inpt_form' name='paraQue[]' id='paraQue' required></textarea>
+                            </div>
                         </div>
                         <br>
 
                         <div>
-                            <textarea name='criterios[]' id='criterios' placeholder='Criterios de aceptación' required></textarea>
+                            <label>Criterios de aceptación*</label>
+                            <br>
+                            <div class='cont_inpt_form'>
+                                <textarea class='inpt_form' name='criterios[]' id='criterios' required></textarea>
+                            </div>
                         </div>
                         <br>
 
@@ -131,61 +194,81 @@ class formFuntions{
     public function soporteForm($userName)
     {
         $html = "
-            <div id='cont_spte' style='display:none'>
+            <div class='cont_forms' id='cont_spte' style='display: none'>
                 <h4 style='color: #84858d; text-align: center;'>Soporte</h4>
                 <form id='soporte' name='f3' method='POST'>
                     <div class='form-group'>
                         <div>
-                            <input name='solicitante2[]' id='solicitante2' value='$userName'>
+                            <label>Correo*</label>
+                            <br>
+                            <div class='cont_inpt_form'>
+                                <input class='inpt_form' name='solicitante2[]' id='solicitante2' value='$userName'>
+                            </div>
                         </div>
                         <br>
 
                         <div>
-                            <select name='area2[]' id='area' class='col-sm-8' required>
-                                <option value=''>Área</option>
-                                <option value='Academico'>Académico</option>
-                                <option value='Admisiones'>Admisiones</option>
-                                <option value='Administrativa'>Administrativa</option>
-                                <option value='Atención al Cliente'>Atención al Cliente</option>
-                                <option value='Contact Center'>Contact Center</option>
-                                <option value='Compras'>Compras</option>
-                                <option value='Calidad'>Calidad</option>
-                                <option value='Apoyo Financiero y SST'>Apoyo Financiero y SST</option>
-                                <option value='Talento Humano'>Talento Humano</option>
-                                <option value='Mercadeo'>Mercadeo</option>
-                                <option value='TICS'>TICS</option>
-                                <option value='Juridico'>Jurídico</option>
-                                <option value='Contabilidad'>Contabilidad</option>
-                                <option value='Infraestructura'>Infraestructura</option>
-                                <option value='PEI'>PEI</option>
-                            </select>
+                            <label>Área*</label>
+                            <br>
+                            <div class='cont_inpt_form'>
+                                <select class='inpt_form' name='area2[]' id='area' class='col-sm-8' required>
+                                    <option value=''>Área</option>
+                                    <option value='Academico'>Académico</option>
+                                    <option value='Admisiones'>Admisiones</option>
+                                    <option value='Administrativa'>Administrativa</option>
+                                    <option value='Atención al Cliente'>Atención al Cliente</option>
+                                    <option value='Contact Center'>Contact Center</option>
+                                    <option value='Compras'>Compras</option>
+                                    <option value='Calidad'>Calidad</option>
+                                    <option value='Apoyo Financiero y SST'>Apoyo Financiero y SST</option>
+                                    <option value='Talento Humano'>Talento Humano</option>
+                                    <option value='Mercadeo'>Mercadeo</option>
+                                    <option value='TICS'>TICS</option>
+                                    <option value='Juridico'>Jurídico</option>
+                                    <option value='Contabilidad'>Contabilidad</option>
+                                    <option value='Infraestructura'>Infraestructura</option>
+                                    <option value='PEI'>PEI</option>
+                                </select>
+                            </div>
                         </div>
                         <br>
 
                         <div>
-                            <textarea name='descripcion[]' id='descripcion' placeholder='Descripción' required></textarea>
+                            <label>Área*</label>
+                            <br>
+                            <div class='cont_inpt_form'>
+                                <textarea class='inpt_form' name='descripcion[]' id='descripcion' placeholder='Descripción' required></textarea>
+                            </div>
                         </div>
                         <br>
 
                         <div>
-                            <select name='ciudades[]' id='ciudades' onchange='cambiar_sedes()' required>
-                                <option value=''>Ciudad</option>
-                                <option>Bogotá</option>
-                                <option>Soacha</option>
-                                <option>Mosquera</option>
-                                <option>Cali</option>
-                                <option>Manizales</option>
-                                <option>Medellín</option>
-                                <option>Villavicencio</option>
-                            </select>
+                            <label>Ciudad*</label>
+                            <br>
+                            <div class='cont_inpt_form'>
+                                <select class='inpt_form' name='ciudades[]' id='ciudades' onchange='cambiar_sedes()' required>
+                                    <option value=''>Ciudad</option>
+                                    <option>Bogotá</option>
+                                    <option>Soacha</option>
+                                    <option>Mosquera</option>
+                                    <option>Cali</option>
+                                    <option>Manizales</option>
+                                    <option>Medellín</option>
+                                    <option>Villavicencio</option>
+                                </select>
+                            </div>
                         </div>
                         <br>
 
                         <div>
-                            <select name='sedes[]' id='sedes' required>
-                                <option value=''>Sede</option>
-                                
-                            </select>
+                            <label>Sede*</label>
+                            <br>
+                            <div class='cont_inpt_form'>
+                                <select class='inpt_form' name='sedes[]' id='sedes' required>
+                                    <option value=''>Sede</option>
+                                    
+                                </select>
+                            </div>
                         </div>
                         <br>
 
@@ -426,10 +509,10 @@ class formFuntions{
         $name = $form['Nombre'];
 
         $html = $this->getUser();
-        $html = $this->head();
         $html = $this->showApplication($consecutivo, $consecutivo2);
+        $html .= $this->head();
 
-        $html .= $this->btnAtras();
+        $html .= $this->buttonsNav();
         $html .= $this->openForm();
         // $html .= $this->typeForm($id);
         // $html .= $this->closeForm();
