@@ -36,23 +36,30 @@ class searchApplication {
                 <meta name='viewport' content='width=device-width, initial-scale=1.0'>
                 <style>
 
+                    #cont_btns_nav{
+                        height: 30px;
+                        background-color: #4f6df5;
+                        padding: 20px;
+                    }
+
                     .cont_single{
-                        background-color: #ca0004;
+                        background-color: #304293;
+                        border-radius: 3px;
                         width: 150px;
+                        display: inline-block;
                     }
 
                     .btn_nav{
                         text-align: center;
                     }
 
-                    #create{
-                        display: inline-block;
+                    #user{
+                        background-color: gray;
                     }
 
                     .btn_nav a {
                         text-decoration: none;
-                        border-radius: 3px;
-                        color: #b3b3b3;
+                        color: white;
                     }
 
                     .table_form{
@@ -76,9 +83,19 @@ class searchApplication {
         $html = "
             <body>
                 <div id='cont_btns_nav'>
+                    <div class='cont_single' id='index'>
+                        <div class='btn_nav'>
+                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/crear-ticket/'>Principal</a>
+                        </div>
+                    </div>
                     <div class='cont_single' id='create'>
                         <div class='btn_nav'>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/formularios/'>Crear Ticket</a>
+                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/formularios/'>Enviar Ticket</a>
+                        </div>
+                    </div>
+                    <div class='cont_single' id='user'>
+                        <div class='btn_nav'>
+                            <a href='#'>Mis Ticket</a>
                         </div>
                     </div>
                 </div>

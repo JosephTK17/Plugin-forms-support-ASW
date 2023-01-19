@@ -31,6 +31,7 @@ function activar(){
         `Solicitud` VARCHAR(140) NULL,
         `Para qué` VARCHAR(140) NULL,
         `Criterios de aceptación` VARCHAR(140) NULL,
+        `Estado` VARCHAR(20) NULL,
         `FormularioId` INT NOT NULL,
         PRIMARY KEY (`RespuestaId`),
         FOREIGN KEY (FormularioId) REFERENCES fsd_formularios(FormularioId)
@@ -44,7 +45,8 @@ function activar(){
         `Solicitante` VARCHAR(60) NULL,
         `Área` VARCHAR(20) NULL, 
         `Descripción` VARCHAR(140) NULL,
-        `Sede` VARCHAR(20) NULL, 
+        `Sede` VARCHAR(20) NULL,
+        `Estado` VARCHAR(20) NULL,
         `FormularioId` INT NOT NULL,
         PRIMARY KEY (`RespuestaId`),
         FOREIGN KEY (FormularioId) REFERENCES fsd_formularios(FormularioId)
@@ -133,6 +135,7 @@ function shortCode2(){
             'Solicitud' => $solicitud,
             'Para qué' => $paraQue,
             'Criterios de aceptación' => $criterios,
+            'Estado' => 'Solicitado',
             'FormularioId' => 1,
         ];    
 
@@ -155,6 +158,7 @@ function shortCode2(){
             'Área' => $area2,
             'Descripción' => $descripcion,
             'Sede' => $sede,
+            'Estado' => 'Solicitado',
             'FormularioId' => 2,
         ];    
         

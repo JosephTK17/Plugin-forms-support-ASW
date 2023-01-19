@@ -25,31 +25,30 @@ class tableForms {
                 <meta name='viewport' content='width=device-width, initial-scale=1.0'>
                 <style>
 
+                    #cont_btns_nav{
+                        height: 30px;
+                        background-color: #4f6df5;
+                        padding: 20px;
+                    }
+
                     .cont_single{
-                        background-color: #ca0004;
+                        background-color: #304293;
+                        border-radius: 3px;
                         width: 150px;
+                        display: inline-block;
                     }
 
                     .btn_nav{
                         text-align: center;
                     }
 
-                    #create{
-                        display: inline-block;
-                    }
-
                     #admin{
-                        display: inline-block;
-                    }
-
-                    #user{
-                        display: inline-block;
+                        background-color: gray;
                     }
 
                     .btn_nav a {
                         text-decoration: none;
-                        border-radius: 3px;
-                        color: #b3b3b3;
+                        color: white;
                     }
 
                     #cont_btns_tables{
@@ -124,14 +123,19 @@ class tableForms {
         $html = "
             <body>
                 <div id='cont_btns_nav'>
-                    <div class='cont_single' id='create'>
+                    <div class='cont_single' id='index'>
                         <div class='btn_nav'>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/formularios/'>Crear Ticket</a>
+                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/crear-ticket/'>Principal</a>
                         </div>
                     </div>
-                    <div class='cont_single' id='user'>
+                    <div class='cont_single' id='create'>
                         <div class='btn_nav'>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/'>Ver Tickets User</a>
+                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/formularios/'>Enviar Ticket</a>
+                        </div>
+                    </div>
+                    <div class='cont_single' id='admin'>
+                        <div class='btn_nav'>
+                            <a href='#'>Ver Tickets</a>
                         </div>
                     </div>
                 </div>
@@ -206,6 +210,7 @@ class tableForms {
                                 <th>Para qué</th>
                                 <th>Criterios</th>
                                 <th>Estado</th>
+                                <th></th>
                             </thead>
                             <tbody>
                 ";
@@ -217,6 +222,7 @@ class tableForms {
                     $area = $value['Área'];
                     $solicitud = $value['Solicitud'];
                     $paraQue = $value['Para qué'];
+                    $estado = $value['Estado'];
                     $criterios = $value['Criterios de aceptación'];
         
                     $html .= "
@@ -228,7 +234,10 @@ class tableForms {
                             <td>$solicitud</td>
                             <td>$paraQue</td>
                             <td>$criterios</td>
-                            <td></td>
+                            <td>$estado</td>
+                            <td>
+                                <button type='button' onclick='detailData()'>Detalle</button>
+                            </td>
                         </tr>
                     ";
                 }
@@ -251,6 +260,7 @@ class tableForms {
                                     <th>Descripción</th>
                                     <th>Sede</th>
                                     <th>Estado</th>
+                                    <th></th>
                                 </thead>
                                 <tbody>
                 ";
@@ -261,6 +271,7 @@ class tableForms {
                     $solicitante2 = $value['Solicitante'];
                     $area = $value['Área'];
                     $descripcion = $value['Descripción'];
+                    $estado2 = $value['Estado'];
                     $sede = $value['Sede'];
         
                     $html .= "
@@ -271,7 +282,10 @@ class tableForms {
                             <td>$area</td>
                             <td>$descripcion</td>
                             <td>$sede</td>
-                            <td></td>
+                            <td>$estado2</td>
+                            <td>
+                                <button type='button' onclick='detailData()'>Detalle</button>
+                            </td>
                         </tr>
                     ";
                 }
@@ -296,6 +310,7 @@ class tableForms {
                                 <th>Para qué</th>
                                 <th>Criterios</th>
                                 <th>Estado</th>
+                                <th></th>
                             </thead>
                             <tbody>
                 ";
@@ -307,6 +322,7 @@ class tableForms {
                     $area = $value['Área'];
                     $solicitud = $value['Solicitud'];
                     $paraQue = $value['Para qué'];
+                    $estado = $value['Estado'];
                     $criterios = $value['Criterios de aceptación'];
         
                     $html .= "
@@ -318,7 +334,10 @@ class tableForms {
                             <td>$solicitud</td>
                             <td>$paraQue</td>
                             <td>$criterios</td>
-                            <td></td>
+                            <td>$estado</td>
+                            <td>
+                                <button type='button' onclick='detailData()'>Detalle</button>
+                            </td>
                         </tr>
                     ";
                 }
@@ -342,6 +361,7 @@ class tableForms {
                                     <th>Descripción</th>
                                     <th>Sede</th>
                                     <th>Estado</th>
+                                    <th></th>
                                 </thead>
                                 <tbody>
                 ";
@@ -352,6 +372,7 @@ class tableForms {
                     $solicitante2 = $value['Solicitante'];
                     $area = $value['Área'];
                     $descripcion = $value['Descripción'];
+                    $estado2 = $value['Estado'];
                     $sede = $value['Sede'];
         
                     $html .= "
@@ -362,7 +383,10 @@ class tableForms {
                             <td>$area</td>
                             <td>$descripcion</td>
                             <td>$sede</td>
-                            <td></td>
+                            <td>$estado2</td>
+                            <td>
+                                <button type='button' onclick='detailData()'>Detalle</button>
+                            </td>
                         </tr>
                     ";
                 }
@@ -390,6 +414,7 @@ class tableForms {
                             <th>Para qué</th>
                             <th>Criterios</th>
                             <th>Estado</th>
+                            <th></th>
                         </thead>
                         <tbody>
             ";
@@ -408,6 +433,7 @@ class tableForms {
                             <th>Descripción</th>
                             <th>Sede</th>
                             <th>Estado</th>
+                            <th></th>
                         </thead>
                         <tbody>
             ";
@@ -428,6 +454,7 @@ class tableForms {
                                 <th>Para qué</th>
                                 <th>Criterios</th>
                                 <th>Estado</th>
+                                <th></th>
                             </thead>
                             <tbody>
                 ";
@@ -439,6 +466,7 @@ class tableForms {
                     $area = $value['Área'];
                     $solicitud = $value['Solicitud'];
                     $paraQue = $value['Para qué'];
+                    $estado = $value['Estado'];
                     $criterios = $value['Criterios de aceptación'];
         
                     $html .= "
@@ -450,7 +478,10 @@ class tableForms {
                             <td>$solicitud</td>
                             <td>$paraQue</td>
                             <td>$criterios</td>
-                            <td></td>
+                            <td>$estado</td>
+                            <td>
+                                <button type='button' onclick='detailData()'>Detalle</button>
+                            </td>
                         </tr>
                     ";
                 }
@@ -473,6 +504,7 @@ class tableForms {
                                     <th>Descripción</th>
                                     <th>Sede</th>
                                     <th>Estado</th>
+                                    <th></th>
                                 </thead>
                                 <tbody>
                 ";
@@ -483,6 +515,7 @@ class tableForms {
                     $solicitante2 = $value['Solicitante'];
                     $area = $value['Área'];
                     $descripcion = $value['Descripción'];
+                    $estado2 = $value['Estado'];
                     $sede = $value['Sede'];
         
                     $html .= "
@@ -493,7 +526,10 @@ class tableForms {
                             <td>$area</td>
                             <td>$descripcion</td>
                             <td>$sede</td>
-                            <td></td>
+                            <td>$estado2</td>
+                            <td>
+                                <button type='button' onclick='detailData()'>Detalle</button>
+                            </td>
                         </tr>
                     ";
                 }
@@ -517,6 +553,7 @@ class tableForms {
                                 <th>Para qué</th>
                                 <th>Criterios</th>
                                 <th>Estado</th>
+                                <th></th>
                             </thead>
                             <tbody>
                 ";
@@ -528,6 +565,7 @@ class tableForms {
                     $area = $value['Área'];
                     $solicitud = $value['Solicitud'];
                     $paraQue = $value['Para qué'];
+                    $estado = $value['Estado'];
                     $criterios = $value['Criterios de aceptación'];
         
                     $html .= "
@@ -539,7 +577,10 @@ class tableForms {
                             <td>$solicitud</td>
                             <td>$paraQue</td>
                             <td>$criterios</td>
-                            <td></td>
+                            <td>$estado</td>
+                            <td>
+                                <button type='button' onclick='detailData()'>Detalle</button>
+                            </td>
                         </tr>
                     ";
                 }
@@ -562,6 +603,7 @@ class tableForms {
                                     <th>Descripción</th>
                                     <th>Sede</th>
                                     <th>Estado</th>
+                                    <th></th>
                                 </thead>
                                 <tbody>
                 ";
@@ -572,6 +614,7 @@ class tableForms {
                     $solicitante2 = $value['Solicitante'];
                     $area = $value['Área'];
                     $descripcion = $value['Descripción'];
+                    $estado2 = $value['Estado'];
                     $sede = $value['Sede'];
         
                     $html .= "
@@ -582,7 +625,10 @@ class tableForms {
                             <td>$area</td>
                             <td>$descripcion</td>
                             <td>$sede</td>
-                            <td></td>
+                            <td>$estado2</td>
+                            <td>
+                                <button type='button' onclick='detailData()'>Detalle</button>
+                            </td>
                         </tr>
                     ";
                 }
@@ -620,6 +666,7 @@ class tableForms {
                     $area = $value['Área'];
                     $solicitud = $value['Solicitud'];
                     $paraQue = $value['Para qué'];
+                    $estado = $value['Estado'];
                     $criterios = $value['Criterios de aceptación'];
 
                 $html .= "
@@ -631,7 +678,10 @@ class tableForms {
                         <td>$solicitud</td>
                         <td>$paraQue</td>
                         <td>$criterios</td>
-                        <td></td>
+                        <td>$estado</td>
+                        <td>
+                            <button type='button' onclick='detailData()'>Detalle</button>
+                        </td>
                     </tr>
                 ";
             }
@@ -642,6 +692,7 @@ class tableForms {
                     $solicitante = $value['Solicitante'];
                     $area = $value['Área'];
                     $descripcion = $value['Descripción'];
+                    $estado2 = $value['Estado'];
                     $sede = $value['Sede'];
 
                 $html .= "
@@ -652,7 +703,10 @@ class tableForms {
                         <td>$area</td>
                         <td>$descripcion</td>
                         <td>$sede</td>
-                        <td></td>
+                        <td>$estado2</td>
+                        <td>
+                            <button type='button' onclick='detailData()'>Detalle</button>
+                        </td>
                     </tr>
                 ";
             }
@@ -687,6 +741,8 @@ class tableForms {
                             <th>Solicitud</th>
                             <th>Para qué</th>
                             <th>Criterios</th>
+                            <th>Estado</th>
+                            <th></th>
                         </thead>
                         <tbody>
             ";
@@ -702,6 +758,8 @@ class tableForms {
                             <th>Área</th>
                             <th>Descripción</th>
                             <th>Sede</th>
+                            <th>Estado</th>
+                            <th></th>
                         </thead>
                         <tbody>
             ";
@@ -721,6 +779,7 @@ class tableForms {
                     $area = $value['Área'];
                     $solicitud = $value['Solicitud'];
                     $paraQue = $value['Para qué'];
+                    $estado = $value['Estado'];
                     $criterios = $value['Criterios de aceptación'];
                     
                 $html .= "
@@ -732,6 +791,10 @@ class tableForms {
                         <td>$solicitud</td>
                         <td>$paraQue</td>
                         <td>$criterios</td>
+                        <td>$estado</td>
+                        <td>
+                            <button type='button' onclick='detailData()'>Detalle</button>
+                        </td>
                     </tr>
                 ";
             }
@@ -742,6 +805,7 @@ class tableForms {
                     $solicitante2 = $value['Solicitante'];
                     $area = $value['Área'];
                     $descripcion = $value['Descripción'];
+                    $estado2 = $value['Estado'];
                     $sede = $value['Sede'];
 
                 $html .= "
@@ -752,6 +816,10 @@ class tableForms {
                         <td>$area</td>
                         <td>$descripcion</td>
                         <td>$sede</td>
+                        <td>$estado2</td>
+                        <td>
+                            <button type='button' onclick='detailData()'>Detalle</button>
+                        </td>
                     </tr>
                 ";
             }
@@ -801,38 +869,16 @@ class tableForms {
         ";
     }
 
-    // public function modalAlert()
-    // {
-    //     $html = "
-    //         <div class='container-modal-govco' id='modal_advertencia' style='display: none'>
-    //             <div class='modal-container-govco' id='exampleModalAdvertencia' tabindex='-1' data-bs-backdrop='false' data-bs-keyboard='false' aria-labelledby='exampleModalAdvertencia' aria-hidden='true' aria-hidden='true' role='dialog'>
-    //             <div class='modal-dialog modal-dialog-govco'>
-    //                 <div class='modal-content modal-content-govco'>
-    //                 <div class='modal-header modal-header-govco modal-header-alerts-govco'>
-    //                     <button type='button' disabled class='btn-close btn-close-white' data-bs-dismiss='modal' aria-label='Close'></button>
-    //                 </div>
-    //                 <div class='modal-body modal-body-govco center-elements-govco'>
-    //                     <div class='modal-icon'>
-    //                     <span class='modal-icon-govco modal-warning-icon'></span>
-    //                     </div>
-    //                     <h3 class='modal-title-govco warning-govco'>Título de la alerta</h3>
-    //                     <p class='modal-text-govco modal-text-center-govco'>Información de detalle al cierre de la acción</p>
-    //                 </div>
-    //                 <div class='modal-footer-govco modal-footer-alerts-govco'>
-    //                     <div class='modal-buttons-govco'>
-    //                     <button type='button' class='btn btn-primary btn-modal-govco'>Botón</button>
-    //                     <button type='button' class='btn btn-primary btn-modal-govco btn-contorno'>Botón</button>
-    //                     </div>
-    //                 </div>
-    //                 </div>
-    //             </div>
-    //             </div>
-    //         </div>
-    //     </body> 
-    //     ";
-
-    //     return $html;
-    // }
+    public function detailData()
+    {
+        echo "
+            <script language='JavaScript'>
+                function detailData(){
+                    window.location.href = 'http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/';
+                }
+            </script>
+        ";
+    }
 
     public function constructor($FormularioId, $consecutivo, $fecha, $solicitante)
     {
@@ -914,25 +960,32 @@ class tableForms {
         $form = $this->getForms($FormularioId);
         $formId = $form['FormularioId'];
 
-        $html = $this->head();
+        if (is_super_admin()) {
 
-        $html .= $this->buttonsNav();
+            $html = $this->head();
 
-        //tabla filtro
-        $html .= $this->search();
-        $html .= $this->TableSearch($conseId, $conseId2, $lista_formularios_filter, $lista_formularios_filter2);
-        $html .= $this->oneTableSearch($conseId, $conseId2, $lista_formularios_filter, $lista_formularios_filter2);
-        $html .= $this->closeTableSearch();
+            $html .= $this->buttonsNav();
 
-        //tabla respuestas
-        $html .= $this->tableRtas($formId);
-        $html .= $this->dataTable($formId, $lista_formularios_rtas, $lista_formularios_rtas2);
-        $html .= $this->endTable();
+            //tabla filtro
+            $html .= $this->search();
+            $html .= $this->TableSearch($conseId, $conseId2, $lista_formularios_filter, $lista_formularios_filter2);
+            $html .= $this->oneTableSearch($conseId, $conseId2, $lista_formularios_filter, $lista_formularios_filter2);
+            $html .= $this->closeTableSearch();
 
-        $html .= $this->moreFilters();
+            //tabla respuestas
+            $html .= $this->tableRtas($formId);
+            $html .= $this->dataTable($formId, $lista_formularios_rtas, $lista_formularios_rtas2);
+            $html .= $this->endTable();
 
-        var_dump($conseId[0]['FormularioId']);
-        var_dump($conseId2[0]['FormularioId']);
+            $html .= $this->moreFilters();
+            $html .= $this->detailData();
+        }
+
+        if (!is_super_admin()) {
+            $html = "
+                <h1>No tienes suficientes permisos para ver</h1>
+            ";
+        }
 
         return $html;
     }

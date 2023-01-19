@@ -25,27 +25,30 @@ class formFuntions{
                 <meta name='viewport' content='width=device-width, initial-scale=1.0'>
                 <style>
                     
+                    #cont_btns_nav{
+                        height: 30px;
+                        background-color: #4f6df5;
+                        padding: 20px;
+                    }
+
                     .cont_single{
-                        background-color: #ca0004;
+                        background-color: #304293;
+                        border-radius: 3px;
                         width: 150px;
+                        display: inline-block;
                     }
 
                     .btn_nav{
                         text-align: center;
                     }
 
-                    #admin{
-                        display: inline-block;
-                    }
-
-                    #user{
-                        display: inline-block;
+                    #create{
+                        background-color: gray;
                     }
 
                     .btn_nav a {
                         text-decoration: none;
-                        border-radius: 3px;
-                        color: #b3b3b3;
+                        color: white;
                     }
 
                     .cont_forms{
@@ -68,6 +71,10 @@ class formFuntions{
                         box-shadow: inset 0 .25rem .125rem 0 rgba(0, 0, 0, .05)!important;
                         width: 350px;
                     }
+
+                    .wrap{
+                        margin-top: 50px;
+                    }
                 </style>
             </head>
         ";
@@ -77,21 +84,44 @@ class formFuntions{
 
     public function buttonsNav()
     {
-        $html = "
+        $html= "";
+
+        $html .= "
             <body>
                 <div id='cont_btns_nav'>
-                    <div class='cont_single' id='admin'>
+                    <div class='cont_single' id='index'>
                         <div class='btn_nav'>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets'>Ver Tickets Admin</a>
+                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/crear-ticket/'>Principal</a>
                         </div>
                     </div>
+                    <div class='cont_single' id='create'>
+                        <div class='btn_nav'>
+                            <a href='#'>Enviar Ticket</a>
+                        </div>
+                    </div>  
+        ";
+
+        if (is_super_admin()) {
+            $html .= "
+                    <div class='cont_single' id='admin'>
+                        <div class='btn_nav'>
+                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets'>Ver Tickets</a>
+                        </div>
+                    </div>
+            ";
+        }
+
+        if (!is_super_admin()) {
+            $html .= "
                     <div class='cont_single' id='user'>
                         <div class='btn_nav'>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/'>Ver Tickets User</a>
+                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/'>Mis Tickets</a>
                         </div>
                     </div>
                 </div>
-        ";
+            ";
+        }
+        
 
         return $html;
     }
