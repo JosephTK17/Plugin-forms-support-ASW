@@ -27,11 +27,11 @@ function activar(){
         `Consecutivo` VARCHAR(7) NOT NULL, 
         `Fecha` VARCHAR(20) NULL,
         `Solicitante` VARCHAR(60) NULL,
-        `Área` VARCHAR(20) NULL, 
+        `Área` VARCHAR(50) NULL, 
         `Solicitud` VARCHAR(140) NULL,
         `Para qué` VARCHAR(140) NULL,
         `Criterios de aceptación` VARCHAR(140) NULL,
-        `Estado` VARCHAR(20) NULL,
+        `Estado` VARCHAR(50) NULL,
         `FormularioId` INT NOT NULL,
         PRIMARY KEY (`RespuestaId`),
         FOREIGN KEY (FormularioId) REFERENCES fsd_formularios(FormularioId)
@@ -43,10 +43,10 @@ function activar(){
         `Consecutivo` VARCHAR(7) NOT NULL,
         `Fecha` VARCHAR(20) NULL,
         `Solicitante` VARCHAR(60) NULL,
-        `Área` VARCHAR(20) NULL, 
+        `Área` VARCHAR(50) NULL, 
         `Descripción` VARCHAR(140) NULL,
-        `Sede` VARCHAR(20) NULL,
-        `Estado` VARCHAR(20) NULL,
+        `Sede` VARCHAR(50) NULL,
+        `Estado` VARCHAR(50) NULL,
         `FormularioId` INT NOT NULL,
         PRIMARY KEY (`RespuestaId`),
         FOREIGN KEY (FormularioId) REFERENCES fsd_formularios(FormularioId)
@@ -143,7 +143,8 @@ function shortCode2(){
 
     } elseif (isset($_POST['btnguardar2'])){
         // var_dump($_POST);
-        $consecutivo2 = "S".rand(100000, 999999);
+        $prefix2 = "S";
+        $consecutivo2 = $prefix2.rand(100000, 999999);
         $actualDate2= date('d-m-Y');
         $Solicitante2 = $_POST['solicitante2'][0];
         $area2 = $_POST['area2'][0];
@@ -199,9 +200,13 @@ function shortCode4()
 
 function shortCode5()
 {
+    global $wpdb;
+
     $_short = new detailApplication;
 
-    $html = $_short->constructor();
+    $Consecutivo = $_GET['id'];
+
+    $html = $_short->constructor($Consecutivo);
 
     return $html;
 }

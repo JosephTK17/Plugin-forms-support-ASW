@@ -109,9 +109,7 @@ class formFuntions{
                         </div>
                     </div>
             ";
-        }
-
-        if (!is_super_admin()) {
+        } else {
             $html .= "
                     <div class='cont_single' id='user'>
                         <div class='btn_nav'>
@@ -521,12 +519,12 @@ class formFuntions{
         if (isset($_POST['btnguardar1'][0]) == 1) {
             echo "<script language='JavaScript'>
                     alert('Ticket creado, podras consultarlo con el siguiente consecutivo: $consecutivo');
-                    window.location.href = 'http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/';
+                    window.location.href = 'http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo';
                 </script>";
         } elseif (isset($_POST['btnguardar2'][0]) == 2) {
             echo "<script language='JavaScript'>
                     alert('Ticket creado, podras consultarlo con el siguiente consecutivo: $consecutivo2');
-                    window.location.href = 'http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/';
+                    window.location.href = 'http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2';
                 </script>";
         }
     }

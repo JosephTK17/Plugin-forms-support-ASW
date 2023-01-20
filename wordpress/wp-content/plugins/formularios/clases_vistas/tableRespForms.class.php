@@ -236,7 +236,7 @@ class tableForms {
                             <td>$criterios</td>
                             <td>$estado</td>
                             <td>
-                                <button type='button' onclick='detailData()'>Detalle</button>
+                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>
                             </td>
                         </tr>
                     ";
@@ -266,25 +266,25 @@ class tableForms {
                 ";
 
                 foreach ($lista_formularios_filter2 as $key => $value) {
-                    $consecutivo = $value['Consecutivo'];
-                    $date = $value['Fecha'];
+                    $consecutivo2 = $value['Consecutivo'];
+                    $date2 = $value['Fecha'];
                     $solicitante2 = $value['Solicitante'];
-                    $area = $value['Área'];
+                    $area2 = $value['Área'];
                     $descripcion = $value['Descripción'];
                     $estado2 = $value['Estado'];
                     $sede = $value['Sede'];
         
                     $html .= "
                         <tr>
-                            <td>$consecutivo</td>
-                            <td>$date</td>
+                            <td>$consecutivo2</td>
+                            <td>$date2</td>
                             <td>$solicitante2</td>
-                            <td>$area</td>
+                            <td>$area2</td>
                             <td>$descripcion</td>
                             <td>$sede</td>
                             <td>$estado2</td>
                             <td>
-                                <button type='button' onclick='detailData()'>Detalle</button>
+                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2'>Detalle</a>
                             </td>
                         </tr>
                     ";
@@ -336,7 +336,7 @@ class tableForms {
                             <td>$criterios</td>
                             <td>$estado</td>
                             <td>
-                                <button type='button' onclick='detailData()'>Detalle</button>
+                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>
                             </td>
                         </tr>
                     ";
@@ -367,25 +367,25 @@ class tableForms {
                 ";
 
                 foreach ($lista_formularios_filter2 as $key => $value) {
-                    $consecutivo = $value['Consecutivo'];
-                    $date = $value['Fecha'];
+                    $consecutivo2 = $value['Consecutivo'];
+                    $date2 = $value['Fecha'];
                     $solicitante2 = $value['Solicitante'];
-                    $area = $value['Área'];
+                    $area2 = $value['Área'];
                     $descripcion = $value['Descripción'];
                     $estado2 = $value['Estado'];
                     $sede = $value['Sede'];
         
                     $html .= "
                         <tr>
-                            <td>$consecutivo</td>
-                            <td>$date</td>
+                            <td>$consecutivo2</td>
+                            <td>$date2</td>
                             <td>$solicitante2</td>
-                            <td>$area</td>
+                            <td>$area2</td>
                             <td>$descripcion</td>
                             <td>$sede</td>
                             <td>$estado2</td>
                             <td>
-                                <button type='button' onclick='detailData()'>Detalle</button>
+                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2'>Detalle</a>
                             </td>
                         </tr>
                     ";
@@ -480,7 +480,7 @@ class tableForms {
                             <td>$criterios</td>
                             <td>$estado</td>
                             <td>
-                                <button type='button' onclick='detailData()'>Detalle</button>
+                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>
                             </td>
                         </tr>
                     ";
@@ -510,25 +510,25 @@ class tableForms {
                 ";
 
                 foreach ($lista_formularios_filter2 as $key => $value) {
-                    $consecutivo = $value['Consecutivo'];
-                    $date = $value['Fecha'];
+                    $consecutivo2 = $value['Consecutivo'];
+                    $date2 = $value['Fecha'];
                     $solicitante2 = $value['Solicitante'];
-                    $area = $value['Área'];
+                    $area2 = $value['Área'];
                     $descripcion = $value['Descripción'];
                     $estado2 = $value['Estado'];
                     $sede = $value['Sede'];
         
                     $html .= "
                         <tr>
-                            <td>$consecutivo</td>
-                            <td>$date</td>
+                            <td>$consecutivo2</td>
+                            <td>$date2</td>
                             <td>$solicitante2</td>
-                            <td>$area</td>
+                            <td>$area2</td>
                             <td>$descripcion</td>
                             <td>$sede</td>
                             <td>$estado2</td>
                             <td>
-                                <button type='button' onclick='detailData()'>Detalle</button>
+                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2'>Detalle</a>
                             </td>
                         </tr>
                     ";
@@ -579,7 +579,7 @@ class tableForms {
                             <td>$criterios</td>
                             <td>$estado</td>
                             <td>
-                                <button type='button' onclick='detailData()'>Detalle</button>
+                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>
                             </td>
                         </tr>
                     ";
@@ -609,25 +609,25 @@ class tableForms {
                 ";
 
                 foreach ($lista_formularios_filter2 as $key => $value) {
-                    $consecutivo = $value['Consecutivo'];
-                    $date = $value['Fecha'];
+                    $consecutivo2 = $value['Consecutivo'];
+                    $date2 = $value['Fecha'];
                     $solicitante2 = $value['Solicitante'];
-                    $area = $value['Área'];
+                    $area2 = $value['Área'];
                     $descripcion = $value['Descripción'];
                     $estado2 = $value['Estado'];
                     $sede = $value['Sede'];
         
                     $html .= "
                         <tr>
-                            <td>$consecutivo</td>
-                            <td>$date</td>
+                            <td>$consecutivo2</td>
+                            <td>$date2</td>
                             <td>$solicitante2</td>
-                            <td>$area</td>
+                            <td>$area2</td>
                             <td>$descripcion</td>
                             <td>$sede</td>
                             <td>$estado2</td>
                             <td>
-                                <button type='button' onclick='detailData()'>Detalle</button>
+                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2'>Detalle</a>
                             </td>
                         </tr>
                     ";
@@ -680,32 +680,32 @@ class tableForms {
                         <td>$criterios</td>
                         <td>$estado</td>
                         <td>
-                            <button type='button' onclick='detailData()'>Detalle</button>
+                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>
                         </td>
                     </tr>
                 ";
             }
         } elseif (!empty($_POST['consecutivo'][0]) && $conseId2[0]['FormularioId'] == 2) {
             foreach ($lista_formularios_filter2 as $key => $value) {
-                    $consecutivo = $value['Consecutivo'];
-                    $date = $value['Fecha'];
+                    $consecutivo2 = $value['Consecutivo'];
+                    $date2 = $value['Fecha'];
                     $solicitante = $value['Solicitante'];
-                    $area = $value['Área'];
+                    $area2 = $value['Área'];
                     $descripcion = $value['Descripción'];
                     $estado2 = $value['Estado'];
                     $sede = $value['Sede'];
 
                 $html .= "
                     <tr>
-                        <td>$consecutivo</td>
-                        <td>$date</td>
+                        <td>$consecutivo2</td>
+                        <td>$date2</td>
                         <td>$solicitante</td>
-                        <td>$area</td>
+                        <td>$area2</td>
                         <td>$descripcion</td>
                         <td>$sede</td>
                         <td>$estado2</td>
                         <td>
-                            <button type='button' onclick='detailData()'>Detalle</button>
+                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2'>Detalle</a>
                         </td>
                     </tr>
                 ";
@@ -793,32 +793,32 @@ class tableForms {
                         <td>$criterios</td>
                         <td>$estado</td>
                         <td>
-                            <button type='button' onclick='detailData()'>Detalle</button>
+                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>
                         </td>
                     </tr>
                 ";
             }
         } elseif ($id == 2) {
             foreach ($lista_formularios2 as $key => $value) {
-                    $consecutivo = $value['Consecutivo'];
-                    $date = $value['Fecha'];
+                    $consecutivo2 = $value['Consecutivo'];
+                    $date2 = $value['Fecha'];
                     $solicitante2 = $value['Solicitante'];
-                    $area = $value['Área'];
+                    $area2 = $value['Área'];
                     $descripcion = $value['Descripción'];
                     $estado2 = $value['Estado'];
                     $sede = $value['Sede'];
 
                 $html .= "
                     <tr>
-                        <td>$consecutivo</td>
-                        <td>$date</td>
+                        <td>$consecutivo2</td>
+                        <td>$date2</td>
                         <td>$solicitante2</td>
-                        <td>$area</td>
+                        <td>$area2</td>
                         <td>$descripcion</td>
                         <td>$sede</td>
                         <td>$estado2</td>
                         <td>
-                            <button type='button' onclick='detailData()'>Detalle</button>
+                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2'>Detalle</a>
                         </td>
                     </tr>
                 ";
@@ -864,17 +864,6 @@ class tableForms {
                     
                     document.getElementById('inpt_solicitante').style.display = 'none'
                     document.getElementById('solicitante').style.display = 'none'
-                }
-            </script>
-        ";
-    }
-
-    public function detailData()
-    {
-        echo "
-            <script language='JavaScript'>
-                function detailData(){
-                    window.location.href = 'http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/';
                 }
             </script>
         ";
@@ -978,7 +967,6 @@ class tableForms {
             $html .= $this->endTable();
 
             $html .= $this->moreFilters();
-            $html .= $this->detailData();
         }
 
         if (!is_super_admin()) {

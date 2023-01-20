@@ -70,10 +70,7 @@ class index{
                 </div>
             </div>
             ";
-        }
-
-
-        if (!is_super_admin()) {
+        } else {
 
             $html .= "
                 <div class='cont_single' id='user'>

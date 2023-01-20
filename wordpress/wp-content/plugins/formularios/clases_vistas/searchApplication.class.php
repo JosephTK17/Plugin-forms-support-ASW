@@ -141,6 +141,7 @@ class searchApplication {
                         <th>Para qué</th>
                         <th>Criterios</th>
                         <th>Estado</th>
+                        <th></th>
                     </thead>
                     <tbody>
             ";
@@ -156,6 +157,7 @@ class searchApplication {
                         <th>Descripción</th>
                         <th>Sede</th>
                         <th>Estado</th>
+                        <th></th>
                     </thead>
                     <tbody>
             ";
@@ -175,6 +177,7 @@ class searchApplication {
                     $solicitud = $value['Solicitud'];
                     $paraQue = $value['Para qué'];
                     $criterios = $value['Criterios de aceptación'];
+                    $estado = $value['Estado'];
 
                 $html = "
                     <tr>
@@ -185,28 +188,35 @@ class searchApplication {
                         <td>$solicitud</td>
                         <td>$paraQue</td>
                         <td>$criterios</td>
-                        <td></td>
+                        <td>$estado</td>
+                        <td>
+                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>
+                        </td>
                     </tr>
                 ";
             }
         } elseif ($id2[0]['FormularioId'] == 2) {
             foreach ($lista_formularios2 as $key => $value) {
-                    $consecutivo = $value['Consecutivo'];
-                    $date = $value['Fecha'];
+                    $consecutivo2 = $value['Consecutivo'];
+                    $date2 = $value['Fecha'];
                     $solicitante2 = $value['Solicitante'];
-                    $area = $value['Área'];
+                    $area2 = $value['Área'];
                     $descripcion = $value['Descripción'];
                     $sede = $value['Sede'];
+                    $estado2 = $value['Estado'];
 
                 $html = "
                     <tr>
-                        <td>$consecutivo</td>
-                        <td>$date</td>
+                        <td>$consecutivo2</td>
+                        <td>$date2</td>
                         <td>$solicitante2</td>
-                        <td>$area</td>
+                        <td>$area2</td>
                         <td>$descripcion</td>
                         <td>$sede</td>
-                        <td></td>
+                        <td>$estado2</td>
+                        <td>
+                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2'>Detalle</a>
+                        </td>
                     </tr>
                 ";
             }
