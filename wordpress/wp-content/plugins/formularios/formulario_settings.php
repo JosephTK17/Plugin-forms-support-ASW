@@ -6,6 +6,14 @@ Description: Formulario de soporte y desarrollo
 Version: 0.0.1
 */
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+require_once dirname(__FILE__). './../../../wp-includes/PHPMailer/Exception.php';
+require_once dirname(__FILE__). './../../../wp-includes/PHPMailer/PHPMailer.php';
+require_once dirname(__FILE__). './../../../wp-includes/PHPMailer/SMTP.php';
+
 require_once dirname(__FILE__). '/clases_vistas/index.class.php';
 require_once dirname(__FILE__). '/clases_vistas/formFunctions.class.php';
 require_once dirname(__FILE__). '/clases_vistas/tableRespForms.class.php';
@@ -52,6 +60,7 @@ function activar(){
         FOREIGN KEY (FormularioId) REFERENCES fsd_formularios(FormularioId)
     );";
     $wpdb->query($sql3);
+
 }
 
 function desactivar(){
@@ -141,12 +150,53 @@ function shortCode2(){
 
         $wpdb->insert($tablaR1,$datos);
 
+        //Create an instance; passing `true` enables exceptions
+        $mail = new PHPMailer(true);
+
+        try {
+            //Server settings
+            $mail->SMTPDebug = 0;                      //Enable verbose debug output
+            $mail->isSMTP();                                            //Send using SMTP
+            $mail->Host       = 'smtp-relay.sendinblue.com';                     //Set the SMTP server to send through
+            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+            $mail->Username   = 'josephstevenbarretocabrera@gmail.com';                     //SMTP username
+            $mail->Password   = 'Ozh45NIsqKg0CbjY';                               //SMTP password
+            $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
+            $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+        
+            //Recipients
+            $mail->setFrom('josephstevenbarretocabrera@gmail.com', 'American School Way');
+            $mail->addAddress($solicitante);     //Add a recipient
+            // $mail->addAddress('ellen@example.com');               //Name is optional
+            // $mail->addReplyTo('info@example.com', 'Information');
+            // $mail->addCC('cc@example.com');
+            // $mail->addBCC('bcc@example.com');
+        
+            //Attachments
+            // $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
+            // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
+        
+            //Content
+            $mail->isHTML(true);                                  //Set email format to HTML
+            $mail->Subject = 'Test mandar correo';
+            $mail->Body    = 'Este es tu consecutivo '.$consecutivo.'cuando lo desees visita el apartado Mis Tickets para hacer la consulta del estado de tu solicitud';
+            // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+        
+            $mail->send();
+
+        } catch (Exception $e) {    
+            echo "<script language='JavaScript'>
+                    alert('Message could not be sent. Mailer Error: {$mail->ErrorInfo}')
+                    window.location.href = 'http://localhost/formulario_soporte_desarrollo/wordpress/index.php/formularios/';
+                </script>";
+        }
+
     } elseif (isset($_POST['btnguardar2'])){
         // var_dump($_POST);
         $prefix2 = "S";
         $consecutivo2 = $prefix2.rand(100000, 999999);
         $actualDate2= date('d-m-Y');
-        $Solicitante2 = $_POST['solicitante2'][0];
+        $solicitante2 = $_POST['solicitante2'][0];
         $area2 = $_POST['area2'][0];
         $descripcion = $_POST['descripcion'][0];
         $sede = $_POST['sedes'][0];
@@ -155,7 +205,7 @@ function shortCode2(){
             'RespuestaId' => null,
             'Consecutivo' => $consecutivo2,
             'Fecha' => $actualDate2,
-            'Solicitante' => $Solicitante2,
+            'Solicitante' => $solicitante2,
             'Área' => $area2,
             'Descripción' => $descripcion,
             'Sede' => $sede,
@@ -164,6 +214,47 @@ function shortCode2(){
         ];    
         
         $wpdb->insert($tablaR2,$datos);
+
+        //Create an instance; passing `true` enables exceptions
+        $mail = new PHPMailer(true);
+
+        try {
+            //Server settings
+            $mail->SMTPDebug = 0;                      //Enable verbose debug output
+            $mail->isSMTP();                                            //Send using SMTP
+            $mail->Host       = 'smtp-relay.sendinblue.com';                     //Set the SMTP server to send through
+            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+            $mail->Username   = 'josephstevenbarretocabrera@gmail.com';                     //SMTP username
+            $mail->Password   = 'Ozh45NIsqKg0CbjY';                               //SMTP password
+            $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
+            $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+        
+            //Recipients
+            $mail->setFrom('josephstevenbarretocabrera@gmail.com', 'American School Way');
+            $mail->addAddress($solicitante2);     //Add a recipient
+            // $mail->addAddress('ellen@example.com');               //Name is optional
+            // $mail->addReplyTo('info@example.com', 'Information');
+            // $mail->addCC('cc@example.com');
+            // $mail->addBCC('bcc@example.com');
+        
+            //Attachments
+            // $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
+            // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
+        
+            //Content
+            $mail->isHTML(true);                                  //Set email format to HTML
+            $mail->Subject = 'Test mandar correo';
+            $mail->Body    = 'Este es tu consecutivo '.$consecutivo2.'cuando lo desees visita el apartado Mis Tickets para hacer la consulta del estado de tu solicitud';
+            // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+        
+            $mail->send();
+
+        } catch (Exception $e) {    
+            echo "<script language='JavaScript'>
+                    alert('Message could not be sent. Mailer Error: {$mail->ErrorInfo}')
+                    window.location.href = 'http://localhost/formulario_soporte_desarrollo/wordpress/index.php/formularios/';
+                </script>";
+        }
     }
 
     $_short = new formFuntions;

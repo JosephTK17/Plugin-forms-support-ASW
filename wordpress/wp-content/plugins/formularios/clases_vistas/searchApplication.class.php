@@ -37,30 +37,39 @@ class searchApplication {
                 <style>
 
                     #cont_btns_nav{
-                        height: 30px;
+                        height: 50px;
                         background-color: #4f6df5;
-                        padding: 20px;
-                    }
-
-                    .cont_single{
-                        background-color: #304293;
-                        border-radius: 3px;
-                        width: 150px;
-                        display: inline-block;
+                        padding: 8px;
                     }
 
                     .btn_nav{
+                        margin-top: 11px;
                         text-align: center;
-                    }
-
-                    #user{
-                        background-color: gray;
+                        display: inline-block;
                     }
 
                     .btn_nav a {
+                        background-color: #304293;
+                        border-radius: 3px;
                         text-decoration: none;
                         color: white;
                     }
+
+                    #index a{
+                        padding: 10px 37px 10px 37px;
+                        margin-right: 110px;
+                    }
+
+                    #create a{
+                        padding: 10px 22px 10px 22px;
+                        margin-right: 110px;
+                    }
+
+                    #user a{
+                        padding: 10px 30px 10px 30px;
+                        box-shadow: 0px 0px 10px black;
+                        background-color: gray;
+                    }                    
 
                     .table_form{
                         border-collapse: collapse;
@@ -83,20 +92,14 @@ class searchApplication {
         $html = "
             <body>
                 <div id='cont_btns_nav'>
-                    <div class='cont_single' id='index'>
-                        <div class='btn_nav'>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/crear-ticket/'>Principal</a>
-                        </div>
+                    <div class='btn_nav' id='index'>
+                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/crear-ticket/'>Principal</a>
                     </div>
-                    <div class='cont_single' id='create'>
-                        <div class='btn_nav'>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/formularios/'>Enviar Ticket</a>
-                        </div>
+                    <div class='btn_nav' id='create'>
+                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/formularios/'>Enviar Ticket</a>
                     </div>
-                    <div class='cont_single' id='user'>
-                        <div class='btn_nav'>
-                            <a href='#'>Mis Ticket</a>
-                        </div>
+                    <div class='btn_nav' id='user'>
+                        <a href='#'>Mis Ticket</a>
                     </div>
                 </div>
         ";

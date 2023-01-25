@@ -12,27 +12,43 @@ class index{
                 <style>
 
                     #cont_btns{
-                        height: 30px;
+                        height: 50px;
                         background-color: #4f6df5;
-                        padding: 20px;
+                        padding: 8px;
                     }
 
-                    .cont_single{
-                        background-color: #304293;
-                        border-radius: 3px;
-                        width: 150px;
-                        display: inline-block;
+                    #index a{
+                        padding: 10px 37px 10px 37px;
+                        margin-right: 108px;
+                    }
+
+                    #create a{
+                        padding: 10px 22px 10px 22px;
+                        margin-right: 108px;
+                    }
+
+                    #admin a{
+                        padding: 10px 30px 10px 30px;
+                    }
+
+                    #user a{
+                        padding: 10px 30px 10px 30px;
                     }
 
                     .btn_nav{
+                        display: inline-block;
+                        margin-top: 11px;
                         text-align: center;
                     }
 
-                    #index{
+                    #index a{
+                        box-shadow: 0px 0px 10px black;
                         background-color: gray;
                     }
 
                     .btn_nav a {
+                        background-color: #304293;
+                        border-radius: 3px;
                         text-decoration: none;
                         color: white;
                     }
@@ -49,34 +65,26 @@ class index{
         $html = "";
         $html .= "
             <div id='cont_btns'>
-                <div class='cont_single' id='index'>
-                    <div class='btn_nav'>
-                        <a href='#/'>Principal</a>
-                    </div>
+                <div class='btn_nav' id='index'>
+                    <a href='#/'>Principal</a>
                 </div>
-                <div class='cont_single' id='create'>
-                    <div class='btn_nav'>
-                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/formularios/'>Enviar Ticket</a>
-                    </div>
+                <div class='btn_nav' id='create'>
+                    <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/formularios/'>Enviar Ticket</a>
                 </div>
         ";
 
         if (is_super_admin()) {
 
             $html .= "
-            <div class='cont_single' id='admin'>
-                <div class='btn_nav'>
+                <div class='btn_nav' id='admin'>
                     <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets'>Ver Tickets</a>
                 </div>
-            </div>
             ";
         } else {
 
             $html .= "
-                <div class='cont_single' id='user'>
-                    <div class='btn_nav'>
-                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/'>Mis Tickets</a>
-                    </div>
+                <div class='btn_nav' id='user'>
+                    <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/'>Mis Tickets</a>
                 </div>
             </div>
             ";

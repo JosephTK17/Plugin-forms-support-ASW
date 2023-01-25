@@ -26,29 +26,42 @@ class tableForms {
                 <style>
 
                     #cont_btns_nav{
-                        height: 30px;
+                        height: 50px;
                         background-color: #4f6df5;
-                        padding: 20px;
-                    }
-
-                    .cont_single{
-                        background-color: #304293;
-                        border-radius: 3px;
-                        width: 150px;
-                        display: inline-block;
+                        padding: 8px;
                     }
 
                     .btn_nav{
+                        margin-top: 11px;
                         text-align: center;
-                    }
-
-                    #admin{
-                        background-color: gray;
+                        display: inline-block;
                     }
 
                     .btn_nav a {
+                        background-color: #304293;
+                        border-radius: 3px;
                         text-decoration: none;
                         color: white;
+                    }
+
+                    #index a{
+                        padding: 10px 37px 10px 37px;
+                        margin-right: 108px;
+                    }
+
+                    #create a{
+                        padding: 10px 22px 10px 22px;
+                        margin-right: 108px;
+                    }
+
+                    #admin a{
+                        padding: 10px 30px 10px 30px;
+                        box-shadow: 0px 0px 10px black;
+                        background-color: gray;
+                    }
+
+                    #user a{
+                        padding: 10px 30px 10px 30px;
                     }
 
                     #cont_btns_tables{
@@ -123,20 +136,14 @@ class tableForms {
         $html = "
             <body>
                 <div id='cont_btns_nav'>
-                    <div class='cont_single' id='index'>
-                        <div class='btn_nav'>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/crear-ticket/'>Principal</a>
-                        </div>
+                    <div class='btn_nav' id='index'>
+                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/crear-ticket/'>Principal</a>
                     </div>
-                    <div class='cont_single' id='create'>
-                        <div class='btn_nav'>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/formularios/'>Enviar Ticket</a>
-                        </div>
+                    <div class='btn_nav' id='create'>
+                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/formularios/'>Enviar Ticket</a>
                     </div>
-                    <div class='cont_single' id='admin'>
-                        <div class='btn_nav'>
-                            <a href='#'>Ver Tickets</a>
-                        </div>
+                    <div class='btn_nav' id='admin'>
+                        <a href='#'>Ver Tickets</a>
                     </div>
                 </div>
         ";
@@ -876,7 +883,7 @@ class tableForms {
         //tabla desarrollo------------------------
         $tableR1 = "{$wpdb->prefix}formularios_respuestas_desarrollo";
 
-        $queryRtas = "SELECT * FROM $tableR1";
+        $queryRtas = "SELECT * FROM $tableR1 ORDER BY FormularioId ASC";
         $lista_formularios_rtas = $wpdb->get_results($queryRtas, ARRAY_A);
         if (empty($lista_formularios_rtas)) {
             $lista_formularios_rtas = array();
@@ -886,7 +893,7 @@ class tableForms {
         //tabla soporte------------------------------
         $tableR2 = "{$wpdb->prefix}formularios_respuestas_soporte";
 
-        $queryRtas2 = "SELECT * FROM $tableR2";
+        $queryRtas2 = "SELECT * FROM $tableR2 ORDER BY FormularioId ASC";
         $lista_formularios_rtas2 = $wpdb->get_results($queryRtas2, ARRAY_A);
         if (empty($lista_formularios_rtas2)) {
             $lista_formularios_rtas2 = array();
@@ -896,8 +903,8 @@ class tableForms {
 
         if (!empty($_POST['fecha'][0]) && !empty($_POST['solicitante'][0])) {
 
-            $queryData = "SELECT * FROM $tableR1 WHERE Fecha = '$fecha' AND Solicitante = '$solicitante'"; 
-            $queryData2 = "SELECT * FROM $tableR2 WHERE Fecha = '$fecha' AND Solicitante = '$solicitante'";
+            $queryData = "SELECT * FROM $tableR1 WHERE Fecha = '$fecha' AND Solicitante = '$solicitante' ORDER BY FormularioId DESC"; 
+            $queryData2 = "SELECT * FROM $tableR2 WHERE Fecha = '$fecha' AND Solicitante = '$solicitante' ORDER BY FormularioId DESC";
 
             //idForm
             $queryId = "SELECT FormularioId FROM $tableR1 WHERE Fecha = '$fecha' AND Solicitante = '$solicitante'";
@@ -905,8 +912,8 @@ class tableForms {
 
         } elseif(!empty($_POST['consecutivo'][0])){
 
-            $queryData = "SELECT * FROM $tableR1 WHERE Consecutivo = '$consecutivo'";
-            $queryData2 = "SELECT * FROM $tableR2 WHERE Consecutivo = '$consecutivo'"; 
+            $queryData = "SELECT * FROM $tableR1 WHERE Consecutivo = '$consecutivo' ORDER BY FormularioId DESC";
+            $queryData2 = "SELECT * FROM $tableR2 WHERE Consecutivo = '$consecutivo' ORDER BY FormularioId DESC"; 
 
             //idForm
             $queryId = "SELECT FormularioId FROM $tableR1 WHERE Consecutivo = '$consecutivo'";
@@ -914,8 +921,8 @@ class tableForms {
 
         } elseif (!empty($_POST['fecha'][0])) {
 
-            $queryData = "SELECT * FROM $tableR1 WHERE Fecha = '$fecha'";
-            $queryData2 = "SELECT * FROM $tableR2 WHERE Fecha = '$fecha'";
+            $queryData = "SELECT * FROM $tableR1 WHERE Fecha = '$fecha' ORDER BY FormularioId DESC";
+            $queryData2 = "SELECT * FROM $tableR2 WHERE Fecha = '$fecha' ORDER BY FormularioId DESC";
 
             //idForm
             $queryId = "SELECT FormularioId FROM $tableR1 WHERE Fecha = '$fecha'";
@@ -923,8 +930,8 @@ class tableForms {
             
         } elseif (!empty($_POST['solicitante'][0])) {
 
-            $queryData = "SELECT * FROM $tableR1 WHERE Solicitante = '$solicitante'"; 
-            $queryData2 = "SELECT * FROM $tableR2 WHERE Solicitante = '$solicitante'";
+            $queryData = "SELECT * FROM $tableR1 WHERE Solicitante = '$solicitante' ORDER BY FormularioId DESC"; 
+            $queryData2 = "SELECT * FROM $tableR2 WHERE Solicitante = '$solicitante' ORDER BY FormularioId DESC";
 
             //idForm
             $queryId = "SELECT FormularioId FROM $tableR1 WHERE Solicitante = '$solicitante'";
@@ -967,9 +974,7 @@ class tableForms {
             $html .= $this->endTable();
 
             $html .= $this->moreFilters();
-        }
-
-        if (!is_super_admin()) {
+        } else {
             $html = "
                 <h1>No tienes suficientes permisos para ver</h1>
             ";

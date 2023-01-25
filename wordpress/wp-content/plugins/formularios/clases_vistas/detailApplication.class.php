@@ -12,25 +12,40 @@ class detailApplication {
                 <style>
 
                      #cont_btns_nav{
-                        height: 30px;
+                        height: 50px;
                         background-color: #4f6df5;
-                        padding: 20px;
-                    }
-
-                    .cont_single{
-                        background-color: #304293;
-                        border-radius: 3px;
-                        width: 150px;
-                        display: inline-block;
+                        padding: 8px;
                     }
 
                     .btn_nav{
+                        display: inline-block;
+                        margin-top: 11px;
                         text-align: center;
                     }
 
                     .btn_nav a {
+                        border-radius: 3px;
+                        background-color: #304293;
                         text-decoration: none;
                         color: white;
+                    }
+
+                    #index a{
+                        padding: 10px 37px 10px 37px;
+                        margin-right: 104px;
+                    }
+
+                    #create a{
+                        padding: 10px 22px 10px 22px;
+                        margin-right: 104px;
+                    }
+
+                    #admin a{
+                        padding: 10px 30px 10px 30px;
+                    }
+
+                    #user a{
+                        padding: 10px 34px 10px 34px;
                     }
 
                     .cont_detail{
@@ -38,7 +53,6 @@ class detailApplication {
                     }
 
                     .campos label{
-                        display: inline-block;
                         font-weight: 500;
                     }
 
@@ -76,32 +90,24 @@ class detailApplication {
         $html .= "
             <body>
                 <div id='cont_btns_nav'>
-                    <div class='cont_single' id='index'>
-                        <div class='btn_nav'>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/crear-ticket/'>Principal</a>
-                        </div>
+                    <div class='btn_nav' id='index'>
+                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/crear-ticket/'>Principal</a>
                     </div>
-                    <div class='cont_single' id='create'>
-                        <div class='btn_nav'>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/formularios/'>Enviar Ticket</a>
-                        </div>
+                    <div class='btn_nav' id='create'>
+                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/formularios/'>Enviar Ticket</a>
                     </div>
         ";
 
         if (is_super_admin()) {
             $html .= "
-                    <div class='cont_single' id='admin'>
-                        <div class='btn_nav'>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/'>Ver Tickets</a>
-                        </div>
+                    <div class='btn_nav' id='admin'>
+                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/'>Ver Tickets</a>
                     </div>
             ";
         } else {
             $html .= "
-                    <div class='cont_single' id='user'>
-                        <div class='btn_nav'>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/'>Mis Tickets</a>
-                        </div>
+                    <div class='btn_nav' id='user'>
+                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/'>Mis Tickets</a>
                     </div>
                 </div>
             ";
@@ -110,12 +116,12 @@ class detailApplication {
         return $html;
     }
 
-    public function showDetails($id, $id2, $lista_formularios, $lista_formularios2)
+    public function showDetails($id, $id2, $lista_formularios, $lista_formularios2, $status, $status2)
     {
 
         $html = "";
 
-        if ($id[0]['FormularioId']  == 1) {
+        if ($id[0]['FormularioId']  == 1 && $status[0]['Estado'] != "Cerrado") {
 
             foreach ($lista_formularios as $key => $value) {
                     $consecutivo = $value['Consecutivo'];
@@ -179,12 +185,15 @@ class detailApplication {
                     }
                     
                     $html .= "
+                                <form method='POST' name='btn_solucionado[]'>
+                                    <button type='submit' name='cerrar[]' value='solucionado'>Solucionado</button>
+                                </form>
                             </div>
                         </div>
                     </body>
                     ";
             }
-        } elseif ($id2[0]['FormularioId'] == 2) {
+        } elseif ($id2[0]['FormularioId'] == 2 && $status2[0]['Estado'] != "Cerrado") {
 
             foreach ($lista_formularios2 as $key => $value) {
                 $consecutivo2 = $value['Consecutivo'];
@@ -204,7 +213,7 @@ class detailApplication {
                         <div class='campos' id='fecha'>
                             <label>Fecha solicitud:</label>
                             <p>$date2</p>
-                        </div
+                        </div>
                         <div class='campos' id='solicitante'>
                             <label>Solicitante:</label>
                             <p>$solicitante2</p>
@@ -242,11 +251,18 @@ class detailApplication {
                 }
                 
                 $html .= "
+                            <form method='POST' name='btn_solucionado[]'>
+                                <button type='submit' name='cerrar2[]' value='solucionado'>Solucionado</button>
+                            </form>
                         </div>
                     </div>
                 </body>
                 ";
             }
+        } else if( $status[0]['Estado'] == "Cerrado" || $status2[0]['Estado'] == "Cerrado") {
+            $html = "
+                <h1>Cerrado</h1>
+            ";
         }
 
         return $html;
@@ -260,26 +276,38 @@ class detailApplication {
         //tabla desarrollo
         $tableR1 = "{$wpdb->prefix}formularios_respuestas_desarrollo";
 
+        //dataTableD
         $queryData = "SELECT * FROM $tableR1 WHERE Consecutivo = '$consecutivo'";
         $lista_formularios = $wpdb->get_results($queryData, ARRAY_A);
         if (empty($lista_formularios)) {
             $lista_formularios = array();
         }
 
+        //idD
         $queryId = "SELECT FormularioId FROM $tableR1 WHERE Consecutivo = '$consecutivo'";
         $id = $wpdb->get_results($queryId, ARRAY_A);
+
+        //statusD
+        $queryStatus = "SELECT Estado FROM $tableR1 WHERE Consecutivo = '$consecutivo'";
+        $status = $wpdb->get_results($queryStatus, ARRAY_A);
 
         //tabla soporte
         $tableR2 = "{$wpdb->prefix}formularios_respuestas_soporte";
 
+        //dataTableS
         $queryData2 = "SELECT * FROM $tableR2 WHERE Consecutivo = '$consecutivo'";
         $lista_formularios2 = $wpdb->get_results($queryData2, ARRAY_A);
         if (empty($lista_formularios2)) {
             $lista_formularios2 = array();
         }
 
+        //idS
         $queryId2 = "SELECT FormularioId FROM $tableR2 WHERE Consecutivo = '$consecutivo'";
         $id2 = $wpdb->get_results($queryId2, ARRAY_A);
+
+        //statusS
+        $queryStatus2 = "SELECT Estado FROM $tableR2 WHERE Consecutivo = '$consecutivo'";
+        $status2 = $wpdb->get_results($queryStatus2, ARRAY_A);
 
         //actualizar
         if (isset($_POST['update'])) {
@@ -301,13 +329,31 @@ class detailApplication {
                 $wpdb->update($tableR2,$infoUpd, array('Consecutivo'=>$consecutivo));
 
                 header("Location: http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo");
+
             }
         }
 
         $html = $this->head();
 
         $html .= $this->buttonsNav();
-        $html .= $this->showDetails($id, $id2, $lista_formularios, $lista_formularios2);
+        $html .= $this->showDetails($id, $id2, $lista_formularios, $lista_formularios2, $status, $status2);
+
+        if ($_POST['cerrar'][0] == "solucionado") {
+            $infoUpd = array(
+                'Estado' => 'Cerrado'
+            );
+            $wpdb->update($tableR1,$infoUpd, array('Consecutivo'=>$consecutivo));
+
+            header("Location: http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo");
+
+        } elseif($_POST['cerrar2'][0] == "solucionado"){
+            $infoUpd = array(
+                'Estado' => 'Cerrado'
+            );
+            $wpdb->update($tableR2,$infoUpd, array('Consecutivo'=>$consecutivo));
+
+            header("Location: http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo");
+        }
 
         return $html;
     }

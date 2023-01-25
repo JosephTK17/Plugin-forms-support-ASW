@@ -26,29 +26,42 @@ class formFuntions{
                 <style>
                     
                     #cont_btns_nav{
-                        height: 30px;
+                        height: 50px;
                         background-color: #4f6df5;
-                        padding: 20px;
-                    }
-
-                    .cont_single{
-                        background-color: #304293;
-                        border-radius: 3px;
-                        width: 150px;
-                        display: inline-block;
+                        padding: 8px;
                     }
 
                     .btn_nav{
+                        display: inline-block;
+                        margin-top: 11px;
                         text-align: center;
                     }
 
-                    #create{
+                    .btn_nav a {   
+                        background-color: #304293;
+                        border-radius: 3px;
+                        text-decoration: none;
+                        color: white;
+                    }
+
+                    #index a{
+                        padding: 10px 37px 10px 37px;
+                        margin-right: 108px;
+                    }
+
+                    #create a{
+                        padding: 10px 22px 10px 22px;
+                        box-shadow: 0px 0px 10px black;
+                        margin-right: 108px;
                         background-color: gray;
                     }
 
-                    .btn_nav a {
-                        text-decoration: none;
-                        color: white;
+                    #admin a{
+                        padding: 10px 30px 10px 30px;
+                    }
+
+                    #user a{
+                        padding: 10px 30px 10px 30px;
                     }
 
                     .cont_forms{
@@ -89,32 +102,24 @@ class formFuntions{
         $html .= "
             <body>
                 <div id='cont_btns_nav'>
-                    <div class='cont_single' id='index'>
-                        <div class='btn_nav'>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/crear-ticket/'>Principal</a>
-                        </div>
+                    <div class='btn_nav' id='index'>
+                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/crear-ticket/'>Principal</a>
                     </div>
-                    <div class='cont_single' id='create'>
-                        <div class='btn_nav'>
-                            <a href='#'>Enviar Ticket</a>
-                        </div>
-                    </div>  
+                    <div class='btn_nav' id='create'>
+                        <a href='#'>Enviar Ticket</a>
+                    </div>
         ";
 
         if (is_super_admin()) {
             $html .= "
-                    <div class='cont_single' id='admin'>
-                        <div class='btn_nav'>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets'>Ver Tickets</a>
-                        </div>
+                    <div class='btn_nav' id='admin'>
+                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets'>Ver Tickets</a>
                     </div>
             ";
         } else {
             $html .= "
-                    <div class='cont_single' id='user'>
-                        <div class='btn_nav'>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/'>Mis Tickets</a>
-                        </div>
+                    <div class='btn_nav' id='user'>
+                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/'>Mis Tickets</a>
                     </div>
                 </div>
             ";
@@ -310,131 +315,6 @@ class formFuntions{
         return $html;
     }
 
-    // public function typeForm($id)
-    // {  
-    //     $html = "";
-
-    //     if($id == '1'){
-    //         $html = "
-    //             <form id='desarrollo' name='f2' method='POST'>
-    //                 <div class='form-group'>
-    //                     <label>Área</label>
-    //                         <div>
-    //                             <select name='area[]' id='area' class='col-sm-8' required>
-    //                                 <option value=''>Seleccionar</option>
-    //                                 <option value='Academico'>Académico</option>
-    //                                 <option value='Admisiones'>Admisiones</option>
-    //                                 <option value='Administrativa'>Administrativa</option>
-    //                                 <option value='Atención al Cliente'>Atención al Cliente</option>
-    //                                 <option value='Contact Center'>Contact Center</option>
-    //                                 <option value='Compras'>Compras</option>
-    //                                 <option value='Calidad'>Calidad</option>
-    //                                 <option value='Apoyo Financiero y SST'>Apoyo Financiero y SST</option>
-    //                                 <option value='Talento Humano'>Talento Humano</option>
-    //                                 <option value='Mercadeo'>Mercadeo</option>
-    //                                 <option value='TICS'>TICS</option>
-    //                                 <option value='Juridico'>Jurídico</option>
-    //                                 <option value='Contabilidad'>Contabilidad</option>
-    //                                 <option value='Infraestructura'>Infraestructura</option>
-    //                                 <option value='PEI'>PEI</option>
-    //                             </select>
-    //                         </div>
-    //                     <label>Solicitud</label>
-    //                         <div>
-    //                             <textarea name='solicitud[]' id='solicitud' required></textarea>
-    //                         </div>
-    //                     <br>
-
-    //                     <label>Para qué</label>
-    //                         <div>
-    //                             <textarea name='paraQue[]' id='paraQue' required></textarea>
-    //                         </div>
-    //                     <br>
-
-    //                     <label>Criterios de aceptación</label>
-    //                         <div>
-    //                             <textarea name='criterios[]' id='criterios' required></textarea>
-    //                         </div>
-    //                     <br>
-
-    //                     <input type='submit' id='btnguardar1' name='btnguardar1' class='page-title-action' value='enviar'>
-    //         ";
-    //     } elseif($id == '2'){
-    //         $html = "
-    //             <form id='soporte' name='f2' method='POST'>
-    //                 <div class='form-group'>
-    //                     <label>Área</label>
-    //                     <div>
-    //                         <select name='area2[]' id='area' class='col-sm-8' required>
-    //                             <option value=''>Seleccionar</option>
-    //                             <option value='Academico'>Académico</option>
-    //                             <option value='Admisiones'>Admisiones</option>
-    //                             <option value='Administrativa'>Administrativa</option>
-    //                             <option value='Atención al Cliente'>Atención al Cliente</option>
-    //                             <option value='Contact Center'>Contact Center</option>
-    //                             <option value='Compras'>Compras</option>
-    //                             <option value='Calidad'>Calidad</option>
-    //                             <option value='Apoyo Financiero y SST'>Apoyo Financiero y SST</option>
-    //                             <option value='Talento Humano'>Talento Humano</option>
-    //                             <option value='Mercadeo'>Mercadeo</option>
-    //                             <option value='TICS'>TICS</option>
-    //                             <option value='Juridico'>Jurídico</option>
-    //                             <option value='Contabilidad'>Contabilidad</option>
-    //                             <option value='Infraestructura'>Infraestructura</option>
-    //                             <option value='PEI'>PEI</option>
-    //                         </select>
-    //                     </div>
-    //                     <br>
-
-    //                     <label>Descripción</label>
-    //                         <div>
-    //                             <textarea name='descripcion[]' id='descripcion' required></textarea>
-    //                         </div>
-    //                     <br>
-
-    //                     <label>Ciudad</label>
-
-    //                         <div>
-    //                             <select name='ciudades[]' id='ciudades' onchange='cambiar_sedes()' required>
-    //                                 <option value=''>Ciudad</option>
-    //                                 <option>Bogotá</option>
-    //                                 <option>Soacha</option>
-    //                                 <option>Mosquera</option>
-    //                                 <option>Cali</option>
-    //                                 <option>Manizales</option>
-    //                                 <option>Medellín</option>
-    //                                 <option>Villavicencio</option>
-    //                             </select>
-    //                         </div>
-    //                         <br>
-
-    //                     <label>Sede</label>
-
-    //                         <div>
-    //                             <select name='sedes[]' id='sedes' required>
-    //                                 <option value=''>Sede</option>
-                                    
-    //                             </select>
-    //                         </div>
-    //                         <br>
-
-    //                     <input type='submit' id='btnguardar2' name='btnguardar2' class='page-title-action' value='enviar'>
-    //         ";
-    //     }
-    //     return $html;
-    // }
-
-    // public function closeForm()
-    // {
-    //     $html = "
-    //             </div>
-    //         </form>
-    //     </body>
-    //     ";
-
-    //     return $html;
-    // }
-
     public function getUser()
     {
         $user = get_current_user_id();
@@ -516,6 +396,12 @@ class formFuntions{
 
     public function showApplication($consecutivo, $consecutivo2)
     {
+        // if (isset($_POST['btnguardar1'][0]) == "" || isset($_POST['btnguardar2'][0]) == "") {
+        //     echo "<script language='JavaScript'>
+        //             alert('No fue posible enviar su solicitud');
+        //             window.location.href = 'http://localhost/formulario_soporte_desarrollo/wordpress/index.php/formularios/';
+        //         </script>";
+        // }
         if (isset($_POST['btnguardar1'][0]) == 1) {
             echo "<script language='JavaScript'>
                     alert('Ticket creado, podras consultarlo con el siguiente consecutivo: $consecutivo');
@@ -526,7 +412,7 @@ class formFuntions{
                     alert('Ticket creado, podras consultarlo con el siguiente consecutivo: $consecutivo2');
                     window.location.href = 'http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2';
                 </script>";
-        }
+        } 
     }
 
     public function constructor($FormularioId, $consecutivo, $consecutivo2)
@@ -542,8 +428,6 @@ class formFuntions{
 
         $html .= $this->buttonsNav();
         $html .= $this->openForm();
-        // $html .= $this->typeForm($id);
-        // $html .= $this->closeForm();
         $html .= $this->desarrolloForm($userName);
         $html .= $this->soporteForm($userName);
         $html .= $this->selectForm();
