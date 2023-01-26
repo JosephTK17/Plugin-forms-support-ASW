@@ -7,7 +7,6 @@ Version: 0.0.1
 */
 
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 require_once dirname(__FILE__). './../../../wp-includes/PHPMailer/Exception.php';
@@ -77,29 +76,12 @@ function createMenu(){
         'Formularios',//titulo pagina
         'Formularios Menu', //titulo menu
         'manage_options', //permisos
-        plugin_dir_path(__FILE__).'admin/pagRespuestasForm.php', //slug
+        plugin_dir_path(__FILE__).'admin/pagForms.php', //slug
         null, //funcion del contenido
         null,// plugin_dir_url(__FILE__).'admin/img/iconEdit.png',
         '1'
     );
-
-    // add_submenu_page(
-    //     'sp_menu',
-    //     'Ajustes',
-    //     'Desarrollo',
-    //     'manage_options',   
-    //     plugin_dir_path(__FILE__).'admin/pagina_submenu.php',
-    //     'submenu'
-    // );
 }
-
-// function mostrarContenido(){
-//     echo "<h1>Contenido principal</h1>";
-// }
-
-// function submenu(){
-//     echo "<h1>Submenu</h1>";
-// }
 
 //shortcode
 
@@ -116,12 +98,21 @@ function shortCode2(){
 
     global $wpdb;
 
-    $tabla = "{$wpdb->prefix}formularios";
     $tablaR1 = "{$wpdb->prefix}formularios_respuestas_desarrollo";
     $tablaR2 = "{$wpdb->prefix}formularios_respuestas_soporte";
 
+    //dataUser
+    $user = get_current_user_id();
+
+    if ($user != 0) {
+        
+        $userInfo = get_userdata($user);
+        $userEmail = $userInfo->user_login;
+
+    }
+
     if(isset($_POST['btnguardar1'])){
-        // var_dump($_POST);
+
         $prefix1 = "D";
         $consecutivo = $prefix1.rand(100000, 999999);
         $actualDate = date('d-m-Y');
@@ -130,10 +121,6 @@ function shortCode2(){
         $solicitud = $_POST['solicitud'][0];
         $paraQue = $_POST['paraQue'][0];
         $criterios = $_POST['criterios'][0];
-        // $tipo = $_POST['type'];
-        // $query = "SELECT FormularioId FROM $tablaR1 ORDER BY FormularioId DESC limit 1";
-        // $resultado = $wpdb->get_results($query, ARRAY_A);
-        // $proximoId = $resultado[0]['FormularioId'] + 1;
 
         $datos = [
             'RespuestaId' => null,
@@ -148,7 +135,7 @@ function shortCode2(){
             'FormularioId' => 1,
         ];    
 
-        $wpdb->insert($tablaR1,$datos);
+        $wpdb->insert($tablaR1,$datos);        
 
         //Create an instance; passing `true` enables exceptions
         $mail = new PHPMailer(true);
@@ -157,30 +144,21 @@ function shortCode2(){
             //Server settings
             $mail->SMTPDebug = 0;                      //Enable verbose debug output
             $mail->isSMTP();                                            //Send using SMTP
-            $mail->Host       = 'smtp-relay.sendinblue.com';                     //Set the SMTP server to send through
+            $mail->Host       = '';                     //Set the SMTP server to send through
             $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-            $mail->Username   = 'josephstevenbarretocabrera@gmail.com';                     //SMTP username
-            $mail->Password   = 'Ozh45NIsqKg0CbjY';                               //SMTP password
+            $mail->Username   = '';                     //SMTP username
+            $mail->Password   = '';                               //SMTP password
             $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
             $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
         
             //Recipients
-            $mail->setFrom('josephstevenbarretocabrera@gmail.com', 'American School Way');
-            $mail->addAddress($solicitante);     //Add a recipient
-            // $mail->addAddress('ellen@example.com');               //Name is optional
-            // $mail->addReplyTo('info@example.com', 'Information');
-            // $mail->addCC('cc@example.com');
-            // $mail->addBCC('bcc@example.com');
-        
-            //Attachments
-            // $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
-            // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
+            $mail->setFrom('Poner correo de envio', 'American School Way');
+            $mail->addAddress($userEmail);     //Add a recipient
         
             //Content
             $mail->isHTML(true);                                  //Set email format to HTML
             $mail->Subject = 'Test mandar correo';
             $mail->Body    = 'Este es tu consecutivo '.$consecutivo.'cuando lo desees visita el apartado Mis Tickets para hacer la consulta del estado de tu solicitud';
-            // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
         
             $mail->send();
 
@@ -192,7 +170,7 @@ function shortCode2(){
         }
 
     } elseif (isset($_POST['btnguardar2'])){
-        // var_dump($_POST);
+        
         $prefix2 = "S";
         $consecutivo2 = $prefix2.rand(100000, 999999);
         $actualDate2= date('d-m-Y');
@@ -222,30 +200,21 @@ function shortCode2(){
             //Server settings
             $mail->SMTPDebug = 0;                      //Enable verbose debug output
             $mail->isSMTP();                                            //Send using SMTP
-            $mail->Host       = 'smtp-relay.sendinblue.com';                     //Set the SMTP server to send through
+            $mail->Host       = '';                     //Set the SMTP server to send through
             $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-            $mail->Username   = 'josephstevenbarretocabrera@gmail.com';                     //SMTP username
-            $mail->Password   = 'Ozh45NIsqKg0CbjY';                               //SMTP password
+            $mail->Username   = '';                     //SMTP username
+            $mail->Password   = '';                               //SMTP password
             $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
             $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
         
             //Recipients
-            $mail->setFrom('josephstevenbarretocabrera@gmail.com', 'American School Way');
-            $mail->addAddress($solicitante2);     //Add a recipient
-            // $mail->addAddress('ellen@example.com');               //Name is optional
-            // $mail->addReplyTo('info@example.com', 'Information');
-            // $mail->addCC('cc@example.com');
-            // $mail->addBCC('bcc@example.com');
-        
-            //Attachments
-            // $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
-            // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
+            $mail->setFrom('Poner correo de envio', 'American School Way');
+            $mail->addAddress($userEmail);     //Add a recipient
         
             //Content
             $mail->isHTML(true);                                  //Set email format to HTML
             $mail->Subject = 'Test mandar correo';
             $mail->Body    = 'Este es tu consecutivo '.$consecutivo2.'cuando lo desees visita el apartado Mis Tickets para hacer la consulta del estado de tu solicitud';
-            // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
         
             $mail->send();
 
@@ -291,7 +260,6 @@ function shortCode4()
 
 function shortCode5()
 {
-    global $wpdb;
 
     $_short = new detailApplication;
 

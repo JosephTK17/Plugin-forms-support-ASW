@@ -777,6 +777,8 @@ class tableForms {
 
     public function dataTable( $id, $lista_formularios, $lista_formularios2)
     {
+        global $wpdb;
+
         $html = "";
         if ($id == 1) {
             foreach ($lista_formularios as $key => $value) {
@@ -805,6 +807,7 @@ class tableForms {
                     </tr>
                 ";
             }
+
         } elseif ($id == 2) {
             foreach ($lista_formularios2 as $key => $value) {
                     $consecutivo2 = $value['Consecutivo'];
@@ -883,7 +886,7 @@ class tableForms {
         //tabla desarrollo------------------------
         $tableR1 = "{$wpdb->prefix}formularios_respuestas_desarrollo";
 
-        $queryRtas = "SELECT * FROM $tableR1 ORDER BY FormularioId ASC";
+        $queryRtas = "SELECT * FROM $tableR1";
         $lista_formularios_rtas = $wpdb->get_results($queryRtas, ARRAY_A);
         if (empty($lista_formularios_rtas)) {
             $lista_formularios_rtas = array();
@@ -893,13 +896,13 @@ class tableForms {
         //tabla soporte------------------------------
         $tableR2 = "{$wpdb->prefix}formularios_respuestas_soporte";
 
-        $queryRtas2 = "SELECT * FROM $tableR2 ORDER BY FormularioId ASC";
+        $queryRtas2 = "SELECT * FROM $tableR2";
         $lista_formularios_rtas2 = $wpdb->get_results($queryRtas2, ARRAY_A);
         if (empty($lista_formularios_rtas2)) {
             $lista_formularios_rtas2 = array();
         }
 
-        //----------------------------
+        //filtro----------------------------
 
         if (!empty($_POST['fecha'][0]) && !empty($_POST['solicitante'][0])) {
 
@@ -955,6 +958,29 @@ class tableForms {
 
         $form = $this->getForms($FormularioId);
         $formId = $form['FormularioId'];
+
+        //paginacion----------------------------------------
+        // if (!empty($_REQUEST['nume'])) {
+        //     $_REQUEST['nume'] = $_REQUEST['nume'];
+        // } else {
+        //     $_REQUEST['nume'] = '1';
+        // }
+
+        // if ($_REQUEST['nume'] == "") {
+        //     $_REQUEST['nume'] = '1';
+        // }
+
+        // $numRegistrosT1 = count($lista_formularios_rtas);
+        // $registros = '10';
+        // $pagina = $_REQUEST['nume'];
+
+        // if (is_numeric($pagina)) {
+        //     $inicio = (($pagina - 1)*$registros);
+        // } else {
+        //     $inicio = 0;
+        //     $busqueda = "SELECT * FROM $tableR1 LIMIT $inicio, $registros";
+        //     $paginas = ceil($numRegistrosT1/$registros);
+        // }
 
         if (is_super_admin()) {
 

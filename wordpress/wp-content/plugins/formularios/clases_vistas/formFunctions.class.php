@@ -84,10 +84,7 @@ class formFuntions{
                         box-shadow: inset 0 .25rem .125rem 0 rgba(0, 0, 0, .05)!important;
                         width: 350px;
                     }
-
-                    .wrap{
-                        margin-top: 50px;
-                    }
+                    
                 </style>
             </head>
         ";
@@ -115,6 +112,7 @@ class formFuntions{
                     <div class='btn_nav' id='admin'>
                         <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets'>Ver Tickets</a>
                     </div>
+                </div>
             ";
         } else {
             $html .= "
@@ -154,7 +152,7 @@ class formFuntions{
                 <form id='desarrollo' name='f2' method='POST'>
                     <div class='form-group'>
                         <div>
-                            <label>Correo*</label>
+                            <label>Nombre*</label>
                             <br>
                             <div class='cont_inpt_form'>
                                 <input class='inpt_form' name='solicitante[]' id='solicitante' value='$userName'>
@@ -232,7 +230,7 @@ class formFuntions{
                 <form id='soporte' name='f3' method='POST'>
                     <div class='form-group'>
                         <div>
-                            <label>Correo*</label>
+                            <label>Nombre*</label>
                             <br>
                             <div class='cont_inpt_form'>
                                 <input class='inpt_form' name='solicitante2[]' id='solicitante2' value='$userName'>
