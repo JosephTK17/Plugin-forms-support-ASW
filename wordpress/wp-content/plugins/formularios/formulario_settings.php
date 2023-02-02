@@ -238,12 +238,12 @@ function shortCode2(){
 function shortCode3()
 {
     $_short = new tableForms;
-    $id = $_POST['Table1'][0];
+    $tUrlId = $_GET['tUrlId'];
     $consecutivo = $_POST['consecutivo'][0];
     $fecha = $_POST['fecha'][0];
     $solicitante = $_POST['solicitante'][0];
 
-    $html = $_short->constructor($id, $consecutivo, $fecha, $solicitante);
+    $html = $_short->constructor($tUrlId, $consecutivo, $fecha, $solicitante);
 
     return $html;
 }
@@ -251,9 +251,10 @@ function shortCode3()
 function shortCode4()
 {
     $_short = new searchApplication;
+    $tUrlId = $_GET['tUrlId'];
     $consecutivo = $_POST['consecutivo'][0];
 
-    $html = $_short->constructor($consecutivo);
+    $html = $_short->constructor($tUrlId, $consecutivo);
 
     return $html;
 }

@@ -184,14 +184,17 @@ class detailApplication {
                         ";
                     }
                     
-                    $html .= "
-                                <form method='POST' name='btn_solucionado[]'>
-                                    <button type='submit' name='cerrar[]' value='solucionado'>Solucionado</button>
-                                </form>
+                    if (!is_super_admin()) {
+                        $html .= "
+                                    <form method='POST' name='btn_solucionado[]'>
+                                        <button type='submit' name='cerrar[]' value='solucionado'>Solucionado</button>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                    </body>
-                    ";
+                        </body>
+                        ";
+                    }
+                    
             }
         } elseif ($id2[0]['FormularioId'] == 2 && $status2[0]['Estado'] != "Cerrado") {
 
@@ -250,14 +253,16 @@ class detailApplication {
                     ";
                 }
                 
-                $html .= "
-                            <form method='POST' name='btn_solucionado[]'>
-                                <button type='submit' name='cerrar2[]' value='solucionado'>Solucionado</button>
-                            </form>
+                if (!is_super_admin()) {
+                    $html .= "
+                                <form method='POST' name='btn_solucionado[]'>
+                                    <button type='submit' name='cerrar2[]' value='solucionado'>Solucionado</button>
+                                </form>
+                            </div>
                         </div>
-                    </div>
-                </body>
-                ";
+                    </body>
+                    ";
+                }
             }
         } else if( $status[0]['Estado'] == "Cerrado" || $status2[0]['Estado'] == "Cerrado") {
             $html = "

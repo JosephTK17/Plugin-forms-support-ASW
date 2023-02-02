@@ -37,6 +37,11 @@ class formFuntions{
                         text-align: center;
                     }
 
+                    .btn_nav a:hover{
+                        background-color: #233170;
+                        transition: background-color 0.5s;
+                    }
+
                     .btn_nav a {   
                         background-color: #304293;
                         border-radius: 3px;
@@ -49,9 +54,13 @@ class formFuntions{
                         margin-right: 108px;
                     }
 
+                    #create a:hover{
+                        background-color: #6F6F6F;
+                        transition: background-color 0.5s;
+                    }
+
                     #create a{
                         padding: 10px 22px 10px 22px;
-                        box-shadow: 0px 0px 10px black;
                         margin-right: 108px;
                         background-color: gray;
                     }
@@ -68,12 +77,17 @@ class formFuntions{
                         border: 1px solid black;
                     }
 
+                    .form-group div{
+                        margin-bottom: 15px;
+                        display: inline-block;
+                    }
+
                     .form-group div label{
-                        padding:  0 0 0 150px;
+                        margin:  0 0 0 15px;
                     }
 
                     .cont_inpt_form{
-                        text-align: center;
+                        margin:  0 0 0 15px;
                     }
 
                     .inpt_form{
@@ -82,7 +96,19 @@ class formFuntions{
                         margin-top: 15px;
                         padding: 0.75rem!important;
                         box-shadow: inset 0 .25rem .125rem 0 rgba(0, 0, 0, .05)!important;
-                        width: 350px;
+                        width: 300px;
+                    }
+
+                    #solicitud{
+                        width: 620px;
+                    }
+
+                    #cont_btn_dllo{
+                        width: 100%;
+                    }
+
+                    #btnguardar1{
+                        text-align: center;
                     }
                     
                 </style>
@@ -133,7 +159,7 @@ class formFuntions{
             <div class='wrap'>
                 <form name='f1' method='POST'>
                     <div id='form_select' style='text-align: center;'>
-                        <select name='type[]' id='type' class='form-control type_list' onchange='change_form()' required style='height: 30px; width: 50%; text-align: center; font-size: 15px;'>
+                        <select name='type[]' id='type' class='form-control type_list' onchange='change_form()' required style='border: 2px solid #e0e0ec!important; height: 30px; width: 100%; text-align: center; font-size: 15px; box-shadow: inset 0 .25rem .125rem 0 rgba(0, 0, 0, .05)!important;'>
                             <option value=''>selecionar area</option>
                             <option value='1'>Desarrollo</option>
                             <option value='2'>Soporte</option>
@@ -147,7 +173,7 @@ class formFuntions{
     public function desarrolloForm($userName)
     {
         $html = "
-            <div class='cont_forms' id='cont_dllo' style='display:none'>
+            <div class='cont_forms' id='cont_dllo' style='display:block'>
                 <h4 style='color: #84858d; text-align: center;'>Desarrollo</h4>
                 <form id='desarrollo' name='f2' method='POST'>
                     <div class='form-group'>
@@ -158,13 +184,13 @@ class formFuntions{
                                 <input class='inpt_form' name='solicitante[]' id='solicitante' value='$userName'>
                             </div>
                         </div>
-                        <br>
 
                         <div>
                             <label>Área*</label>
                             <br>
                             <div class='cont_inpt_form'>
                                 <select class='inpt_form' name='area[]' id='area' class='col-sm-8' required>
+                                    <option value=''>Área</option>
                                     <option value='Academico'>Académico</option>
                                     <option value='Admisiones'>Admisiones</option>
                                     <option value='Administrativa'>Administrativa</option>
@@ -183,7 +209,6 @@ class formFuntions{
                                 </select>
                             </div>
                         </div>
-                        <br>
 
                         <div>
                             <label>Solicitud*</label>
@@ -201,7 +226,6 @@ class formFuntions{
                                 <textarea class='inpt_form' name='paraQue[]' id='paraQue' required></textarea>
                             </div>
                         </div>
-                        <br>
 
                         <div>
                             <label>Criterios de aceptación*</label>
@@ -210,9 +234,10 @@ class formFuntions{
                                 <textarea class='inpt_form' name='criterios[]' id='criterios' required></textarea>
                             </div>
                         </div>
-                        <br>
 
-                        <button type='submit' id='btnguardar1' name='btnguardar1[]' value='1'>Enviar</button>
+                        <div id='cont_btn_dllo'>
+                            <button type='submit' id='btnguardar1' name='btnguardar1[]' value='1'>Enviar</button>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -408,7 +433,7 @@ class formFuntions{
         } elseif (isset($_POST['btnguardar2'][0]) == 2) {
             echo "<script language='JavaScript'>
                     alert('Ticket creado, podras consultarlo con el siguiente consecutivo: $consecutivo2');
-                    window.location.href = 'http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2';
+                    // window.location.href = 'http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2';
                 </script>";
         } 
     }

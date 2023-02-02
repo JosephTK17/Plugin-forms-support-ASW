@@ -17,9 +17,15 @@ class index{
                         padding: 8px;
                     }
 
+                    #index a:hover{
+                        background-color: #6F6F6F;
+                        transition: background-color 0.5s;
+                    }
+
                     #index a{
                         padding: 10px 37px 10px 37px;
                         margin-right: 108px;
+                        background-color: gray;
                     }
 
                     #create a{
@@ -41,9 +47,9 @@ class index{
                         text-align: center;
                     }
 
-                    #index a{
-                        box-shadow: 0px 0px 10px black;
-                        background-color: gray;
+                    .btn_nav a:hover{
+                        background-color: #233170;
+                        transition: background-color 0.5s;
                     }
 
                     .btn_nav a {
@@ -53,8 +59,79 @@ class index{
                         color: white;
                     }
 
-                    .btn_num_tick {
+                    .cont_num_tickest{
+                        border: solid 1px gray;
+                    }
+
+                    .btn_num_tick{
+                        text-align: center;
                         display: inline-block;
+                        border: solid 1px gray;
+                        width: 120px;
+                    }
+
+                    .btn_num_tick a{
+                        text-decoration: none;
+                    }
+
+                    #abiertos{
+                        margin: 15px 39px 15px 15px;
+                    }
+
+                    #abiertos:hover{
+                        box-shadow: 0px 0px 3px black;
+                        border-color: #1BDC00;
+                        transition: border-color 0.5s;
+                        transition: box-shadow 0.4s;
+                    }
+
+                    #abiertos a{
+                        color: #1BDC00;
+                        padding: 0 10px 0 10px;
+                    }
+
+                    #cerrados{
+                        margin: 0 39px 0 0;
+                    }
+
+                    #cerrados:hover{
+                        box-shadow: 0px 0px 3px black;
+                        border-color: #FF0000;
+                        transition: border-color 0.5s;
+                        transition: box-shadow 0.4s;
+                    }
+
+                    #cerrados a{
+                        color: #FF0000;
+                        padding: 0 12px 0 12px;
+                    }
+
+                    #contestados{
+                        margin: 0 39px 0 0;
+                    }
+
+                    #contestados:hover{
+                        box-shadow: 0px 0px 3px black;
+                        border-color: #CACD00;
+                        transition: border-color 0.5s;
+                        transition: box-shadow 0.4s;
+                    }
+
+                    #contestados a{
+                        color: #CACD00;
+                        padding: 0 2px 0 2px;
+                    }
+
+                    #totales:hover{
+                        box-shadow: 0px 0px 3px black;
+                        border-color: #00CDCA;
+                        transition: border-color 0.5s;
+                        transition: box-shadow 0.4s;
+                    }
+
+                    #totales a{
+                        color: #00CDCA;
+                        padding: 0 15px 0 15px;
                     }
                     
                 </style>
@@ -106,17 +183,17 @@ class index{
         if (is_super_admin()) {
             $html .= "
                     <div class='cont_num_tickest'>
-                        <div class='btn_num_tick'>
-                            <button type='button' id='abiertos'>Abiertos ($numRegistrosAb)</button>
+                        <div class='btn_num_tick' id='abiertos'>
+                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=1'>Abiertos ($numRegistrosAb)</a>
                         </div>
-                        <div class='btn_num_tick'>
-                            <button type='button' id='cerrados'>Cerrados ($numRegistrosCe)</button>
+                        <div class='btn_num_tick' id='cerrados'>
+                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/'>Cerrados ($numRegistrosCe)</a>
                         </div>
-                        <div class='btn_num_tick'>
-                            <button type='button' id='contestados'>Contestado ($numRegistrosCon)</button>
+                        <div class='btn_num_tick' id='contestados'>
+                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/'>Contestado ($numRegistrosCon)</a>
                         </div>
-                        <div class='btn_num_tick'>
-                            <button type='button' id='totales'>Totales ($numRegistrosTot)</button>
+                        <div class='btn_num_tick' id='totales'>
+                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/'>Totales ($numRegistrosTot)</a>
                         </div>
                     </div>
                 </body>
@@ -124,17 +201,17 @@ class index{
         } else {
             $html .= "
                     <div class='cont_num_tickest'>
-                        <div class='btn_num_tick'>
-                            <button type='button' id='abiertos'>Abiertos ($numRegistrosAb2)</button>
+                        <div class='btn_num_tick' id='abiertos'>
+                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlId=1'>Abiertos ($numRegistrosAb2)</a>
                         </div>
-                        <div class='btn_num_tick'>
-                            <button type='button' id='cerrados'>Cerrados ($numRegistrosCe2)</button>
+                        <div class='btn_num_tick' id='cerrados'>
+                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlId=2'>Cerrados ($numRegistrosCe2)</a>
                         </div>
-                        <div class='btn_num_tick'>
-                            <button type='button' id='contestados'>Contestado ($numRegistrosCon2)</button>
+                        <div class='btn_num_tick' id='contestados'>
+                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlId=3'>Contestado ($numRegistrosCon2)</a>
                         </div>
-                        <div class='btn_num_tick'>
-                            <button type='button' id='totales'>Totales ($numRegistrosTot2)</button>
+                        <div class='btn_num_tick' id='totales'>
+                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlId=4'>Totales ($numRegistrosTot2)</a>
                         </div>
                     </div>
                 </body>
@@ -143,11 +220,6 @@ class index{
         
 
         return $html;
-    }
-
-    public function tickets()
-    {
-        # code...
     }
 
     public function include()
@@ -166,8 +238,6 @@ class index{
                 $userName = $userInfo->user_login;
             }
         }
-
-        var_dump($userName);
 
         //admin----------------------------------------------------------------------------------------------
         //tabla desarrollo------------------------
