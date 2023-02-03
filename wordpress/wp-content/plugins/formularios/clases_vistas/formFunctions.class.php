@@ -98,6 +98,7 @@ class formFuntions{
                     }
 
                     .form-group div label{
+                        font-weight: 200;
                         margin:  0 0 0 15px;
                     }
 
@@ -234,7 +235,8 @@ class formFuntions{
                 <form id='desarrollo' name='f2' method='POST'>
                     <div class='form-group'>
                         <div>
-                            <label>Nombre*</label>
+                            <label>Nombre</label>
+                            <span style='color: red;'>*</span>
                             <br>
                             <div class='cont_inpt_form'>
                                 <input class='inpt_form' name='solicitante[]' id='solicitante' value='$userName'>
@@ -242,7 +244,8 @@ class formFuntions{
                         </div>
 
                         <div>
-                            <label>Área*</label>
+                            <label>Área</label>
+                            <span style='color: red;'>*</span>
                             <br>
                             <div class='cont_inpt_form'>
                                 <select class='inpt_form' name='area[]' id='area' class='col-sm-8' required>
@@ -267,7 +270,8 @@ class formFuntions{
                         </div>
 
                         <div>
-                            <label>Solicitud*</label>
+                            <label>Solicitud</label>
+                            <span style='color: red;'>*</span>
                             <br>
                             <div class='cont_inpt_form'>
                                 <textarea class='inpt_form' name='solicitud[]' id='solicitud' required></textarea>
@@ -276,7 +280,8 @@ class formFuntions{
                         <br>
 
                         <div>
-                            <label>Para Que*</label>
+                            <label>Para Que</label>
+                            <span style='color: red;'>*</span>
                             <br>
                             <div class='cont_inpt_form'>
                                 <textarea class='inpt_form' name='paraQue[]' id='paraQue' required></textarea>
@@ -284,7 +289,8 @@ class formFuntions{
                         </div>
 
                         <div>
-                            <label>Criterios de aceptación*</label>
+                            <label>Criterios de aceptación</label>
+                            <span style='color: red;'>*</span>
                             <br>
                             <div class='cont_inpt_form'>
                                 <textarea class='inpt_form' name='criterios[]' id='criterios' required></textarea>
@@ -305,11 +311,12 @@ class formFuntions{
     public function soporteForm($userName)
     {
         $html = "
-            <div class='cont_forms' id='cont_spte' style='display: none'>
+            <div class='cont_forms' id='cont_spte' style='display: block'>
                 <form id='soporte' name='f3' method='POST'>
                     <div class='form-group'>
                         <div>
-                            <label>Nombre*</label>
+                            <label>Nombre</label>
+                            <span style='color: red;'>*</span>
                             <br>
                             <div class='cont_inpt_form'>
                                 <input class='inpt_form' name='solicitante2[]' id='solicitante2' value='$userName'>
@@ -317,7 +324,8 @@ class formFuntions{
                         </div>
 
                         <div>
-                            <label>Área*</label>
+                            <label>Área</label>
+                            <span style='color: red;'>*</span>
                             <br>
                             <div class='cont_inpt_form'>
                                 <select class='inpt_form' name='area2[]' id='area' class='col-sm-8' required>
@@ -342,7 +350,8 @@ class formFuntions{
                         </div>
 
                         <div>
-                            <label>Descripción*</label>
+                            <label>Descripción</label>
+                            <span style='color: red;'>*</span>
                             <br>
                             <div class='cont_inpt_form'>
                                 <textarea class='inpt_form' name='descripcion[]' id='descripcion' required></textarea>
@@ -350,7 +359,8 @@ class formFuntions{
                         </div>
 
                         <div>
-                            <label>Ciudad*</label>
+                            <label>Ciudad</label>
+                            <span style='color: red;'>*</span>
                             <br>
                             <div class='cont_inpt_form'>
                                 <select class='inpt_form' name='ciudades[]' id='ciudades' onchange='cambiar_sedes()' required>
@@ -367,12 +377,12 @@ class formFuntions{
                         </div>
 
                         <div>
-                            <label>Sede*</label>
+                            <label>Sede</label>
+                            <span style='color: red;'>*</span>
                             <br>
                             <div class='cont_inpt_form'>
                                 <select class='inpt_form' name='sedes[]' id='sedes' required>
                                     <option value=''>Sede</option>
-                                    
                                 </select>
                             </div>
                         </div>
@@ -467,28 +477,7 @@ class formFuntions{
             </script>";
     }
 
-    public function showApplication($consecutivo, $consecutivo2)
-    {
-        // if (isset($_POST['btnguardar1'][0]) == "" || isset($_POST['btnguardar2'][0]) == "") {
-        //     echo "<script language='JavaScript'>
-        //             alert('No fue posible enviar su solicitud');
-        //             window.location.href = 'http://localhost/formulario_soporte_desarrollo/wordpress/index.php/formularios/';
-        //         </script>";
-        // }
-        if (isset($_POST['btnguardar1'][0]) == 1) {
-            echo "<script language='JavaScript'>
-                    alert('Ticket creado, podras consultarlo con el siguiente consecutivo: $consecutivo');
-                    window.location.href = 'http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo';
-                </script>";
-        } elseif (isset($_POST['btnguardar2'][0]) == 2) {
-            echo "<script language='JavaScript'>
-                    alert('Ticket creado, podras consultarlo con el siguiente consecutivo: $consecutivo2');
-                    // window.location.href = 'http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2';
-                </script>";
-        } 
-    }
-
-    public function constructor($FormularioId, $consecutivo, $consecutivo2)
+    public function constructor($FormularioId)
     {
         $form = $this->getForms($FormularioId);
         $userName = $this->getUser();
@@ -496,8 +485,7 @@ class formFuntions{
         $name = $form['Nombre'];
 
         $html = $this->getUser();
-        $html = $this->showApplication($consecutivo, $consecutivo2);
-        $html .= $this->head();
+        $html = $this->head();
 
         $html .= $this->buttonsNav();
         $html .= $this->openForm();

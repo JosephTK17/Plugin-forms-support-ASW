@@ -133,41 +133,48 @@ function shortCode2(){
             'Criterios de aceptación' => $criterios,
             'Estado' => 'Solicitado',
             'FormularioId' => 1,
-        ];    
-
-        $wpdb->insert($tablaR1,$datos);        
+        ];     
 
         //Create an instance; passing `true` enables exceptions
         $mail = new PHPMailer(true);
 
-        try {
-            //Server settings
-            $mail->SMTPDebug = 0;                      //Enable verbose debug output
-            $mail->isSMTP();                                            //Send using SMTP
-            $mail->Host       = '';                     //Set the SMTP server to send through
-            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-            $mail->Username   = '';                     //SMTP username
-            $mail->Password   = '';                               //SMTP password
-            $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
-            $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-        
-            //Recipients
-            $mail->setFrom('Poner correo de envio', 'American School Way');
-            $mail->addAddress($userEmail);     //Add a recipient
-        
-            //Content
-            $mail->isHTML(true);                                  //Set email format to HTML
-            $mail->Subject = 'Test mandar correo';
-            $mail->Body    = 'Este es tu consecutivo '.$consecutivo.'cuando lo desees visita el apartado Mis Tickets para hacer la consulta del estado de tu solicitud';
-        
-            $mail->send();
 
-        } catch (Exception $e) {    
+        if (!empty($consecutivo) || !empty($actualDate) || !empty($solicitante) || !empty($area) || !empty($solicitud) || !empty($paraQue) || !empty($criterios)) {
+
+            $wpdb->insert($tablaR1,$datos);
+
+            // //Server settings
+            // $mail->SMTPDebug = 0;                      //Enable verbose debug output
+            // $mail->isSMTP();                                            //Send using SMTP
+            // $mail->Host       = 'smtp-relay.sendinblue.com';                     //Set the SMTP server to send through
+            // $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+            // $mail->Username   = 'josephstevenbarretocabrera@gmail.com';                     //SMTP username
+            // $mail->Password   = 'Ozh45NIsqKg0CbjY';                               //SMTP password
+            // $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
+            // $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+        
+            // //Recipients
+            // $mail->setFrom('josephstevenbarretocabrera@gmail.com', 'American School Way');
+            // $mail->addAddress($userEmail);     //Add a recipient
+        
+            // //Content
+            // $mail->isHTML(true);                                  //Set email format to HTML
+            // $mail->Subject = 'Test mandar correo';
+            // $mail->Body    = 'Este es tu consecutivo '.$consecutivo.'cuando lo desees visita el apartado Mis Tickets para hacer la consulta del estado de tu solicitud';
+        
+            // $mail->send();
+
             echo "<script language='JavaScript'>
-                    alert('Message could not be sent. Mailer Error: {$mail->ErrorInfo}')
+                alert('Ticket creado, podras consultarlo con el siguiente consecutivo: $consecutivo');
+                window.location.href = 'http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo';
+            </script>";
+
+        } else {
+            echo "<script language='JavaScript'>
+                    alert('Ups... Ocurrio un error al enviar tu ticket, intentalo de nuevo')
                     window.location.href = 'http://localhost/formulario_soporte_desarrollo/wordpress/index.php/formularios/';
                 </script>";
-        }
+        }      
 
     } elseif (isset($_POST['btnguardar2'])){
         
@@ -190,41 +197,45 @@ function shortCode2(){
             'Estado' => 'Solicitado',
             'FormularioId' => 2,
         ];    
-        
-        $wpdb->insert($tablaR2,$datos);
 
-        //Create an instance; passing `true` enables exceptions
-        $mail = new PHPMailer(true);
+        if (!empty($consecutivo2) || !empty($actualDate2) || !empty($solicitante2) || !empty($area2) || !empty($descripcion) || !empty($sede)) {
+            $wpdb->insert($tablaR2,$datos);
 
-        try {
-            //Server settings
-            $mail->SMTPDebug = 0;                      //Enable verbose debug output
-            $mail->isSMTP();                                            //Send using SMTP
-            $mail->Host       = '';                     //Set the SMTP server to send through
-            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-            $mail->Username   = '';                     //SMTP username
-            $mail->Password   = '';                               //SMTP password
-            $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
-            $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-        
-            //Recipients
-            $mail->setFrom('Poner correo de envio', 'American School Way');
-            $mail->addAddress($userEmail);     //Add a recipient
-        
-            //Content
-            $mail->isHTML(true);                                  //Set email format to HTML
-            $mail->Subject = 'Test mandar correo';
-            $mail->Body    = 'Este es tu consecutivo '.$consecutivo2.'cuando lo desees visita el apartado Mis Tickets para hacer la consulta del estado de tu solicitud';
-        
-            $mail->send();
+            // //Create an instance; passing `true` enables exceptions
+            // $mail = new PHPMailer(true);
 
-        } catch (Exception $e) {    
+            // //Server settings
+            // $mail->SMTPDebug = 0;                      //Enable verbose debug output
+            // $mail->isSMTP();                                            //Send using SMTP
+            // $mail->Host       = '';                     //Set the SMTP server to send through
+            // $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+            // $mail->Username   = '';                     //SMTP username
+            // $mail->Password   = '';                               //SMTP password
+            // $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
+            // $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+        
+            // //Recipients
+            // $mail->setFrom('Poner correo de envio', 'American School Way');
+            // $mail->addAddress($userEmail);     //Add a recipient
+        
+            // //Content
+            // $mail->isHTML(true);                                  //Set email format to HTML
+            // $mail->Subject = 'Test mandar correo';
+            // $mail->Body    = 'Este es tu consecutivo '.$consecutivo2.'cuando lo desees visita el apartado Mis Tickets para hacer la consulta del estado de tu solicitud';
+        
+            // $mail->send();
+
             echo "<script language='JavaScript'>
-                    alert('Message could not be sent. Mailer Error: {$mail->ErrorInfo}')
+                    alert('Ticket creado, podras consultarlo con el siguiente consecutivo: $consecutivo2');
+                    window.location.href = 'http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2';
+                </script>";
+        } else {
+            echo "<script language='JavaScript'>
+                    alert('Ups... Ocurrio un error al enviar tu ticket, intentalo de nuevo')
                     window.location.href = 'http://localhost/formulario_soporte_desarrollo/wordpress/index.php/formularios/';
                 </script>";
-        }
-    }
+        }      
+    } 
 
     $_short = new formFuntions;
     $id = $_POST['type'][0];
@@ -253,8 +264,9 @@ function shortCode4()
     $_short = new searchApplication;
     $tUrlId = $_GET['tUrlId'];
     $consecutivo = $_POST['consecutivo'][0];
+    $fecha = $_POST['fecha'][0];
 
-    $html = $_short->constructor($tUrlId, $consecutivo);
+    $html = $_short->constructor($tUrlId, $consecutivo, $fecha);
 
     return $html;
 }

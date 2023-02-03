@@ -84,6 +84,38 @@ class searchApplication {
                         background-color: gray;
                     }                    
 
+                    .inpt_filter{
+                        margin: 0 10px 20px 0;
+                    }
+
+                    #inpt_consecutivo{
+                        display: inline-block;
+                    }
+
+                    #consecutivo{
+                        border: 2px solid #e0e0ec!important;
+                        border-radius: 0;
+                        box-shadow: inset 0 .25rem .125rem 0 rgba(0, 0, 0, .05)!important;
+                        width: 200px;
+                    }
+
+                    #inpt_fecha{
+                        display: inline-block;
+                    }
+
+                    #fecha{
+                        border: 2px solid #e0e0ec!important;
+                        border-radius: 0;
+                        box-shadow: inset 0 .25rem .125rem 0 rgba(0, 0, 0, .05)!important;
+                        width: 200px;
+                        display: inline-block;
+                    }
+
+                    #btn_buscar{
+                        display: inline-block;
+                        width: 100px;
+                    }
+
                     .table_form{
                         border-collapse: collapse;
                     }
@@ -224,78 +256,295 @@ class searchApplication {
     {
         $html = "
             <form method='POST'>
-                <table style='margin: 0 0 0 100%;'>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <input type='text' name='consecutivo[]' placeholder='consecutivo' required style='height:25px; text-align: center;'>
-                            </td>
-                            <td>
-                                <button type='submit' name='buscar' style='cursor: pointer; height:25px; width:150%; border: transparent; background-color: #ca0004; color: #b3b3b3; border-radius: 5px;'><strong>Buscar</strong></button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div id='cont_inpt'>
+                    <div class='inpt_filter' id='inpt_consecutivo'>
+                        <input type='text' name='consecutivo[]' id='consecutivo' placeholder='Consecutivo' style='height:20px; text-align: center;'>
+                    </div>
+                    <div class='inpt_filter' id='inpt_fecha'>
+                        <input type='text' name='fecha[]' id='fecha' placeholder='Fecha ej: 20-05-2023' style=' height:20px; text-align: center;'>
+                    </div>
+                    <div class='inpt_filter' id='btn_buscar'>
+                        <button type='submit' name='buscar' style='cursor: pointer; height:25px; width:100%; border: transparent; background-color: #ca0004; color: #b3b3b3; border-radius: 5px;'><strong>Buscar</strong></button>
+                    </div>
+                </div>       
             </form>
         ";
 
         return $html;
     }
 
-    public function openTableApplication($id, $id2)
+    public function openTableApplication($conseId, $conseId2, $lista_formularios_filter, $lista_formularios_filter2)
     {
-        if ($id[0]['FormularioId'] == 1) {
-            $html = "
-                <h4 style='color: #84858d; text-align: center;'>Desarrollo</h4>
-                <table class='table_form' border=1>
-                    <thead>
-                        <th>Consecutivo</th>
-                        <th>Fecha</th>
-                        <th>Solicitante</th>
-                        <th>Área</th>
-                        <th>Solicitud</th>
-                        <th>Para qué</th>
-                        <th>Criterios</th>
-                        <th>Estado</th>
-                        <th></th>
-                    </thead>
-                    <tbody>
-            ";
-        } elseif ($id2[0]['FormularioId'] == 2) {
-            $html = "
-            <h4 style='color: #84858d; text-align: center;'>Soporte</h4>
-                <table class='table_form' border=1>
-                    <thead>
-                        <th>Consecutivo</th>
-                        <th>Fecha</th>
-                        <th>Solicitante</th>
-                        <th>Área</th>
-                        <th>Descripción</th>
-                        <th>Sede</th>
-                        <th>Estado</th>
-                        <th></th>
-                    </thead>
-                    <tbody>
-            ";
-        }
+        $html = "";
 
-        return $html;
-    }
+        if (!empty($_POST['fecha'][0])) {
 
-    public function dataTableApplication($id, $id2, $consecutivo, $lista_formularios, $lista_formularios2)
-    {
-        if ($id[0]['FormularioId'] == 1) {
-            foreach ($lista_formularios as $key => $value) {
+            //fecha
+            if ($conseId[0]['FormularioId'] == 1 && $conseId2[0]['FormularioId'] == 2) {
+
+                $html .= "
+                    <div id='cont_table_dllo'>
+                        <h4>Desarrollo</h4>
+                        <table class='table_form' border=1>
+                            <thead>
+                                <th>Consecutivo</th>
+                                <th>Fecha</th>
+                                <th>Solicitante</th>
+                                <th>Área</th>
+                                <th>Solicitud</th>
+                                <th>Para qué</th>
+                                <th>Criterios</th>
+                                <th>Estado</th>
+                                <th></th>
+                            </thead>
+                            <tbody>
+                ";
+
+                foreach ($lista_formularios_filter as $key => $value) {
                     $consecutivo = $value['Consecutivo'];
                     $date = $value['Fecha'];
                     $solicitante = $value['Solicitante'];
                     $area = $value['Área'];
                     $solicitud = $value['Solicitud'];
                     $paraQue = $value['Para qué'];
-                    $criterios = $value['Criterios de aceptación'];
                     $estado = $value['Estado'];
+                    $criterios = $value['Criterios de aceptación'];
+        
+                    $html .= "
+                        <tr>
+                            <td>$consecutivo</td>
+                            <td>$date</td>
+                            <td>$solicitante</td>
+                            <td>$area</td>
+                            <td>$solicitud</td>
+                            <td>$paraQue</td>
+                            <td>$criterios</td>
+                            <td>$estado</td>
+                            <td>
+                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>
+                            </td>
+                        </tr>
+                    ";
+                }
 
-                $html = "
+                $html .= "
+                        </tbody>
+                    </table>
+                </div>
+                ";
+
+                $html .= "
+                    <div id='cont_table_spte'>
+                        <h4>Soporte</h4>
+                            <table class='table_form' border=1>
+                                <thead>
+                                    <th>Consecutivo</th>
+                                    <th>Fecha</th>
+                                    <th>Quién reporta</th>
+                                    <th>Área</th>
+                                    <th>Descripción</th>
+                                    <th>Sede</th>
+                                    <th>Estado</th>
+                                    <th></th>
+                                </thead>
+                                <tbody>
+                ";
+
+                foreach ($lista_formularios_filter2 as $key => $value) {
+                    $consecutivo2 = $value['Consecutivo'];
+                    $date2 = $value['Fecha'];
+                    $solicitante2 = $value['Solicitante'];
+                    $area2 = $value['Área'];
+                    $descripcion = $value['Descripción'];
+                    $estado2 = $value['Estado'];
+                    $sede = $value['Sede'];
+        
+                    $html .= "
+                        <tr>
+                            <td>$consecutivo2</td>
+                            <td>$date2</td>
+                            <td>$solicitante2</td>
+                            <td>$area2</td>
+                            <td>$descripcion</td>
+                            <td>$sede</td>
+                            <td>$estado2</td>
+                            <td>
+                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2'>Detalle</a>
+                            </td>
+                        </tr>
+                    ";
+                }
+
+                $html .= "
+                        </tbody>
+                    </table>
+                </div>
+                ";
+            } elseif ($conseId[0]['FormularioId'] == 1) {
+
+                $html .= "
+                    <div id='cont_table_dllo'>
+                        <h4>Desarrollo</h4>
+                        <table class='table_form' border=1>
+                            <thead>
+                                <th>Consecutivo</th>
+                                <th>Fecha</th>
+                                <th>Solicitante</th>
+                                <th>Área</th>
+                                <th>Solicitud</th>
+                                <th>Para qué</th>
+                                <th>Criterios</th>
+                                <th>Estado</th>
+                                <th></th>
+                            </thead>
+                            <tbody>
+                ";
+
+                foreach ($lista_formularios_filter as $key => $value) {
+                    $consecutivo = $value['Consecutivo'];
+                    $date = $value['Fecha'];
+                    $solicitante = $value['Solicitante'];
+                    $area = $value['Área'];
+                    $solicitud = $value['Solicitud'];
+                    $paraQue = $value['Para qué'];
+                    $estado = $value['Estado'];
+                    $criterios = $value['Criterios de aceptación'];
+        
+                    $html .= "
+                        <tr>
+                            <td>$consecutivo</td>
+                            <td>$date</td>
+                            <td>$solicitante</td>
+                            <td>$area</td>
+                            <td>$solicitud</td>
+                            <td>$paraQue</td>
+                            <td>$criterios</td>
+                            <td>$estado</td>
+                            <td>
+                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>
+                            </td>
+                        </tr>
+                    ";
+                }
+
+                $html .= "
+                        </tbody>
+                    </table>
+                </div>
+                ";
+            } elseif ($conseId2[0]['FormularioId'] == 2) {
+
+                $html .= "
+                    <div id='cont_table_spte'>
+                        <h4>Soporte</h4>
+                            <table class='table_form' border=1>
+                                <thead>
+                                    <th>Consecutivo</th>
+                                    <th>Fecha</th>
+                                    <th>Quién reporta</th>
+                                    <th>Área</th>
+                                    <th>Descripción</th>
+                                    <th>Sede</th>
+                                    <th>Estado</th>
+                                    <th></th>
+                                </thead>
+                                <tbody>
+                ";
+
+                foreach ($lista_formularios_filter2 as $key => $value) {
+                    $consecutivo2 = $value['Consecutivo'];
+                    $date2 = $value['Fecha'];
+                    $solicitante2 = $value['Solicitante'];
+                    $area2 = $value['Área'];
+                    $descripcion = $value['Descripción'];
+                    $estado2 = $value['Estado'];
+                    $sede = $value['Sede'];
+        
+                    $html .= "
+                        <tr>
+                            <td>$consecutivo2</td>
+                            <td>$date2</td>
+                            <td>$solicitante2</td>
+                            <td>$area2</td>
+                            <td>$descripcion</td>
+                            <td>$sede</td>
+                            <td>$estado2</td>
+                            <td>
+                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2'>Detalle</a>
+                            </td>
+                        </tr>
+                    ";
+                }
+
+                $html .= "
+                        </tbody>
+                    </table>
+                </div>
+                ";
+            }
+
+        } elseif (!empty($_POST['consecutivo'][0]) && $conseId[0]['FormularioId'] == 1) {
+
+            //consecutivo
+            $html .= "
+                <div id='cont_table_dllo'>
+                    <h4>Desarrollo</h4>
+                    <table class='table_form' border=1>
+                        <thead>
+                            <th>Consecutivo</th>
+                            <th>Fecha</th>
+                            <th>Solicitante</th>
+                            <th>Área</th>
+                            <th>Solicitud</th>
+                            <th>Para qué</th>
+                            <th>Criterios</th>
+                            <th>Estado</th>
+                            <th></th>
+                        </thead>
+                        <tbody>
+            ";
+        } elseif (!empty($_POST['consecutivo'][0]) && $conseId2[0]['FormularioId'] == 2) {
+
+            //consecutivo
+            $html .= "
+                <div id='cont_table_spte'>
+                    <h4>Soporte</h4>
+                    <table class='table_form' border=1>
+                        <thead>
+                            <th>Consecutivo</th>
+                            <th>Fecha</th>
+                            <th>Solicitante</th>
+                            <th>Área</th>
+                            <th>Descripción</th>
+                            <th>Sede</th>
+                            <th>Estado</th>
+                            <th></th>
+                        </thead>
+                        <tbody>
+            ";
+        }
+
+        return $html;
+    }
+
+    public function dataTableApplication($conseId, $conseId2, $lista_formularios_filter, $lista_formularios_filter2)
+    {
+
+        $html = "";
+
+        //datos consecutivo
+        if (!empty($_POST['consecutivo'][0]) && $conseId[0]['FormularioId'] == 1) {
+            foreach ($lista_formularios_filter as $key => $value) {
+                    $consecutivo = $value['Consecutivo'];
+                    $date = $value['Fecha'];
+                    $solicitante = $value['Solicitante'];
+                    $area = $value['Área'];
+                    $solicitud = $value['Solicitud'];
+                    $paraQue = $value['Para qué'];
+                    $estado = $value['Estado'];
+                    $criterios = $value['Criterios de aceptación'];
+
+                $html .= "
                     <tr>
                         <td>$consecutivo</td>
                         <td>$date</td>
@@ -311,21 +560,21 @@ class searchApplication {
                     </tr>
                 ";
             }
-        } elseif ($id2[0]['FormularioId'] == 2) {
-            foreach ($lista_formularios2 as $key => $value) {
+        } elseif (!empty($_POST['consecutivo'][0]) && $conseId2[0]['FormularioId'] == 2) {
+            foreach ($lista_formularios_filter2 as $key => $value) {
                     $consecutivo2 = $value['Consecutivo'];
                     $date2 = $value['Fecha'];
-                    $solicitante2 = $value['Solicitante'];
+                    $solicitante = $value['Solicitante'];
                     $area2 = $value['Área'];
                     $descripcion = $value['Descripción'];
-                    $sede = $value['Sede'];
                     $estado2 = $value['Estado'];
+                    $sede = $value['Sede'];
 
-                $html = "
+                $html .= "
                     <tr>
                         <td>$consecutivo2</td>
                         <td>$date2</td>
-                        <td>$solicitante2</td>
+                        <td>$solicitante</td>
                         <td>$area2</td>
                         <td>$descripcion</td>
                         <td>$sede</td>
@@ -355,574 +604,613 @@ class searchApplication {
     {
         $html = "";
         if ($tUrlId == 1) {
-            $html .= "
-                <div id='cont_table_dllo'>
-                    <h4>Desarrollo</h4>
-                    <table class='table_form' border=1>
-                        <thead>
-                            <th>Consecutivo</th>
-                            <th>Fecha</th>
-                            <th>Solicitante</th>
-                            <th>Área</th>
-                            <th>Solicitud</th>
-                            <th>Para qué</th>
-                            <th>Criterios</th>
-                            <th>Estado</th>
-                            <th></th>
-                        </thead>
-                        <tbody>
-            ";
+            if (!empty($lista_formularios_rtasD1)) {
+                $html .= "
+                    <div id='cont_table_dllo'>
+                        <h4>Desarrollo</h4>
+                        <table class='table_form' border=1>
+                            <thead>
+                                <th>Consecutivo</th>
+                                <th>Fecha</th>
+                                <th>Solicitante</th>
+                                <th>Área</th>
+                                <th>Solicitud</th>
+                                <th>Para qué</th>
+                                <th>Criterios</th>
+                                <th>Estado</th>
+                                <th></th>
+                            </thead>
+                            <tbody>
+                ";
 
-            foreach ($lista_formularios_rtasD1 as $key => $value) {
-                $consecutivo = $value['Consecutivo'];
-                $date = $value['Fecha'];
-                $solicitante = $value['Solicitante'];
-                $area = $value['Área'];
-                $solicitud = $value['Solicitud'];
-                $paraQue = $value['Para qué'];
-                $estado = $value['Estado'];
-                $criterios = $value['Criterios de aceptación'];
+                foreach ($lista_formularios_rtasD1 as $key => $value) {
+                    $consecutivo = $value['Consecutivo'];
+                    $date = $value['Fecha'];
+                    $solicitante = $value['Solicitante'];
+                    $area = $value['Área'];
+                    $solicitud = $value['Solicitud'];
+                    $paraQue = $value['Para qué'];
+                    $estado = $value['Estado'];
+                    $criterios = $value['Criterios de aceptación'];
+
+                    $html .= "
+                        <tr>
+                            <td>$consecutivo</td>
+                            <td>$date</td>
+                            <td>$solicitante</td>
+                            <td>$area</td>
+                            <td>$solicitud</td>
+                            <td>$paraQue</td>
+                            <td>$criterios</td>
+                            <td>$estado</td>
+                            <td>
+                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>
+                            </td>
+                        </tr>
+                    ";
+                }
 
                 $html .= "
-                    <tr>
-                        <td>$consecutivo</td>
-                        <td>$date</td>
-                        <td>$solicitante</td>
-                        <td>$area</td>
-                        <td>$solicitud</td>
-                        <td>$paraQue</td>
-                        <td>$criterios</td>
-                        <td>$estado</td>
-                        <td>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>
-                        </td>
-                    </tr>
+                        </tbody>
+                    </table>
+                </div>
+                ";
+
+                if ( $countPagD1 > 10 ){
+                    $nav_countD1 = 0;
+                    $page_countD1 = 1;
+                    $current_pageD1 = $start_numberD1/10 + 1;
+            
+                    while ( $nav_countD1 < $countPagD1 ) {
+                        if ( $page_countD1 === $current_pageD1 ){
+                            $html .= "<span>{$page_countD1}</span> ";
+                        } else {
+                            $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=1 && startD1={$nav_countD1}'>{$page_countD1}</a>
+                            ";
+                        }
+                        $nav_countD1 += 10;
+                        $page_countD1++;
+                    }
+                }
+
+            } else {
+                $html .= "
+                    <h1>No hay registros abiertos en la tabla 'Desarrollo'</h1>
                 ";
             }
 
-            $html .= "
-                    </tbody>
-                </table>
-            </div>
-            ";
-
-            if ( $countPagD1 > 10 ){
-                $nav_countD1 = 0;
-                $page_countD1 = 1;
-                $current_pageD1 = $start_numberD1/10 + 1;
-        
-                while ( $nav_countD1 < $countPagD1 ) {
-                    if ( $page_countD1 === $current_pageD1 ){
-                        $html .= "<span>{$page_countD1}</span> ";
-                    } else {
-                        $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=1 && startD1={$nav_countD1}'>{$page_countD1}</a>
-                        ";
-                    }
-                    $nav_countD1 += 10;
-                    $page_countD1++;
-                }
-            }
-
-            $html .= "
-                <div id='cont_table_spte'>
-                    <h4>Soporte</h4>
-                    <table class='table_form' border=1>
-                        <thead>
-                            <th>Consecutivo</th>
-                            <th>Fecha</th>
-                            <th>Quién reporta</th>
-                            <th>Área</th>
-                            <th>Descripción</th>
-                            <th>Sede</th>
-                            <th>Estado</th>
-                            <th></th>
-                        </thead>
-                        <tbody>
-            ";
-
-            foreach ($lista_formularios_rtasS1 as $key => $value) {
-                $consecutivo2 = $value['Consecutivo'];
-                $date2 = $value['Fecha'];
-                $solicitante2 = $value['Solicitante'];
-                $area2 = $value['Área'];
-                $descripcion = $value['Descripción'];
-                $estado2 = $value['Estado'];
-                $sede = $value['Sede'];
-    
+            if (!empty($lista_formularios_rtasS1)) {
                 $html .= "
-                    <tr>
-                        <td>$consecutivo2</td>
-                        <td>$date2</td>
-                        <td>$solicitante2</td>
-                        <td>$area2</td>
-                        <td>$descripcion</td>
-                        <td>$sede</td>
-                        <td>$estado2</td>
-                        <td>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2'>Detalle</a>
-                        </td>
-                    </tr>
+                    <div id='cont_table_spte'>
+                        <h4>Soporte</h4>
+                        <table class='table_form' border=1>
+                            <thead>
+                                <th>Consecutivo</th>
+                                <th>Fecha</th>
+                                <th>Quién reporta</th>
+                                <th>Área</th>
+                                <th>Descripción</th>
+                                <th>Sede</th>
+                                <th>Estado</th>
+                                <th></th>
+                            </thead>
+                            <tbody>
                 ";
-            }
 
-            $html .= "
-                    </tbody>
-                </table>
-            </div>
-            ";
-
-            if ( $countPagS1 > 10 ){
-                $nav_countS1 = 0;
-                $page_countS1 = 1;
-                $current_pageS1 = $start_numberS1/10 + 1;
+                foreach ($lista_formularios_rtasS1 as $key => $value) {
+                    $consecutivo2 = $value['Consecutivo'];
+                    $date2 = $value['Fecha'];
+                    $solicitante2 = $value['Solicitante'];
+                    $area2 = $value['Área'];
+                    $descripcion = $value['Descripción'];
+                    $estado2 = $value['Estado'];
+                    $sede = $value['Sede'];
         
-                while ( $nav_countS1 < $countPagS1 ) {
-                    if ( $page_countS1 === $current_pageS1 ){
-                        $html .= "<span>{$page_countS1}</span> ";
-                    } else {
-                        $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=1 && startS1={$nav_countS1}'>{$page_countS1}</a> ";
-                    }
-                    $nav_countS1 += 10;
-                    $page_countS1++;
+                    $html .= "
+                        <tr>
+                            <td>$consecutivo2</td>
+                            <td>$date2</td>
+                            <td>$solicitante2</td>
+                            <td>$area2</td>
+                            <td>$descripcion</td>
+                            <td>$sede</td>
+                            <td>$estado2</td>
+                            <td>
+                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2'>Detalle</a>
+                            </td>
+                        </tr>
+                    ";
                 }
+
+                $html .= "
+                        </tbody>
+                    </table>
+                </div>
+                ";
+
+                if ( $countPagS1 > 10 ){
+                    $nav_countS1 = 0;
+                    $page_countS1 = 1;
+                    $current_pageS1 = $start_numberS1/10 + 1;
+            
+                    while ( $nav_countS1 < $countPagS1 ) {
+                        if ( $page_countS1 === $current_pageS1 ){
+                            $html .= "<span>{$page_countS1}</span> ";
+                        } else {
+                            $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=1 && startS1={$nav_countS1}'>{$page_countS1}</a> ";
+                        }
+                        $nav_countS1 += 10;
+                        $page_countS1++;
+                    }
+                }
+            } else {
+                $html .= "
+                    <h1>No hay registros abiertos en la tabla 'Soporte'</h1>
+                ";
             }
 
         } elseif ($tUrlId == 2){
-            $html .= "
-                <div id='cont_table_dllo'>
-                    <h4>Desarrollo</h4>
-                    <table class='table_form' border=1>
-                        <thead>
-                            <th>Consecutivo</th>
-                            <th>Fecha</th>
-                            <th>Solicitante</th>
-                            <th>Área</th>
-                            <th>Solicitud</th>
-                            <th>Para qué</th>
-                            <th>Criterios</th>
-                            <th>Estado</th>
-                            <th></th>
-                        </thead>
-                        <tbody>
-            ";
 
-            foreach ($lista_formularios_rtasD2 as $key => $value) {
-                $consecutivo = $value['Consecutivo'];
-                $date = $value['Fecha'];
-                $solicitante = $value['Solicitante'];
-                $area = $value['Área'];
-                $solicitud = $value['Solicitud'];
-                $paraQue = $value['Para qué'];
-                $estado = $value['Estado'];
-                $criterios = $value['Criterios de aceptación'];
+            if (!empty($lista_formularios_rtasD2)) {
+                $html .= "
+                    <div id='cont_table_dllo'>
+                        <h4>Desarrollo</h4>
+                        <table class='table_form' border=1>
+                            <thead>
+                                <th>Consecutivo</th>
+                                <th>Fecha</th>
+                                <th>Solicitante</th>
+                                <th>Área</th>
+                                <th>Solicitud</th>
+                                <th>Para qué</th>
+                                <th>Criterios</th>
+                                <th>Estado</th>
+                                <th></th>
+                            </thead>
+                            <tbody>
+                ";
+
+                foreach ($lista_formularios_rtasD2 as $key => $value) {
+                    $consecutivo = $value['Consecutivo'];
+                    $date = $value['Fecha'];
+                    $solicitante = $value['Solicitante'];
+                    $area = $value['Área'];
+                    $solicitud = $value['Solicitud'];
+                    $paraQue = $value['Para qué'];
+                    $estado = $value['Estado'];
+                    $criterios = $value['Criterios de aceptación'];
+
+                    $html .= "
+                        <tr>
+                            <td>$consecutivo</td>
+                            <td>$date</td>
+                            <td>$solicitante</td>
+                            <td>$area</td>
+                            <td>$solicitud</td>
+                            <td>$paraQue</td>
+                            <td>$criterios</td>
+                            <td>$estado</td>
+                            <td>
+                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>
+                            </td>
+                        </tr>
+                    ";
+                }
 
                 $html .= "
-                    <tr>
-                        <td>$consecutivo</td>
-                        <td>$date</td>
-                        <td>$solicitante</td>
-                        <td>$area</td>
-                        <td>$solicitud</td>
-                        <td>$paraQue</td>
-                        <td>$criterios</td>
-                        <td>$estado</td>
-                        <td>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>
-                        </td>
-                    </tr>
+                        </tbody>
+                    </table>
+                </div>
+                ";
+
+                if ( $countPagD2 > 10 ){
+                    $nav_countD2 = 0;
+                    $page_countD2 = 1;
+                    $current_pageD2 = $start_numberD2/10 + 1;
+            
+                    while ( $nav_countD2 < $countPagD2 ) {
+                        if ( $page_countD2 === $current_pageD2 ){
+                            $html .= "<span>{$page_countD2}</span> ";
+                        } else {
+                            $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=2 && startD2={$nav_countD2}'>{$page_countD2}</a>
+                            ";
+                        }
+                        $nav_countD2 += 10;
+                        $page_countD2++;
+                    }
+                }
+            } else {
+                $html .= "
+                    <h1>No hay registros cerrados en la tabla 'Desarrollo'</h1>
                 ";
             }
 
-            $html .= "
-                    </tbody>
-                </table>
-            </div>
-            ";
-
-            if ( $countPagD2 > 10 ){
-                $nav_countD2 = 0;
-                $page_countD2 = 1;
-                $current_pageD2 = $start_numberD2/10 + 1;
-        
-                while ( $nav_countD2 < $countPagD2 ) {
-                    if ( $page_countD2 === $current_pageD2 ){
-                        $html .= "<span>{$page_countD2}</span> ";
-                    } else {
-                        $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=2 && startD2={$nav_countD2}'>{$page_countD2}</a>
-                        ";
-                    }
-                    $nav_countD2 += 10;
-                    $page_countD2++;
-                }
-            }
-
-            $html .= "
-                <div id='cont_table_spte'>
-                    <h4>Soporte</h4>
-                    <table class='table_form' border=1>
-                        <thead>
-                            <th>Consecutivo</th>
-                            <th>Fecha</th>
-                            <th>Quién reporta</th>
-                            <th>Área</th>
-                            <th>Descripción</th>
-                            <th>Sede</th>
-                            <th>Estado</th>
-                            <th></th>
-                        </thead>
-                        <tbody>
-            ";
-
-            foreach ($lista_formularios_rtasS2 as $key => $value) {
-                $consecutivo2 = $value['Consecutivo'];
-                $date2 = $value['Fecha'];
-                $solicitante2 = $value['Solicitante'];
-                $area2 = $value['Área'];
-                $descripcion = $value['Descripción'];
-                $estado2 = $value['Estado'];
-                $sede = $value['Sede'];
-    
+            if (!empty($lista_formularios_rtasS2)) {
                 $html .= "
-                    <tr>
-                        <td>$consecutivo2</td>
-                        <td>$date2</td>
-                        <td>$solicitante2</td>
-                        <td>$area2</td>
-                        <td>$descripcion</td>
-                        <td>$sede</td>
-                        <td>$estado2</td>
-                        <td>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2'>Detalle</a>
-                        </td>
-                    </tr>
+                    <div id='cont_table_spte'>
+                        <h4>Soporte</h4>
+                        <table class='table_form' border=1>
+                            <thead>
+                                <th>Consecutivo</th>
+                                <th>Fecha</th>
+                                <th>Quién reporta</th>
+                                <th>Área</th>
+                                <th>Descripción</th>
+                                <th>Sede</th>
+                                <th>Estado</th>
+                                <th></th>
+                            </thead>
+                            <tbody>
+                ";
+
+                foreach ($lista_formularios_rtasS2 as $key => $value) {
+                    $consecutivo2 = $value['Consecutivo'];
+                    $date2 = $value['Fecha'];
+                    $solicitante2 = $value['Solicitante'];
+                    $area2 = $value['Área'];
+                    $descripcion = $value['Descripción'];
+                    $estado2 = $value['Estado'];
+                    $sede = $value['Sede'];
+        
+                    $html .= "
+                        <tr>
+                            <td>$consecutivo2</td>
+                            <td>$date2</td>
+                            <td>$solicitante2</td>
+                            <td>$area2</td>
+                            <td>$descripcion</td>
+                            <td>$sede</td>
+                            <td>$estado2</td>
+                            <td>
+                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2'>Detalle</a>
+                            </td>
+                        </tr>
+                    ";
+                }
+
+                $html .= "
+                        </tbody>
+                    </table>
+                </div>
+                ";
+
+                if ( $countPagS2 > 10 ){
+                    $nav_countS2 = 0;
+                    $page_countS2 = 1;
+                    $current_pageS2 = $start_numberS2/10 + 1;
+            
+                    while ( $nav_countS2 < $countPagS2 ) {
+                        if ( $page_countS2 === $current_pageS2 ){
+                            $html .= "<span>{$page_countS2}</span> ";
+                        } else {
+                            $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=2 && startS2={$nav_countS2}'>{$page_countS2}</a>
+                            ";
+                        }
+                        $nav_countS2 += 10;
+                        $page_countS2++;
+                    }
+                }
+            } else {
+                $html .= "
+                    <h1>No hay registros cerrados en la tabla 'Soporte'</h1>
                 ";
             }
-
-            $html .= "
-                    </tbody>
-                </table>
-            </div>
-            ";
-
-            if ( $countPagS2 > 10 ){
-                $nav_countS2 = 0;
-                $page_countS2 = 1;
-                $current_pageS2 = $start_numberS2/10 + 1;
-        
-                while ( $nav_countS2 < $countPagS2 ) {
-                    if ( $page_countS2 === $current_pageS2 ){
-                        $html .= "<span>{$page_countS2}</span> ";
-                    } else {
-                        $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=2 && startS2={$nav_countS2}'>{$page_countS2}</a>
-                        ";
-                    }
-                    $nav_countS2 += 10;
-                    $page_countS2++;
-                }
-            }
-
         } elseif ($tUrlId == 3) {
-            $html .= "
-                <div id='cont_table_dllo'>
-                    <h4>Desarrollo</h4>
-                    <table class='table_form' border=1>
-                        <thead>
-                            <th>Consecutivo</th>
-                            <th>Fecha</th>
-                            <th>Solicitante</th>
-                            <th>Área</th>
-                            <th>Solicitud</th>
-                            <th>Para qué</th>
-                            <th>Criterios</th>
-                            <th>Estado</th>
-                            <th></th>
-                        </thead>
-                        <tbody>
-            ";
 
-            foreach ($lista_formularios_rtasD3 as $key => $value) {
-                $consecutivo = $value['Consecutivo'];
-                $date = $value['Fecha'];
-                $solicitante = $value['Solicitante'];
-                $area = $value['Área'];
-                $solicitud = $value['Solicitud'];
-                $paraQue = $value['Para qué'];
-                $estado = $value['Estado'];
-                $criterios = $value['Criterios de aceptación'];
+            if (!empty($lista_formularios_rtasD3)) {
+                $html .= "
+                    <div id='cont_table_dllo'>
+                        <h4>Desarrollo</h4>
+                        <table class='table_form' border=1>
+                            <thead>
+                                <th>Consecutivo</th>
+                                <th>Fecha</th>
+                                <th>Solicitante</th>
+                                <th>Área</th>
+                                <th>Solicitud</th>
+                                <th>Para qué</th>
+                                <th>Criterios</th>
+                                <th>Estado</th>
+                                <th></th>
+                            </thead>
+                            <tbody>
+                ";
+
+                foreach ($lista_formularios_rtasD3 as $key => $value) {
+                    $consecutivo = $value['Consecutivo'];
+                    $date = $value['Fecha'];
+                    $solicitante = $value['Solicitante'];
+                    $area = $value['Área'];
+                    $solicitud = $value['Solicitud'];
+                    $paraQue = $value['Para qué'];
+                    $estado = $value['Estado'];
+                    $criterios = $value['Criterios de aceptación'];
+
+                    $html .= "
+                        <tr>
+                            <td>$consecutivo</td>
+                            <td>$date</td>
+                            <td>$solicitante</td>
+                            <td>$area</td>
+                            <td>$solicitud</td>
+                            <td>$paraQue</td>
+                            <td>$criterios</td>
+                            <td>$estado</td>
+                            <td>
+                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>
+                            </td>
+                        </tr>
+                    ";
+                }
 
                 $html .= "
-                    <tr>
-                        <td>$consecutivo</td>
-                        <td>$date</td>
-                        <td>$solicitante</td>
-                        <td>$area</td>
-                        <td>$solicitud</td>
-                        <td>$paraQue</td>
-                        <td>$criterios</td>
-                        <td>$estado</td>
-                        <td>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>
-                        </td>
-                    </tr>
+                        </tbody>
+                    </table>
+                </div>
+                ";
+
+                if ( $countPagD3 > 10 ){
+                    $nav_countD3 = 0;
+                    $page_countD3 = 1;
+                    $current_pageD3 = $start_numberD3/10 + 1;
+            
+                    while ( $nav_countD3 < $countPagD3 ) {
+                        if ( $page_countD3 === $current_pageD3 ){
+                            $html .= "<span>{$page_countD3}</span> ";
+                        } else {
+                            $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=3 && startD3={$nav_countD3}'>{$page_countD3}</a>
+                            ";
+                        }
+                        $nav_countD3 += 10;
+                        $page_countD3++;
+                    }
+                }
+            } else {
+                $html .= "
+                    <h1>No hay registros contestados en la tabla 'Desarrollo'</h1>
                 ";
             }
 
-            $html .= "
-                    </tbody>
-                </table>
-            </div>
-            ";
-
-            if ( $countPagD3 > 10 ){
-                $nav_countD3 = 0;
-                $page_countD3 = 1;
-                $current_pageD3 = $start_numberD3/10 + 1;
-        
-                while ( $nav_countD3 < $countPagD3 ) {
-                    if ( $page_countD3 === $current_pageD3 ){
-                        $html .= "<span>{$page_countD3}</span> ";
-                    } else {
-                        $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=3 && startD3={$nav_countD3}'>{$page_countD3}</a>
-                        ";
-                    }
-                    $nav_countD3 += 10;
-                    $page_countD3++;
-                }
-            }
-
-            $html .= "
-                <div id='cont_table_spte'>
-                    <h4>Soporte</h4>
-                    <table class='table_form' border=1>
-                        <thead>
-                            <th>Consecutivo</th>
-                            <th>Fecha</th>
-                            <th>Quién reporta</th>
-                            <th>Área</th>
-                            <th>Descripción</th>
-                            <th>Sede</th>
-                            <th>Estado</th>
-                            <th></th>
-                        </thead>
-                        <tbody>
-            ";
-
-            foreach ($lista_formularios_rtasS3 as $key => $value) {
-                $consecutivo2 = $value['Consecutivo'];
-                $date2 = $value['Fecha'];
-                $solicitante2 = $value['Solicitante'];
-                $area2 = $value['Área'];
-                $descripcion = $value['Descripción'];
-                $estado2 = $value['Estado'];
-                $sede = $value['Sede'];
-    
+            if (!empty($lista_formularios_rtasS3)) {
                 $html .= "
-                    <tr>
-                        <td>$consecutivo2</td>
-                        <td>$date2</td>
-                        <td>$solicitante2</td>
-                        <td>$area2</td>
-                        <td>$descripcion</td>
-                        <td>$sede</td>
-                        <td>$estado2</td>
-                        <td>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2'>Detalle</a>
-                        </td>
-                    </tr>
+                    <div id='cont_table_spte'>
+                        <h4>Soporte</h4>
+                        <table class='table_form' border=1>
+                            <thead>
+                                <th>Consecutivo</th>
+                                <th>Fecha</th>
+                                <th>Quién reporta</th>
+                                <th>Área</th>
+                                <th>Descripción</th>
+                                <th>Sede</th>
+                                <th>Estado</th>
+                                <th></th>
+                            </thead>
+                            <tbody>
                 ";
-            }
 
-            $html .= "
-                    </tbody>
-                </table>
-            </div>
-            ";
-
-            if ( $countPagS3 > 10 ){
-                $nav_countS3 = 0;
-                $page_countS3 = 1;
-                $current_pageS3 = $start_numberS3/10 + 1;
+                foreach ($lista_formularios_rtasS3 as $key => $value) {
+                    $consecutivo2 = $value['Consecutivo'];
+                    $date2 = $value['Fecha'];
+                    $solicitante2 = $value['Solicitante'];
+                    $area2 = $value['Área'];
+                    $descripcion = $value['Descripción'];
+                    $estado2 = $value['Estado'];
+                    $sede = $value['Sede'];
         
-                while ( $nav_countS3 < $countPagS3 ) {
-                    if ( $page_countS3 === $current_pageS3 ){
-                        $html .= "<span>{$page_countS3}</span> ";
-                    } else {
-                        $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=3 && startS3={$nav_countS3}'>{$page_countS3}</a>
-                        ";
-                    }
-                    $nav_countS3 += 10;
-                    $page_countS3++;
+                    $html .= "
+                        <tr>
+                            <td>$consecutivo2</td>
+                            <td>$date2</td>
+                            <td>$solicitante2</td>
+                            <td>$area2</td>
+                            <td>$descripcion</td>
+                            <td>$sede</td>
+                            <td>$estado2</td>
+                            <td>
+                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2'>Detalle</a>
+                            </td>
+                        </tr>
+                    ";
                 }
+
+                $html .= "
+                        </tbody>
+                    </table>
+                </div>
+                ";
+
+                if ( $countPagS3 > 10 ){
+                    $nav_countS3 = 0;
+                    $page_countS3 = 1;
+                    $current_pageS3 = $start_numberS3/10 + 1;
+            
+                    while ( $nav_countS3 < $countPagS3 ) {
+                        if ( $page_countS3 === $current_pageS3 ){
+                            $html .= "<span>{$page_countS3}</span> ";
+                        } else {
+                            $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=3 && startS3={$nav_countS3}'>{$page_countS3}</a>
+                            ";
+                        }
+                        $nav_countS3 += 10;
+                        $page_countS3++;
+                    }
+                }
+            } else {
+                $html .= "
+                    <h1>No hay registros contestados en la tabla 'Soporte'</h1>
+                ";
             }
 
         } elseif ($tUrlId == 4) {
-            $html .= "
-                <div id='cont_table_dllo'>
-                    <h4>Desarrollo</h4>
-                    <table class='table_form' border=1>
-                        <thead>
-                            <th>Consecutivo</th>
-                            <th>Fecha</th>
-                            <th>Solicitante</th>
-                            <th>Área</th>
-                            <th>Solicitud</th>
-                            <th>Para qué</th>
-                            <th>Criterios</th>
-                            <th>Estado</th>
-                            <th></th>
-                        </thead>
-                        <tbody>
-            ";
 
-            foreach ($lista_formularios_rtasD4 as $key => $value) {
-                $consecutivo = $value['Consecutivo'];
-                $date = $value['Fecha'];
-                $solicitante = $value['Solicitante'];
-                $area = $value['Área'];
-                $solicitud = $value['Solicitud'];
-                $paraQue = $value['Para qué'];
-                $estado = $value['Estado'];
-                $criterios = $value['Criterios de aceptación'];
+            if (!empty($lista_formularios_rtasD4)) {
+                $html .= "
+                    <div id='cont_table_dllo'>
+                        <h4>Desarrollo</h4>
+                        <table class='table_form' border=1>
+                            <thead>
+                                <th>Consecutivo</th>
+                                <th>Fecha</th>
+                                <th>Solicitante</th>
+                                <th>Área</th>
+                                <th>Solicitud</th>
+                                <th>Para qué</th>
+                                <th>Criterios</th>
+                                <th>Estado</th>
+                                <th></th>
+                            </thead>
+                            <tbody>
+                ";
+
+                foreach ($lista_formularios_rtasD4 as $key => $value) {
+                    $consecutivo = $value['Consecutivo'];
+                    $date = $value['Fecha'];
+                    $solicitante = $value['Solicitante'];
+                    $area = $value['Área'];
+                    $solicitud = $value['Solicitud'];
+                    $paraQue = $value['Para qué'];
+                    $estado = $value['Estado'];
+                    $criterios = $value['Criterios de aceptación'];
+
+                    $html .= "
+                        <tr>
+                            <td>$consecutivo</td>
+                            <td>$date</td>
+                            <td>$solicitante</td>
+                            <td>$area</td>
+                            <td>$solicitud</td>
+                            <td>$paraQue</td>
+                            <td>$criterios</td>
+                            <td>$estado</td>
+                            <td>
+                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>
+                            </td>
+                        </tr>
+                    ";
+                }
 
                 $html .= "
-                    <tr>
-                        <td>$consecutivo</td>
-                        <td>$date</td>
-                        <td>$solicitante</td>
-                        <td>$area</td>
-                        <td>$solicitud</td>
-                        <td>$paraQue</td>
-                        <td>$criterios</td>
-                        <td>$estado</td>
-                        <td>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>
-                        </td>
-                    </tr>
+                        </tbody>
+                    </table>
+                </div>
+                ";
+
+                if ( $countPagD4 > 10 ){
+                    $nav_countD4 = 0;
+                    $page_countD4 = 1;
+                    $current_pageD4 = $start_numberD4/10 + 1;
+            
+                    while ( $nav_countD4 < $countPagD4 ) {
+                        if ( $page_countD4 === $current_pageD4 ){
+                            $html .= "<span>{$page_countD4}</span> ";
+                        } else {
+                            $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=4 && startD4={$nav_countD4}'>{$page_countD4}</a>
+                            ";
+                        }
+                        $nav_countD4 += 10;
+                        $page_countD4++;
+                    }
+                }
+            } else {
+                $html .= "
+                    <h1>No hay registros en la tabla 'Desarrollo'</h1>
                 ";
             }
 
-            $html .= "
-                    </tbody>
-                </table>
-            </div>
-            ";
-
-            if ( $countPagD4 > 10 ){
-                $nav_countD4 = 0;
-                $page_countD4 = 1;
-                $current_pageD4 = $start_numberD4/10 + 1;
-        
-                while ( $nav_countD4 < $countPagD4 ) {
-                    if ( $page_countD4 === $current_pageD4 ){
-                        $html .= "<span>{$page_countD4}</span> ";
-                    } else {
-                        $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=4 && startD4={$nav_countD4}'>{$page_countD4}</a>
-                        ";
-                    }
-                    $nav_countD4 += 10;
-                    $page_countD4++;
-                }
-            }
-
-            $html .= "
-                <div id='cont_table_spte'>
-                    <h4>Soporte</h4>
-                    <table class='table_form' border=1>
-                        <thead>
-                            <th>Consecutivo</th>
-                            <th>Fecha</th>
-                            <th>Quién reporta</th>
-                            <th>Área</th>
-                            <th>Descripción</th>
-                            <th>Sede</th>
-                            <th>Estado</th>
-                            <th></th>
-                        </thead>
-                        <tbody>
-            ";
-
-            foreach ($lista_formularios_rtasS4 as $key => $value) {
-                $consecutivo2 = $value['Consecutivo'];
-                $date2 = $value['Fecha'];
-                $solicitante2 = $value['Solicitante'];
-                $area2 = $value['Área'];
-                $descripcion = $value['Descripción'];
-                $estado2 = $value['Estado'];
-                $sede = $value['Sede'];
-    
+            if (!empty($lista_formularios_rtasS4)) {
                 $html .= "
-                    <tr>
-                        <td>$consecutivo2</td>
-                        <td>$date2</td>
-                        <td>$solicitante2</td>
-                        <td>$area2</td>
-                        <td>$descripcion</td>
-                        <td>$sede</td>
-                        <td>$estado2</td>
-                        <td>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2'>Detalle</a>
-                        </td>
-                    </tr>
+                    <div id='cont_table_spte'>
+                        <h4>Soporte</h4>
+                        <table class='table_form' border=1>
+                            <thead>
+                                <th>Consecutivo</th>
+                                <th>Fecha</th>
+                                <th>Quién reporta</th>
+                                <th>Área</th>
+                                <th>Descripción</th>
+                                <th>Sede</th>
+                                <th>Estado</th>
+                                <th></th>
+                            </thead>
+                            <tbody>
                 ";
-            }
 
-            $html .= "
-                    </tbody>
-                </table>
-            </div>
-            ";
-
-            if ( $countPagS4 > 10 ){
-                $nav_countS4 = 0;
-                $page_countS4 = 1;
-                $current_pageS4 = $start_numberS4/10 + 1;
+                foreach ($lista_formularios_rtasS4 as $key => $value) {
+                    $consecutivo2 = $value['Consecutivo'];
+                    $date2 = $value['Fecha'];
+                    $solicitante2 = $value['Solicitante'];
+                    $area2 = $value['Área'];
+                    $descripcion = $value['Descripción'];
+                    $estado2 = $value['Estado'];
+                    $sede = $value['Sede'];
         
-                while ( $nav_countS4 < $countPagS4 ) {
-                    if ( $page_countS4 === $current_pageS4 ){
-                        $html .= "<span>{$page_countS4}</span> ";
-                    } else {
-                        $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=4 && startS4={$nav_countS4}'>{$page_countS4}</a> ";
-                    }
-                    $nav_countS4 += 10;  
-                    $page_countS4++;
+                    $html .= "
+                        <tr>
+                            <td>$consecutivo2</td>
+                            <td>$date2</td>
+                            <td>$solicitante2</td>
+                            <td>$area2</td>
+                            <td>$descripcion</td>
+                            <td>$sede</td>
+                            <td>$estado2</td>
+                            <td>
+                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2'>Detalle</a>
+                            </td>
+                        </tr>
+                    ";
                 }
+
+                $html .= "
+                        </tbody>
+                    </table>
+                </div>
+                ";
+
+                if ( $countPagS4 > 10 ){
+                    $nav_countS4 = 0;
+                    $page_countS4 = 1;
+                    $current_pageS4 = $start_numberS4/10 + 1;
+            
+                    while ( $nav_countS4 < $countPagS4 ) {
+                        if ( $page_countS4 === $current_pageS4 ){
+                            $html .= "<span>{$page_countS4}</span> ";
+                        } else {
+                            $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=4 && startS4={$nav_countS4}'>{$page_countS4}</a> ";
+                        }
+                        $nav_countS4 += 10;  
+                        $page_countS4++;
+                    }
+                }
+            } else {
+                $html .= "
+                    <h1>No hay registros en la tabla 'Soporte'</h1>
+                ";
             }
         }
 
+        //verifica si hay datos en las tablas
         if ($tUrlId == 1 && empty($lista_formularios_rtasD1) && empty($lista_formularios_rtasS1)) {
             $html = "<h1>No hay registros</h1>";
+        } elseif ($tUrlId == 2 && empty($lista_formularios_rtasD2) && empty($lista_formularios_rtasS2)) {
+            $html = "<h1>No hay registros</h1>";
+        } elseif ($tUrlId == 3 && empty($lista_formularios_rtasD3) && empty($lista_formularios_rtasS3)) {
+            $html = "<h1>No hay registros</h1>";
+        } elseif ($tUrlId == 4 && empty($lista_formularios_rtasD4) && empty($lista_formularios_rtasS4)) {
+            $html = "<h1>No hay registros</h1>";
         }
+
+        //verificacion de datos, tablas individualmente
+        // if () {
+        //     # code...
+        // }
 
         return $html;
     }
 
-    public function constructor($tUrlId, $consecutivo)
+    public function constructor($tUrlId, $consecutivo, $fecha)
     {
         global $wpdb;
-
-        //tabla desarrollo
-        $tableR1 = "{$wpdb->prefix}formularios_respuestas_desarrollo";
-
-        $queryData = "SELECT * FROM $tableR1 WHERE Consecutivo = '$consecutivo'";
-        $lista_formularios = $wpdb->get_results($queryData, ARRAY_A);
-        if (empty($lista_formularios)) {
-            $lista_formularios = array();
-        }
-
-        $queryId = "SELECT FormularioId FROM $tableR1 WHERE Consecutivo = '$consecutivo'";
-        $id = $wpdb->get_results($queryId, ARRAY_A);
-
-        //tabla soporte
-        $tableR2 = "{$wpdb->prefix}formularios_respuestas_soporte";
-
-        $queryData2 = "SELECT * FROM $tableR2 WHERE Consecutivo = '$consecutivo'";
-        $lista_formularios2 = $wpdb->get_results($queryData2, ARRAY_A);
-        if (empty($lista_formularios2)) {
-            $lista_formularios2 = array();
-        }
-
-        $queryId2 = "SELECT FormularioId FROM $tableR2 WHERE Consecutivo = '$consecutivo'";
-        $id2 = $wpdb->get_results($queryId2, ARRAY_A);
 
         //getUser
         $user = get_current_user_id();
@@ -936,6 +1224,69 @@ class searchApplication {
                 $userName = $userInfo->user_login;
             }
         }
+
+        //tabla desarrollo
+        $tableR1 = "{$wpdb->prefix}formularios_respuestas_desarrollo";
+
+        // $queryData = "SELECT * FROM $tableR1 WHERE Consecutivo = '$consecutivo'";
+        // $lista_formularios = $wpdb->get_results($queryData, ARRAY_A);
+        // if (empty($lista_formularios)) {
+        //     $lista_formularios = array();
+        // }
+
+        //tabla soporte
+        $tableR2 = "{$wpdb->prefix}formularios_respuestas_soporte";
+
+        // $queryData2 = "SELECT * FROM $tableR2 WHERE Consecutivo = '$consecutivo'";
+        // $lista_formularios2 = $wpdb->get_results($queryData2, ARRAY_A);
+        // if (empty($lista_formularios2)) {
+        //     $lista_formularios2 = array();
+        // }
+
+        //filtro----------------------------
+
+        if (!empty($_POST['fecha'][0])) {
+
+            $queryData = "SELECT * FROM $tableR1 WHERE Fecha = '$fecha' AND Solicitante = '$userName' ORDER BY FormularioId DESC"; 
+            $queryData2 = "SELECT * FROM $tableR2 WHERE Fecha = '$fecha' AND Solicitante = '$userName' ORDER BY FormularioId DESC";
+
+            //idForm
+            $queryId = "SELECT FormularioId FROM $tableR1 WHERE Fecha = '$fecha' AND Solicitante = '$userName'";
+            $queryId2 = "SELECT FormularioId FROM $tableR2 WHERE Fecha = '$fecha' AND Solicitante = '$userName'";
+
+        } elseif(!empty($_POST['consecutivo'][0])){
+
+            $queryData = "SELECT * FROM $tableR1 WHERE Consecutivo = '$consecutivo' AND Solicitante = '$userName' ORDER BY FormularioId DESC";
+            $queryData2 = "SELECT * FROM $tableR2 WHERE Consecutivo = '$consecutivo' AND Solicitante = '$userName' ORDER BY FormularioId DESC"; 
+
+            //idForm
+            $queryId = "SELECT FormularioId FROM $tableR1 WHERE Consecutivo = '$consecutivo' AND Solicitante = '$userName'";
+            $queryId2 = "SELECT FormularioId FROM $tableR2 WHERE Consecutivo = '$consecutivo' AND Solicitante = '$userName'";
+
+        } elseif (!empty($_POST['fecha'][0]) && !empty($_POST['consecutivo'][0])) {
+
+            $queryData = "SELECT * FROM $tableR1 WHERE WHERE Fecha = '$fecha' AND Consecutivo = '$consecutivo' AND Solicitante = '$userName' ORDER BY FormularioId DESC"; 
+            $queryData2 = "SELECT * FROM $tableR2 WHERE Fecha = '$fecha' AND Consecutivo = '$consecutivo' AND Solicitante = '$userName' ORDER BY FormularioId DESC";
+
+            //idForm
+            $queryId = "SELECT FormularioId FROM $tableR1 WHERE Fecha = '$fecha'";
+            $queryId2 = "SELECT FormularioId FROM $tableR2 WHERE Fecha = '$fecha'";
+
+        }
+
+        $lista_formularios_filter = $wpdb->get_results($queryData, ARRAY_A);
+        if (empty($lista_formularios_filter)) {
+            $lista_formularios_filter = array();
+        }
+
+        $conseId = $wpdb->get_results($queryId, ARRAY_A);
+
+        $lista_formularios_filter2 = $wpdb->get_results($queryData2, ARRAY_A);
+        if (empty($lista_formularios_filter2)) {
+            $lista_formularios_filter2 = array();
+        }
+
+        $conseId2 = $wpdb->get_results($queryId2, ARRAY_A);
 
         //pagination T1-------------------------------------------------------------------------------------
 
@@ -1136,8 +1487,8 @@ class searchApplication {
         $html .= $this->buttonsNav();
         $html .= $this->conteoTickets($numRegistrosAb2, $numRegistrosCe2, $numRegistrosCon2, $numRegistrosTot2);
         $html .= $this->search();
-        $html .= $this->openTableApplication($id, $id2);
-        $html .= $this->dataTableApplication($id, $id2, $consecutivo, $lista_formularios, $lista_formularios2);
+        $html .= $this->openTableApplication($conseId, $conseId2, $lista_formularios_filter, $lista_formularios_filter2);
+        $html .= $this->dataTableApplication($conseId, $conseId2, $lista_formularios_filter, $lista_formularios_filter2);
         $html .= $this->closeTableApplication();
 
         $html .= $this->structureTickets($start_numberD1, $start_numberS1, $start_numberD2, $start_numberS2, $start_numberD3, $start_numberS3, $start_numberD4, $start_numberS4, $countPagD1, $countPagS1, $countPagD2, $countPagS2, $countPagD3, $countPagS3, $countPagD4, $countPagS4, $tUrlId, $lista_formularios_rtasD1, $lista_formularios_rtasD2, $lista_formularios_rtasD3, $lista_formularios_rtasD4, $lista_formularios_rtasS1, $lista_formularios_rtasS2, $lista_formularios_rtasS3, $lista_formularios_rtasS4);
