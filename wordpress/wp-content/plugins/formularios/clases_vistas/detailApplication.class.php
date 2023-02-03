@@ -13,14 +13,21 @@ class detailApplication {
 
                      #cont_btns_nav{
                         height: 50px;
+                        width: 100%;
                         background-color: #4f6df5;
                         padding: 8px;
+                        text-align: center;
                     }
 
                     .btn_nav{
                         display: inline-block;
                         margin-top: 11px;
                         text-align: center;
+                    }
+
+                    .btn_nav a:hover{
+                        background-color: #233170;
+                        transition: background-color 0.5s;
                     }
 
                     .btn_nav a {
@@ -32,12 +39,14 @@ class detailApplication {
 
                     #index a{
                         padding: 10px 37px 10px 37px;
-                        margin-right: 104px;
+                    }
+
+                    #create{
+                        margin: 0 15% 0 15%;
                     }
 
                     #create a{
                         padding: 10px 22px 10px 22px;
-                        margin-right: 104px;
                     }
 
                     #admin a{

@@ -13,8 +13,10 @@ class index{
 
                     #cont_btns{
                         height: 50px;
+                        width: 100%;
                         background-color: #4f6df5;
                         padding: 8px;
+                        text-align: center;
                     }
 
                     #index a:hover{
@@ -24,13 +26,15 @@ class index{
 
                     #index a{
                         padding: 10px 37px 10px 37px;
-                        margin-right: 108px;
                         background-color: gray;
+                    }
+
+                    #create{
+                        margin: 0 15% 0 15%;
                     }
 
                     #create a{
                         padding: 10px 22px 10px 22px;
-                        margin-right: 108px;
                     }
 
                     #admin a{
@@ -60,11 +64,12 @@ class index{
                     }
 
                     .cont_num_tickest{
+                        text-align: center;
                         border: solid 1px gray;
+                        padding: 10px;
                     }
 
                     .btn_num_tick{
-                        text-align: center;
                         display: inline-block;
                         border: solid 1px gray;
                         width: 120px;
@@ -75,7 +80,7 @@ class index{
                     }
 
                     #abiertos{
-                        margin: 15px 39px 15px 15px;
+                        margin: 0px 39px 0px 0px;
                     }
 
                     #abiertos:hover{

@@ -27,8 +27,10 @@ class formFuntions{
                     
                     #cont_btns_nav{
                         height: 50px;
+                        width: 100%;
                         background-color: #4f6df5;
                         padding: 8px;
+                        text-align: center;
                     }
 
                     .btn_nav{
@@ -51,7 +53,10 @@ class formFuntions{
 
                     #index a{
                         padding: 10px 37px 10px 37px;
-                        margin-right: 108px;
+                    }
+
+                    #create {
+                        margin: 0 15% 0 15%;
                     }
 
                     #create a:hover{
@@ -61,7 +66,6 @@ class formFuntions{
 
                     #create a{
                         padding: 10px 22px 10px 22px;
-                        margin-right: 108px;
                         background-color: gray;
                     }
 
@@ -73,9 +77,20 @@ class formFuntions{
                         padding: 10px 30px 10px 30px;
                     }
 
-                    .cont_forms{
-                        border: 1px solid black;
+                    #type{
+                        border: 2px solid #e0e0ec!important;
+                        height: 30px; width: 100%;
+                        text-align: center;
+                        font-size: 20px;
+                        box-shadow: inset 0 .25rem .125rem 0 rgba(0, 0, 0, .05)!important;
+                        font-weight: bold !important;
+                        color: gray;
+                        margin-bottom: 30px;
                     }
+
+                    // .cont_forms{
+                    //     border: 1px solid black;
+                    // }
 
                     .form-group div{
                         margin-bottom: 15px;
@@ -103,12 +118,54 @@ class formFuntions{
                         width: 620px;
                     }
 
-                    #cont_btn_dllo{
+                    .cont_btn_dllo{
+                        text-align: center;
                         width: 100%;
+                        display: block !important;
                     }
 
                     #btnguardar1{
+                        cursor: pointer;
+                        font-weight: 500;
+                        font-size: 20px;
+                        height: 50px;
+                        width: 150px;
+                        border: none;
+                        border-radius: 3px;
+                        color: white;
+                        background-color: #304293;
+                    }
+
+                    #btnguardar1:hover{
+                        background-color: #233170;
+                        transition: background-color 0.5s;
+                    }
+
+                    #descripcion{
+                        width: 620px;
+                    }
+
+                    .conr_btn_spte{
                         text-align: center;
+                        width: 100%;
+                        display: block !important;
+                    }
+
+                    #btnguardar2{
+                        cursor: pointer;
+                        font-weight: 500;
+                        font-size: 20px;
+                        height: 50px;
+                        width: 150px;
+                        border: none;
+                        border-radius: 3px;
+                        color: white;
+                        background-color: #304293;
+                    }
+
+                    #btnguardar2:hover{
+                        background-color: #233170;
+                        transition: background-color 0.5s;
                     }
                     
                 </style>
@@ -159,7 +216,7 @@ class formFuntions{
             <div class='wrap'>
                 <form name='f1' method='POST'>
                     <div id='form_select' style='text-align: center;'>
-                        <select name='type[]' id='type' class='form-control type_list' onchange='change_form()' required style='border: 2px solid #e0e0ec!important; height: 30px; width: 100%; text-align: center; font-size: 15px; box-shadow: inset 0 .25rem .125rem 0 rgba(0, 0, 0, .05)!important;'>
+                        <select name='type[]' id='type' class='form-control type_list' onchange='change_form()' required style=''>
                             <option value=''>selecionar area</option>
                             <option value='1'>Desarrollo</option>
                             <option value='2'>Soporte</option>
@@ -173,8 +230,7 @@ class formFuntions{
     public function desarrolloForm($userName)
     {
         $html = "
-            <div class='cont_forms' id='cont_dllo' style='display:block'>
-                <h4 style='color: #84858d; text-align: center;'>Desarrollo</h4>
+            <div class='cont_forms' id='cont_dllo' style='display:none'>
                 <form id='desarrollo' name='f2' method='POST'>
                     <div class='form-group'>
                         <div>
@@ -235,13 +291,12 @@ class formFuntions{
                             </div>
                         </div>
 
-                        <div id='cont_btn_dllo'>
+                        <div class='cont_btn_dllo'>
                             <button type='submit' id='btnguardar1' name='btnguardar1[]' value='1'>Enviar</button>
                         </div>
                     </div>
                 </form>
             </div>
-        </body>
         ";
         
         return $html;
@@ -251,7 +306,6 @@ class formFuntions{
     {
         $html = "
             <div class='cont_forms' id='cont_spte' style='display: none'>
-                <h4 style='color: #84858d; text-align: center;'>Soporte</h4>
                 <form id='soporte' name='f3' method='POST'>
                     <div class='form-group'>
                         <div>
@@ -261,7 +315,6 @@ class formFuntions{
                                 <input class='inpt_form' name='solicitante2[]' id='solicitante2' value='$userName'>
                             </div>
                         </div>
-                        <br>
 
                         <div>
                             <label>Área*</label>
@@ -287,16 +340,14 @@ class formFuntions{
                                 </select>
                             </div>
                         </div>
-                        <br>
 
                         <div>
-                            <label>Área*</label>
+                            <label>Descripción*</label>
                             <br>
                             <div class='cont_inpt_form'>
-                                <textarea class='inpt_form' name='descripcion[]' id='descripcion' placeholder='Descripción' required></textarea>
+                                <textarea class='inpt_form' name='descripcion[]' id='descripcion' required></textarea>
                             </div>
                         </div>
-                        <br>
 
                         <div>
                             <label>Ciudad*</label>
@@ -314,7 +365,6 @@ class formFuntions{
                                 </select>
                             </div>
                         </div>
-                        <br>
 
                         <div>
                             <label>Sede*</label>
@@ -326,13 +376,13 @@ class formFuntions{
                                 </select>
                             </div>
                         </div>
-                        <br>
 
-                        <button type='submit' id='btnguardar2' name='btnguardar2[]' value='2'>Enviar</button>
+                        <div class='conr_btn_spte'>
+                            <button type='submit' id='btnguardar2' name='btnguardar2[]' value='2'>Enviar</button>
+                        </div>
                     </div>
                 </form>
             </div>
-        </body>
         ";
 
         return $html;

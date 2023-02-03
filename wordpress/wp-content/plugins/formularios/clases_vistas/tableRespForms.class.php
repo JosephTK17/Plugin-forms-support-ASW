@@ -27,8 +27,10 @@ class tableForms {
 
                     #cont_btns_nav{
                         height: 50px;
+                        width: 100%;
                         background-color: #4f6df5;
                         padding: 8px;
+                        text-align: center;
                     }
 
                     .btn_nav{
@@ -51,12 +53,14 @@ class tableForms {
 
                     #index a{
                         padding: 10px 37px 10px 37px;
-                        margin-right: 108px;
+                    }
+
+                    #create{
+                        margin: 0 15% 0 15%;
                     }
 
                     #create a{
                         padding: 10px 22px 10px 22px;
-                        margin-right: 108px;
                     }
 
                     #admin a:hover{
@@ -130,11 +134,12 @@ class tableForms {
                     }
 
                     .cont_num_tickest{
+                        text-align: center;
                         border: solid 1px gray;
+                        padding: 10px;
                     }
 
                     .btn_num_tick{
-                        text-align: center;
                         display: inline-block;
                         border: solid 1px gray;
                         width: 120px;
@@ -145,7 +150,7 @@ class tableForms {
                     }
 
                     #abiertos{
-                        margin: 15px 39px 15px 15px;
+                        margin: 0px 39px 0px 0px;
                     }
 
                     #abiertos:hover{
@@ -1365,6 +1370,10 @@ class tableForms {
                     $page_countS4++;
                 }
             }
+        }
+        
+        if ($tUrlId == 1 && empty($lista_formularios_rtasD1) && empty($lista_formularios_rtasS1)) {
+            $html = "<h1>No hay registros</h1>";
         }
 
         return $html;
