@@ -57,12 +57,84 @@ class detailApplication {
                         padding: 10px 34px 10px 34px;
                     }
 
+                    .stepwizard-step p {
+                        font-size: 15px;
+                        margin-top: 7px;
+                    }
+                    
+                    .stepwizard-row {
+                        display: table-row;
+                    }
+                    
+                    .stepwizard {
+                        display: table;
+                        width: 100%;
+                        position: relative;
+                    }
+                    
+                    .stepwizard-step button[disabled] {
+                        opacity: 1 !important;
+                        filter: alpha(opacity=100) !important;
+                    }
+                    
+                    .stepwizard-row:before {
+                        top: 14px;
+                        bottom: 0;
+                        position: absolute;
+                        content: ' ';
+                        width: 100%;
+                        height: 1px;
+                        background-color: #ccc;
+                        z-order: 0;
+                    
+                    }
+                    
+                    .stepwizard-step {
+                        display: table-cell;
+                        text-align: center;
+                        position: relative;
+                    }
+                    
+                    .btn-circle {
+                      width: 30px;
+                      height: 30px;
+                      text-align: center;
+                      padding: 6px 0;
+                      font-size: 12px;
+                      line-height: 1.428571429;
+                      border-radius: 15px;
+                    }
+
                     .cont_detail{
+                        padding: 15px;
+                        border: solid 1px black;
                         margin-top: 50px;
                     }
 
+                    #consecutivo{
+                        margin: 0 240px 0 0;
+                        display: inline-block;
+                    }
+
+                    #fecha{
+                        display: inline-block;
+                    }
+
+                    #solicitante{
+                        margin: 0 154px 0 0;
+                        display: inline-block;
+                    }
+
+                    #area{
+                        display: inline-block;
+                    }
+
+                    #solicitud{
+                        margin: 15px 0 0 0;
+                    }
+
                     .campos label{
-                        font-weight: 500;
+                        font-weight: 500
                     }
 
                     .campos p{
@@ -83,6 +155,15 @@ class detailApplication {
 
                     #descripcion p{
                         display: block;
+                    }
+
+                    #estado{
+                        display: flex;
+                        justify-content: center;
+                    }
+
+                    #estado form{
+                        text-align: center;
                     }
 
                 </style>
@@ -112,6 +193,7 @@ class detailApplication {
                     <div class='btn_nav' id='admin'>
                         <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/'>Ver Tickets</a>
                     </div>
+                </div>
             ";
         } else {
             $html .= "
@@ -143,6 +225,190 @@ class detailApplication {
                     $criterios = $value['Criterios de aceptación'];
 
                     $html .= "
+                    <h3 style='text-align: center;'>Estado Ticket</h3>
+                        <div class='stepwizard'>
+                            <div class='stepwizard-row setup-panel'>
+                                <div class='stepwizard-step'>
+                    ";
+
+                    if($estado == 'Solicitado') {
+
+                        $html .= "
+                                        <i class='bi bi-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle-fill' viewBox='0 0 16 16'>
+                                        <circle cx='8' cy='8' r='8'/>
+                                    </svg>
+                                    <p style='text-decoration: underline;'>Solicitado</p>
+                        ";
+
+                    } else {
+
+                        $html .= "
+                                        <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
+                                        <path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/>
+                                    </svg>
+                                    <p>Solicitado</p>
+                        ";
+
+                    }
+
+                    $html .= "
+                                </div>
+                                <div class='stepwizard-step'>
+                    ";
+
+                    if($estado == 'En revisión de detalles') {
+
+                        $html .= "
+                                        <i class='bi bi-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle-fill' viewBox='0 0 16 16'>
+                                        <circle cx='8' cy='8' r='8'/>
+                                    </svg>
+                                    <p style='text-decoration: underline;'>En revisión</p>
+                        ";
+
+                    } else {
+
+                        $html .= "
+                                        <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
+                                        <path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/>
+                                    </svg>
+                                    <p>En revisión</p>
+                        ";
+
+                    }
+
+                    $html .= "
+                                </div>
+                                <div class='stepwizard-step'>
+
+                    ";
+
+                    if($estado == 'En proceso') {
+
+                        $html .= "
+                                        <i class='bi bi-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle-fill' viewBox='0 0 16 16'>
+                                        <circle cx='8' cy='8' r='8'/>
+                                    </svg>
+                                    <p style='text-decoration: underline;'>En proceso</p>
+                        ";
+
+                    } else {
+
+                        $html .= "
+                                        <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
+                                        <path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/>
+                                    </svg>
+                                    <p>En proceso</p>
+                        ";
+
+                    }
+
+                    $html .= "
+                                </div>
+                                <div class='stepwizard-step'>
+
+                    ";
+
+                    if($estado == 'Terminado') {
+
+                        $html .= "
+                                        <i class='bi bi-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle-fill' viewBox='0 0 16 16'>
+                                        <circle cx='8' cy='8' r='8'/>
+                                    </svg>
+                                    <p style='text-decoration: underline;'>Terminado</p>
+                        ";
+
+                    } else {
+
+                        $html .= "
+                                        <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
+                                        <path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/>
+                                    </svg>
+                                    <p>Terminado</p>
+                        ";
+
+                    }
+
+                    $html .= "
+                                </div>
+                                <div class='stepwizard-step'>
+                    
+                    ";
+
+                    if($estado == 'En pruebas') {
+
+                        $html .= "
+                                        <i class='bi bi-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle-fill' viewBox='0 0 16 16'>
+                                        <circle cx='8' cy='8' r='8'/>
+                                    </svg>
+                                    <p style='text-decoration: underline;'>En pruebas</p>
+                        ";
+
+                    } else {
+
+                        $html .= "
+                                        <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
+                                        <path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/>
+                                    </svg>
+                                    <p>En pruebas</p>
+                        ";
+
+                    }
+
+                    $html .= "      
+                                </div>
+                                <div class='stepwizard-step'>
+                    
+                    ";
+
+                    if($estado == 'Publicado') {
+
+                        $html .= "
+                                        <i class='bi bi-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle-fill' viewBox='0 0 16 16'>
+                                        <circle cx='8' cy='8' r='8'/>
+                                    </svg>
+                                    <p style='text-decoration: underline;'>Publicado</p>
+                        ";
+
+                    } else {
+
+                        $html .= "
+                                        <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
+                                        <path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/>
+                                    </svg>
+                                    <p>Publicado</p>
+                        ";
+
+                    }
+
+                    $html .= "
+                                </div>
+                                <div class='stepwizard-step'>
+                    ";
+
+                    if($estado == 'Cerrado') {
+
+                        $html .= "
+                                        <i class='bi bi-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle-fill' viewBox='0 0 16 16'>
+                                        <circle cx='8' cy='8' r='8'/>
+                                    </svg>
+                                    <p style='text-decoration: underline;'>Cerrado</p>
+                        ";
+
+                    } else {
+
+                        $html .= "
+                                        <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
+                                        <path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/>
+                                    </svg>
+                                    <p>Cerrado</p>
+                        ";
+
+                    }
+
+                    $html .= "
+                                </div>
+                            </div>
+                        </div>
                         <div class='cont_detail'>
                             <div class='campos' id='consecutivo'>
                                 <label>Consecutivo:</label>
@@ -172,15 +438,16 @@ class detailApplication {
                                 <label>Criterios de aceptacion:</label>
                                 <p>$criterios</p>
                             </div>
-                            <div class='campos' id='estado'>
-                                <label>Estado:</label>
-                                <p>$estado</p>
+                        </div>
                     ";
 
                     if (is_super_admin()) {
                         $html .= "
+                            <div class='campos' id='estado'>
                                 <form method='POST'>
-                                    <select name='select_status'>
+                                    <label>Actualizar estado: </label>
+                                    <br>
+                                    <select name='select_status' required>
                                         <option value=''>Selecciona un estado</option>
                                         <option>En revisión de detalles</option>
                                         <option>En proceso</option>
@@ -188,22 +455,24 @@ class detailApplication {
                                         <option>En pruebas</option>
                                         <option>Publicado</option>
                                     </select>
+                                    <br>
                                     <button type='submit' name='update[]'>Actualizar</button>
                                 </form>
-                        ";
-                    }
-                    
-                    if (!is_super_admin()) {
-                        $html .= "
-                                    <form method='POST' name='btn_solucionado[]'>
-                                        <button type='submit' name='cerrar[]' value='solucionado'>Solucionado</button>
-                                    </form>
-                                </div>
                             </div>
-                        </body>
+                        ";
+                    } else {
+                        $html .= "
+                            <div class='campos' id='estado'>
+                                <form method='POST' name='btn_solucionado[]'>
+                                    <button type='submit' name='cerrar[]' value='solucionado'>Solucionado</button>
+                                </form>
+                            </div>
                         ";
                     }
-                    
+
+                    $html .= "
+                    </body>
+                    ";                  
             }
         } elseif ($id2[0]['FormularioId'] == 2 && $status2[0]['Estado'] != "Cerrado") {
 

@@ -160,7 +160,13 @@ function shortCode2(){
             // //Content
             // $mail->isHTML(true);                                  //Set email format to HTML
             // $mail->Subject = 'Test mandar correo';
-            // $mail->Body    = 'Este es tu consecutivo '.$consecutivo.'cuando lo desees visita el apartado Mis Tickets para hacer la consulta del estado de tu solicitud';
+            // $html = "
+            //     <div>
+            //         <h1>Numero Consecutivo</h1>
+            //         <p>Este es tu consecutivo <strong>'.$consecutivo.'</strong> cuando lo desees visita el apartado Mis Tickets para hacer la consulta del estado de tu solicitud</p>
+            //     </div>
+            // ";
+            // $mail->Body    = $html;
         
             // $mail->send();
 
@@ -201,8 +207,8 @@ function shortCode2(){
         if (!empty($consecutivo2) || !empty($actualDate2) || !empty($solicitante2) || !empty($area2) || !empty($descripcion) || !empty($sede)) {
             $wpdb->insert($tablaR2,$datos);
 
-            // //Create an instance; passing `true` enables exceptions
-            // $mail = new PHPMailer(true);
+            //Create an instance; passing `true` enables exceptions
+            $mail = new PHPMailer(true);
 
             // //Server settings
             // $mail->SMTPDebug = 0;                      //Enable verbose debug output
@@ -221,7 +227,13 @@ function shortCode2(){
             // //Content
             // $mail->isHTML(true);                                  //Set email format to HTML
             // $mail->Subject = 'Test mandar correo';
-            // $mail->Body    = 'Este es tu consecutivo '.$consecutivo2.'cuando lo desees visita el apartado Mis Tickets para hacer la consulta del estado de tu solicitud';
+            // $html = "
+            //     <div>
+            //         <h1>Numero Consecutivo</h1>
+            //         <p>Este es tu consecutivo <strong>'.$consecutivo2.'</strong> cuando lo desees visita el apartado Mis Tickets para hacer la consulta del estado de tu solicitud</p>
+            //     </div>
+            // ";
+            // $mail->Body    = $html;
         
             // $mail->send();
 

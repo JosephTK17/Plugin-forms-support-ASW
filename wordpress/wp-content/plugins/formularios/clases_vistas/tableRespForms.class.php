@@ -88,24 +88,71 @@ class tableForms {
                         border-radius: 5px;
                     }
 
-                    #cont_table_dllo h4{
-                        color: #84858d;
-                        text-align: center;
-                    }
-
                     .table_form{
+                        width: 100%;
+                        border-top: none;
+                        border-right: none;
+                        border-left: none;
                         border-collapse: collapse;
                     }
 
-                    .table_form thead th{
-                        background-color: gray; 
-                        color: white;
+                    .table_form thead th{ 
+                        color: gray;
+                        border-top: none;
+                        border-right: none;
+                        border-left: none;
                         border-right-color: white;
                     }
 
-                    #cont_table_spte h4{
-                        color: #84858d;
-                        text-align: center;
+                    .table_form tbody tr td{
+                        border-top: none;
+                        border-right: none;
+                        border-left: none;
+                    }
+
+                    .clm_btn_dlle{
+                        background-color: white !important;
+                        // border-color: white;
+                    }
+
+                    .clm_btn_dlle a{
+                        // width: 50px;
+                        background-color: blue;
+                        color: white;
+                        text-decoration: none;
+                        border-radius: 3px;
+                    }
+
+                    .cont_num_pag{
+                        margin: 15px 0 0 0;
+                    }
+
+                    #table_pag{
+                        border: none;
+                        border-collapse: collapse;
+                        margin: 0 0 0 0;
+                        display: flex;
+                        justify-content: center;
+                    }
+
+                    #table_pag tbody {
+                        border-radius: 3px;
+                    }
+
+                    #table_pag tbody tr td{
+                        border-color: black;
+                    }
+
+                    #table_pag tbody tr td a{
+                        // margin: 0 -4.3px 0 0;
+                        padding: 0 9px 0 9px;
+                        text-decoration: none;
+                    }
+
+                    #table_pag tbody tr td span{
+                        margin: 0 0 0 0;
+                        padding: 0 9px 0 9px;
+                        text-decoration: none;
                     }
 
                     #cont_table_rtas h4{
@@ -230,6 +277,17 @@ class tableForms {
                         padding: 0 15px 0 15px;
                     }
 
+                    .cont_modal_not{
+                        display: flex;
+                        justify-content: center;
+                    }
+
+                    .cont_modal_not p{
+                        width: 50%;
+                        border: solid 1px;
+                        text-align: center;
+                    }
+
                 </style>
             </head>
             ";
@@ -325,7 +383,8 @@ class tableForms {
             if ($conseId[0]['FormularioId'] == 1 && $conseId2[0]['FormularioId'] == 2) {
 
                 $html .= "
-                    <div id='cont_table_dllo'>
+                <div id='table_search'>
+                    <div id='cont_table_dllo_flt'>
                         <h4>Desarrollo</h4>
                         <table class='table_form' border=1>
                             <thead>
@@ -376,7 +435,7 @@ class tableForms {
                 ";
 
                 $html .= "
-                    <div id='cont_table_spte'>
+                    <div id='cont_table_spte_flt'>
                         <h4>Soporte</h4>
                             <table class='table_form' border=1>
                                 <thead>
@@ -418,14 +477,16 @@ class tableForms {
                 }
 
                 $html .= "
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 ";
             } elseif ($conseId[0]['FormularioId'] == 1) {
 
                 $html .= "
-                    <div id='cont_table_dllo'>
+                <div id='table_search'>
+                    <div id='cont_table_dllo_flt'>
                         <h4>Desarrollo</h4>
                         <table class='table_form' border=1>
                             <thead>
@@ -470,14 +531,17 @@ class tableForms {
                 }
 
                 $html .= "
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 ";
+
             } elseif ($conseId2[0]['FormularioId'] == 2) {
 
                 $html .= "
-                    <div id='cont_table_spte'>
+                <div id='table_search'>
+                    <div id='cont_table_spte_flt'>
                         <h4>Soporte</h4>
                             <table class='table_form' border=1>
                                 <thead>
@@ -519,17 +583,20 @@ class tableForms {
                 }
 
                 $html .= "
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 ";
+
             }
 
         } elseif (!empty($_POST['consecutivo'][0]) && $conseId[0]['FormularioId'] == 1) {
 
             //consecutivo
             $html .= "
-                <div id='cont_table_dllo'>
+            <div id='table_search'>
+                <div id='cont_table_dllo_flt'>
                     <h4>Desarrollo</h4>
                     <table class='table_form' border=1>
                         <thead>
@@ -549,7 +616,8 @@ class tableForms {
 
             //consecutivo
             $html .= "
-                <div id='cont_table_spte'>
+            <div id='table_search'>
+                <div id='cont_table_spte_flt'>
                     <h4>Soporte</h4>
                     <table class='table_form' border=1>
                         <thead>
@@ -569,7 +637,8 @@ class tableForms {
             //solicitante
             if ($conseId[0]['FormularioId'] == 1 && $conseId2[0]['FormularioId'] == 2) {
                 $html .= "
-                    <div id='cont_table_dllo'>
+                <div id='table_search'>
+                    <div id='cont_table_dllo_flt'>
                         <h4>Desarrollo</h4>
                         <table class='table_form' border=1>
                             <thead>
@@ -620,7 +689,7 @@ class tableForms {
                 ";
 
                 $html .= "
-                    <div id='cont_table_spte'>
+                    <div id='cont_table_spte_flt'>
                         <h4>Soporte</h4>
                             <table class='table_form' border=1>
                                 <thead>
@@ -662,13 +731,15 @@ class tableForms {
                 }
 
                 $html .= "
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 ";
             } elseif ($conseId[0]['FormularioId'] == 1) {
                 $html .= "
-                    <div id='cont_table_dllo'>
+                <div id='table_search'>
+                    <div id='cont_table_dllo_flt'>
                         <h4>Desarrollo</h4>
                         <table class='table_form' border=1>
                             <thead>
@@ -713,13 +784,15 @@ class tableForms {
                 }
 
                 $html .= "
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 ";
             } elseif ($conseId2[0]['FormularioId'] == 2) {
                 $html .= "
-                    <div id='cont_table_spte'>
+                <div id='table_search'>
+                    <div id='cont_table_spte_flt'>
                         <h4>Soporte</h4>
                             <table class='table_form' border=1>
                                 <thead>
@@ -761,8 +834,9 @@ class tableForms {
                 }
 
                 $html .= "
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 ";
             }
@@ -770,9 +844,11 @@ class tableForms {
         } elseif (!empty($_POST['consecutivo'][0]) && empty($_POST['fecha'][0]) && empty($_POST['solicitante'][0])) {
 
             $html .= "
+            <div id='table_search'>
                 <div>
                     <h1>Lo senimos, no hemos encontrado tu ticket</h1>
                 </div>
+            </div>
             "; 
 
         }
@@ -812,6 +888,14 @@ class tableForms {
                     </tr>
                 ";
             }
+
+            $html .= "
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            ";
+
         } elseif (!empty($_POST['consecutivo'][0]) && $conseId2[0]['FormularioId'] == 2) {
             foreach ($lista_formularios_filter2 as $key => $value) {
                     $consecutivo2 = $value['Consecutivo'];
@@ -837,18 +921,14 @@ class tableForms {
                     </tr>
                 ";
             }
+
+            $html .= "
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            ";
         }
-
-        return $html;
-    }
-
-    public function closeTableSearch()
-    {
-        $html = "
-                </tbody>
-            </table>
-        </div>
-        ";
 
         return $html;
     }
@@ -860,6 +940,7 @@ class tableForms {
         if ($tUrlId == 1) {
             if (!empty($lista_formularios_rtasD1)) {
                 $html .= "
+                <div id='tables_tickets'>
                     <div id='cont_table_dllo'>
                         <h4>Desarrollo</h4>
                         <table class='table_form' border=1>
@@ -872,7 +953,7 @@ class tableForms {
                                 <th>Para qué</th>
                                 <th>Criterios</th>
                                 <th>Estado</th>
-                                <th></th>
+                                <th class='clm_btn_dlle'></th>
                             </thead>
                             <tbody>
                 ";
@@ -897,7 +978,7 @@ class tableForms {
                             <td>$paraQue</td>
                             <td>$criterios</td>
                             <td>$estado</td>
-                            <td>
+                            <td class='clm_btn_dlle'>
                                 <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>
                             </td>
                         </tr>
@@ -910,25 +991,49 @@ class tableForms {
                 </div>
                 ";
 
+                $nav_countD1 = 0;
+                $page_countD1 = 1;
+                $current_pageD1 = $start_numberD1/10 + 1;
+                $numReg = $_GET['startD1'];
+                $prev = $numReg - 10;
+                $next = $numReg + 10;
+
+                $html .= "
+                <div class='cont_num_pag'>
+                    <table id='table_pag' border=1>
+                        <tr>
+                            <td><a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=1 && startD1={$prev}'><</a></td>
+                ";
+
                 if ( $countPagD1 > 10 ){
-                    $nav_countD1 = 0;
-                    $page_countD1 = 1;
-                    $current_pageD1 = $start_numberD1/10 + 1;
             
                     while ( $nav_countD1 < $countPagD1 ) {
                         if ( $page_countD1 === $current_pageD1 ){
-                            $html .= "<span>{$page_countD1}</span> ";
+                            $html .= "
+                                <td style='background-color: gray;'><span>{$page_countD1}</span></td>
+                            ";
                         } else {
-                            $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=1 && startD1={$nav_countD1}'>{$page_countD1}</a>
+                            $html .= "
+                                <td><a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=1 && startD1={$nav_countD1}'>{$page_countD1}</a></td>
                             ";
                         }
                         $nav_countD1 += 10;
                         $page_countD1++;
                     }
                 }
+
+                $html .= "
+                            <td><a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=1 && startD1={$next}'>></a></td>
+                        </tr>
+                    </table>
+                </div>
+                ";
             } else {
                 $html .= "
-                    <h1>No hay registros abiertos en la tabla 'Desarrollo'</h1>
+                <div id='tables_tickets'>
+                    <div class='cont_modal_not'>
+                        <p>No hay registros abiertos en la tabla 'Desarrollo'</p>
+                    </div>
                 ";
             }
 
@@ -945,7 +1050,7 @@ class tableForms {
                                 <th>Descripción</th>
                                 <th>Sede</th>
                                 <th>Estado</th>
-                                <th></th>
+                                <th class='clm_btn_dlle'></th>
                             </thead>
                             <tbody>
                 ";
@@ -968,7 +1073,7 @@ class tableForms {
                             <td>$descripcion</td>
                             <td>$sede</td>
                             <td>$estado2</td>
-                            <td>
+                            <td class='clm_btn_dlle'>
                                 <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2'>Detalle</a>
                             </td>
                         </tr>
@@ -981,6 +1086,12 @@ class tableForms {
                 </div>
                 ";
 
+                $html .= "
+                    <div class='cont_num_pag'>
+                        <table id='table_pag' border=1>
+                            <tr>
+                ";
+
                 if ( $countPagS1 > 10 ){
                     $nav_countS1 = 0;
                     $page_countS1 = 1;
@@ -988,23 +1099,35 @@ class tableForms {
             
                     while ( $nav_countS1 < $countPagS1 ) {
                         if ( $page_countS1 === $current_pageS1 ){
-                            $html .= "<span>{$page_countS1}</span> ";
+                            $html .= "<td style='background-color: gray;'><span>{$page_countS1}</span></td>";
                         } else {
-                            $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=1 && startS1={$nav_countS1}'>{$page_countS1}</a> ";
+                            $html .= "<td><a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=1 && startS1={$nav_countS1}'>{$page_countS1}</a></td> ";
                         }
                         $nav_countS1 += 10;
                         $page_countS1++;
                     }
                 }
+
+                $html .= "
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                ";
+
             } else {
                 $html .= "
-                    <h1>No hay registros abiertos en la tabla 'Soporte'</h1>
+                    <div class='cont_modal_not'>
+                        <p>No hay registros abiertos en la tabla 'Soporte'</p>
+                    </div>
+                </div>
                 ";
             }
 
         } elseif ($tUrlId == 2){
             if (!empty($lista_formularios_rtasD2)) {
                 $html .= "
+                <div id='tables_tickets'>
                     <div id='cont_table_dllo'>
                         <h4>Desarrollo</h4>
                         <table class='table_form' border=1>
@@ -1017,7 +1140,7 @@ class tableForms {
                                 <th>Para qué</th>
                                 <th>Criterios</th>
                                 <th>Estado</th>
-                                <th></th>
+                                <th class='clm_btn_dlle'></th>
                             </thead>
                             <tbody>
                 ";
@@ -1042,7 +1165,7 @@ class tableForms {
                             <td>$paraQue</td>
                             <td>$criterios</td>
                             <td>$estado</td>
-                            <td>
+                            <td class='clm_btn_dlle'>
                                 <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>
                             </td>
                         </tr>
@@ -1055,6 +1178,12 @@ class tableForms {
                 </div>
                 ";
 
+                $html .= "
+                    <div class='cont_num_pag'>
+                        <table id='table_pag' border=1>
+                            <tr>
+                ";
+
                 if ( $countPagD2 > 10 ){
                     $nav_countD2 = 0;
                     $page_countD2 = 1;
@@ -1062,18 +1191,28 @@ class tableForms {
             
                     while ( $nav_countD2 < $countPagD2 ) {
                         if ( $page_countD2 === $current_pageD2 ){
-                            $html .= "<span>{$page_countD2}</span> ";
+                            $html .= "<td style='background-color:;'><span>{$page_countD2}</span></td>";
                         } else {
-                            $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=2 && startD2={$nav_countD2}'>{$page_countD2}</a>
+                            $html .= "<td><a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=2 && startD2={$nav_countD2}'>{$page_countD2}</a></td>
                             ";
                         }
                         $nav_countD2 += 10;
                         $page_countD2++;
                     }
                 }
+
+                $html .= "
+                            </tr>
+                        </table>
+                    </div>
+                ";
+
             } else {
                 $html .= "
-                    <h1>No hay registros cerrados en la tabla 'Desarrollo'</h1>
+                <div id='tables_tickets'>
+                    <div class='cont_modal_not'>
+                        <p>No hay registros cerrados en la tabla 'Desarrollo'</p>
+                    </div>
                 ";
             }
 
@@ -1090,7 +1229,7 @@ class tableForms {
                                 <th>Descripción</th>
                                 <th>Sede</th>
                                 <th>Estado</th>
-                                <th></th>
+                                <th class='clm_btn_dlle'></th>
                             </thead>
                             <tbody>
                 ";
@@ -1113,7 +1252,7 @@ class tableForms {
                             <td>$descripcion</td>
                             <td>$sede</td>
                             <td>$estado2</td>
-                            <td>
+                            <td class='clm_btn_dlle'>
                                 <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2'>Detalle</a>
                             </td>
                         </tr>
@@ -1126,6 +1265,12 @@ class tableForms {
                 </div>
                 ";
 
+                $html .= "
+                    <div class='cont_num_pag'>
+                        <table id='table_pag' border=1>
+                            <tr>
+                ";
+
                 if ( $countPagS2 > 10 ){
                     $nav_countS2 = 0;
                     $page_countS2 = 1;
@@ -1133,24 +1278,36 @@ class tableForms {
             
                     while ( $nav_countS2 < $countPagS2 ) {
                         if ( $page_countS2 === $current_pageS2 ){
-                            $html .= "<span>{$page_countS2}</span> ";
+                            $html .= "<td style='background-color: gray;'><span>{$page_countS2}</span></td> ";
                         } else {
-                            $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=2 && startS2={$nav_countS2}'>{$page_countS2}</a>
+                            $html .= "<td><a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=2 && startS2={$nav_countS2}'>{$page_countS2}</a></td>
                             ";
                         }
                         $nav_countS2 += 10;
                         $page_countS2++;
                     }
                 }
+
+                $html .= "
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                ";
+
             } else {
                 $html .= "
-                    <h1>No hay registros cerrados en la tabla 'Soporte'</h1>
+                    <div class='cont_modal_not'>
+                        <p>No hay registros cerrados en la tabla 'Soporte'</p>
+                    </div>
+                </div>
                 ";
             }
 
         } elseif ($tUrlId == 3) {
             if (!empty($lista_formularios_rtasD3)) {
                 $html .= "
+                <div id='tables_tickets'>
                     <div id='cont_table_dllo'>
                         <h4>Desarrollo</h4>
                         <table class='table_form' border=1>
@@ -1163,7 +1320,7 @@ class tableForms {
                                 <th>Para qué</th>
                                 <th>Criterios</th>
                                 <th>Estado</th>
-                                <th></th>
+                                <th class='clm_btn_dlle'></th>
                             </thead>
                             <tbody>
                 ";
@@ -1188,7 +1345,7 @@ class tableForms {
                             <td>$paraQue</td>
                             <td>$criterios</td>
                             <td>$estado</td>
-                            <td>
+                            <td class='clm_btn_dlle'>
                                 <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>
                             </td>
                         </tr>
@@ -1201,6 +1358,12 @@ class tableForms {
                 </div>
                 ";
 
+                $html .= "
+                    <div class='cont_num_pag'>
+                        <table id='table_pag' border=1>
+                            <tr>
+                ";
+
                 if ( $countPagD3 > 10 ){
                     $nav_countD3 = 0;
                     $page_countD3 = 1;
@@ -1208,18 +1371,28 @@ class tableForms {
             
                     while ( $nav_countD3 < $countPagD3 ) {
                         if ( $page_countD3 === $current_pageD3 ){
-                            $html .= "<span>{$page_countD3}</span> ";
+                            $html .= "<td style='background-color: gray;'><span>{$page_countD3}</span></td> ";
                         } else {
-                            $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=3 && startD3={$nav_countD3}'>{$page_countD3}</a>
+                            $html .= "<td><a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=3 && startD3={$nav_countD3}'>{$page_countD3}</a></td>
                             ";
                         }
                         $nav_countD3 += 10;
                         $page_countD3++;
                     }
                 }
+
+                $html .= "
+                            </tr>
+                        </table>
+                    </div>
+                ";
+
             } else {
                 $html .= "
-                    <h1>No hay registros contestados en la tabla 'Desarrollo'</h1>
+                <div id='tables_tickets'>
+                    <div class='cont_modal_not'>
+                        <p>No hay registros contestados en la tabla 'Desarrollo'</p>
+                    </div>
                 ";
             }
 
@@ -1236,7 +1409,7 @@ class tableForms {
                                 <th>Descripción</th>
                                 <th>Sede</th>
                                 <th>Estado</th>
-                                <th></th>
+                                <th class='clm_btn_dlle'></th>
                             </thead>
                             <tbody>
                 ";
@@ -1259,7 +1432,7 @@ class tableForms {
                             <td>$descripcion</td>
                             <td>$sede</td>
                             <td>$estado2</td>
-                            <td>
+                            <td class='clm_btn_dlle'>
                                 <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2'>Detalle</a>
                             </td>
                         </tr>
@@ -1272,6 +1445,12 @@ class tableForms {
                 </div>
                 ";
 
+                $html .= "
+                    <div class='cont_num_pag'>
+                        <table id='table_pag' border=1>
+                            <tr>
+                ";
+
                 if ( $countPagS3 > 10 ){
                     $nav_countS3 = 0;
                     $page_countS3 = 1;
@@ -1279,18 +1458,29 @@ class tableForms {
             
                     while ( $nav_countS3 < $countPagS3 ) {
                         if ( $page_countS3 === $current_pageS3 ){
-                            $html .= "<span>{$page_countS3}</span> ";
+                            $html .= "<td style='background-color: gray;'><span>{$page_countS3}</span></td> ";
                         } else {
-                            $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=3 && startS3={$nav_countS3}'>{$page_countS3}</a>
+                            $html .= "<td><a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=3 && startS3={$nav_countS3}'>{$page_countS3}</a></td>
                             ";
                         }
                         $nav_countS3 += 10;
                         $page_countS3++;
                     }
                 }
+
+                $html .= "
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                ";
+
             } else {
                 $html .= "
-                    <h1>No hay registros contestados en la tabla 'Soporte'</h1>
+                    <div class='cont_modal_not'>
+                        <p>No hay registros contestados en la tabla 'Soporte'</p>
+                    </div>
+                </div>
                 ";
             }
 
@@ -1298,6 +1488,7 @@ class tableForms {
 
             if (!empty($lista_formularios_rtasD4)) {
                 $html .= "
+                <div id='tables_tickets'>
                     <div id='cont_table_dllo'>
                         <h4>Desarrollo</h4>
                         <table class='table_form' border=1>
@@ -1310,7 +1501,7 @@ class tableForms {
                                 <th>Para qué</th>
                                 <th>Criterios</th>
                                 <th>Estado</th>
-                                <th></th>
+                                <th class='clm_btn_dlle'></th>
                             </thead>
                             <tbody>
                 ";
@@ -1335,7 +1526,7 @@ class tableForms {
                             <td>$paraQue</td>
                             <td>$criterios</td>
                             <td>$estado</td>
-                            <td>
+                            <td class='clm_btn_dlle'>
                                 <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>
                             </td>
                         </tr>
@@ -1348,6 +1539,11 @@ class tableForms {
                 </div>
                 ";
 
+                $html .= "
+                    <div class='cont_num_pag'>
+                        <table id='table_pag' border=1>
+                            <tr>
+                ";
 
                 if ( $countPagD4 > 10 ){
                     $nav_countD4 = 0;
@@ -1356,18 +1552,28 @@ class tableForms {
             
                     while ( $nav_countD4 < $countPagD4 ) {
                         if ( $page_countD4 === $current_pageD4 ){
-                            $html .= "<span>{$page_countD4}</span> ";
+                            $html .= "<td style='background-color: gray;'><span>{$page_countD4}</span></td> ";
                         } else {
-                            $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=4 && startD4={$nav_countD4}'>{$page_countD4}</a>
+                            $html .= "<td><a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=4 && startD4={$nav_countD4}'>{$page_countD4}</a></td>
                             ";
                         }
                         $nav_countD4 += 10;
                         $page_countD4++;
                     }
                 }
+
+                $html .= "
+                            </tr>
+                        </table>
+                    </div>
+                ";
+
             } else {
                 $html .= "
-                    <h1>No hay registros en la tabla 'Desarrollo'</h1>
+                <div id='tables_tickets'>
+                    <div class='cont_modal_not'>
+                        <p>No hay registros en la tabla 'Desarrollo'</p>
+                    </div>
                 ";
             }
 
@@ -1384,7 +1590,7 @@ class tableForms {
                                 <th>Descripción</th>
                                 <th>Sede</th>
                                 <th>Estado</th>
-                                <th></th>
+                                <th class='clm_btn_dlle'></th>
                             </thead>
                             <tbody>
                 ";
@@ -1407,7 +1613,7 @@ class tableForms {
                             <td>$descripcion</td>
                             <td>$sede</td>
                             <td>$estado2</td>
-                            <td>
+                            <td class='clm_btn_dlle'>
                                 <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2'>Detalle</a>
                             </td>
                         </tr>
@@ -1420,6 +1626,12 @@ class tableForms {
                 </div>
                 ";
 
+                $html .= "
+                    <div class='cont_num_pag'>
+                        <table id='table_pag' border=1>
+                            <tr>
+                ";
+
                 if ( $countPagS4 > 10 ){
                     $nav_countS4 = 0;
                     $page_countS4 = 1;
@@ -1427,17 +1639,28 @@ class tableForms {
             
                     while ( $nav_countS4 < $countPagS4 ) {
                         if ( $page_countS4 === $current_pageS4 ){
-                            $html .= "<span>{$page_countS4}</span> ";
+                            $html .= "<td style='background-color: gray;'><span>{$page_countS4}</span></td>";
                         } else {
-                            $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=4 && startS4={$nav_countS4}'>{$page_countS4}</a> ";
+                            $html .= "<td><a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=4 && startS4={$nav_countS4}'>{$page_countS4}</a></td> ";
                         }
                         $nav_countS4 += 10;  
                         $page_countS4++;
                     }
                 }
+
+                $html .= "
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                ";
+
             } else {
                 $html .= "
-                    <h1>No hay registros en la tabla 'Soporte'</h1>
+                    <div class='cont_modal_not'>
+                        <p>No hay registros en la tabla 'Soporte'</p>
+                    </div>
+                </div>
                 ";  
             }
         }    
@@ -1777,14 +2000,21 @@ class tableForms {
             //tabla filtro
             $html .= $this->conteoTickets($numRegistrosAb, $numRegistrosCe, $numRegistrosCon, $numRegistrosTot);
             $html .= $this->search();
-            $html .= $this->TableSearch($conseId, $conseId2, $lista_formularios_filter, $lista_formularios_filter2);
-            $html .= $this->oneTableSearch($conseId, $conseId2, $lista_formularios_filter, $lista_formularios_filter2);
-            $html .= $this->closeTableSearch();
 
-            //tabla respuestas
-            $html .= $this->structureTickets($start_numberD1, $start_numberS1, $start_numberD2, $start_numberS2, $start_numberD3, $start_numberS3, $start_numberD4, $start_numberS4, $countPagD1, $countPagS1, $countPagD2, $countPagS2, $countPagD3, $countPagS3, $countPagD4, $countPagS4, $tUrlId, $lista_formularios_rtasD1, $lista_formularios_rtasD2, $lista_formularios_rtasD3, $lista_formularios_rtasD4, $lista_formularios_rtasS1, $lista_formularios_rtasS2, $lista_formularios_rtasS3, $lista_formularios_rtasS4);
+            if (!empty($conseId) || !empty($conseId2) || !empty($lista_formularios_filter) || !empty($lista_formularios_filter2)) {
+
+                $html .= $this->TableSearch($conseId, $conseId2, $lista_formularios_filter, $lista_formularios_filter2);
+                $html .= $this->oneTableSearch($conseId, $conseId2, $lista_formularios_filter, $lista_formularios_filter2);
+
+            } elseif (!empty($tUrlId)) {
+
+                //tabla respuestas
+                $html .= $this->structureTickets($start_numberD1, $start_numberS1, $start_numberD2, $start_numberS2, $start_numberD3, $start_numberS3, $start_numberD4, $start_numberS4, $countPagD1, $countPagS1, $countPagD2, $countPagS2, $countPagD3, $countPagS3, $countPagD4, $countPagS4, $tUrlId, $lista_formularios_rtasD1, $lista_formularios_rtasD2, $lista_formularios_rtasD3, $lista_formularios_rtasD4, $lista_formularios_rtasS1, $lista_formularios_rtasS2, $lista_formularios_rtasS3, $lista_formularios_rtasS4);
+
+            }
 
             $html .= $this->moreFilters();
+            // $html .= $this->changeTable($tUrlId);
 
         } else {
             $html = "
