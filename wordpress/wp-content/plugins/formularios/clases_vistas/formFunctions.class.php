@@ -311,7 +311,7 @@ class formFuntions{
     public function soporteForm($userName)
     {
         $html = "
-            <div class='cont_forms' id='cont_spte' style='display: block'>
+            <div class='cont_forms' id='cont_spte' style='display: none'>
                 <form id='soporte' name='f3' method='POST'>
                     <div class='form-group'>
                         <div>

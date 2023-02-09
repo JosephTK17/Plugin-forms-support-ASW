@@ -942,6 +942,9 @@ class tableForms {
                 $html .= "
                 <div id='tables_tickets'>
                     <div id='cont_table_dllo'>
+                    <scroll-container>
+                        <scroll-page id='tDllo'></scroll-page>
+                    </scroll-container>
                         <h4>Desarrollo</h4>
                         <table class='table_form' border=1>
                             <thead>
@@ -1002,9 +1005,16 @@ class tableForms {
                 <div class='cont_num_pag'>
                     <table id='table_pag' border=1>
                         <tr>
-                            <td><a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=1 && startD1={$prev}'><</a></td>
                 ";
 
+                if ($numReg == 0) {
+                    $html .= "";
+                } else {
+                    $html .= "
+                                <td><a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=1 && startD1={$prev} '><</a></td>
+                    ";
+                }
+            
                 if ( $countPagD1 > 10 ){
             
                     while ( $nav_countD1 < $countPagD1 ) {
@@ -1022,8 +1032,19 @@ class tableForms {
                     }
                 }
 
+                $restReg = $nav_countD1 - $numReg ;
+                $sumReg = $numReg + $restReg;
+
+                if ($nav_countD1 == $sumReg && $restReg == 10) {
+                    $html .= "";
+                } else {
+                    $html .= "
+                        <td><a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=1 && startD1={$next}'>></a></td>
+                    ";
+                }
+
                 $html .= "
-                            <td><a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=1 && startD1={$next}'>></a></td>
+                            
                         </tr>
                     </table>
                 </div>
