@@ -373,7 +373,7 @@ class tableForms {
         return $html;
     }
 
-    public function TableSearch($conseId, $conseId2, $lista_formularios_filter, $lista_formularios_filter2)
+    public function TableSearch($conseId, $conseId2, $lista_formularios_filter, $lista_formularios_filter2, $start_numberFD1, $countPagFD1, $countPagFS1)
     {
         $html = "";
 
@@ -430,6 +430,61 @@ class tableForms {
 
                 $html .= "
                         </tbody>
+                    </table>
+                </div>
+                ";
+
+                $nav_countFD1 = 0;
+                $page_countFD1 = 1;
+                $current_pageFD1 = $start_numberFD1/10 + 1;
+                $numRegFD1 = $_GET['startFD1'];
+                $prevFD1 = $numRegFD1 - 10;
+                $nextFD1 = $numRegFD1 + 10;
+
+                $html .= "
+                <div class='cont_num_pag'>
+                    <table id='table_pag' border=1>
+                        <tr>
+                ";
+
+                if ($numRegFD1 == 0) {
+                    $html .= "";
+                } else {
+                    $html .= "
+                                <td><a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?startFD1={$prevFD1} '><</a></td>
+                    ";
+                }
+            
+                if ( $countPagFD1 > 10 ){
+            
+                    while ( $nav_countFD1 < $countPagFD1 ) {
+                        if ( $page_countFD1 === $current_pageFD1 ){
+                            $html .= "
+                                <td style='background-color: gray;'><span>{$page_countFD1}</span></td>
+                            ";
+                        } else {
+                            $html .= "
+                                <td><a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?startFD1={$nav_countFD1}'>{$page_countFD1}</a></td>
+                            ";
+                        }
+                        $nav_countFD1 += 10;
+                        $page_countFD1++;
+                    }
+                }
+
+                $restRegFD1 = $nav_countFD1 - $numRegFD1;
+                $sumRegFD1 = $numRegFD1 + $restRegFD1;
+
+                if ($nav_countFD1 == $sumRegFD1 && $restRegFD1 <= 10) {
+                    $html .= "";
+                } else {
+                    $html .= "
+                        <td><a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?startFD1={$nextFD1}'>></a></td>
+                    ";
+                }
+
+                $html .= "     
+                        </tr>
                     </table>
                 </div>
                 ";
@@ -997,9 +1052,9 @@ class tableForms {
                 $nav_countD1 = 0;
                 $page_countD1 = 1;
                 $current_pageD1 = $start_numberD1/10 + 1;
-                $numReg = $_GET['startD1'];
-                $prev = $numReg - 10;
-                $next = $numReg + 10;
+                $numRegD1 = $_GET['startD1'];
+                $prevD1 = $numRegD1 - 10;
+                $nextD1 = $numRegD1 + 10;
 
                 $html .= "
                 <div class='cont_num_pag'>
@@ -1007,11 +1062,11 @@ class tableForms {
                         <tr>
                 ";
 
-                if ($numReg == 0) {
+                if ($numRegD1 == 0) {
                     $html .= "";
                 } else {
                     $html .= "
-                                <td><a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=1 && startD1={$prev} '><</a></td>
+                                <td><a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=1 && startD1={$prevD1} '><</a></td>
                     ";
                 }
             
@@ -1032,19 +1087,18 @@ class tableForms {
                     }
                 }
 
-                $restReg = $nav_countD1 - $numReg ;
-                $sumReg = $numReg + $restReg;
+                $restRegD1 = $nav_countD1 - $numRegD1;
+                $sumRegD1 = $numRegD1 + $restRegD1;
 
-                if ($nav_countD1 == $sumReg && $restReg == 10) {
+                if ($nav_countD1 == $sumRegD1 && $restRegD1 <= 10) {
                     $html .= "";
                 } else {
                     $html .= "
-                        <td><a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=1 && startD1={$next}'>></a></td>
+                        <td><a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=1 && startD1={$nextD1}'>></a></td>
                     ";
                 }
 
-                $html .= "
-                            
+                $html .= "     
                         </tr>
                     </table>
                 </div>
@@ -1107,17 +1161,28 @@ class tableForms {
                 </div>
                 ";
 
+                $nav_countS1 = 0;
+                $page_countS1 = 1;
+                $current_pageS1 = $start_numberS1/10 + 1;
+                $numRegS1 = $_GET['startS1'];
+                $prevS1 = $numRegS1 - 10;
+                $nextS1 = $numRegS1 + 10;
+
                 $html .= "
-                    <div class='cont_num_pag'>
-                        <table id='table_pag' border=1>
-                            <tr>
+                <div class='cont_num_pag'>
+                    <table id='table_pag' border=1>
+                        <tr>
                 ";
 
+                if ($numRegS1 == 0) {
+                    $html .= "";
+                } else {
+                    $html .= "
+                            <td><a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=1 && startS1={$prevS1} '><</a></td>
+                    ";
+                }
+
                 if ( $countPagS1 > 10 ){
-                    $nav_countS1 = 0;
-                    $page_countS1 = 1;
-                    $current_pageS1 = $start_numberS1/10 + 1;
-            
                     while ( $nav_countS1 < $countPagS1 ) {
                         if ( $page_countS1 === $current_pageS1 ){
                             $html .= "<td style='background-color: gray;'><span>{$page_countS1}</span></td>";
@@ -1127,6 +1192,17 @@ class tableForms {
                         $nav_countS1 += 10;
                         $page_countS1++;
                     }
+                }
+
+                $restRegS1 = $nav_countS1 - $numRegS1;
+                $sumRegS1 = $numRegS1 + $restRegS1;
+
+                if ($nav_countS1 == $sumRegS1 && $restRegS1 <= 10) {
+                    $html .= "";
+                } else {
+                    $html .= "
+                        <td><a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=1 && startS1={$nextS1}'>></a></td>
+                    ";
                 }
 
                 $html .= "
@@ -1199,17 +1275,28 @@ class tableForms {
                 </div>
                 ";
 
+                $nav_countD2 = 0;
+                $page_countD2 = 1;
+                $current_pageD2 = $start_numberD2/10 + 1;
+                $numRegD2 = $_GET['startD2'];
+                $prevD2 = $numRegD2 - 10;
+                $nextD2 = $numRegD2 + 10;
+
                 $html .= "
-                    <div class='cont_num_pag'>
-                        <table id='table_pag' border=1>
-                            <tr>
+                <div class='cont_num_pag'>
+                    <table id='table_pag' border=1>
+                        <tr>
                 ";
 
+                if ($numRegD2 == 0) {
+                    $html .= "";
+                } else {
+                    $html .= "
+                            <td><a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=2 && startD2={$prevD2} '><</a></td>
+                    ";
+                }
+
                 if ( $countPagD2 > 10 ){
-                    $nav_countD2 = 0;
-                    $page_countD2 = 1;
-                    $current_pageD2 = $start_numberD2/10 + 1;
-            
                     while ( $nav_countD2 < $countPagD2 ) {
                         if ( $page_countD2 === $current_pageD2 ){
                             $html .= "<td style='background-color:;'><span>{$page_countD2}</span></td>";
@@ -1220,6 +1307,22 @@ class tableForms {
                         $nav_countD2 += 10;
                         $page_countD2++;
                     }
+                }
+
+                $restRegD2 = $nav_countD2 - $numRegD2;
+                $sumRegD2 = $numRegD2 + $restRegD2;
+
+                var_dump($nav_countD2);
+                var_dump($sumRegD2);
+                var_dump($restRegD2);
+                var_dump($countPagD2);
+
+                if ($nav_countD2 == $sumRegD2 && $restRegD2 <= 10) {
+                    $html .= "";
+                } else {
+                    $html .= "
+                        <td><a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=2 && startD2={$nextD2}'>></a></td>
+                    ";
                 }
 
                 $html .= "
@@ -1286,17 +1389,28 @@ class tableForms {
                 </div>
                 ";
 
+                $nav_countS2 = 0;
+                $page_countS2 = 1;
+                $current_pageS2 = $start_numberS2/10 + 1;
+                $numRegS2 = $_GET['startS2'];
+                $prevS2 = $numRegS2 - 10;
+                $nextS2 = $numRegS2 + 10;
+
                 $html .= "
-                    <div class='cont_num_pag'>
-                        <table id='table_pag' border=1>
-                            <tr>
+                <div class='cont_num_pag'>
+                    <table id='table_pag' border=1>
+                        <tr>
                 ";
 
+                if ($numRegS2 == 0) {
+                    $html .= "";
+                } else {
+                    $html .= "
+                            <td><a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=2 && startS2={$prevS2} '><</a></td>
+                    ";
+                }
+
                 if ( $countPagS2 > 10 ){
-                    $nav_countS2 = 0;
-                    $page_countS2 = 1;
-                    $current_pageS2 = $start_numberS2/10 + 1;
-            
                     while ( $nav_countS2 < $countPagS2 ) {
                         if ( $page_countS2 === $current_pageS2 ){
                             $html .= "<td style='background-color: gray;'><span>{$page_countS2}</span></td> ";
@@ -1307,6 +1421,17 @@ class tableForms {
                         $nav_countS2 += 10;
                         $page_countS2++;
                     }
+                }
+
+                $restRegS2 = $nav_countS2 - $numRegS2;
+                $sumRegS2 = $numRegS2 + $restRegS2;
+
+                if ($nav_countS2 == $sumRegS2 && $restRegS2 <= 10) {
+                    $html .= "";
+                } else {
+                    $html .= "
+                        <td><a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=2 && startS2={$nextS2}'>></a></td>
+                    ";
                 }
 
                 $html .= "
@@ -1379,17 +1504,28 @@ class tableForms {
                 </div>
                 ";
 
+                $nav_countD3 = 0;
+                $page_countD3 = 1;
+                $current_pageD3 = $start_numberD3/10 + 1;
+                $numRegD3 = $_GET['startD3'];
+                $prevD3 = $numRegD3 - 10;
+                $nextD3 = $numRegD3 + 10;
+
                 $html .= "
-                    <div class='cont_num_pag'>
-                        <table id='table_pag' border=1>
-                            <tr>
+                <div class='cont_num_pag'>
+                    <table id='table_pag' border=1>
+                        <tr>
                 ";
 
+                if ($numRegD3 == 0) {
+                    $html .= "";
+                } else {
+                    $html .= "
+                            <td><a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=3 && startD3={$prevD3} '><</a></td>
+                    ";
+                }
+
                 if ( $countPagD3 > 10 ){
-                    $nav_countD3 = 0;
-                    $page_countD3 = 1;
-                    $current_pageD3 = $start_numberD3/10 + 1;
-            
                     while ( $nav_countD3 < $countPagD3 ) {
                         if ( $page_countD3 === $current_pageD3 ){
                             $html .= "<td style='background-color: gray;'><span>{$page_countD3}</span></td> ";
@@ -1400,6 +1536,17 @@ class tableForms {
                         $nav_countD3 += 10;
                         $page_countD3++;
                     }
+                }
+
+                $restRegD3 = $nav_countD3 - $numRegD3;
+                $sumRegD3 = $numRegD3 + $restRegD3;
+
+                if ($nav_countD3 == $sumRegD3 && $restRegD3 <= 10) {
+                    $html .= "";
+                } else {
+                    $html .= "
+                        <td><a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=3 && startD3={$nextD3}'>></a></td>
+                    ";
                 }
 
                 $html .= "
@@ -1466,17 +1613,28 @@ class tableForms {
                 </div>
                 ";
 
+                $nav_countS3 = 0;
+                $page_countS3 = 1;
+                $current_pageS3 = $start_numberS3/10 + 1;
+                $numRegS3 = $_GET['startS3'];
+                $prevS3 = $numRegS3 - 10;
+                $nextS3 = $numRegS3 + 10;
+
                 $html .= "
-                    <div class='cont_num_pag'>
-                        <table id='table_pag' border=1>
-                            <tr>
+                <div class='cont_num_pag'>
+                    <table id='table_pag' border=1>
+                        <tr>
                 ";
 
+                if ($numRegS3 == 0) {
+                    $html .= "";
+                } else {
+                    $html .= "
+                            <td><a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=3 && startS3={$prevS3} '><</a></td>
+                    ";
+                }
+
                 if ( $countPagS3 > 10 ){
-                    $nav_countS3 = 0;
-                    $page_countS3 = 1;
-                    $current_pageS3 = $start_numberS3/10 + 1;
-            
                     while ( $nav_countS3 < $countPagS3 ) {
                         if ( $page_countS3 === $current_pageS3 ){
                             $html .= "<td style='background-color: gray;'><span>{$page_countS3}</span></td> ";
@@ -1487,6 +1645,17 @@ class tableForms {
                         $nav_countS3 += 10;
                         $page_countS3++;
                     }
+                }
+
+                $restRegS3 = $nav_countS3 - $numRegS3;
+                $sumRegS3 = $numRegS3 + $restRegS3;
+
+                if ($nav_countS3 == $sumRegS3 && $restRegS3 <= 10) {
+                    $html .= "";
+                } else {
+                    $html .= "
+                        <td><a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=3 && startS3={$nextS3}'>></a></td>
+                    ";
                 }
 
                 $html .= "
@@ -1560,17 +1729,28 @@ class tableForms {
                 </div>
                 ";
 
+                $nav_countD4 = 0;
+                $page_countD4 = 1;
+                $current_pageD4 = $start_numberD4/10 + 1;
+                $numRegD4 = $_GET['startD4'];
+                $prevD4 = $numRegD4 - 10;
+                $nextD4 = $numRegD4 + 10;
+
                 $html .= "
-                    <div class='cont_num_pag'>
-                        <table id='table_pag' border=1>
-                            <tr>
+                <div class='cont_num_pag'>
+                    <table id='table_pag' border=1>
+                        <tr>
                 ";
 
-                if ( $countPagD4 > 10 ){
-                    $nav_countD4 = 0;
-                    $page_countD4 = 1;
-                    $current_pageD4 = $start_numberD4/10 + 1;
-            
+                if ($numRegD4 == 0) {
+                    $html .= "";
+                } else {
+                    $html .= "
+                            <td><a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=4 && startD4={$prevD4} '><</a></td>
+                    ";
+                }
+
+                if ( $countPagD4 > 10 ){            
                     while ( $nav_countD4 < $countPagD4 ) {
                         if ( $page_countD4 === $current_pageD4 ){
                             $html .= "<td style='background-color: gray;'><span>{$page_countD4}</span></td> ";
@@ -1581,6 +1761,17 @@ class tableForms {
                         $nav_countD4 += 10;
                         $page_countD4++;
                     }
+                }
+
+                $restRegD4 = $nav_countD4 - $numRegD4;
+                $sumRegD4 = $numRegD4 + $restRegD4;
+
+                if ($nav_countD4 == $sumRegD4 && $restRegD4 <= 10) {
+                    $html .= "";
+                } else {
+                    $html .= "
+                        <td><a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=4 && startD4={$nextD4}'>></a></td>
+                    ";
                 }
 
                 $html .= "
@@ -1647,17 +1838,28 @@ class tableForms {
                 </div>
                 ";
 
+                $nav_countS4 = 0;
+                $page_countS4 = 1;
+                $current_pageS4 = $start_numberS4/10 + 1;
+                $numRegS4 = $_GET['startS4'];
+                $prevS4 = $numRegS4 - 10;
+                $nextS4 = $numRegS4 + 10;
+
                 $html .= "
-                    <div class='cont_num_pag'>
-                        <table id='table_pag' border=1>
-                            <tr>
+                <div class='cont_num_pag'>
+                    <table id='table_pag' border=1>
+                        <tr>
                 ";
 
+                if ($numRegS4 == 0) {
+                    $html .= "";
+                } else {
+                    $html .= "
+                            <td><a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=4 && startS4={$prevS4} '><</a></td>
+                    ";
+                }
+
                 if ( $countPagS4 > 10 ){
-                    $nav_countS4 = 0;
-                    $page_countS4 = 1;
-                    $current_pageS4 = $start_numberS4/10 + 1;
-            
                     while ( $nav_countS4 < $countPagS4 ) {
                         if ( $page_countS4 === $current_pageS4 ){
                             $html .= "<td style='background-color: gray;'><span>{$page_countS4}</span></td>";
@@ -1667,6 +1869,17 @@ class tableForms {
                         $nav_countS4 += 10;  
                         $page_countS4++;
                     }
+                }
+
+                $restRegS4 = $nav_countS4 - $numRegS4;
+                $sumRegS4 = $numRegS4 + $restRegS4;
+
+                if ($nav_countS4 == $sumRegS4 && $restRegS4 <= 10) {
+                    $html .= "";
+                } else {
+                    $html .= "
+                        <td><a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=4 && startS4={$nextS4}'>></a></td>
+                    ";
                 }
 
                 $html .= "
@@ -1756,17 +1969,24 @@ class tableForms {
 
         if (!empty($_POST['fecha'][0]) && !empty($_POST['solicitante'][0])) {
 
-            $queryData = "SELECT * FROM $tableR1 WHERE Fecha = '$fecha' AND Solicitante = '$solicitante' ORDER BY FormularioId DESC"; 
-            $queryData2 = "SELECT * FROM $tableR2 WHERE Fecha = '$fecha' AND Solicitante = '$solicitante' ORDER BY FormularioId DESC";
+            $queryData = "SELECT * FROM $tableR1 WHERE Fecha LIKE '%$fecha%' AND Solicitante = '$solicitante' ORDER BY RespuestaId DESC"; 
+            $queryData2 = "SELECT * FROM $tableR2 WHERE Fecha LIKe '%$fecha%' AND Solicitante = '$solicitante' ORDER BY RespuestaId DESC";
 
             //idForm
-            $queryId = "SELECT FormularioId FROM $tableR1 WHERE Fecha = '$fecha' AND Solicitante = '$solicitante'";
-            $queryId2 = "SELECT FormularioId FROM $tableR2 WHERE Fecha = '$fecha' AND Solicitante = '$solicitante'";
+            $queryId = "SELECT FormularioId FROM $tableR1 WHERE Fecha LIKE '%$fecha%' AND Solicitante = '$solicitante'";
+            $queryId2 = "SELECT FormularioId FROM $tableR2 WHERE Fecha LIKE '%$fecha%' AND Solicitante = '$solicitante'";
+
+            $start_numberF1 = $_REQUEST['startF1']??0;
+            if ( $start_numberF1 < 0 || ! is_numeric( $start_numberF1 ) ) $start_numberF1 = 0;
+
+            //count
+            $sqlF1 = "SELECT COUNT(*) FROM `$tableR1` WHERE Fecha LIKE '%$fecha%' AND Solicitante = '$solicitante' ORDER BY RespuestaId DESC LIMIT $start_numberF1, 10";
+            $countPagF1 = $wpdb->get_var($sqlF1);
 
         } elseif(!empty($_POST['consecutivo'][0])){
 
-            $queryData = "SELECT * FROM $tableR1 WHERE Consecutivo = '$consecutivo' ORDER BY FormularioId DESC";
-            $queryData2 = "SELECT * FROM $tableR2 WHERE Consecutivo = '$consecutivo' ORDER BY FormularioId DESC"; 
+            $queryData = "SELECT * FROM $tableR1 WHERE Consecutivo = '$consecutivo'";
+            $queryData2 = "SELECT * FROM $tableR2 WHERE Consecutivo = '$consecutivo'"; 
 
             //idForm
             $queryId = "SELECT FormularioId FROM $tableR1 WHERE Consecutivo = '$consecutivo'";
@@ -1774,17 +1994,31 @@ class tableForms {
 
         } elseif (!empty($_POST['fecha'][0])) {
 
-            $queryData = "SELECT * FROM $tableR1 WHERE Fecha = '$fecha' ORDER BY FormularioId DESC";
-            $queryData2 = "SELECT * FROM $tableR2 WHERE Fecha = '$fecha' ORDER BY FormularioId DESC";
+            $start_numberFD1 = $_REQUEST['startFD1']??0;
+            if ( $start_numberFD1 < 0 || ! is_numeric( $start_numberFD1 ) ) $start_numberFD1 = 0;
+
+            //count
+            $sqlFD1 = "SELECT COUNT(*) FROM `$tableR1` WHERE Fecha LIKE '%$fecha%' AND Solicitante = '$solicitante' ORDER BY RespuestaId DESC";
+            $countPagFD1 = $wpdb->get_var($sqlFD1);
+
+            $start_numberFS1 = $_REQUEST['startFS1']??0;
+            if ( $start_numberFS1 < 0 || ! is_numeric( $start_numberFS1 ) ) $start_numberFS1 = 0;
+
+            // Count items
+            $sqlFS1 = "SELECT COUNT(*) FROM `$tableR2` WHERE Estado != 'Cerrado'";
+            $countPagFS1 = $wpdb->get_var($sqlFS1);
+
+            $queryData = "SELECT * FROM $tableR1 WHERE Fecha LIKE '%$fecha%' ORDER BY RespuestaId DESC LIMIT $start_numberFD1, 10";
+            $queryData2 = "SELECT * FROM $tableR2 WHERE Fecha LIKE '%$fecha%'' ORDER BY RespuestaId DESC LIMIT $start_numberFS1, 10";
 
             //idForm
-            $queryId = "SELECT FormularioId FROM $tableR1 WHERE Fecha = '$fecha'";
-            $queryId2 = "SELECT FormularioId FROM $tableR2 WHERE Fecha = '$fecha'";
+            $queryId = "SELECT FormularioId FROM $tableR1 WHERE Fecha LIKE '%$fecha%'";
+            $queryId2 = "SELECT FormularioId FROM $tableR2 WHERE Fecha LIKE '%$fecha%'";
             
         } elseif (!empty($_POST['solicitante'][0])) {
 
-            $queryData = "SELECT * FROM $tableR1 WHERE Solicitante = '$solicitante' ORDER BY FormularioId DESC"; 
-            $queryData2 = "SELECT * FROM $tableR2 WHERE Solicitante = '$solicitante' ORDER BY FormularioId DESC";
+            $queryData = "SELECT * FROM $tableR1 WHERE Solicitante = '$solicitante' ORDER BY RespuestaId DESC"; 
+            $queryData2 = "SELECT * FROM $tableR2 WHERE Solicitante = '$solicitante' ORDER BY RespuestaId DESC";
 
             //idForm
             $queryId = "SELECT FormularioId FROM $tableR1 WHERE Solicitante = '$solicitante'";
@@ -1821,6 +2055,7 @@ class tableForms {
                 }
             }
 
+            //consulta general
             //pagination T1-------------------------------------------------------------------------------------
 
             $start_numberD1 = $_REQUEST['startD1']??0;
@@ -1890,13 +2125,13 @@ class tableForms {
 
             //abierto
             //mostrar-------------------------
-            $queryRtasD1 = "SELECT * FROM $tableR1 WHERE Estado != 'Cerrado' LIMIT $start_numberD1, 10";
+            $queryRtasD1 = "SELECT * FROM $tableR1 WHERE Estado != 'Cerrado' ORDER BY RespuestaId DESC LIMIT $start_numberD1, 10";
             $lista_formularios_rtasD1 = $wpdb->get_results($queryRtasD1, ARRAY_A);
             if (empty($lista_formularios_rtasD1)) {
                 $lista_formularios_rtasD1 = array();
             }
 
-            $queryRtasS1 = "SELECT * FROM $tableR2 WHERE Estado != 'Cerrado' LIMIT $start_numberS1, 10";
+            $queryRtasS1 = "SELECT * FROM $tableR2 WHERE Estado != 'Cerrado' ORDER BY RespuestaId DESC LIMIT $start_numberS1, 10";
             $lista_formularios_rtasS1 = $wpdb->get_results($queryRtasS1, ARRAY_A);
             if (empty($lista_formularios_rtasS1)) {
                 $lista_formularios_rtasS1 = array();
@@ -1921,13 +2156,13 @@ class tableForms {
             $numRegistrosAb = $RegistrosD1 + $RegistrosS1;
 
             //cerrado
-            $queryRtasD2 = "SELECT * FROM $tableR1 WHERE Estado = 'Cerrado' LIMIT $start_numberD2, 10";
+            $queryRtasD2 = "SELECT * FROM $tableR1 WHERE Estado = 'Cerrado' ORDER BY RespuestaId DESC LIMIT $start_numberD2, 10";
             $lista_formularios_rtasD2 = $wpdb->get_results($queryRtasD2, ARRAY_A);
             if (empty($lista_formularios_rtasD2)) {
                 $lista_formularios_rtasD2 = array();
             }
 
-            $queryRtasS2 = "SELECT * FROM $tableR2 WHERE Estado = 'Cerrado' LIMIT $start_numberS2, 10";
+            $queryRtasS2 = "SELECT * FROM $tableR2 WHERE Estado = 'Cerrado' ORDER BY RespuestaId DESC LIMIT $start_numberS2, 10";
             $lista_formularios_rtasS2 = $wpdb->get_results($queryRtasS2, ARRAY_A);
             if (empty($lista_formularios_rtasS2)) {
                 $lista_formularios_rtasS2 = array();
@@ -1952,13 +2187,13 @@ class tableForms {
             $numRegistrosCe = $RegistrosD2 + $RegistrosS2;
 
             //contestado
-            $queryRtasD3 = "SELECT * FROM $tableR1 WHERE Estado != 'Solicitado' AND Estado != 'Cerrado' LIMIT $start_numberD2, 10";
+            $queryRtasD3 = "SELECT * FROM $tableR1 WHERE Estado != 'Solicitado' AND Estado != 'Cerrado' ORDER BY RespuestaId DESC LIMIT $start_numberD2, 10";
             $lista_formularios_rtasD3 = $wpdb->get_results($queryRtasD3, ARRAY_A);
             if (empty($lista_formularios_rtasD3)) {
                 $lista_formularios_rtasD3 = array();
             }
 
-            $queryRtasS3 = "SELECT * FROM $tableR2 WHERE Estado != 'Solicitado' AND Estado != 'Cerrado' LIMIT $start_numberD2, 10";
+            $queryRtasS3 = "SELECT * FROM $tableR2 WHERE Estado != 'Solicitado' AND Estado != 'Cerrado' ORDER BY RespuestaId DESC LIMIT $start_numberD2, 10";
             $lista_formularios_rtasS3 = $wpdb->get_results($queryRtasS3, ARRAY_A);
             if (empty($lista_formularios_rtasS3)) {
                 $lista_formularios_rtasS3 = array();
@@ -1983,13 +2218,13 @@ class tableForms {
             $numRegistrosCon = $RegistrosD3 + $RegistrosS3;
 
             //total
-            $queryRtasD4 = "SELECT * FROM $tableR1 LIMIT $start_numberD4, 10" ;
+            $queryRtasD4 = "SELECT * FROM $tableR1 ORDER BY RespuestaId DESC LIMIT $start_numberD4, 10" ;
             $lista_formularios_rtasD4 = $wpdb->get_results($queryRtasD4, ARRAY_A);
             if (empty($lista_formularios_rtasD4)) {
                 $lista_formularios_rtasD4 = array();
             }
 
-            $queryRtasS4 = "SELECT * FROM $tableR2 LIMIT $start_numberS4, 10";
+            $queryRtasS4 = "SELECT * FROM $tableR2 ORDER BY RespuestaId DESC LIMIT $start_numberS4, 10";
             $lista_formularios_rtasS4 = $wpdb->get_results($queryRtasS4, ARRAY_A);
             if (empty($lista_formularios_rtasS4)) {
                 $lista_formularios_rtasS4 = array();
@@ -2024,7 +2259,7 @@ class tableForms {
 
             if (!empty($conseId) || !empty($conseId2) || !empty($lista_formularios_filter) || !empty($lista_formularios_filter2)) {
 
-                $html .= $this->TableSearch($conseId, $conseId2, $lista_formularios_filter, $lista_formularios_filter2);
+                $html .= $this->TableSearch($conseId, $conseId2, $lista_formularios_filter, $lista_formularios_filter2, $start_numberFD1, $countPagFD1, $countPagFS1);
                 $html .= $this->oneTableSearch($conseId, $conseId2, $lista_formularios_filter, $lista_formularios_filter2);
 
             } elseif (!empty($tUrlId)) {

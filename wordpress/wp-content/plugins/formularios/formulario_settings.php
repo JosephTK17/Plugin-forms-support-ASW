@@ -32,7 +32,7 @@ function activar(){
     $sql2 = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}formularios_respuestas_desarrollo(
         `RespuestaId` INT NOT NULL AUTO_INCREMENT,
         `Consecutivo` VARCHAR(7) NOT NULL, 
-        `Fecha` VARCHAR(20) NULL,
+        `Fecha` DATETIME NULL,
         `Solicitante` VARCHAR(60) NULL,
         `Área` VARCHAR(50) NULL, 
         `Solicitud` VARCHAR(140) NULL,
@@ -48,7 +48,7 @@ function activar(){
     $sql3 = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}formularios_respuestas_soporte(
         `RespuestaId` INT NOT NULL AUTO_INCREMENT,
         `Consecutivo` VARCHAR(7) NOT NULL,
-        `Fecha` VARCHAR(20) NULL,
+        `Fecha` DATETIME NULL,
         `Solicitante` VARCHAR(60) NULL,
         `Área` VARCHAR(50) NULL, 
         `Descripción` VARCHAR(140) NULL,
@@ -112,10 +112,10 @@ function shortCode2(){
     }
 
     if(isset($_POST['btnguardar1'])){
-
         $prefix1 = "D";
         $consecutivo = $prefix1.rand(100000, 999999);
-        $actualDate = date('d-m-Y');
+        $hora = new DateTime("now", new DateTimeZone('America/Bogota'));
+        $actualDate = $hora->format('y-m-d h:i:s');
         $solicitante = $_POST['solicitante'][0];
         $area = $_POST['area'][0];
         $solicitud = $_POST['solicitud'][0];
@@ -186,7 +186,8 @@ function shortCode2(){
         
         $prefix2 = "S";
         $consecutivo2 = $prefix2.rand(100000, 999999);
-        $actualDate2= date('d-m-Y');
+        $hora2 = new DateTime("now", new DateTimeZone('America/Bogota'));
+        $actualDate2 = $hora2->format('y-m-d h:i:s');
         $solicitante2 = $_POST['solicitante2'][0];
         $area2 = $_POST['area2'][0];
         $descripcion = $_POST['descripcion'][0];
