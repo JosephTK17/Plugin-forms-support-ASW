@@ -207,16 +207,16 @@ class index{
             $html .= "
                     <div class='cont_num_tickest'>
                         <div class='btn_num_tick' id='abiertos'>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlId=1'>Abiertos ($numRegistrosAb2)</a>
+                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlIdUc=1'>Abiertos ($numRegistrosAb2)</a>
                         </div>
                         <div class='btn_num_tick' id='cerrados'>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlId=2'>Cerrados ($numRegistrosCe2)</a>
+                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlIdUc=2'>Cerrados ($numRegistrosCe2)</a>
                         </div>
                         <div class='btn_num_tick' id='contestados'>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlId=3'>Contestado ($numRegistrosCon2)</a>
+                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlIdUc=3'>Contestado ($numRegistrosCon2)</a>
                         </div>
                         <div class='btn_num_tick' id='totales'>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlId=4'>Totales ($numRegistrosTot2)</a>
+                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlIdUc=4'>Totales ($numRegistrosTot2)</a>
                         </div>
                     </div>
                 </body>
@@ -379,13 +379,13 @@ class index{
             $numRegistrosCon2 = $RegistrosD3 + $RegistrosS3;
 
             //total
-            $queryRtasD4 = "SELECT * FROM $tableR1 AND Solicitante = '$userName'";
+            $queryRtasD4 = "SELECT * FROM $tableR1 WHERE Solicitante = '$userName'";
             $lista_formularios_rtasD4 = $wpdb->get_results($queryRtasD4, ARRAY_A);
             if (empty($lista_formularios_rtasD4)) {
                 $lista_formularios_rtasD4 = array();
             }
 
-            $queryRtasS4 = "SELECT * FROM $tableR2 AND Solicitante = '$userName'";
+            $queryRtasS4 = "SELECT * FROM $tableR2 WHERE Solicitante = '$userName'";
             $lista_formularios_rtasS4 = $wpdb->get_results($queryRtasS4, ARRAY_A);
             if (empty($lista_formularios_rtasS4)) {
                 $lista_formularios_rtasS4 = array();

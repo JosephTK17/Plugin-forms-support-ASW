@@ -235,16 +235,16 @@ class searchApplication {
         $html = "
             <div class='cont_num_tickest'>
                 <div class='btn_num_tick'  id='abiertos'>
-                    <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlId=1' name='table[]'>Abiertos ($numRegistrosAb2)</a>
+                    <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlIdUc=1' name='table[]'>Abiertos ($numRegistrosAb2)</a>
                 </div>
                 <div class='btn_num_tick' id='cerrados'>
-                    <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlId=2' name='table[]'>Cerrados ($numRegistrosCe2)</a>
+                    <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlIdUc=2' name='table[]'>Cerrados ($numRegistrosCe2)</a>
                 </div>
                 <div class='btn_num_tick' id='contestados'>
-                    <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlId=3' name='table[]'>Contestado ($numRegistrosCon2)</a>
+                    <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlIdUc=3' name='table[]'>Contestado ($numRegistrosCon2)</a>
                 </div>
                 <div class='btn_num_tick' id='totales'>  
-                    <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlId=4' name='table[]'>Totales ($numRegistrosTot2)</a>
+                    <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlIdUc=4' name='table[]'>Totales ($numRegistrosTot2)</a>
                 </div>
             </div>
         ";
@@ -600,10 +600,10 @@ class searchApplication {
         return $html;
     }
 
-    public function structureTickets($start_numberD1, $start_numberS1, $start_numberD2, $start_numberS2, $start_numberD3, $start_numberS3, $start_numberD4, $start_numberS4, $countPagD1, $countPagS1, $countPagD2, $countPagS2, $countPagD3, $countPagS3, $countPagD4, $countPagS4, $tUrlId, $lista_formularios_rtasD1, $lista_formularios_rtasD2, $lista_formularios_rtasD3, $lista_formularios_rtasD4, $lista_formularios_rtasS1, $lista_formularios_rtasS2, $lista_formularios_rtasS3, $lista_formularios_rtasS4)
+    public function structureTickets($start_numberD1, $start_numberS1, $start_numberD2, $start_numberS2, $start_numberD3, $start_numberS3, $start_numberD4, $start_numberS4, $countPagD1, $countPagS1, $countPagD2, $countPagS2, $countPagD3, $countPagS3, $countPagD4, $countPagS4, $tUrlIdUc, $lista_formularios_rtasD1, $lista_formularios_rtasD2, $lista_formularios_rtasD3, $lista_formularios_rtasD4, $lista_formularios_rtasS1, $lista_formularios_rtasS2, $lista_formularios_rtasS3, $lista_formularios_rtasS4)
     {
         $html = "";
-        if ($tUrlId == 1) {
+        if ($tUrlIdUc == 1) {
             if (!empty($lista_formularios_rtasD1)) {
                 $html .= "
                     <div id='cont_table_dllo'>
@@ -665,7 +665,7 @@ class searchApplication {
                         if ( $page_countD1 === $current_pageD1 ){
                             $html .= "<span>{$page_countD1}</span> ";
                         } else {
-                            $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=1 && startD1={$nav_countD1}'>{$page_countD1}</a>
+                            $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlIdUc=1 && startD1={$nav_countD1}'>{$page_countD1}</a>
                             ";
                         }
                         $nav_countD1 += 10;
@@ -737,7 +737,7 @@ class searchApplication {
                         if ( $page_countS1 === $current_pageS1 ){
                             $html .= "<span>{$page_countS1}</span> ";
                         } else {
-                            $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=1 && startS1={$nav_countS1}'>{$page_countS1}</a> ";
+                            $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlIdUc=1 && startS1={$nav_countS1}'>{$page_countS1}</a> ";
                         }
                         $nav_countS1 += 10;
                         $page_countS1++;
@@ -749,7 +749,7 @@ class searchApplication {
                 ";
             }
 
-        } elseif ($tUrlId == 2){
+        } elseif ($tUrlIdUc == 2){
 
             if (!empty($lista_formularios_rtasD2)) {
                 $html .= "
@@ -812,7 +812,7 @@ class searchApplication {
                         if ( $page_countD2 === $current_pageD2 ){
                             $html .= "<span>{$page_countD2}</span> ";
                         } else {
-                            $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=2 && startD2={$nav_countD2}'>{$page_countD2}</a>
+                            $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlIdUc=2 && startD2={$nav_countD2}'>{$page_countD2}</a>
                             ";
                         }
                         $nav_countD2 += 10;
@@ -883,7 +883,7 @@ class searchApplication {
                         if ( $page_countS2 === $current_pageS2 ){
                             $html .= "<span>{$page_countS2}</span> ";
                         } else {
-                            $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=2 && startS2={$nav_countS2}'>{$page_countS2}</a>
+                            $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlIdUc=2 && startS2={$nav_countS2}'>{$page_countS2}</a>
                             ";
                         }
                         $nav_countS2 += 10;
@@ -895,7 +895,7 @@ class searchApplication {
                     <h1>No hay registros cerrados en la tabla 'Soporte'</h1>
                 ";
             }
-        } elseif ($tUrlId == 3) {
+        } elseif ($tUrlIdUc == 3) {
 
             if (!empty($lista_formularios_rtasD3)) {
                 $html .= "
@@ -958,7 +958,7 @@ class searchApplication {
                         if ( $page_countD3 === $current_pageD3 ){
                             $html .= "<span>{$page_countD3}</span> ";
                         } else {
-                            $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=3 && startD3={$nav_countD3}'>{$page_countD3}</a>
+                            $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlIdUc=3 && startD3={$nav_countD3}'>{$page_countD3}</a>
                             ";
                         }
                         $nav_countD3 += 10;
@@ -1029,7 +1029,7 @@ class searchApplication {
                         if ( $page_countS3 === $current_pageS3 ){
                             $html .= "<span>{$page_countS3}</span> ";
                         } else {
-                            $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=3 && startS3={$nav_countS3}'>{$page_countS3}</a>
+                            $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlIdUc=3 && startS3={$nav_countS3}'>{$page_countS3}</a>
                             ";
                         }
                         $nav_countS3 += 10;
@@ -1042,7 +1042,7 @@ class searchApplication {
                 ";
             }
 
-        } elseif ($tUrlId == 4) {
+        } elseif ($tUrlIdUc == 4) {
 
             if (!empty($lista_formularios_rtasD4)) {
                 $html .= "
@@ -1105,7 +1105,7 @@ class searchApplication {
                         if ( $page_countD4 === $current_pageD4 ){
                             $html .= "<span>{$page_countD4}</span> ";
                         } else {
-                            $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=4 && startD4={$nav_countD4}'>{$page_countD4}</a>
+                            $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlIdUc=4 && startD4={$nav_countD4}'>{$page_countD4}</a>
                             ";
                         }
                         $nav_countD4 += 10;
@@ -1176,7 +1176,7 @@ class searchApplication {
                         if ( $page_countS4 === $current_pageS4 ){
                             $html .= "<span>{$page_countS4}</span> ";
                         } else {
-                            $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=4 && startS4={$nav_countS4}'>{$page_countS4}</a> ";
+                            $html .= "<a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlIdUc=4 && startS4={$nav_countS4}'>{$page_countS4}</a> ";
                         }
                         $nav_countS4 += 10;  
                         $page_countS4++;
@@ -1190,13 +1190,13 @@ class searchApplication {
         }
 
         //verifica si hay datos en las tablas
-        if ($tUrlId == 1 && empty($lista_formularios_rtasD1) && empty($lista_formularios_rtasS1)) {
+        if ($tUrlIdUc == 1 && empty($lista_formularios_rtasD1) && empty($lista_formularios_rtasS1)) {
             $html = "<h1>No hay registros</h1>";
-        } elseif ($tUrlId == 2 && empty($lista_formularios_rtasD2) && empty($lista_formularios_rtasS2)) {
+        } elseif ($tUrlIdUc == 2 && empty($lista_formularios_rtasD2) && empty($lista_formularios_rtasS2)) {
             $html = "<h1>No hay registros</h1>";
-        } elseif ($tUrlId == 3 && empty($lista_formularios_rtasD3) && empty($lista_formularios_rtasS3)) {
+        } elseif ($tUrlIdUc == 3 && empty($lista_formularios_rtasD3) && empty($lista_formularios_rtasS3)) {
             $html = "<h1>No hay registros</h1>";
-        } elseif ($tUrlId == 4 && empty($lista_formularios_rtasD4) && empty($lista_formularios_rtasS4)) {
+        } elseif ($tUrlIdUc == 4 && empty($lista_formularios_rtasD4) && empty($lista_formularios_rtasS4)) {
             $html = "<h1>No hay registros</h1>";
         }
 
@@ -1208,7 +1208,7 @@ class searchApplication {
         return $html;
     }
 
-    public function constructor($tUrlId, $consecutivo, $fecha)
+    public function constructor($tUrlIdUc, $consecutivo, $fecha)
     {
         global $wpdb;
 
@@ -1245,34 +1245,34 @@ class searchApplication {
 
         //filtro----------------------------
 
-        if (!empty($_POST['fecha'][0])) {
+        if (!empty($_POST['fecha'][0]) && !empty($_POST['consecutivo'][0])) {
 
-            $queryData = "SELECT * FROM $tableR1 WHERE Fecha = '$fecha' AND Solicitante = '$userName' ORDER BY FormularioId DESC"; 
-            $queryData2 = "SELECT * FROM $tableR2 WHERE Fecha = '$fecha' AND Solicitante = '$userName' ORDER BY FormularioId DESC";
+            $queryData = "SELECT * FROM $tableR1 WHERE WHERE Fecha LIKE '%$fecha%' AND Consecutivo = '$consecutivo' AND Solicitante = '$userName' ORDER BY RespuestaId DESC"; 
+            $queryData2 = "SELECT * FROM $tableR2 WHERE Fecha LIKE '%$fecha%' AND Consecutivo = '$consecutivo' AND Solicitante = '$userName' ORDER BY RespuestaId DESC";
 
             //idForm
-            $queryId = "SELECT FormularioId FROM $tableR1 WHERE Fecha = '$fecha' AND Solicitante = '$userName'";
-            $queryId2 = "SELECT FormularioId FROM $tableR2 WHERE Fecha = '$fecha' AND Solicitante = '$userName'";
+            $queryId = "SELECT FormularioId FROM $tableR1 WHERE Fecha LIKE '%$fecha%'";
+            $queryId2 = "SELECT FormularioId FROM $tableR2 WHERE Fecha LIKE '%$fecha%'";
 
-        } elseif(!empty($_POST['consecutivo'][0])){
+        } elseif (!empty($_POST['consecutivo'][0])){
 
-            $queryData = "SELECT * FROM $tableR1 WHERE Consecutivo = '$consecutivo' AND Solicitante = '$userName' ORDER BY FormularioId DESC";
-            $queryData2 = "SELECT * FROM $tableR2 WHERE Consecutivo = '$consecutivo' AND Solicitante = '$userName' ORDER BY FormularioId DESC"; 
+            $queryData = "SELECT * FROM $tableR1 WHERE Consecutivo = '$consecutivo' AND Solicitante = '$userName' ORDER BY RespuestaId DESC";
+            $queryData2 = "SELECT * FROM $tableR2 WHERE Consecutivo = '$consecutivo' AND Solicitante = '$userName' ORDER BY RespuestaId DESC"; 
 
             //idForm
             $queryId = "SELECT FormularioId FROM $tableR1 WHERE Consecutivo = '$consecutivo' AND Solicitante = '$userName'";
             $queryId2 = "SELECT FormularioId FROM $tableR2 WHERE Consecutivo = '$consecutivo' AND Solicitante = '$userName'";
 
-        } elseif (!empty($_POST['fecha'][0]) && !empty($_POST['consecutivo'][0])) {
+        } elseif (!empty($_POST['fecha'][0])) {
 
-            $queryData = "SELECT * FROM $tableR1 WHERE WHERE Fecha = '$fecha' AND Consecutivo = '$consecutivo' AND Solicitante = '$userName' ORDER BY FormularioId DESC"; 
-            $queryData2 = "SELECT * FROM $tableR2 WHERE Fecha = '$fecha' AND Consecutivo = '$consecutivo' AND Solicitante = '$userName' ORDER BY FormularioId DESC";
+            $queryData = "SELECT * FROM $tableR1 WHERE Fecha LIKE '%$fecha%' AND Solicitante = '$userName' ORDER BY RespuestaId DESC"; 
+            $queryData2 = "SELECT * FROM $tableR2 WHERE Fecha LIKE '%$fecha%' AND Solicitante = '$userName' ORDER BY RespuestaId DESC";
 
             //idForm
-            $queryId = "SELECT FormularioId FROM $tableR1 WHERE Fecha = '$fecha'";
-            $queryId2 = "SELECT FormularioId FROM $tableR2 WHERE Fecha = '$fecha'";
+            $queryId = "SELECT FormularioId FROM $tableR1 WHERE Fecha LIKE '%$fecha%' AND Solicitante = '$userName'";
+            $queryId2 = "SELECT FormularioId FROM $tableR2 WHERE Fecha LIKE '%$fecha%' AND Solicitante = '$userName'";
 
-        }
+        } 
 
         $lista_formularios_filter = $wpdb->get_results($queryData, ARRAY_A);
         if (empty($lista_formularios_filter)) {
@@ -1350,33 +1350,28 @@ class searchApplication {
         $countPagS4 = $wpdb->get_var($sqlS4);
 
         //user----------------------------------------------------------------------------------------------
-        //tabla desarrollo------------------------
-        $tableR1 = "{$wpdb->prefix}formularios_respuestas_desarrollo";
-        //tabla soporte------------------------------
-        $tableR2 = "{$wpdb->prefix}formularios_respuestas_soporte";
-
         //abierto
         //mostrar-------------------------
-        $queryRtasD1 = "SELECT * FROM $tableR1 WHERE Estado != 'Cerrado' AND Solicitante = $userName LIMIT $start_numberD1, 10";
+        $queryRtasD1 = "SELECT * FROM $tableR1 WHERE Estado != 'Cerrado' AND Solicitante = '$userName' ORDER BY RespuestaId DESC LIMIT $start_numberD1, 10";
         $lista_formularios_rtasD1 = $wpdb->get_results($queryRtasD1, ARRAY_A);
         if (empty($lista_formularios_rtasD1)) {
             $lista_formularios_rtasD1 = array();
         }
 
-        $queryRtasS1 = "SELECT * FROM $tableR2 WHERE Estado != 'Cerrado' AND Solicitante = $userName LIMIT $start_numberS1, 10";
+        $queryRtasS1 = "SELECT * FROM $tableR2 WHERE Estado != 'Cerrado' AND Solicitante = '$userName' ORDER BY RespuestaId DESC LIMIT $start_numberS1, 10";
         $lista_formularios_rtasS1 = $wpdb->get_results($queryRtasS1, ARRAY_A);
         if (empty($lista_formularios_rtasS1)) {
             $lista_formularios_rtasS1 = array();
         }
 
         //count------------------
-        $queryCntD1 = "SELECT * FROM $tableR1 WHERE Estado != 'Cerrado' AND Solicitante = $userName";
+        $queryCntD1 = "SELECT * FROM $tableR1 WHERE Estado != 'Cerrado' AND Solicitante = '$userName'";
         $itemsCntD1 = $wpdb->get_results($queryCntD1, ARRAY_A);
         if (empty($itemsCntD1)) {
             $itemsCntD1 = array();
         }
 
-        $queryCntS1 = "SELECT * FROM $tableR2 WHERE Estado != 'Cerrado' AND Solicitante = $userName";
+        $queryCntS1 = "SELECT * FROM $tableR2 WHERE Estado != 'Cerrado' AND Solicitante = '$userName'";
         $itemsCntS1 = $wpdb->get_results($queryCntS1, ARRAY_A);
         if (empty($itemsCntS1)) {
             $itemsCntS1 = array();
@@ -1388,26 +1383,26 @@ class searchApplication {
         $numRegistrosAb2 = $RegistrosD1 + $RegistrosS1;
 
         //cerrado
-        $queryRtasD2 = "SELECT * FROM $tableR1 WHERE Estado = 'Cerrado' AND Solicitante = $userName LIMIT $start_numberD2, 10";
+        $queryRtasD2 = "SELECT * FROM $tableR1 WHERE Estado = 'Cerrado' AND Solicitante = '$userName' LIMIT $start_numberD2, 10";
         $lista_formularios_rtasD2 = $wpdb->get_results($queryRtasD2, ARRAY_A);
         if (empty($lista_formularios_rtasD2)) {
             $lista_formularios_rtasD2 = array();
         }
 
-        $queryRtasS2 = "SELECT * FROM $tableR2 WHERE Estado = 'Cerrado' AND Solicitante = $userName LIMIT $start_numberS2, 10";
+        $queryRtasS2 = "SELECT * FROM $tableR2 WHERE Estado = 'Cerrado' AND Solicitante = '$userName' LIMIT $start_numberS2, 10";
         $lista_formularios_rtasS2 = $wpdb->get_results($queryRtasS2, ARRAY_A);
         if (empty($lista_formularios_rtasS2)) {
             $lista_formularios_rtasS2 = array();
         }
 
         //count------------------
-        $queryCntD2 = "SELECT * FROM $tableR1 WHERE Estado = 'Cerrado' AND Solicitante = $userName";
+        $queryCntD2 = "SELECT * FROM $tableR1 WHERE Estado = 'Cerrado' AND Solicitante = '$userName'";
         $itemsCntD2 = $wpdb->get_results($queryCntD2, ARRAY_A);
         if (empty($itemsCntD2)) {
             $itemsCntD2 = array();
         }
 
-        $queryCntS2 = "SELECT * FROM $tableR2 WHERE Estado = 'Cerrado' AND Solicitante = $userName";
+        $queryCntS2 = "SELECT * FROM $tableR2 WHERE Estado = 'Cerrado' AND Solicitante = '$userName'";
         $itemsCntS2 = $wpdb->get_results($queryCntS2, ARRAY_A);
         if (empty($itemsCntS2)) {
             $itemsCntS2 = array();
@@ -1419,26 +1414,26 @@ class searchApplication {
         $numRegistrosCe2 = $RegistrosD2 + $RegistrosS2;
 
         //contestado
-        $queryRtasD3 = "SELECT * FROM $tableR1 WHERE Estado != 'Solicitado' AND Estado != 'Cerrado' AND Solicitante = $userName LIMIT $start_numberD2, 10";
+        $queryRtasD3 = "SELECT * FROM $tableR1 WHERE Estado != 'Solicitado' AND Estado != 'Cerrado' AND Solicitante = '$userName' LIMIT $start_numberD3, 10";
         $lista_formularios_rtasD3 = $wpdb->get_results($queryRtasD3, ARRAY_A);
         if (empty($lista_formularios_rtasD3)) {
             $lista_formularios_rtasD3 = array();
         }
 
-        $queryRtasS3 = "SELECT * FROM $tableR2 WHERE Estado != 'Solicitado' AND Estado != 'Cerrado' AND Solicitante = $userName LIMIT $start_numberD2, 10";
+        $queryRtasS3 = "SELECT * FROM $tableR2 WHERE Estado != 'Solicitado' AND Estado != 'Cerrado' AND Solicitante = '$userName' LIMIT $start_numberD3, 10";
         $lista_formularios_rtasS3 = $wpdb->get_results($queryRtasS3, ARRAY_A);
         if (empty($lista_formularios_rtasS3)) {
             $lista_formularios_rtasS3 = array();
         }
 
         //count------------------
-        $queryCntD3 = "SELECT * FROM $tableR1 WHERE Estado != 'Solicitado' AND Estado != 'Cerrado' AND Solicitante = $userName";
+        $queryCntD3 = "SELECT * FROM $tableR1 WHERE Estado != 'Solicitado' AND Estado != 'Cerrado' AND Solicitante = '$userName'";
         $itemsCntD3 = $wpdb->get_results($queryCntD3, ARRAY_A);
         if (empty($itemsCntD3)) {
             $itemsCntD3 = array();
         }
 
-        $queryCntS3 = "SELECT * FROM $tableR2 WHERE Estado != 'Solicitado' AND Estado != 'Cerrado' AND Solicitante = $userName";
+        $queryCntS3 = "SELECT * FROM $tableR2 WHERE Estado != 'Solicitado' AND Estado != 'Cerrado' AND Solicitante = '$userName'";
         $itemsCntS3 = $wpdb->get_results($queryCntS3, ARRAY_A);
         if (empty($itemsCntS3)) {
             $itemsCntS3 = array();
@@ -1450,26 +1445,26 @@ class searchApplication {
         $numRegistrosCon2 = $RegistrosD3 + $RegistrosS3;
 
         //total
-        $queryRtasD4 = "SELECT * FROM $tableR1 AND Solicitante = $userName LIMIT $start_numberD4, 10" ;
+        $queryRtasD4 = "SELECT * FROM $tableR1 WHERE Solicitante = '$userName' ORDER BY RespuestaId DESC LIMIT $start_numberD4, 10" ;
         $lista_formularios_rtasD4 = $wpdb->get_results($queryRtasD4, ARRAY_A);
         if (empty($lista_formularios_rtasD4)) {
             $lista_formularios_rtasD4 = array();
         }
 
-        $queryRtasS4 = "SELECT * FROM $tableR2 AND Solicitante = $userName LIMIT $start_numberS4, 10";
+        $queryRtasS4 = "SELECT * FROM $tableR2 WHERE Solicitante = '$userName' ORDER BY RespuestaId DESC LIMIT $start_numberS4, 10";
         $lista_formularios_rtasS4 = $wpdb->get_results($queryRtasS4, ARRAY_A);
         if (empty($lista_formularios_rtasS4)) {
             $lista_formularios_rtasS4 = array();
         }
 
         //count------------------
-        $queryCntD4 = "SELECT * FROM $tableR1 AND Solicitante = $userName";
+        $queryCntD4 = "SELECT * FROM $tableR1 WHERE Solicitante = '$userName'";
         $itemsCntD4 = $wpdb->get_results($queryCntD4, ARRAY_A);
         if (empty($itemsCntD4)) {
             $itemsCntD4 = array();
         }
 
-        $queryCntS4 = "SELECT * FROM $tableR2 AND Solicitante = $userName";
+        $queryCntS4 = "SELECT * FROM $tableR2 WHERE Solicitante = '$userName'";
         $itemsCntS4 = $wpdb->get_results($queryCntS4, ARRAY_A);
         if (empty($itemsCntS4)) {
             $itemsCntS4 = array();
@@ -1491,7 +1486,7 @@ class searchApplication {
         $html .= $this->dataTableApplication($conseId, $conseId2, $lista_formularios_filter, $lista_formularios_filter2);
         $html .= $this->closeTableApplication();
 
-        $html .= $this->structureTickets($start_numberD1, $start_numberS1, $start_numberD2, $start_numberS2, $start_numberD3, $start_numberS3, $start_numberD4, $start_numberS4, $countPagD1, $countPagS1, $countPagD2, $countPagS2, $countPagD3, $countPagS3, $countPagD4, $countPagS4, $tUrlId, $lista_formularios_rtasD1, $lista_formularios_rtasD2, $lista_formularios_rtasD3, $lista_formularios_rtasD4, $lista_formularios_rtasS1, $lista_formularios_rtasS2, $lista_formularios_rtasS3, $lista_formularios_rtasS4);
+        $html .= $this->structureTickets($start_numberD1, $start_numberS1, $start_numberD2, $start_numberS2, $start_numberD3, $start_numberS3, $start_numberD4, $start_numberS4, $countPagD1, $countPagS1, $countPagD2, $countPagS2, $countPagD3, $countPagS3, $countPagD4, $countPagS4, $tUrlIdUc, $lista_formularios_rtasD1, $lista_formularios_rtasD2, $lista_formularios_rtasD3, $lista_formularios_rtasD4, $lista_formularios_rtasS1, $lista_formularios_rtasS2, $lista_formularios_rtasS3, $lista_formularios_rtasS4);
 
         return $html;
     }

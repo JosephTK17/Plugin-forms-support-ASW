@@ -248,7 +248,7 @@ function shortCode2(){
                     window.location.href = 'http://localhost/formulario_soporte_desarrollo/wordpress/index.php/formularios/';
                 </script>";
         }      
-    } 
+    }
 
     $_short = new formFuntions;
     $id = $_POST['type'][0];
@@ -275,11 +275,11 @@ function shortCode3()
 function shortCode4()
 {
     $_short = new searchApplication;
-    $tUrlId = $_GET['tUrlId'];
+    $tUrlIdUc = $_GET['tUrlIdUc'];
     $consecutivo = $_POST['consecutivo'][0];
     $fecha = $_POST['fecha'][0];
 
-    $html = $_short->constructor($tUrlId, $consecutivo, $fecha);
+    $html = $_short->constructor($tUrlIdUc, $consecutivo, $fecha);
 
     return $html;
 }
