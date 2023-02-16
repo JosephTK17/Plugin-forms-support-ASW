@@ -37,12 +37,8 @@ class detailApplication {
                         color: white;
                     }
 
-                    #index a{
-                        padding: 10px 37px 10px 37px;
-                    }
-
                     #create{
-                        margin: 0 15% 0 15%;
+                        margin: 0 15% 0 0%;
                     }
 
                     #create a{
@@ -180,9 +176,6 @@ class detailApplication {
         $html .= "
             <body>
                 <div id='cont_btns_nav'>
-                    <div class='btn_nav' id='index'>
-                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/crear-ticket/'>Principal</a>
-                    </div>
                     <div class='btn_nav' id='create'>
                         <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/formularios/'>Enviar Ticket</a>
                     </div>
@@ -191,14 +184,14 @@ class detailApplication {
         if (is_super_admin()) {
             $html .= "
                     <div class='btn_nav' id='admin'>
-                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/'>Ver Tickets</a>
+                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=4'>Ver Tickets</a>
                     </div>
                 </div>
             ";
         } else {
             $html .= "
                     <div class='btn_nav' id='user'>
-                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/'>Mis Tickets</a>
+                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlIdUc=4'>Mis Tickets</a>
                     </div>
                 </div>
             ";
@@ -537,7 +530,6 @@ class detailApplication {
                                 <label>Criterios de aceptacion:</label>
                                 <p>$criterios</p>
                             </div>
-                        </div>
                     ";
 
                     if (is_super_admin()) {
@@ -558,6 +550,7 @@ class detailApplication {
                                     <button type='submit' name='update[]'>Actualizar</button>
                                 </form>
                             </div>
+                        </div>
                         ";
                     } else {
                         $html .= "
@@ -566,6 +559,7 @@ class detailApplication {
                                     <button type='submit' name='cerrar[]' value='solucionado'>Solucionado</button>
                                 </form>
                             </div>
+                        </div>
                         ";
                     }
 
@@ -797,15 +791,23 @@ class detailApplication {
                         </div>
                     ";
                 }
-
-                $html .= "
-                    </body>
-                ";
             }
         } else if( $status[0]['Estado'] == "Cerrado" || $status2[0]['Estado'] == "Cerrado") {
             $html = "
                 <h1>Cerrado</h1>
             ";
+        }
+
+        return $html;
+    }
+
+    public function comentsDetaol($status, $status2)
+    {
+        $html = "";
+        if ($status[0]["Estado"] == "En revisión de detalles" || $status[0]["Estado"] == "En proceso" || $status[0]["Estado"] == "Terminado" || $status[0]["Estado"] == "En pruebas" || $status[0]["Estado"] == "Publicado" || $status[0]["Estado"] == "Cerraado") {
+            $html .= "<p>si sale xd</p>";
+        } else {
+            $html .= "";
         }
 
         return $html;
@@ -880,6 +882,7 @@ class detailApplication {
 
         $html .= $this->buttonsNav();
         $html .= $this->showDetails($id, $id2, $lista_formularios, $lista_formularios2, $status, $status2);
+        $html .= $this->comentsDetaol($status, $status2);
 
         if ($_POST['cerrar'][0] == "solucionado") {
             $infoUpd = array(

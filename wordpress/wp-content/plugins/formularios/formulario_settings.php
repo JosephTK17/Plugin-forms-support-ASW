@@ -60,6 +60,16 @@ function activar(){
     );";
     $wpdb->query($sql3);
 
+    $sql4 = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}comentarios_registrados_detalles(
+        `ComentarioId` INT NOT NULL AUTO_INCREMENT,
+        `Consecutivo` VARCHAR(7) NOT NULL,
+        `Fecha` DATETIME NULL,
+        `Comentario` VARCHAR(200) NULL,
+        PRIMARY KEY (`ComentarioId`),
+        FOREIGN KEY (Consecutivo) REFERENCES fsd_formularios_respuestas_desarrollo(Cosecutivo), fsd_formularios_respuestas_soporte(Cosecutivo)
+    )";
+    $wpdb->query($sql4);
+
 }
 
 function desactivar(){
@@ -111,11 +121,23 @@ function shortCode2(){
 
     }
 
+    $cnsId = "SELECT MAX(RespuestaId) + 1 FROM $tablaR1";
+    $resultCnsId = $wpdb->get_results($cnsId, ARRAY_A);
+
+    $numConP1 = $resultCnsId[0]["MAX(RespuestaId) + 1"];
+    $numConP2 = str_pad($numConP1, 6, "0", STR_PAD_LEFT);
+
+    $cnsId2 = "SELECT MAX(RespuestaId) + 1 FROM $tablaR2";
+    $resultCnsId2 = $wpdb->get_results($cnsId2, ARRAY_A);
+
+    $numCon2P1 = $resultCnsId2[0]["MAX(RespuestaId) + 1"];
+    $numCon2P2 = str_pad($numCon2P1, 6, "0", STR_PAD_LEFT);
+
     if(isset($_POST['btnguardar1'])){
         $prefix1 = "D";
-        $consecutivo = $prefix1.rand(100000, 999999);
+        $consecutivo = $prefix1.$numConP2;
         $hora = new DateTime("now", new DateTimeZone('America/Bogota'));
-        $actualDate = $hora->format('y-m-d h:i:s');
+        $actualDate = $hora->format('20y-m-d h:i:s');
         $solicitante = $_POST['solicitante'][0];
         $area = $_POST['area'][0];
         $solicitud = $_POST['solicitud'][0];
@@ -185,7 +207,7 @@ function shortCode2(){
     } elseif (isset($_POST['btnguardar2'])){
         
         $prefix2 = "S";
-        $consecutivo2 = $prefix2.rand(100000, 999999);
+        $consecutivo2 = $prefix2.$numCon2P2;
         $hora2 = new DateTime("now", new DateTimeZone('America/Bogota'));
         $actualDate2 = $hora2->format('y-m-d h:i:s');
         $solicitante2 = $_POST['solicitante2'][0];
@@ -263,11 +285,8 @@ function shortCode3()
 {
     $_short = new tableForms;
     $tUrlId = $_GET['tUrlId'];
-    $consecutivo = $_POST['consecutivo'][0];
-    $fecha = $_POST['fecha'][0];
-    $solicitante = $_POST['solicitante'][0];
 
-    $html = $_short->constructor($tUrlId, $consecutivo, $fecha, $solicitante);
+    $html = $_short->constructor($tUrlId);
 
     return $html;
 }

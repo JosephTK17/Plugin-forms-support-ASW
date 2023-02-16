@@ -51,12 +51,8 @@ class formFuntions{
                         color: white;
                     }
 
-                    #index a{
-                        padding: 10px 37px 10px 37px;
-                    }
-
                     #create {
-                        margin: 0 15% 0 15%;
+                        margin: 0 15% 0 0%;
                     }
 
                     #create a:hover{
@@ -183,9 +179,6 @@ class formFuntions{
         $html .= "
             <body>
                 <div id='cont_btns_nav'>
-                    <div class='btn_nav' id='index'>
-                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/crear-ticket/'>Principal</a>
-                    </div>
                     <div class='btn_nav' id='create'>
                         <a href='#'>Enviar Ticket</a>
                     </div>
@@ -194,14 +187,14 @@ class formFuntions{
         if (is_super_admin()) {
             $html .= "
                     <div class='btn_nav' id='admin'>
-                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets'>Ver Tickets</a>
+                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=4'>Ver Tickets</a>
                     </div>
                 </div>
             ";
         } else {
             $html .= "
                     <div class='btn_nav' id='user'>
-                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/'>Mis Tickets</a>
+                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlIdUc=4''>Mis Tickets</a>
                     </div>
                 </div>
             ";

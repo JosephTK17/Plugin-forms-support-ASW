@@ -19,18 +19,8 @@ class index{
                         text-align: center;
                     }
 
-                    #index a:hover{
-                        background-color: #6F6F6F;
-                        transition: background-color 0.5s;
-                    }
-
-                    #index a{
-                        padding: 10px 37px 10px 37px;
-                        background-color: gray;
-                    }
-
                     #create{
-                        margin: 0 15% 0 15%;
+                        margin: 0 15% 0 0%;
                     }
 
                     #create a{
@@ -149,12 +139,10 @@ class index{
     public function buttonsNav()
     {
         $html = "";
+
         $html .= "
             <body>
                 <div id='cont_btns'>
-                    <div class='btn_nav' id='index'>
-                        <a href='#/'>Principal</a>
-                    </div>
                     <div class='btn_nav' id='create'>
                         <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/formularios/'>Enviar Ticket</a>
                     </div>
@@ -164,7 +152,7 @@ class index{
 
             $html .= "
                     <div class='btn_nav' id='admin'>
-                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets'>Ver Tickets</a>
+                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=4'>Ver Tickets</a>
                     </div>
                 </div>
             ";
@@ -172,7 +160,7 @@ class index{
 
             $html .= "
                     <div class='btn_nav' id='user'>
-                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/'>Mis Tickets</a>
+                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlIdUc=4'>Mis Tickets</a>
                     </div>
                 </div>
             ";
@@ -181,51 +169,51 @@ class index{
         return $html;
     }
 
-    public function conteoTickets($numRegistrosAb, $numRegistrosCe, $numRegistrosCon, $numRegistrosTot, $numRegistrosAb2, $numRegistrosCe2, $numRegistrosCon2, $numRegistrosTot2)
-    {
-        $html = "";
+    // public function conteoTickets($numRegistrosAb, $numRegistrosCe, $numRegistrosCon, $numRegistrosTot, $numRegistrosAb2, $numRegistrosCe2, $numRegistrosCon2, $numRegistrosTot2)
+    // {
+    //     $html = "";
 
-        if (is_super_admin()) {
-            $html .= "
-                    <div class='cont_num_tickest'>
-                        <div class='btn_num_tick' id='abiertos'>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=1'>Abiertos ($numRegistrosAb)</a>
-                        </div>
-                        <div class='btn_num_tick' id='cerrados'>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/'>Cerrados ($numRegistrosCe)</a>
-                        </div>
-                        <div class='btn_num_tick' id='contestados'>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/'>Contestado ($numRegistrosCon)</a>
-                        </div>
-                        <div class='btn_num_tick' id='totales'>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/'>Totales ($numRegistrosTot)</a>
-                        </div>
-                    </div>
-                </body>
-            ";
-        } else {
-            $html .= "
-                    <div class='cont_num_tickest'>
-                        <div class='btn_num_tick' id='abiertos'>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlIdUc=1'>Abiertos ($numRegistrosAb2)</a>
-                        </div>
-                        <div class='btn_num_tick' id='cerrados'>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlIdUc=2'>Cerrados ($numRegistrosCe2)</a>
-                        </div>
-                        <div class='btn_num_tick' id='contestados'>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlIdUc=3'>Contestado ($numRegistrosCon2)</a>
-                        </div>
-                        <div class='btn_num_tick' id='totales'>
-                            <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlIdUc=4'>Totales ($numRegistrosTot2)</a>
-                        </div>
-                    </div>
-                </body>
-            ";
-        }
+    //     if (is_super_admin()) {
+    //         $html .= "
+    //                 <div class='cont_num_tickest'>
+    //                     <div class='btn_num_tick' id='abiertos'>
+    //                         <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=1'>Abiertos ($numRegistrosAb)</a>
+    //                     </div>
+    //                     <div class='btn_num_tick' id='cerrados'>
+    //                         <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=2'>Cerrados ($numRegistrosCe)</a>
+    //                     </div>
+    //                     <div class='btn_num_tick' id='contestados'>
+    //                         <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=3'>Contestado ($numRegistrosCon)</a>
+    //                     </div>
+    //                     <div class='btn_num_tick' id='totales'>
+    //                         <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=4'>Totales ($numRegistrosTot)</a>
+    //                     </div>
+    //                 </div>
+    //             </body>
+    //         ";
+    //     } else {
+    //         $html .= "
+    //                 <div class='cont_num_tickest'>
+    //                     <div class='btn_num_tick' id='abiertos'>
+    //                         <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlIdUc=1'>Abiertos ($numRegistrosAb2)</a>
+    //                     </div>
+    //                     <div class='btn_num_tick' id='cerrados'>
+    //                         <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlIdUc=2'>Cerrados ($numRegistrosCe2)</a>
+    //                     </div>
+    //                     <div class='btn_num_tick' id='contestados'>
+    //                         <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlIdUc=3'>Contestado ($numRegistrosCon2)</a>
+    //                     </div>
+    //                     <div class='btn_num_tick' id='totales'>
+    //                         <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlIdUc=4'>Totales ($numRegistrosTot2)</a>
+    //                     </div>
+    //                 </div>
+    //             </body>
+    //         ";
+    //     }
         
 
-        return $html;
-    }
+    //     return $html;
+    // }
 
     public function include()
     {
@@ -250,157 +238,157 @@ class index{
         //tabla soporte------------------------------
         $tableR2 = "{$wpdb->prefix}formularios_respuestas_soporte";
 
-        if (is_super_admin()) {
-            //abierto
-            $queryRtasD1 = "SELECT * FROM $tableR1 WHERE Estado != 'Cerrado'";
-            $lista_formularios_rtasD1 = $wpdb->get_results($queryRtasD1, ARRAY_A);
-            if (empty($lista_formularios_rtasD1)) {
-                $lista_formularios_rtasD1 = array();
-            }
+        // if (is_super_admin()) {
+        //     //abierto
+        //     $queryRtasD1 = "SELECT * FROM $tableR1 WHERE Estado != 'Cerrado'";
+        //     $lista_formularios_rtasD1 = $wpdb->get_results($queryRtasD1, ARRAY_A);
+        //     if (empty($lista_formularios_rtasD1)) {
+        //         $lista_formularios_rtasD1 = array();
+        //     }
 
-            $queryRtasS1 = "SELECT * FROM $tableR2 WHERE Estado != 'Cerrado'";
-            $lista_formularios_rtasS1 = $wpdb->get_results($queryRtasS1, ARRAY_A);
-            if (empty($lista_formularios_rtasS1)) {
-                $lista_formularios_rtasS1 = array();
-            }
+        //     $queryRtasS1 = "SELECT * FROM $tableR2 WHERE Estado != 'Cerrado'";
+        //     $lista_formularios_rtasS1 = $wpdb->get_results($queryRtasS1, ARRAY_A);
+        //     if (empty($lista_formularios_rtasS1)) {
+        //         $lista_formularios_rtasS1 = array();
+        //     }
 
-            $RegistrosD1 = count($lista_formularios_rtasD1);
-            $RegistrosS1 = count($lista_formularios_rtasS1);
+        //     $RegistrosD1 = count($lista_formularios_rtasD1);
+        //     $RegistrosS1 = count($lista_formularios_rtasS1);
 
-            $numRegistrosAb = $RegistrosD1 + $RegistrosS1;
+        //     $numRegistrosAb = $RegistrosD1 + $RegistrosS1;
 
-            //cerrado
-            $queryRtasD2 = "SELECT * FROM $tableR1 WHERE Estado = 'Cerrado'";
-            $lista_formularios_rtasD2 = $wpdb->get_results($queryRtasD2, ARRAY_A);
-            if (empty($lista_formularios_rtasD2)) {
-                $lista_formularios_rtasD2 = array();
-            }
+        //     //cerrado
+        //     $queryRtasD2 = "SELECT * FROM $tableR1 WHERE Estado = 'Cerrado'";
+        //     $lista_formularios_rtasD2 = $wpdb->get_results($queryRtasD2, ARRAY_A);
+        //     if (empty($lista_formularios_rtasD2)) {
+        //         $lista_formularios_rtasD2 = array();
+        //     }
 
-            $queryRtasS2 = "SELECT * FROM $tableR2 WHERE Estado = 'Cerrado'";
-            $lista_formularios_rtasS2 = $wpdb->get_results($queryRtasS2, ARRAY_A);
-            if (empty($lista_formularios_rtasS2)) {
-                $lista_formularios_rtasS2 = array();
-            }
+        //     $queryRtasS2 = "SELECT * FROM $tableR2 WHERE Estado = 'Cerrado'";
+        //     $lista_formularios_rtasS2 = $wpdb->get_results($queryRtasS2, ARRAY_A);
+        //     if (empty($lista_formularios_rtasS2)) {
+        //         $lista_formularios_rtasS2 = array();
+        //     }
 
-            $RegistrosD2 = count($lista_formularios_rtasD2);
-            $RegistrosS2= count($lista_formularios_rtasS2);
+        //     $RegistrosD2 = count($lista_formularios_rtasD2);
+        //     $RegistrosS2= count($lista_formularios_rtasS2);
 
-            $numRegistrosCe = $RegistrosD2 + $RegistrosS2;
+        //     $numRegistrosCe = $RegistrosD2 + $RegistrosS2;
 
-            //contestado
-            $queryRtasD3 = "SELECT * FROM $tableR1 WHERE Estado != 'Solicitado' AND Estado != 'Cerrado'";
-            $lista_formularios_rtasD3 = $wpdb->get_results($queryRtasD3, ARRAY_A);
-            if (empty($lista_formularios_rtasD3)) {
-                $lista_formularios_rtasD3 = array();
-            }
+        //     //contestado
+        //     $queryRtasD3 = "SELECT * FROM $tableR1 WHERE Estado != 'Solicitado' AND Estado != 'Cerrado'";
+        //     $lista_formularios_rtasD3 = $wpdb->get_results($queryRtasD3, ARRAY_A);
+        //     if (empty($lista_formularios_rtasD3)) {
+        //         $lista_formularios_rtasD3 = array();
+        //     }
 
-            $queryRtasS3 = "SELECT * FROM $tableR2 WHERE Estado != 'Solicitado' AND Estado != 'Cerrado'";
-            $lista_formularios_rtasS3 = $wpdb->get_results($queryRtasS3, ARRAY_A);
-            if (empty($lista_formularios_rtasS3)) {
-                $lista_formularios_rtasS3 = array();
-            }
+        //     $queryRtasS3 = "SELECT * FROM $tableR2 WHERE Estado != 'Solicitado' AND Estado != 'Cerrado'";
+        //     $lista_formularios_rtasS3 = $wpdb->get_results($queryRtasS3, ARRAY_A);
+        //     if (empty($lista_formularios_rtasS3)) {
+        //         $lista_formularios_rtasS3 = array();
+        //     }
 
-            $RegistrosD3 = count($lista_formularios_rtasD3);
-            $RegistrosS3 = count($lista_formularios_rtasS3);
+        //     $RegistrosD3 = count($lista_formularios_rtasD3);
+        //     $RegistrosS3 = count($lista_formularios_rtasS3);
 
-            $numRegistrosCon = $RegistrosD3 + $RegistrosS3;
+        //     $numRegistrosCon = $RegistrosD3 + $RegistrosS3;
 
-            //total
-            $queryRtasD4 = "SELECT * FROM $tableR1";
-            $lista_formularios_rtasD4 = $wpdb->get_results($queryRtasD4, ARRAY_A);
-            if (empty($lista_formularios_rtasD4)) {
-                $lista_formularios_rtasD4 = array();
-            }
+        //     //total
+        //     $queryRtasD4 = "SELECT * FROM $tableR1";
+        //     $lista_formularios_rtasD4 = $wpdb->get_results($queryRtasD4, ARRAY_A);
+        //     if (empty($lista_formularios_rtasD4)) {
+        //         $lista_formularios_rtasD4 = array();
+        //     }
 
-            $queryRtasS4 = "SELECT * FROM $tableR2";
-            $lista_formularios_rtasS4 = $wpdb->get_results($queryRtasS4, ARRAY_A);
-            if (empty($lista_formularios_rtasS4)) {
-                $lista_formularios_rtasS4 = array();
-            }
+        //     $queryRtasS4 = "SELECT * FROM $tableR2";
+        //     $lista_formularios_rtasS4 = $wpdb->get_results($queryRtasS4, ARRAY_A);
+        //     if (empty($lista_formularios_rtasS4)) {
+        //         $lista_formularios_rtasS4 = array();
+        //     }
 
-            $RegistrosD4 = count($lista_formularios_rtasD4);
-            $RegistrosS4 = count($lista_formularios_rtasS4);
+        //     $RegistrosD4 = count($lista_formularios_rtasD4);
+        //     $RegistrosS4 = count($lista_formularios_rtasS4);
 
-            $numRegistrosTot= $RegistrosD4 + $RegistrosS4;
-        } else {
-            //user-----------------------------------------------------------------------------------------------------
-            //abierto
-            $queryRtasD1 = "SELECT * FROM $tableR1 WHERE Estado != 'Cerrado' AND Solicitante = '$userName'";
-            $lista_formularios_rtasD1 = $wpdb->get_results($queryRtasD1, ARRAY_A);
-            if (empty($lista_formularios_rtasD1)) {
-                $lista_formularios_rtasD1 = array();
-            }
+        //     $numRegistrosTot= $RegistrosD4 + $RegistrosS4;
+        // } else {
+        //     //user-----------------------------------------------------------------------------------------------------
+        //     //abierto
+        //     $queryRtasD1 = "SELECT * FROM $tableR1 WHERE Estado != 'Cerrado' AND Solicitante = '$userName'";
+        //     $lista_formularios_rtasD1 = $wpdb->get_results($queryRtasD1, ARRAY_A);
+        //     if (empty($lista_formularios_rtasD1)) {
+        //         $lista_formularios_rtasD1 = array();
+        //     }
 
-            $queryRtasS1 = "SELECT * FROM $tableR2 WHERE Estado != 'Cerrado' AND Solicitante = '$userName'";
-            $lista_formularios_rtasS1 = $wpdb->get_results($queryRtasS1, ARRAY_A);
-            if (empty($lista_formularios_rtasS1)) {
-                $lista_formularios_rtasS1 = array();
-            }
+        //     $queryRtasS1 = "SELECT * FROM $tableR2 WHERE Estado != 'Cerrado' AND Solicitante = '$userName'";
+        //     $lista_formularios_rtasS1 = $wpdb->get_results($queryRtasS1, ARRAY_A);
+        //     if (empty($lista_formularios_rtasS1)) {
+        //         $lista_formularios_rtasS1 = array();
+        //     }
 
-            $RegistrosD1 = count($lista_formularios_rtasD1);
-            $RegistrosS1 = count($lista_formularios_rtasS1);
+        //     $RegistrosD1 = count($lista_formularios_rtasD1);
+        //     $RegistrosS1 = count($lista_formularios_rtasS1);
 
-            $numRegistrosAb2 = $RegistrosD1 + $RegistrosS1;
+        //     $numRegistrosAb2 = $RegistrosD1 + $RegistrosS1;
 
-            //cerrado
-            $queryRtasD2 = "SELECT * FROM $tableR1 WHERE Estado = 'Cerrado' AND Solicitante = '$userName'";
-            $lista_formularios_rtasD2 = $wpdb->get_results($queryRtasD2, ARRAY_A);
-            if (empty($lista_formularios_rtasD2)) {
-                $lista_formularios_rtasD2 = array();
-            }
+        //     //cerrado
+        //     $queryRtasD2 = "SELECT * FROM $tableR1 WHERE Estado = 'Cerrado' AND Solicitante = '$userName'";
+        //     $lista_formularios_rtasD2 = $wpdb->get_results($queryRtasD2, ARRAY_A);
+        //     if (empty($lista_formularios_rtasD2)) {
+        //         $lista_formularios_rtasD2 = array();
+        //     }
 
-            $queryRtasS2 = "SELECT * FROM $tableR2 WHERE Estado = 'Cerrado' AND Solicitante = '$userName'";
-            $lista_formularios_rtasS2 = $wpdb->get_results($queryRtasS2, ARRAY_A);
-            if (empty($lista_formularios_rtasS2)) {
-                $lista_formularios_rtasS2 = array();
-            }
+        //     $queryRtasS2 = "SELECT * FROM $tableR2 WHERE Estado = 'Cerrado' AND Solicitante = '$userName'";
+        //     $lista_formularios_rtasS2 = $wpdb->get_results($queryRtasS2, ARRAY_A);
+        //     if (empty($lista_formularios_rtasS2)) {
+        //         $lista_formularios_rtasS2 = array();
+        //     }
 
-            $RegistrosD2 = count($lista_formularios_rtasD2);
-            $RegistrosS2= count($lista_formularios_rtasS2);
+        //     $RegistrosD2 = count($lista_formularios_rtasD2);
+        //     $RegistrosS2= count($lista_formularios_rtasS2);
 
-            $numRegistrosCe2 = $RegistrosD2 + $RegistrosS2;
+        //     $numRegistrosCe2 = $RegistrosD2 + $RegistrosS2;
 
-            //contestado
-            $queryRtasD3 = "SELECT * FROM $tableR1 WHERE Estado != 'Solicitado' AND Estado != 'Cerrado' AND Solicitante = '$userName'";
-            $lista_formularios_rtasD3 = $wpdb->get_results($queryRtasD3, ARRAY_A);
-            if (empty($lista_formularios_rtasD3)) {
-                $lista_formularios_rtasD3 = array();
-            }
+        //     //contestado
+        //     $queryRtasD3 = "SELECT * FROM $tableR1 WHERE Estado != 'Solicitado' AND Estado != 'Cerrado' AND Solicitante = '$userName'";
+        //     $lista_formularios_rtasD3 = $wpdb->get_results($queryRtasD3, ARRAY_A);
+        //     if (empty($lista_formularios_rtasD3)) {
+        //         $lista_formularios_rtasD3 = array();
+        //     }
 
-            $queryRtasS3 = "SELECT * FROM $tableR2 WHERE Estado != 'Solicitado' AND Estado != 'Cerrado' AND Solicitante = '$userName'";
-            $lista_formularios_rtasS3 = $wpdb->get_results($queryRtasS3, ARRAY_A);
-            if (empty($lista_formularios_rtasS3)) {
-                $lista_formularios_rtasS3 = array();
-            }
+        //     $queryRtasS3 = "SELECT * FROM $tableR2 WHERE Estado != 'Solicitado' AND Estado != 'Cerrado' AND Solicitante = '$userName'";
+        //     $lista_formularios_rtasS3 = $wpdb->get_results($queryRtasS3, ARRAY_A);
+        //     if (empty($lista_formularios_rtasS3)) {
+        //         $lista_formularios_rtasS3 = array();
+        //     }
 
-            $RegistrosD3 = count($lista_formularios_rtasD3);
-            $RegistrosS3 = count($lista_formularios_rtasS3);
+        //     $RegistrosD3 = count($lista_formularios_rtasD3);
+        //     $RegistrosS3 = count($lista_formularios_rtasS3);
 
-            $numRegistrosCon2 = $RegistrosD3 + $RegistrosS3;
+        //     $numRegistrosCon2 = $RegistrosD3 + $RegistrosS3;
 
-            //total
-            $queryRtasD4 = "SELECT * FROM $tableR1 WHERE Solicitante = '$userName'";
-            $lista_formularios_rtasD4 = $wpdb->get_results($queryRtasD4, ARRAY_A);
-            if (empty($lista_formularios_rtasD4)) {
-                $lista_formularios_rtasD4 = array();
-            }
+        //     //total
+        //     $queryRtasD4 = "SELECT * FROM $tableR1 WHERE Solicitante = '$userName'";
+        //     $lista_formularios_rtasD4 = $wpdb->get_results($queryRtasD4, ARRAY_A);
+        //     if (empty($lista_formularios_rtasD4)) {
+        //         $lista_formularios_rtasD4 = array();
+        //     }
 
-            $queryRtasS4 = "SELECT * FROM $tableR2 WHERE Solicitante = '$userName'";
-            $lista_formularios_rtasS4 = $wpdb->get_results($queryRtasS4, ARRAY_A);
-            if (empty($lista_formularios_rtasS4)) {
-                $lista_formularios_rtasS4 = array();
-            }
+        //     $queryRtasS4 = "SELECT * FROM $tableR2 WHERE Solicitante = '$userName'";
+        //     $lista_formularios_rtasS4 = $wpdb->get_results($queryRtasS4, ARRAY_A);
+        //     if (empty($lista_formularios_rtasS4)) {
+        //         $lista_formularios_rtasS4 = array();
+        //     }
 
-            $RegistrosD4 = count($lista_formularios_rtasD4);
-            $RegistrosS4 = count($lista_formularios_rtasS4);
+        //     $RegistrosD4 = count($lista_formularios_rtasD4);
+        //     $RegistrosS4 = count($lista_formularios_rtasS4);
 
-            $numRegistrosTot2 = $RegistrosD4 + $RegistrosS4;
-        }
+        //     $numRegistrosTot2 = $RegistrosD4 + $RegistrosS4;
+        // }
 
         $html = $this->head();
 
         $html .= $this->buttonsNav();
-        $html .= $this->conteoTickets($numRegistrosAb, $numRegistrosCe, $numRegistrosCon, $numRegistrosTot, $numRegistrosAb2, $numRegistrosCe2, $numRegistrosCon2, $numRegistrosTot2);
+        // $html .= $this->conteoTickets($numRegistrosAb, $numRegistrosCe, $numRegistrosCon, $numRegistrosTot, $numRegistrosAb2, $numRegistrosCe2, $numRegistrosCon2, $numRegistrosTot2);
 
         return $html;
     }
