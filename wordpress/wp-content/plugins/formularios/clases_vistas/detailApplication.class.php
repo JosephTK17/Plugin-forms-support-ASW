@@ -4,7 +4,9 @@ class detailApplication {
 
     public function head()
     {
-        $html = "
+        $html = "";
+
+        $html .= "
             <head>
                 <meta charset='UTF-8'>
                 <meta http-equiv='X-UA-Compatible' content='IE=edge'>
@@ -162,9 +164,108 @@ class detailApplication {
                         text-align: center;
                     }
 
-                </style>
-            </head>
+                    .cont_chat{
+                        height: 300px;
+                        width: 100%;
+                        border: 1px solid #ddd;
+                        background: #f1f1f1;
+                        overflow-y: scroll;
+                    }
+
+                    .cont_mensajes{
+                        height: auto;
+                    }
+
+                    .texto{
+                        padding:4px;
+                        background:#fff;
+                    }
+
         ";
+
+        if (is_super_admin()) {
+
+            $html .= "
+
+                    #cont_menng_admin{
+                        text-align: right;
+                        font-size: 15px;
+                        padding-right: 15px;
+                    }
+
+                    #cont_menng_admin label{
+                        font-size: 12px;
+                    }
+
+                    .cont_comt_admin{
+                        display: flex;
+                        justify-content: right;
+                    }
+
+                    .cont_comt_admin p{
+                        padding: 5px 10px 5px 10px;
+                        background-color: #D6D6D6;
+                        border-radius: 3px;
+                    }
+
+                    #cont_menng_user{
+                        font-size: 15px;
+                        padding-left: 15px;
+                    }
+
+                    #cont_menng_user label{
+                        font-size: 12px;
+                    }
+
+                    .menng_user{
+                        margin-right: 0 30% 0 0%;
+                    }
+
+                    .cont_comt_user{
+                        display: flex;
+                    }
+
+                    .cont_comt_user p{
+                        padding: 5px 10px 5px 10px;
+                        background-color: #D6D6D6;
+                        border-radius: 3px;
+                    }
+
+            ";
+        } else {
+
+            $html .= "
+
+                    #cpnt_menng_user{
+                        text-align: right;
+                        font-size: 15px;
+                    }
+                
+            ";
+        }
+
+        $html .= "
+                    #btn_mensaje{
+                        cursor: pointer;
+                        border: none;
+                        background-color: transparent;
+                        color: #304293;
+                    }
+
+                    #btn_mensaje:hover{
+                        color: #808080;
+                        transition: color 0.5s;
+                    }
+
+                    #mensaje{
+                        width: 80%;
+                    }
+
+                </style>
+            </head>    
+        ";
+
+        
         
         return $html;
     }
@@ -760,7 +861,6 @@ class detailApplication {
                             <label>Sede:</label>
                             <p>$sede</p>
                         </div>
-                    </div>
                 ";
 
                 if (is_super_admin()) {
@@ -779,6 +879,7 @@ class detailApplication {
                                 <button type='submit' name='update[]'>Actualizar</button>
                             </form>
                         </div>
+                    </div>
                     ";
                 }
                 
@@ -789,6 +890,7 @@ class detailApplication {
                                 <button type='submit' name='cerrar2[]' value='solucionado'>Solucionado</button>
                             </form>
                         </div>
+                    </div>
                     ";
                 }
             }
@@ -801,19 +903,102 @@ class detailApplication {
         return $html;
     }
 
-    public function comentsDetaol($status, $status2)
+    public function comentsDetaol($id, $id2, $status, $status2, $list_mensajes)
     {
         $html = "";
-        if ($status[0]["Estado"] == "En revisión de detalles" || $status[0]["Estado"] == "En proceso" || $status[0]["Estado"] == "Terminado" || $status[0]["Estado"] == "En pruebas" || $status[0]["Estado"] == "Publicado" || $status[0]["Estado"] == "Cerraado") {
-            $html .= "<p>si sale xd</p>";
-        } else {
-            $html .= "";
+        if ($id[0]['FormularioId'] == 1) {
+
+            if ($status[0]["Estado"] == "En revisión de detalles" || $status[0]["Estado"] == "En proceso" || $status[0]["Estado"] == "Terminado" || $status[0]["Estado"] == "En pruebas" || $status[0]["Estado"] == "Publicado" || $status[0]["Estado"] == "Cerraado") {
+
+                $html .= "
+                    <div class='cont_chat'>
+                        <div class='cont_mensajes'>
+                ";
+
+                foreach ($list_mensajes as $key => $value) {
+                    $nombreUsuario = $value['Nombre usuario'];
+                    $tipo = $value['Tipo'];
+                    $fecha = $value['Fecha'];
+                    $comentario = $value['Comentario'];
+
+                    if ($tipo == "Admin") {
+                        $html .= "
+                            <div class='texto' id='cont_menng_admin'>
+                                <div class='menng_admin'>
+                                    <label>$nombreUsuario($tipo)</label>
+                                    <br>
+                                    <label>$fecha</label>
+                                    <br>
+                                    <div class='cont_comt_admin'>
+                                        <p>$comentario</p>
+                                    </div>
+                                </div>
+                            </div>
+                        ";
+                    } elseif($tipo == "Solicitante") {
+                        $html .= "
+                            <div class='texto' id='cont_menng_user'>
+                                <div class='menng_user'>
+                                    <label>$nombreUsuario($tipo)</label>
+                                    <br>
+                                    <label>$fecha</label>
+                                    <br>
+                                    <div class='cont_comt_user'>
+                                        <p>$comentario</p>
+                                    </div>
+                                </div>
+                            </div>
+                        ";
+                    }
+                    
+                }
+
+                $html .= "
+                        </div>
+                    </div>
+                    <div class='cont_btn_chat'>
+                        <form method='POST'>
+                            <textarea placeholder='Mensaje' id='mensaje' name='mensaje[]' required></textarea>
+                            <button type='submit' id='btn_mensaje' name='btn_mensaje[]'><i class='bi bi-send-check-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' class='bi bi-send-check-fill' viewBox='0 0 16 16'><path d='M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 1.59 2.498C8 14 8 13 8 12.5a4.5 4.5 0 0 1 5.026-4.47L15.964.686Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z'/><path d='M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-1.993-1.679a.5.5 0 0 0-.686.172l-1.17 1.95-.547-.547a.5.5 0 0 0-.708.708l.774.773a.75.75 0 0 0 1.174-.144l1.335-2.226a.5.5 0 0 0-.172-.686Z'/>
+                          </svg></button>
+                        </form>
+                    </div>
+                ";
+
+            } else {
+
+                $html .= "";
+
+            }
+        } elseif ($id2[0]['FormularioId'] == 2) {
+
+            if ($status2[0]["Estado"] == "En revisión de detalles" || $status2[0]["Estado"] == "Respuesto/cambio solicitado a compras" || $status2[0]["Estado"] == "Terminado" || $status2[0]["Estado"] == "Cerraado") {
+
+                $html .= "
+                    <div>
+                        <div class='cont_mensajes'>
+                            <p></p>
+                        </div>
+                        <div>
+                            <form method='POST'>
+                                <input type='text' placeholder='Mensaje' id='mensaje' name='mensaje[]'>
+                                <button type='submit' id='btn_mensaje' name='btn_mensaje[]'>Enviar</button>
+                            </form>
+                        </div>
+                    </div>
+                ";
+
+            } else {
+
+                $html .= "";
+
+            }
         }
 
         return $html;
     }
 
-    public function constructor($consecutivo)
+    public function constructor($id, $id2, $consecutivo)
     {
 
         global $wpdb;
@@ -826,11 +1011,7 @@ class detailApplication {
         $lista_formularios = $wpdb->get_results($queryData, ARRAY_A);
         if (empty($lista_formularios)) {
             $lista_formularios = array();
-        }
-
-        //idD
-        $queryId = "SELECT FormularioId FROM $tableR1 WHERE Consecutivo = '$consecutivo'";
-        $id = $wpdb->get_results($queryId, ARRAY_A);
+        }    
 
         //statusD
         $queryStatus = "SELECT Estado FROM $tableR1 WHERE Consecutivo = '$consecutivo'";
@@ -845,10 +1026,6 @@ class detailApplication {
         if (empty($lista_formularios2)) {
             $lista_formularios2 = array();
         }
-
-        //idS
-        $queryId2 = "SELECT FormularioId FROM $tableR2 WHERE Consecutivo = '$consecutivo'";
-        $id2 = $wpdb->get_results($queryId2, ARRAY_A);
 
         //statusS
         $queryStatus2 = "SELECT Estado FROM $tableR2 WHERE Consecutivo = '$consecutivo'";
@@ -878,11 +1055,21 @@ class detailApplication {
             }
         }
 
+        //tabla mnsajes
+        $tableComt = "{$wpdb->prefix}comentarios_registrados_detalles";
+
+        //comentarios
+        $queryComt = "SELECT * FROM $tableComt WHERE Consecutivo = '$consecutivo'";
+        $list_mensajes = $wpdb->get_results($queryComt, ARRAY_A);
+        if (empty($list_mensajes)) {
+            $list_mensajes = array();
+        }    
+
         $html = $this->head();
 
         $html .= $this->buttonsNav();
         $html .= $this->showDetails($id, $id2, $lista_formularios, $lista_formularios2, $status, $status2);
-        $html .= $this->comentsDetaol($status, $status2);
+        $html .= $this->comentsDetaol($id, $id2, $status, $status2, $list_mensajes);
 
         if ($_POST['cerrar'][0] == "solucionado") {
             $infoUpd = array(

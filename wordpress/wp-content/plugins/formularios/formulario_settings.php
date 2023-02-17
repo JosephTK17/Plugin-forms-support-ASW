@@ -63,11 +63,12 @@ function activar(){
     $sql4 = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}comentarios_registrados_detalles(
         `ComentarioId` INT NOT NULL AUTO_INCREMENT,
         `Consecutivo` VARCHAR(7) NOT NULL,
+        `Nombre usuario` VARCHAR(60) NULL,
+        `Tipo` VARCHAR(60) NULL,
         `Fecha` DATETIME NULL,
         `Comentario` VARCHAR(200) NULL,
-        PRIMARY KEY (`ComentarioId`),
-        FOREIGN KEY (Consecutivo) REFERENCES fsd_formularios_respuestas_desarrollo(Cosecutivo), fsd_formularios_respuestas_soporte(Cosecutivo)
-    )";
+        PRIMARY KEY (`ComentarioId`)
+    );";
     $wpdb->query($sql4);
 
 }
@@ -110,16 +111,6 @@ function shortCode2(){
 
     $tablaR1 = "{$wpdb->prefix}formularios_respuestas_desarrollo";
     $tablaR2 = "{$wpdb->prefix}formularios_respuestas_soporte";
-
-    //dataUser
-    $user = get_current_user_id();
-
-    if ($user != 0) {
-        
-        $userInfo = get_userdata($user);
-        $userEmail = $userInfo->user_login;
-
-    }
 
     $cnsId = "SELECT MAX(RespuestaId) + 1 FROM $tablaR1";
     $resultCnsId = $wpdb->get_results($cnsId, ARRAY_A);
@@ -228,6 +219,7 @@ function shortCode2(){
         ];    
 
         if (!empty($consecutivo2) || !empty($actualDate2) || !empty($solicitante2) || !empty($area2) || !empty($descripcion) || !empty($sede)) {
+
             $wpdb->insert($tablaR2,$datos);
 
             //Create an instance; passing `true` enables exceptions
@@ -306,11 +298,73 @@ function shortCode4()
 function shortCode5()
 {
 
+    global $wpdb;
+
+    $tableR1 = "{$wpdb->prefix}formularios_respuestas_desarrollo";
+    $tableR2 = "{$wpdb->prefix}formularios_respuestas_soporte";
+    $tableComt = "{$wpdb->prefix}comentarios_registrados_detalles";
+
+    $consecutivo = $_GET['id'];
+
+    $user = get_current_user_id();
+
+    if ($user != 0) {
+            
+        $userInfo = get_userdata($user);
+        $userName = $userInfo->first_name;
+
+        if (empty($userName)) {
+            $userName = $userInfo->user_login;
+        }
+    }
+
+    $tipo = "";
+
+    if (is_super_admin()) {
+        $tipo = "Admin";
+    } else {
+        $tipo = "Solicitante";
+    }
+
+    //idD
+    $queryId = "SELECT FormularioId FROM $tableR1 WHERE Consecutivo = '$consecutivo'";
+    $id = $wpdb->get_results($queryId, ARRAY_A);
+
+    //idS
+    $queryId2 = "SELECT FormularioId FROM $tableR2 WHERE Consecutivo = '$consecutivo'";
+    $id2 = $wpdb->get_results($queryId2, ARRAY_A);
+
+    $hora3 = new DateTime("now", new DateTimeZone('America/Bogota'));
+    $actualDate3 = $hora3->format('y-m-d h:i:s');
+
+    if (isset($_POST['btn_mensaje'])) {
+
+        $mensaje = $_POST['mensaje'][0];
+
+        $datos = [
+            'ComentarioId' => NULL ,
+            'Consecutivo' => $consecutivo,
+            'Nombre usuario' => $userName,
+            'Tipo' => $tipo,
+            'Fecha' => $actualDate3,
+            'Comentario' => $mensaje,
+        ];
+
+        if (!empty($mensaje)) {
+
+            $wpdb->insert($tableComt,$datos);
+
+            unset($_POST['mensaje'][0]);
+
+            header('Location: http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id='.$consecutivo);
+
+        }
+
+    }
+
     $_short = new detailApplication;
 
-    $Consecutivo = $_GET['id'];
-
-    $html = $_short->constructor($Consecutivo);
+    $html = $_short->constructor($id, $id2, $consecutivo);
 
     return $html;
 }
