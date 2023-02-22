@@ -48,7 +48,8 @@ function activar(){
     $sql3 = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}formularios_respuestas_soporte(
         `RespuestaId` INT NOT NULL AUTO_INCREMENT,
         `Consecutivo` VARCHAR(7) NOT NULL,
-        `Fecha` DATETIME NULL,
+        `Fecha` DATE NULL,
+        `Hora` TIME NULL,
         `Solicitante` VARCHAR(60) NULL,
         `Área` VARCHAR(50) NULL, 
         `Descripción` VARCHAR(140) NULL,
@@ -65,8 +66,10 @@ function activar(){
         `Consecutivo` VARCHAR(7) NOT NULL,
         `Nombre usuario` VARCHAR(60) NULL,
         `Tipo` VARCHAR(60) NULL,
-        `Fecha` DATETIME NULL,
+        `Fecha` DATE NULL,
+        `Hora` TIME NULL,
         `Comentario` VARCHAR(200) NULL,
+        `Imagen` LONGBLOB NULL,
         PRIMARY KEY (`ComentarioId`)
     );";
     $wpdb->query($sql4);
@@ -127,8 +130,9 @@ function shortCode2(){
     if(isset($_POST['btnguardar1'])){
         $prefix1 = "D";
         $consecutivo = $prefix1.$numConP2;
-        $hora = new DateTime("now", new DateTimeZone('America/Bogota'));
-        $actualDate = $hora->format('20y-m-d h:i:s');
+        $fecha = new DateTime("now", new DateTimeZone('America/Bogota'));
+        $actualDate = $fecha->format('20y-m-d ');
+        $actualHora = $fecha->format('h:i:s');
         $solicitante = $_POST['solicitante'][0];
         $area = $_POST['area'][0];
         $solicitud = $_POST['solicitud'][0];
@@ -139,6 +143,7 @@ function shortCode2(){
             'RespuestaId' => null,
             'Consecutivo' => $consecutivo,
             'Fecha' => $actualDate,
+            'Hora' => $actualHora,
             'Solicitante' => $solicitante,
             'Área' => $area,
             'Solicitud' => $solicitud,
@@ -154,7 +159,7 @@ function shortCode2(){
 
         if (!empty($consecutivo) || !empty($actualDate) || !empty($solicitante) || !empty($area) || !empty($solicitud) || !empty($paraQue) || !empty($criterios)) {
 
-            $wpdb->insert($tablaR1,$datos);
+            $insertado = $wpdb->insert($tablaR1,$datos);
 
             // //Server settings
             // $mail->SMTPDebug = 0;                      //Enable verbose debug output
@@ -199,8 +204,9 @@ function shortCode2(){
         
         $prefix2 = "S";
         $consecutivo2 = $prefix2.$numCon2P2;
-        $hora2 = new DateTime("now", new DateTimeZone('America/Bogota'));
-        $actualDate2 = $hora2->format('y-m-d h:i:s');
+        $fecha2 = new DateTime("now", new DateTimeZone('America/Bogota'));
+        $actualDate2 = $fecha2->format('20y-m-d');
+        $actualHora2 = $fecha2->format('h:i:s');
         $solicitante2 = $_POST['solicitante2'][0];
         $area2 = $_POST['area2'][0];
         $descripcion = $_POST['descripcion'][0];
@@ -210,6 +216,7 @@ function shortCode2(){
             'RespuestaId' => null,
             'Consecutivo' => $consecutivo2,
             'Fecha' => $actualDate2,
+            'Hora' => $actualHora2,
             'Solicitante' => $solicitante2,
             'Área' => $area2,
             'Descripción' => $descripcion,
@@ -220,7 +227,7 @@ function shortCode2(){
 
         if (!empty($consecutivo2) || !empty($actualDate2) || !empty($solicitante2) || !empty($area2) || !empty($descripcion) || !empty($sede)) {
 
-            $wpdb->insert($tablaR2,$datos);
+            $insertado = $wpdb->insert($tablaR2,$datos);
 
             //Create an instance; passing `true` enables exceptions
             $mail = new PHPMailer(true);
@@ -271,14 +278,17 @@ function shortCode2(){
 
     return $html;
 
+    shortCode3($insertado);
+
 }
 
-function shortCode3()
+function shortCode3($insertado)
 {
+
     $_short = new tableForms;
     $tUrlId = $_GET['tUrlId'];
 
-    $html = $_short->constructor($tUrlId);
+    $html = $_short->constructor($tUrlId, $insertado);
 
     return $html;
 }
@@ -339,6 +349,7 @@ function shortCode5()
 
     if (isset($_POST['btn_mensaje'])) {
 
+        $imagen = $_POST['imagen'][0];
         $mensaje = $_POST['mensaje'][0];
 
         $datos = [
@@ -348,12 +359,16 @@ function shortCode5()
             'Tipo' => $tipo,
             'Fecha' => $actualDate3,
             'Comentario' => $mensaje,
+            'Imagen' => $imagen
         ];
 
-        if (!empty($mensaje)) {
+        var_dump($imagen);
+
+        if (!empty($mensaje) || !empty($imagen)) {
 
             $wpdb->insert($tableComt,$datos);
 
+            unset($_POST['imagen'][0]);
             unset($_POST['mensaje'][0]);
 
             header('Location: http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id='.$consecutivo);

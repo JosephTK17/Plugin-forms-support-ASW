@@ -24,35 +24,57 @@ class formFuntions{
                 <meta http-equiv='X-UA-Compatible' content='IE=edge'>
                 <meta name='viewport' content='width=device-width, initial-scale=1.0'>
                 <style>
+
+                    #general_cont{
+                        margin: auto;
+                        position: relative;
+                        border: solid 1px;
+                        padding: 30px 40px;
+                        width: 70%;
+                    }
                     
-                    #cont_btns_nav{
-                        height: 50px;
-                        width: 100%;
-                        background-color: #4f6df5;
+                    #cont_btns{
+                        height: 70px;
                         padding: 8px;
-                        text-align: center;
+                        border-radius: 5px;
+                        background-color: #4f6df5;
+                        margin: auto;
                     }
 
-                    .btn_nav{
+                    .btns_nav ul{
+                        text-align: center;
+                        padding: 6px 0 0 0;
+                        margin: 0;
+                    }
+
+                    .btns_nav ul li{
                         display: inline-block;
-                        margin-top: 11px;
                         text-align: center;
                     }
 
-                    .btn_nav a:hover{
-                        background-color: #233170;
-                        transition: background-color 0.5s;
-                    }
-
-                    .btn_nav a {   
-                        background-color: #304293;
-                        border-radius: 3px;
+                    .btns_nav ul li a{
                         text-decoration: none;
                         color: white;
+                        background-color: #304293;
+                        border-radius: 5px;
+                        display: block;
+                        min-height: 20px;
+                        min-width: 100px;
+                        padding: 15px 15px;
+                        font-weight: 700;
+                    }
+
+                    .btns_nav ul li a:hover{
+                        box-shadow: 0px 0px 5px black;
+                        transition: box-shadow 0.5s;
                     }
 
                     #create {
                         margin: 0 15% 0 0%;
+                    }
+
+                    #create a {
+                        background-color: #808080;
                     }
 
                     #create a:hover{
@@ -60,17 +82,13 @@ class formFuntions{
                         transition: background-color 0.5s;
                     }
 
-                    #create a{
-                        padding: 10px 22px 10px 22px;
-                        background-color: gray;
-                    }
-
                     #admin a{
-                        padding: 10px 30px 10px 30px;
+                        min-width: 100px !important;
                     }
 
-                    #user a{
-                        padding: 10px 30px 10px 30px;
+                    .btns_nav ul li a:hover{
+                        background-color: #233170;
+                        transition: background 0.5s;
                     }
 
                     #type{
@@ -81,12 +99,16 @@ class formFuntions{
                         box-shadow: inset 0 .25rem .125rem 0 rgba(0, 0, 0, .05)!important;
                         font-weight: bold !important;
                         color: gray;
-                        margin-bottom: 30px;
+                        margin: 15px 0 30px 0;
                     }
 
-                    // .cont_forms{
-                    //     border: 1px solid black;
-                    // }
+                    .wrap{
+                        text-align: center;
+                    }
+
+                    .form-group{
+                        margin: auto;
+                    }
 
                     .form-group div{
                         margin-bottom: 15px;
@@ -128,7 +150,7 @@ class formFuntions{
                         height: 50px;
                         width: 150px;
                         border: none;
-                        border-radius: 3px;
+                        border-radius: 5px;
                         color: white;
                         background-color: #304293;
                     }
@@ -178,23 +200,31 @@ class formFuntions{
 
         $html .= "
             <body>
-                <div id='cont_btns_nav'>
-                    <div class='btn_nav' id='create'>
-                        <a href='#'>Enviar Ticket</a>
-                    </div>
+            </div>
+            <div id='general_cont'>
+                <div id='cont_btns'>
+                    <div class='btns_nav'>
+                        <ul>
+                            <li id='create'>
+                                <a href='#'>Enviar Ticket</a>
+                            </li>
         ";
 
         if (is_super_admin()) {
             $html .= "
-                    <div class='btn_nav' id='admin'>
-                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=4'>Ver Tickets</a>
+                            <li id='admin'>
+                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=4'>Ver Tickets</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             ";
         } else {
             $html .= "
-                    <div class='btn_nav' id='user'>
-                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlIdUc=4''>Mis Tickets</a>
+                            <li id='user'>
+                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlIdUc=4'>Mis Tickets</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             ";
@@ -386,6 +416,7 @@ class formFuntions{
                     </div>
                 </form>
             </div>
+        </div>
         ";
 
         return $html;

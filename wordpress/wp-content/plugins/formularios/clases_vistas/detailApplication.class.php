@@ -11,6 +11,8 @@ class detailApplication {
                 <meta charset='UTF-8'>
                 <meta http-equiv='X-UA-Compatible' content='IE=edge'>
                 <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+                <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD' crossorigin='anonymous'>
+                <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js' integrity='sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN' crossorigin='anonymous'></script>
                 <style>
 
                      #cont_btns_nav{
@@ -110,21 +112,27 @@ class detailApplication {
                     }
 
                     #consecutivo{
-                        margin: 0 240px 0 0;
-                        display: inline-block;
+                        float: left;
                     }
 
                     #fecha{
-                        display: inline-block;
+                        text-align: left;
+                    }
+
+                    #fecha div{
+                        padding: 0 0 0 50%;
                     }
 
                     #solicitante{
-                        margin: 0 154px 0 0;
-                        display: inline-block;
+                        float: left;
                     }
 
                     #area{
-                        display: inline-block;
+                        text-align: left;
+                    }
+
+                    #area div{
+                        padding: 0 0 0 50%;
                     }
 
                     #solicitud{
@@ -245,6 +253,14 @@ class detailApplication {
         }
 
         $html .= "
+                    #mensaje{
+                        width: 80%;
+                    }
+
+                    #cont_btn_mnj{
+                        width: 30%;
+                    }
+
                     #btn_mensaje{
                         cursor: pointer;
                         border: none;
@@ -255,10 +271,6 @@ class detailApplication {
                     #btn_mensaje:hover{
                         color: #808080;
                         transition: color 0.5s;
-                    }
-
-                    #mensaje{
-                        width: 80%;
                     }
 
                 </style>
@@ -608,16 +620,20 @@ class detailApplication {
                                 <p>$consecutivo</p>
                             </div>
                             <div class='campos' id='fecha'>
-                                <label>Fecha solicitud:</label>
-                                <p>$date</p>
+                                <div>
+                                    <label>Fecha solicitud:</label>
+                                    <p>$date</p>
+                                </div>
                             </div>
                             <div class='campos' id='solicitante'>
                                 <label>Solicitante:</label>
                                 <p>$solicitante</p>
                             </div>
                             <div class='campos' id='area'>
-                                <label>Área:</label>
-                                <p>$area</p>
+                                <div>
+                                    <label>Área:</label>
+                                    <p>$area</p>
+                                </div>
                             </div>
                             <div class='campos' id='solicitud'>
                                 <label>Solicitud:</label>
@@ -663,10 +679,7 @@ class detailApplication {
                         </div>
                         ";
                     }
-
-                    $html .= "
-                    </body>
-                    ";                  
+                 
             }
         } elseif ($id2[0]['FormularioId'] == 2 && $status2[0]['Estado'] != "Cerrado") {
 
@@ -842,16 +855,20 @@ class detailApplication {
                             <p>$consecutivo2</p>
                         </div>
                         <div class='campos' id='fecha'>
-                            <label>Fecha solicitud:</label>
-                            <p>$date2</p>
+                            <div>
+                                <label>Fecha solicitud:</label>
+                                <p>$date2</p>
+                            </div>
                         </div>
                         <div class='campos' id='solicitante'>
                             <label>Solicitante:</label>
                             <p>$solicitante2</p>
                         </div>
                         <div class='campos' id='area'>
-                            <label>Área:</label>
-                            <p>$area</p>
+                            <div>
+                                <label>Área:</label>
+                                <p>$area</p>
+                            </div>
                         </div>
                         <div class='campos' id='descripcion'>
                             <label>Descripción:</label>
@@ -903,7 +920,7 @@ class detailApplication {
         return $html;
     }
 
-    public function comentsDetaol($id, $id2, $status, $status2, $list_mensajes)
+    public function comentsDetail($id, $id2, $status, $status2, $list_mensajes)
     {
         $html = "";
         if ($id[0]['FormularioId'] == 1) {
@@ -920,35 +937,74 @@ class detailApplication {
                     $tipo = $value['Tipo'];
                     $fecha = $value['Fecha'];
                     $comentario = $value['Comentario'];
+                    $imagen = $value['Imagen'];
 
-                    if ($tipo == "Admin") {
-                        $html .= "
-                            <div class='texto' id='cont_menng_admin'>
-                                <div class='menng_admin'>
-                                    <label>$nombreUsuario($tipo)</label>
-                                    <br>
-                                    <label>$fecha</label>
-                                    <br>
-                                    <div class='cont_comt_admin'>
-                                        <p>$comentario</p>
+                    if (!empty($comentario)) {
+
+                        if ($tipo == "Admin") {
+                            $html .= "
+                                <div class='texto' id='cont_menng_admin'>
+                                    <div class='menng_admin'>
+                                        <label>$nombreUsuario($tipo)</label>
+                                        <br>
+                                        <label>$fecha</label>
+                                        <br>
+                                        <div class='cont_comt_admin'>
+                                            <p>$comentario</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ";
-                    } elseif($tipo == "Solicitante") {
-                        $html .= "
-                            <div class='texto' id='cont_menng_user'>
-                                <div class='menng_user'>
-                                    <label>$nombreUsuario($tipo)</label>
-                                    <br>
-                                    <label>$fecha</label>
-                                    <br>
-                                    <div class='cont_comt_user'>
-                                        <p>$comentario</p>
+                            ";
+                        } elseif($tipo == "Solicitante") {
+                            $html .= "
+                                <div class='texto' id='cont_menng_user'>
+                                    <div class='menng_user'>
+                                        <label>$nombreUsuario($tipo)</label>
+                                        <br>
+                                        <label>$fecha</label>
+                                        <br>
+                                        <div class='cont_comt_user'>
+                                            <p>$comentario</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ";
+                            ";
+                        }
+                    } elseif(!empty($imagen)) {
+
+                        if ($tipo == "Admin") {
+                            $html .= "
+                                <div class='texto' id='cont_menng_admin'>
+                                    <div class='menng_admin'>
+                                        <label>$nombreUsuario($tipo)</label>
+                                        <br>
+                                        <label>$fecha</label>
+                                        <br>
+                                        <div class='cont_comt_admin'>
+                                            <div>
+                                                <img src='$imagen'>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ";
+                        } elseif($tipo == "Solicitante") {
+                            $html .= "
+                                <div class='texto' id='cont_menng_user'>
+                                    <div class='menng_user'>
+                                        <label>$nombreUsuario($tipo)</label>
+                                        <br>
+                                        <label>$fecha</label>
+                                        <br>
+                                        <div class='cont_comt_user'>
+                                            <div>
+                                                $imagen
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ";
+                        }
                     }
                     
                 }
@@ -958,16 +1014,20 @@ class detailApplication {
                     </div>
                     <div class='cont_btn_chat'>
                         <form method='POST'>
-                            <textarea placeholder='Mensaje' id='mensaje' name='mensaje[]' required></textarea>
+                            <input type='file' name='imagen[]'>
+                            <textarea placeholder='Mensaje' id='mensaje' name='mensaje[]'></textarea>
                             <button type='submit' id='btn_mensaje' name='btn_mensaje[]'><i class='bi bi-send-check-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' class='bi bi-send-check-fill' viewBox='0 0 16 16'><path d='M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 1.59 2.498C8 14 8 13 8 12.5a4.5 4.5 0 0 1 5.026-4.47L15.964.686Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z'/><path d='M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-1.993-1.679a.5.5 0 0 0-.686.172l-1.17 1.95-.547-.547a.5.5 0 0 0-.708.708l.774.773a.75.75 0 0 0 1.174-.144l1.335-2.226a.5.5 0 0 0-.172-.686Z'/>
                           </svg></button>
                         </form>
                     </div>
+                </div>
                 ";
 
             } else {
 
-                $html .= "";
+                $html .= "
+                </div>
+                ";
 
             }
         } elseif ($id2[0]['FormularioId'] == 2) {
@@ -986,14 +1046,61 @@ class detailApplication {
                             </form>
                         </div>
                     </div>
+                </div>
                 ";
 
             } else {
 
-                $html .= "";
+                $html .= "
+                </div>
+                ";
 
             }
         }
+
+        return $html;
+    }
+
+    public function notification()
+    {   
+        $html = "
+            <div aria-live='polite' aria-atomic='true' class='position-relative'>
+            <!-- Position it: -->
+            <!-- - `.toast-container` for spacing between toasts -->
+            <!-- - `.position-absolute`, `top-0` & `end-0` to position the toasts in the upper right corner -->
+            <!-- - `.p-3` to prevent the toasts from sticking to the edge of the container  -->
+            <div class='toast-container position-absolute top-0 end-0 p-3'>
+        
+            <!-- Then put toasts within -->
+            <div class='toast' role='alert' aria-live='assertive' aria-atomic='true'>
+                <div class='toast-header'>
+                    <img src='...' class='rounded me-2' alt='...'>
+                    <strong class='me-auto'>Bootstrap</strong>
+                    <button type='button' class='btn-close' data-bs-dismiss='toast' aria-label='Close'></button>
+                </div>
+                <div class='toast-body'>
+                    See? Just like this.
+                    <a href='#'>Ver</a>
+                </div>
+            </div>
+            </div>
+        </div>
+        ";
+
+        return $html;
+    }
+
+    public function notificationJquery()
+    {
+        $html = "
+            <script language='JavaScript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js' integrity='sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==' crossorigin='anonymous' referrerpolicy='no-referrer'></script>
+
+            <script language='JavaScript'>
+                $(document).ready(function(){
+                    $('.toast').toast('show');
+                })
+            </script>
+        ";
 
         return $html;
     }
@@ -1063,13 +1170,16 @@ class detailApplication {
         $list_mensajes = $wpdb->get_results($queryComt, ARRAY_A);
         if (empty($list_mensajes)) {
             $list_mensajes = array();
-        }    
+        }   
 
         $html = $this->head();
 
         $html .= $this->buttonsNav();
         $html .= $this->showDetails($id, $id2, $lista_formularios, $lista_formularios2, $status, $status2);
-        $html .= $this->comentsDetaol($id, $id2, $status, $status2, $list_mensajes);
+        $html .= $this->comentsDetail($id, $id2, $status, $status2, $list_mensajes);
+
+        $html .= $this->notification();
+        $html .= $this->notificationJquery();
 
         if ($_POST['cerrar'][0] == "solucionado") {
             $infoUpd = array(

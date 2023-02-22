@@ -25,6 +25,8 @@ class tableForms {
                 <meta http-equiv='X-UA-Compatible' content='IE=edge'>
                 <meta name='viewport' content='width=device-width, initial-scale=1.0'>
                 <link rel='stylesheet' type='text/css' href='//cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css'>
+                <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD' crossorigin='anonymous'>
+                <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js' integrity='sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN' crossorigin='anonymous'></script>
                 <style>
 
                     #cont_btns_nav{
@@ -345,6 +347,11 @@ class tableForms {
                         text-align: center;
                     }
 
+                    .toast-container {
+                        margin: 30px 0 0 0;
+                        position: fixed !important;
+                    }
+
                 </style>
             </head>
             ";
@@ -355,6 +362,7 @@ class tableForms {
     public function buttonsNav()
     {
         $html = "
+        </div>
             <body>
                 <div id='cont_btns_nav'>
                     <div class='btn_nav' id='create'>
@@ -395,6 +403,9 @@ class tableForms {
     {
         $html = "";
 
+        $fecha = new DateTime("now", new DateTimeZone('America/Bogota'));
+        $actualDate = $fecha->format('20y-m-d');
+
         if ($tUrlId == 1) {
             if (!empty($lista_formularios_rtasD1)) {
                 $html .= "
@@ -404,8 +415,10 @@ class tableForms {
                         <table class='table_form' id='myTable' border=1>
                             <thead>
                                 <tr>
+                                    <th style='border: none; cursor: auto;'></th>
                                     <th>Consecutivo</th>
                                     <th>Fecha</th>
+                                    <th>Hora</th>
                                     <th>Solicitante</th>
                                     <th>Área</th>
                                     <th>Solicitud</th>
@@ -421,6 +434,7 @@ class tableForms {
                 foreach ($lista_formularios_rtasD1 as $key => $value) {
                     $consecutivo = $value['Consecutivo'];
                     $date = $value['Fecha'];
+                    $hora = $value['Hora'];
                     $solicitante = $value['Solicitante'];
                     $area = $value['Área'];
                     $solicitud = $value['Solicitud'];
@@ -428,10 +442,22 @@ class tableForms {
                     $estado = $value['Estado'];
                     $criterios = $value['Criterios de aceptación'];
 
-                    $html .= "
+                    if ($actualDate > $date || $estado != 'Solicitado') {
+                        $html .= "
                         <tr>
+                            <td></td>
+                        ";
+                    } else {
+                        $html .= "
+                        <tr>
+                            <td><i class='bi bi-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='red' class='bi bi-circle-fill' viewBox='0 0 16 16'><circle cx='8' cy='8' r='8'/></svg></td>
+                        ";
+                    }
+
+                    $html .= "
                             <td>$consecutivo</td>
                             <td>$date</td>
+                            <td>$hora</td>
                             <td>$solicitante</td>
                             <td>$area</td>
                             <td>$solicitud</td>
@@ -466,8 +492,10 @@ class tableForms {
                         <table class='table_form' id='myTable2' border=1>
                             <thead>
                                 <tr>
+                                    <th></th>
                                     <th>Consecutivo</th>
                                     <th>Fecha</th>
+                                    <th>Hora</th>
                                     <th>Quién reporta</th>
                                     <th>Área</th>
                                     <th>Descripción</th>
@@ -482,16 +510,29 @@ class tableForms {
                 foreach ($lista_formularios_rtasS1 as $key => $value) {
                     $consecutivo2 = $value['Consecutivo'];
                     $date2 = $value['Fecha'];
+                    $hora2 = $value['Hora'];
                     $solicitante2 = $value['Solicitante'];
                     $area2 = $value['Área'];
                     $descripcion = $value['Descripción'];
                     $estado2 = $value['Estado'];
                     $sede = $value['Sede'];
+
+                    if ($actualDate > $date2 || $estado2 != 'Solicitado') {
+                        $html .= "
+                        <tr>
+                            <td></td>
+                        ";
+                    } else {
+                        $html .= "
+                        <tr>
+                            <td><i class='bi bi-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='red' class='bi bi-circle-fill' viewBox='0 0 16 16'><circle cx='8' cy='8' r='8'/></svg></td>
+                        ";
+                    }
         
                     $html .= "
-                        <tr>
                             <td>$consecutivo2</td>
                             <td>$date2</td>
+                            <td>$hora2</td>
                             <td>$solicitante2</td>
                             <td>$area2</td>
                             <td>$descripcion</td>
@@ -775,8 +816,10 @@ class tableForms {
                         <h4>Desarrollo</h4>
                         <table class='table_form' id='myTable' border=1>
                             <thead>
+                                <th></th>
                                 <th>Consecutivo</th>
                                 <th>Fecha</th>
+                                <th>Hora</th>
                                 <th>Solicitante</th>
                                 <th>Área</th>
                                 <th>Solicitud</th>
@@ -791,6 +834,7 @@ class tableForms {
                 foreach ($lista_formularios_rtasD4 as $key => $value) {
                     $consecutivo = $value['Consecutivo'];
                     $date = $value['Fecha'];
+                    $hora = $value['Hora'];
                     $solicitante = $value['Solicitante'];
                     $area = $value['Área'];
                     $solicitud = $value['Solicitud'];
@@ -798,10 +842,22 @@ class tableForms {
                     $estado = $value['Estado'];
                     $criterios = $value['Criterios de aceptación'];
 
-                    $html .= "
+                    if ($actualDate > $date || $estado != 'Solicitado') {
+                        $html .= "
                         <tr>
+                            <td></td>
+                        ";
+                    } else {
+                        $html .= "
+                        <tr>
+                            <td><i class='bi bi-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='red' class='bi bi-circle-fill' viewBox='0 0 16 16'><circle cx='8' cy='8' r='8'/></svg></td>
+                        ";
+                    }
+
+                    $html .= "
                             <td>$consecutivo</td>
                             <td>$date</td>
+                            <td>$hora</td>
                             <td>$solicitante</td>
                             <td>$area</td>
                             <td>$solicitud</td>
@@ -837,8 +893,10 @@ class tableForms {
                         <h4>Soporte</h4>
                         <table class='table_form' id='myTable2' border=1>
                             <thead>
+                                <th></th>
                                 <th>Consecutivo</th>
                                 <th>Fecha</th>
+                                <th>Hora</th>
                                 <th>Quién reporta</th>
                                 <th>Área</th>
                                 <th>Descripción</th>
@@ -852,16 +910,29 @@ class tableForms {
                 foreach ($lista_formularios_rtasS4 as $key => $value) {
                     $consecutivo2 = $value['Consecutivo'];
                     $date2 = $value['Fecha'];
+                    $hora2 = $value['Hora'];
                     $solicitante2 = $value['Solicitante'];
                     $area2 = $value['Área'];
                     $descripcion = $value['Descripción'];
                     $estado2 = $value['Estado'];
                     $sede = $value['Sede'];
+
+                    if ($actualDate > $date2 || $estado2 != 'Solicitado') {
+                        $html .= "
+                        <tr>
+                            <td></td>
+                        ";
+                    } else {
+                        $html .= "
+                        <tr>
+                            <td><i class='bi bi-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='red' class='bi bi-circle-fill' viewBox='0 0 16 16'><circle cx='8' cy='8' r='8'/></svg></td>
+                        ";
+                    }
         
                     $html .= "
-                        <tr>
                             <td>$consecutivo2</td>
                             <td>$date2</td>
+                            <td>$hora2</td>
                             <td>$solicitante2</td>
                             <td>$area2</td>
                             <td>$descripcion</td>
@@ -968,7 +1039,52 @@ class tableForms {
         ";
     }
 
-    public function constructor($tUrlId)
+    public function notification($insertado)
+    {   
+        if ($insertado) {
+            $html = "
+            <div aria-live='polite' aria-atomic='true' class='position-relative' id='cont_ntf'>
+                <!-- Position it: -->
+                <!-- - `.toast-container` for spacing between toasts -->
+                <!-- - `.position-absolute`, `top-0` & `end-0` to position the toasts in the upper right corner -->
+                <!-- - `.p-3` to prevent the toasts from sticking to the edge of the container  -->
+                <div class='toast-container position-absolute top-0 end-0 p-3'>
+            
+                    <!-- Then put toasts within -->
+                    <div class='toast' role='alert' aria-live='assertive' aria-atomic='true'>
+                        <div class='toast-header'>
+                            <img src='...' class='rounded me-2' alt='...'>
+                            <strong class='me-auto'>Bootstrap</strong>
+                            <button type='button' class='btn-close' data-bs-dismiss='toast' aria-label='Close'></button>
+                        </div>
+                        <div class='toast-body'>
+                            Se a creado un ticket
+                            <a href='#'>Ver</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            ";
+        }
+
+        return $html;
+    }
+
+    public function notificationJquery()
+    {
+        $html = "
+
+            <script language='JavaScript'>
+                $(document).ready(function(){
+                    $('.toast').toast('show');
+                })
+            </script>
+        ";
+
+        return $html;
+    }
+
+    public function constructor($tUrlId, $insertado)
     {
         global $wpdb;
 
@@ -1131,6 +1247,9 @@ class tableForms {
             $html .= $this->structureTickets($tUrlId, $lista_formularios_rtasD1, $lista_formularios_rtasD2, $lista_formularios_rtasD3, $lista_formularios_rtasD4, $lista_formularios_rtasS1, $lista_formularios_rtasS2, $lista_formularios_rtasS3, $lista_formularios_rtasS4);
 
             $html .= $this->dataTableJquery();
+
+            $html .= $this->notification($insertado);
+            $html .= $this->notificationJquery();
 
         } else {
             $html = "
