@@ -213,7 +213,7 @@ class formFuntions{
         if (is_super_admin()) {
             $html .= "
                             <li id='admin'>
-                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=4'>Ver Tickets</a>
+                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=1'>Ver Tickets</a>
                             </li>
                         </ul>
                     </div>
@@ -222,7 +222,7 @@ class formFuntions{
         } else {
             $html .= "
                             <li id='user'>
-                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlIdUc=4'>Mis Tickets</a>
+                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlIdUc=1'>Mis Tickets</a>
                             </li>
                         </ul>
                     </div>
@@ -297,7 +297,7 @@ class formFuntions{
                             <span style='color: red;'>*</span>
                             <br>
                             <div class='cont_inpt_form'>
-                                <textarea class='inpt_form' name='solicitud[]' id='solicitud' required></textarea>
+                                <textarea class='inpt_form' name='solicitud[]' id='solicitud' maxlength='200' required></textarea>
                             </div>
                         </div>
                         <br>
@@ -307,7 +307,7 @@ class formFuntions{
                             <span style='color: red;'>*</span>
                             <br>
                             <div class='cont_inpt_form'>
-                                <textarea class='inpt_form' name='paraQue[]' id='paraQue' required></textarea>
+                                <textarea class='inpt_form' name='paraQue[]' id='paraQue' maxlength='200' required></textarea>
                             </div>
                         </div>
 
@@ -316,7 +316,7 @@ class formFuntions{
                             <span style='color: red;'>*</span>
                             <br>
                             <div class='cont_inpt_form'>
-                                <textarea class='inpt_form' name='criterios[]' id='criterios' required></textarea>
+                                <textarea class='inpt_form' name='criterios[]' id='criterios' maxlength='200' required></textarea>
                             </div>
                         </div>
 
@@ -377,7 +377,7 @@ class formFuntions{
                             <span style='color: red;'>*</span>
                             <br>
                             <div class='cont_inpt_form'>
-                                <textarea class='inpt_form' name='descripcion[]' id='descripcion' required></textarea>
+                                <textarea class='inpt_form' name='descripcion[]' id='descripcion' maxlength='200' required></textarea>
                             </div>
                         </div>
 

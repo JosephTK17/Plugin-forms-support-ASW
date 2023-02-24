@@ -40,6 +40,14 @@ class searchApplication {
 
                 <style>
 
+                    #general_cont{
+                        margin: auto;
+                        position: relative;
+                        border: solid 1px;
+                        padding: 30px 40px;
+                        width: 70%;
+                    }
+
                     #cont_btns_nav{
                         height: 50px;
                         width: 100%;
@@ -376,7 +384,9 @@ class searchApplication {
     public function buttonsNav()
     {
         $html = "
-            <body>
+        </div>
+        <body>
+            <div id='general_cont'>
                 <div id='cont_btns_nav'>
                     <div class='btn_nav' id='create'>
                         <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/formularios/'>Enviar Ticket</a>
@@ -413,148 +423,13 @@ class searchApplication {
         return $html;
     }
 
-    // public function search()
-    // {
-    //     $html = "
-    //         <form method='POST'>
-    //             <div id='cont_inpt'>
-    //                 <div class='inpt_filter' id='inpt_consecutivo'>
-    //                     <input type='text' name='consecutivo[]' id='consecutivo' placeholder='Consecutivo' style='height:20px; text-align: center;'>
-    //                 </div>
-    //                 <div class='inpt_filter' id='btn_buscar'>
-    //                     <button type='submit' name='buscar' style='cursor: pointer; height:25px; width:100%; border: transparent; background-color: #ca0004; color: #b3b3b3; border-radius: 5px;'><strong>Buscar</strong></button>
-    //                 </div>
-    //             </div>       
-    //         </form>
-    //     ";  
-
-    //     return $html;
-    // }
-
-    // public function openTableApplication($conseId, $conseId2)
-    // {
-    //     $html = "";
-
-    //     if (!empty($_POST['consecutivo'][0]) && $conseId[0]['FormularioId'] == 1) {
-
-    //         //consecutivo
-    //         $html .= "
-    //             <div id='cont_table_dllo'>
-    //                 <h4>Desarrollo</h4>
-    //                 <table class='table_form' border=1>
-    //                     <thead>
-    //                         <th>Consecutivo</th>
-    //                         <th>Fecha</th>
-    //                         <th>Solicitante</th>
-    //                         <th>Área</th>
-    //                         <th>Solicitud</th>
-    //                         <th>Para qué</th>
-    //                         <th>Criterios</th>
-    //                         <th>Estado</th>
-    //                         <th></th>
-    //                     </thead>
-    //                     <tbody>
-    //         ";
-    //     } elseif (!empty($_POST['consecutivo'][0]) && $conseId2[0]['FormularioId'] == 2) {
-
-    //         //consecutivo
-    //         $html .= "
-    //             <div id='cont_table_spte'>
-    //                 <h4>Soporte</h4>
-    //                 <table class='table_form' border=1>
-    //                     <thead>
-    //                         <th>Consecutivo</th>
-    //                         <th>Fecha</th>
-    //                         <th>Solicitante</th>
-    //                         <th>Área</th>
-    //                         <th>Descripción</th>
-    //                         <th>Sede</th>
-    //                         <th>Estado</th>
-    //                         <th></th>
-    //                     </thead>
-    //                     <tbody>
-    //         ";
-    //     }
-
-    //     return $html;
-    // }
-
-    // public function dataTableApplication($conseId, $conseId2, $lista_formularios_filter, $lista_formularios_filter2)
-    // {
-
-    //     $html = "";
-
-    //     //datos consecutivo
-    //     if (!empty($_POST['consecutivo'][0]) && $conseId[0]['FormularioId'] == 1) {
-    //         foreach ($lista_formularios_filter as $key => $value) {
-    //                 $consecutivo = $value['Consecutivo'];
-    //                 $date = $value['Fecha'];
-    //                 $solicitante = $value['Solicitante'];
-    //                 $area = $value['Área'];
-    //                 $solicitud = $value['Solicitud'];
-    //                 $paraQue = $value['Para qué'];
-    //                 $estado = $value['Estado'];
-    //                 $criterios = $value['Criterios de aceptación'];
-
-    //             $html .= "
-    //                 <tr>
-    //                     <td>$consecutivo</td>
-    //                     <td>$date</td>
-    //                     <td>$solicitante</td>
-    //                     <td>$area</td>
-    //                     <td>$solicitud</td>
-    //                     <td>$paraQue</td>
-    //                     <td>$criterios</td>
-    //                     <td>$estado</td>
-    //                     <td>
-    //                         <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>
-    //                     </td>
-    //                 </tr>
-    //             ";
-    //         }
-    //     } elseif (!empty($_POST['consecutivo'][0]) && $conseId2[0]['FormularioId'] == 2) {
-    //         foreach ($lista_formularios_filter2 as $key => $value) {
-    //                 $consecutivo2 = $value['Consecutivo'];
-    //                 $date2 = $value['Fecha'];
-    //                 $solicitante = $value['Solicitante'];
-    //                 $area2 = $value['Área'];
-    //                 $descripcion = $value['Descripción'];
-    //                 $estado2 = $value['Estado'];
-    //                 $sede = $value['Sede'];
-
-    //             $html .= "
-    //                 <tr>
-    //                     <td>$consecutivo2</td>
-    //                     <td>$date2</td>
-    //                     <td>$solicitante</td>
-    //                     <td>$area2</td>
-    //                     <td>$descripcion</td>
-    //                     <td>$sede</td>
-    //                     <td>$estado2</td>
-    //                     <td>
-    //                         <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2'>Detalle</a>
-    //                     </td>
-    //                 </tr>
-    //             ";
-    //         }
-    //     }
-
-    //     return $html;
-    // }
-
-    // public function closeTableApplication()
-    // {
-    //     $html = "
-    //             </tbody>
-    //         </table>
-    //     ";
-
-    //     return $html;
-    // }
-
     public function structureTickets($tUrlIdUc, $lista_formularios_rtasD1, $lista_formularios_rtasD2, $lista_formularios_rtasD3, $lista_formularios_rtasD4, $lista_formularios_rtasS1, $lista_formularios_rtasS2, $lista_formularios_rtasS3, $lista_formularios_rtasS4)
     {
         $html = "";
+
+        $fecha = new DateTime("now", new DateTimeZone('America/Bogota'));
+        $actualDate = $fecha->format('20y-m-d');
+
         if ($tUrlIdUc == 1) {
             if (!empty($lista_formularios_rtasD1)) {
                 $html .= "
@@ -563,13 +438,12 @@ class searchApplication {
                         <h4>Desarrollo</h4>
                         <table class='table_form' id='myTable' border=1>
                             <thead>
+                                <th></th>
                                 <th>Consecutivo</th>
                                 <th>Fecha</th>
+                                <th>Hora</th>
                                 <th>Solicitante</th>
-                                <th>Área</th>
-                                <th>Solicitud</th>
-                                <th>Para qué</th>
-                                <th>Criterios</th>
+                                <th>Area</th>
                                 <th>Estado</th>
                                 <th></th>
                             </thead>
@@ -579,22 +453,29 @@ class searchApplication {
                 foreach ($lista_formularios_rtasD1 as $key => $value) {
                     $consecutivo = $value['Consecutivo'];
                     $date = $value['Fecha'];
+                    $hora = $value['Hora'];
                     $solicitante = $value['Solicitante'];
-                    $area = $value['Área'];
-                    $solicitud = $value['Solicitud'];
-                    $paraQue = $value['Para qué'];
+                    $area = $value['Area'];
                     $estado = $value['Estado'];
-                    $criterios = $value['Criterios de aceptación'];
+
+                    if ($actualDate > $date || $estado != 'Solicitado') {
+                        $html .= "
+                        <tr>
+                            <td></td>
+                        ";
+                    } else {
+                        $html .= "
+                        <tr>
+                            <td><i class='bi bi-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='red' class='bi bi-circle-fill' viewBox='0 0 16 16'><circle cx='8' cy='8' r='8'/></svg></td>
+                        ";
+                    }
 
                     $html .= "
-                        <tr>
                             <td>$consecutivo</td>
                             <td>$date</td>
+                            <td>$hora</td>
                             <td>$solicitante</td>
                             <td>$area</td>
-                            <td>$solicitud</td>
-                            <td>$paraQue</td>
-                            <td>$criterios</td>
                             <td>$estado</td>
                             <td class='clm_btn_dlle'>
                                 <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>
@@ -624,11 +505,12 @@ class searchApplication {
                         <h4>Soporte</h4>
                         <table class='table_form' id='myTable2' border=1>
                             <thead>
+                                <th></th>
                                 <th>Consecutivo</th>
                                 <th>Fecha</th>
-                                <th>Quién reporta</th>
-                                <th>Área</th>
-                                <th>Descripción</th>
+                                <th>Hora</th>
+                                <th>Solicitante</th>
+                                <th>Area</th>
                                 <th>Sede</th>
                                 <th>Estado</th>
                                 <th></th>
@@ -639,19 +521,30 @@ class searchApplication {
                 foreach ($lista_formularios_rtasS1 as $key => $value) {
                     $consecutivo2 = $value['Consecutivo'];
                     $date2 = $value['Fecha'];
+                    $hora2 = $value['Hora'];
                     $solicitante2 = $value['Solicitante'];
-                    $area2 = $value['Área'];
-                    $descripcion = $value['Descripción'];
+                    $area2 = $value['Area'];
                     $estado2 = $value['Estado'];
                     $sede = $value['Sede'];
+
+                    if ($actualDate > $date2 || $estado2 != 'Solicitado') {
+                        $html .= "
+                        <tr>
+                            <td></td>
+                        ";
+                    } else {
+                        $html .= "
+                        <tr>
+                            <td><i class='bi bi-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='red' class='bi bi-circle-fill' viewBox='0 0 16 16'><circle cx='8' cy='8' r='8'/></svg></td>
+                        ";
+                    }
         
                     $html .= "
-                        <tr>
                             <td>$consecutivo2</td>
                             <td>$date2</td>
+                            <td>$hora2</td>
                             <td>$solicitante2</td>
                             <td>$area2</td>
-                            <td>$descripcion</td>
                             <td>$sede</td>
                             <td>$estado2</td>
                             <td class='clm_btn_dlle'>
@@ -688,10 +581,7 @@ class searchApplication {
                                 <th>Consecutivo</th>
                                 <th>Fecha</th>
                                 <th>Solicitante</th>
-                                <th>Área</th>
-                                <th>Solicitud</th>
-                                <th>Para qué</th>
-                                <th>Criterios</th>
+                                <th>Area</th>
                                 <th>Estado</th>
                                 <th></th>
                             </thead>
@@ -702,11 +592,8 @@ class searchApplication {
                     $consecutivo = $value['Consecutivo'];
                     $date = $value['Fecha'];
                     $solicitante = $value['Solicitante'];
-                    $area = $value['Área'];
-                    $solicitud = $value['Solicitud'];
-                    $paraQue = $value['Para qué'];
+                    $area = $value['Area'];
                     $estado = $value['Estado'];
-                    $criterios = $value['Criterios de aceptación'];
 
                     $html .= "
                         <tr>
@@ -714,9 +601,6 @@ class searchApplication {
                             <td>$date</td>
                             <td>$solicitante</td>
                             <td>$area</td>
-                            <td>$solicitud</td>
-                            <td>$paraQue</td>
-                            <td>$criterios</td>
                             <td>$estado</td>
                             <td class='clm_btn_dlle'>
                                 <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>
@@ -747,9 +631,8 @@ class searchApplication {
                             <thead>
                                 <th>Consecutivo</th>
                                 <th>Fecha</th>
-                                <th>Quién reporta</th>
-                                <th>Área</th>
-                                <th>Descripción</th>
+                                <th>Solicitante</th>
+                                <th>Area</th>
                                 <th>Sede</th>
                                 <th>Estado</th>
                                 <th></th>
@@ -761,8 +644,7 @@ class searchApplication {
                     $consecutivo2 = $value['Consecutivo'];
                     $date2 = $value['Fecha'];
                     $solicitante2 = $value['Solicitante'];
-                    $area2 = $value['Área'];
-                    $descripcion = $value['Descripción'];
+                    $area2 = $value['Area'];
                     $estado2 = $value['Estado'];
                     $sede = $value['Sede'];
         
@@ -772,7 +654,6 @@ class searchApplication {
                             <td>$date2</td>
                             <td>$solicitante2</td>
                             <td>$area2</td>
-                            <td>$descripcion</td>
                             <td>$sede</td>
                             <td>$estado2</td>
                             <td class='clm_btn_dlle'>
@@ -808,10 +689,7 @@ class searchApplication {
                                 <th>Consecutivo</th>
                                 <th>Fecha</th>
                                 <th>Solicitante</th>
-                                <th>Área</th>
-                                <th>Solicitud</th>
-                                <th>Para qué</th>
-                                <th>Criterios</th>
+                                <th>Area</th>
                                 <th>Estado</th>
                                 <th></th>
                             </thead>
@@ -822,11 +700,8 @@ class searchApplication {
                     $consecutivo = $value['Consecutivo'];
                     $date = $value['Fecha'];
                     $solicitante = $value['Solicitante'];
-                    $area = $value['Área'];
-                    $solicitud = $value['Solicitud'];
-                    $paraQue = $value['Para qué'];
+                    $area = $value['Area'];
                     $estado = $value['Estado'];
-                    $criterios = $value['Criterios de aceptación'];
 
                     $html .= "
                         <tr>
@@ -834,9 +709,6 @@ class searchApplication {
                             <td>$date</td>
                             <td>$solicitante</td>
                             <td>$area</td>
-                            <td>$solicitud</td>
-                            <td>$paraQue</td>
-                            <td>$criterios</td>
                             <td>$estado</td>
                             <td class='clm_btn_dlle'>
                                 <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>
@@ -868,9 +740,8 @@ class searchApplication {
                             <thead>
                                 <th>Consecutivo</th>
                                 <th>Fecha</th>
-                                <th>Quién reporta</th>
-                                <th>Área</th>
-                                <th>Descripción</th>
+                                <th>Solicitante</th>
+                                <th>Area</th>
                                 <th>Sede</th>
                                 <th>Estado</th>
                                 <th></th>
@@ -882,8 +753,7 @@ class searchApplication {
                     $consecutivo2 = $value['Consecutivo'];
                     $date2 = $value['Fecha'];
                     $solicitante2 = $value['Solicitante'];
-                    $area2 = $value['Área'];
-                    $descripcion = $value['Descripción'];
+                    $area2 = $value['Area'];
                     $estado2 = $value['Estado'];
                     $sede = $value['Sede'];
         
@@ -893,7 +763,6 @@ class searchApplication {
                             <td>$date2</td>
                             <td>$solicitante2</td>
                             <td>$area2</td>
-                            <td>$descripcion</td>
                             <td>$sede</td>
                             <td>$estado2</td>
                             <td class='clm_btn_dlle'>
@@ -927,13 +796,12 @@ class searchApplication {
                         <h4>Desarrollo</h4>
                         <table class='table_form' id='myTable' border=1>
                             <thead>
+                                <th></th>
                                 <th>Consecutivo</th>
                                 <th>Fecha</th>
+                                <th>Hora</th>
                                 <th>Solicitante</th>
-                                <th>Área</th>
-                                <th>Solicitud</th>
-                                <th>Para qué</th>
-                                <th>Criterios</th>
+                                <th>Area</th>
                                 <th>Estado</th>
                                 <th></th>
                             </thead>
@@ -943,22 +811,29 @@ class searchApplication {
                 foreach ($lista_formularios_rtasD4 as $key => $value) {
                     $consecutivo = $value['Consecutivo'];
                     $date = $value['Fecha'];
+                    $hora = $value['Hora'];
                     $solicitante = $value['Solicitante'];
-                    $area = $value['Área'];
-                    $solicitud = $value['Solicitud'];
-                    $paraQue = $value['Para qué'];
+                    $area = $value['Area'];
                     $estado = $value['Estado'];
-                    $criterios = $value['Criterios de aceptación'];
+
+                    if ($actualDate > $date || $estado != 'Solicitado') {
+                        $html .= "
+                        <tr>
+                            <td></td>
+                        ";
+                    } else {
+                        $html .= "
+                        <tr>
+                            <td><i class='bi bi-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='red' class='bi bi-circle-fill' viewBox='0 0 16 16'><circle cx='8' cy='8' r='8'/></svg></td>
+                        ";
+                    }
 
                     $html .= "
-                        <tr>
                             <td>$consecutivo</td>
                             <td>$date</td>
+                            <td>$hora</td>
                             <td>$solicitante</td>
                             <td>$area</td>
-                            <td>$solicitud</td>
-                            <td>$paraQue</td>
-                            <td>$criterios</td>
                             <td>$estado</td>
                             <td class='clm_btn_dlle'>
                                 <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>
@@ -988,11 +863,12 @@ class searchApplication {
                         <h4>Soporte</h4>
                         <table class='table_form' id='myTable2' border=1>
                             <thead>
+                                <th></th>
                                 <th>Consecutivo</th>
                                 <th>Fecha</th>
-                                <th>Quién reporta</th>
-                                <th>Área</th>
-                                <th>Descripción</th>
+                                <th>Hora</th>
+                                <th>Solicitante</th>
+                                <th>Area</th>
                                 <th>Sede</th>
                                 <th>Estado</th>
                                 <th></th>
@@ -1003,19 +879,30 @@ class searchApplication {
                 foreach ($lista_formularios_rtasS4 as $key => $value) {
                     $consecutivo2 = $value['Consecutivo'];
                     $date2 = $value['Fecha'];
+                    $hora2 = $value['Hora'];
                     $solicitante2 = $value['Solicitante'];
-                    $area2 = $value['Área'];
-                    $descripcion = $value['Descripción'];
+                    $area2 = $value['Area'];
                     $estado2 = $value['Estado'];
                     $sede = $value['Sede'];
+
+                    if ($actualDate > $date2 || $estado2 != 'Solicitado') {
+                        $html .= "
+                        <tr>
+                            <td></td>
+                        ";
+                    } else {
+                        $html .= "
+                        <tr>
+                            <td><i class='bi bi-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='red' class='bi bi-circle-fill' viewBox='0 0 16 16'><circle cx='8' cy='8' r='8'/></svg></td>
+                        ";
+                    }
         
                     $html .= "
-                        <tr>
                             <td>$consecutivo2</td>
                             <td>$date2</td>
+                            <td>$hora2</td>
                             <td>$solicitante2</td>
                             <td>$area2</td>
-                            <td>$descripcion</td>
                             <td>$sede</td>
                             <td>$estado2</td>
                             <td class='clm_btn_dlle'>
@@ -1154,47 +1041,16 @@ class searchApplication {
         //     $lista_formularios2 = array();
         // }
 
-        //filtro----------------------------
-
-        if (!empty($_POST['fecha'][0]) && !empty($_POST['consecutivo'][0])) {
-
-            $queryData = "SELECT * FROM $tableR1 WHERE WHERE Fecha LIKE '%$fecha%' AND Consecutivo = '$consecutivo' AND Solicitante = '$userName' ORDER BY RespuestaId DESC"; 
-            $queryData2 = "SELECT * FROM $tableR2 WHERE Fecha LIKE '%$fecha%' AND Consecutivo = '$consecutivo' AND Solicitante = '$userName' ORDER BY RespuestaId DESC";
-
-            //idForm
-            $queryId = "SELECT FormularioId FROM $tableR1 WHERE Fecha LIKE '%$fecha%'";
-            $queryId2 = "SELECT FormularioId FROM $tableR2 WHERE Fecha LIKE '%$fecha%'";
-
-        } elseif (!empty($_POST['consecutivo'][0])){
-
-            $queryData = "SELECT * FROM $tableR1 WHERE Consecutivo = '$consecutivo' AND Solicitante = '$userName' ORDER BY RespuestaId DESC";
-            $queryData2 = "SELECT * FROM $tableR2 WHERE Consecutivo = '$consecutivo' AND Solicitante = '$userName' ORDER BY RespuestaId DESC"; 
-
-            //idForm
-            $queryId = "SELECT FormularioId FROM $tableR1 WHERE Consecutivo = '$consecutivo' AND Solicitante = '$userName'";
-            $queryId2 = "SELECT FormularioId FROM $tableR2 WHERE Consecutivo = '$consecutivo' AND Solicitante = '$userName'";
-
-        } elseif (!empty($_POST['fecha'][0])) {
-
-            $queryData = "SELECT * FROM $tableR1 WHERE Fecha LIKE '%$fecha%' AND Solicitante = '$userName' ORDER BY RespuestaId DESC"; 
-            $queryData2 = "SELECT * FROM $tableR2 WHERE Fecha LIKE '%$fecha%' AND Solicitante = '$userName' ORDER BY RespuestaId DESC";
-
-            //idForm
-            $queryId = "SELECT FormularioId FROM $tableR1 WHERE Fecha LIKE '%$fecha%' AND Solicitante = '$userName'";
-            $queryId2 = "SELECT FormularioId FROM $tableR2 WHERE Fecha LIKE '%$fecha%' AND Solicitante = '$userName'";
-
-        } 
-
         //user----------------------------------------------------------------------------------------------
         //abierto
         //mostrar-------------------------
-        $queryRtasD1 = "SELECT * FROM $tableR1 WHERE Estado != 'Cerrado' AND Solicitante = '$userName' ORDER BY RespuestaId DESC";
+        $queryRtasD1 = "SELECT * FROM $tableR1 WHERE Estado != 'Cerrado' AND Solicitante = '$userName'";
         $lista_formularios_rtasD1 = $wpdb->get_results($queryRtasD1, ARRAY_A);
         if (empty($lista_formularios_rtasD1)) {
             $lista_formularios_rtasD1 = array();
         }
 
-        $queryRtasS1 = "SELECT * FROM $tableR2 WHERE Estado != 'Cerrado' AND Solicitante = '$userName' ORDER BY RespuestaId DESC";
+        $queryRtasS1 = "SELECT * FROM $tableR2 WHERE Estado != 'Cerrado' AND Solicitante = '$userName'";
         $lista_formularios_rtasS1 = $wpdb->get_results($queryRtasS1, ARRAY_A);
         if (empty($lista_formularios_rtasS1)) {
             $lista_formularios_rtasS1 = array();
@@ -1281,13 +1137,13 @@ class searchApplication {
         $numRegistrosCon2 = $RegistrosD3 + $RegistrosS3;
 
         //total
-        $queryRtasD4 = "SELECT * FROM $tableR1 WHERE Solicitante = '$userName' ORDER BY RespuestaId DESC" ;
+        $queryRtasD4 = "SELECT * FROM $tableR1 WHERE Solicitante = '$userName'" ;
         $lista_formularios_rtasD4 = $wpdb->get_results($queryRtasD4, ARRAY_A);
         if (empty($lista_formularios_rtasD4)) {
             $lista_formularios_rtasD4 = array();
         }
 
-        $queryRtasS4 = "SELECT * FROM $tableR2 WHERE Solicitante = '$userName' ORDER BY RespuestaId DESC";
+        $queryRtasS4 = "SELECT * FROM $tableR2 WHERE Solicitante = '$userName'";
         $lista_formularios_rtasS4 = $wpdb->get_results($queryRtasS4, ARRAY_A);
         if (empty($lista_formularios_rtasS4)) {
             $lista_formularios_rtasS4 = array();

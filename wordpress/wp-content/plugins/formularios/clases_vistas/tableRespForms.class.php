@@ -29,38 +29,62 @@ class tableForms {
                 <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js' integrity='sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN' crossorigin='anonymous'></script>
                 <style>
 
-                    #cont_btns_nav{
-                        height: 50px;
-                        width: 100%;
-                        background-color: #4f6df5;
+                    #general_cont{
+                        margin: auto;
+                        position: relative;
+                        border: solid 1px;
+                        padding: 30px 40px;
+                        width: 76%;
+                    }
+
+                    #cont_btns{
+                        height: 82px;
                         padding: 8px;
-                        text-align: center;
+                        border-radius: 5px;
+                        background-color: #4f6df5;
+                        margin: 0 0 15px 0;
                     }
 
-                    .btn_nav{
-                        margin-top: 11px;
+                    .btns_nav ul{
                         text-align: center;
+                        padding: 6px 0 0 0;
+                        margin: 0;
+                    }
+
+                    .btns_nav ul li{
                         display: inline-block;
+                        text-align: center;
                     }
 
-                    .btn_nav a:hover{
-                        background-color: #233170;
-                        transition: background-color 0.5s;
-                    }
-
-                    .btn_nav a {
-                        background-color: #304293;
-                        border-radius: 3px;
+                    .btns_nav ul li a{
                         text-decoration: none;
                         color: white;
+                        background-color: #304293;
+                        border-radius: 5px;
+                        display: block;
+                        min-height: 20px;
+                        min-width: 90px;
+                        padding: 15px 15px;
+                        font-weight: 700;
+                        font-size: 18px;
                     }
 
-                    #create{
+                    .btns_nav ul li a:hover{
+                        box-shadow: 0px 0px 5px black;
+                        transition: box-shadow 0.5s;
+                    }
+
+                    #create {
                         margin: 0 15% 0 0%;
                     }
 
-                    #create a{
-                        padding: 10px 22px 10px 22px;
+                    #create a:hover{
+                        background-color: #233170;
+                        transition: background-color 0.5s;
+                    }
+                    
+                    #admin a{
+                        min-width: 138px !important;
                     }
 
                     #admin a:hover{
@@ -69,8 +93,27 @@ class tableForms {
                     }
 
                     #admin a{
-                        padding: 10px 30px 10px 30px;
                         background-color: gray;
+                    }
+
+                    #cont_table_dllo{
+                        margin: 30px 0 0 0;
+                    }
+
+                    #cont_table_dllo h4{
+                        margin: 0px 0 20px 0;
+                        text-decoration: underline;
+                        text-decoration-color: gray;
+                    }
+
+                    #cont_table_spte{
+                        margin: 30px 0 0 0;
+                    }
+
+                    #cont_table_spte h4{
+                        margin: 0px 0 20px 0;
+                        text-decoration: underline;
+                        text-decoration-color: gray;
                     }
 
                     .dataTables_length{
@@ -122,21 +165,50 @@ class tableForms {
 
                     .clm_btn_dlle{
                         background-color: white !important;
-                        // border-color: white;
+                        width: 90px;
+                        text-align: center;
                     }
 
                     .clm_btn_dlle a{
-                        // width: 50px;
-                        background-color: blue;
+                        background-color: #304293;
                         color: white;
                         text-decoration: none;
                         border-radius: 3px;
+                        padding: 5px 10px 5px 10px;
+                    }
+
+                    .clm_btn_dlle a:hover{
+                        background-color: #233170;
+                        box-shadow: 0px 0px 5px black;
+                        transition: background-color 0.5s;
+                        transition: box-shadow 0.4s;
+                    }
+
+                    .clm_btn_spte{
+                        background-color: white !important;
+                        width: 90px;
+                        text-align: center;
+                    }
+
+                    .clm_btn_spte a{
+                        background-color: #304293;
+                        color: white;
+                        text-decoration: none;
+                        border-radius: 3px;
+                        padding: 5px 10px 5px 10px;
+                    }
+
+                    .clm_btn_spte a:hover{
+                        background-color: #233170;
+                        box-shadow: 0px 0px 5px black;
+                        transition: background-color 0.5s;
+                        transition: box-shadow 0.4s;
                     }
 
                     .dataTables_wrapper .dataTables_paginate .paginate_button{
                         padding: 0;
                         border-radius: 0px !important;
-                        margin-left: 0px ;
+                        margin-left: 0px;
                     }
 
                     #myTable_info{
@@ -213,6 +285,8 @@ class tableForms {
                         text-align: center;
                         border: solid 1px gray;
                         padding: 10px;
+                        margin: auto;
+                        width: 70%;
                     }
 
                     .btn_num_tick{
@@ -228,7 +302,7 @@ class tableForms {
 
         if ($tUrlId == 1) {
             $html .= "
-                    #abiertos{
+                    #totales{
                         margin: 0px 39px 0px 0px;
                         border-color: #1BDC00;
                         box-shadow: 0px 0px 3px #1BDC00;
@@ -236,11 +310,11 @@ class tableForms {
             ";
         } else {
             $html .= "
-                    #abiertos{
+                    #totales{
                         margin: 0px 39px 0px 0px;
                     }
 
-                    #abiertos:hover{
+                    #totales:hover{
                         box-shadow: 0px 0px 3px black;
                         border-color: #1BDC00;
                         transition: border-color 0.5s;
@@ -250,29 +324,6 @@ class tableForms {
         }
 
         if ($tUrlId == 2) {
-            $html .= "
-                    #cerrados{
-                        margin: 0px 39px 0px 0px;
-                        border-color:#FF0000;
-                        box-shadow: 0px 0px 3px #FF0000;
-                    }
-            ";
-        } else {
-            $html .= "
-                    #cerrados{
-                        margin: 0px 39px 0px 0px;
-                    }
-
-                    #cerrados:hover{
-                        box-shadow: 0px 0px 3px black;
-                        border-color: #FF0000;
-                        transition: border-color 0.5s;
-                        transition: box-shadow 0.4s;
-                    }
-            ";
-        }
-
-        if ($tUrlId == 3) {
             $html .= "
                     #contestados{
                         margin: 0px 39px 0px 0px;
@@ -295,19 +346,23 @@ class tableForms {
             ";
         }
 
-        if ($tUrlId == 4) {
+        if ($tUrlId == 3) {
             $html .= "
-                    #totales{
-                        border-color: #00CDCA;
-                        box-shadow: 0px 0px 3px #00CDCA;
+                    #cerrados{
+                        margin: 0px 0px 0px 0px;
+                        border-color:#FF0000;
+                        box-shadow: 0px 0px 3px #FF0000;
                     }
             ";
         } else {
             $html .= "
+                    #cerrados{
+                        margin: 0px 0px 0px 0px;
+                    }
 
-                    #totales:hover{
+                    #cerrados:hover{
                         box-shadow: 0px 0px 3px black;
-                        border-color: #00CDCA;
+                        border-color: #FF0000;
                         transition: border-color 0.5s;
                         transition: box-shadow 0.4s;
                     }
@@ -316,9 +371,9 @@ class tableForms {
 
         $html .= "
 
-                    #abiertos a{
+                    #totales a{
                         color: #1BDC00;
-                        padding: 0 10px 0 10px;
+                        padding: 0 15px 0 15px;
                     }
 
                     #cerrados a{
@@ -329,11 +384,6 @@ class tableForms {
                     #contestados a{
                         color: #CACD00;
                         padding: 0 2px 0 2px;
-                    }
-
-                    #totales a{
-                        color: #00CDCA;
-                        padding: 0 15px 0 15px;
                     }
 
                     .cont_modal_not{
@@ -362,14 +412,19 @@ class tableForms {
     public function buttonsNav()
     {
         $html = "
-        </div>
             <body>
-                <div id='cont_btns_nav'>
-                    <div class='btn_nav' id='create'>
-                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/formularios/'>Enviar Ticket</a>
-                    </div>
-                    <div class='btn_nav' id='admin'>
-                        <a href='#'>Ver Tickets</a>
+            </div>
+            <div id='general_cont'>
+                <div id='cont_btns'>
+                    <div class='btns_nav'>
+                        <ul>
+                            <li id='create'>
+                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/formularios/'>Enviar Ticket</a>
+                            </li>
+                            <li id='admin'>
+                                <a href='#'>Ver Tickets</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
         ";
@@ -377,29 +432,29 @@ class tableForms {
         return $html;
     }
 
-    public function conteoTickets($numRegistrosAb, $numRegistrosCe, $numRegistrosCon, $numRegistrosTot)
+    public function conteoTickets($numRegistrosTot, $numRegistrosCe, $numRegistrosCon)
     {
         $html = "
             <div class='cont_num_tickest'>
-                <div class='btn_num_tick' id='abiertos'>
-                    <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=1' name='table[]'>Abiertos ($numRegistrosAb)</a>
-                </div>
-                <div class='btn_num_tick' id='cerrados'>
-                    <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=2' name='table[]'>Cerrados ($numRegistrosCe)</a>
-                </div>
-                <div class='btn_num_tick' id='contestados'>
-                    <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=3' name='table[]'>Contestado ($numRegistrosCon)</a>
-                </div>
                 <div class='btn_num_tick' id='totales'>
-                    <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=4' name='table[]'>Totales ($numRegistrosTot)</a>
+                    <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=1' name='table[]'>Totales ($numRegistrosTot)</a>
                 </div>
+
+                <div class='btn_num_tick' id='contestados'>
+                    <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=2' name='table[]'>Contestado ($numRegistrosCon)</a>
+                </div>
+
+                <div class='btn_num_tick' id='cerrados'>
+                    <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=3' name='table[]'>Cerrados ($numRegistrosCe)</a>
+                </div>
+                
             </div>
         ";
 
         return $html;
     }
 
-    public function structureTickets($tUrlId, $lista_formularios_rtasD1, $lista_formularios_rtasD2, $lista_formularios_rtasD3, $lista_formularios_rtasD4, $lista_formularios_rtasS1, $lista_formularios_rtasS2, $lista_formularios_rtasS3, $lista_formularios_rtasS4)
+    public function structureTickets($tUrlId, $lista_formularios_rtasD1, $lista_formularios_rtasD2, $lista_formularios_rtasD3, $lista_formularios_rtasS1, $lista_formularios_rtasS2, $lista_formularios_rtasS3)
     {
         $html = "";
 
@@ -420,10 +475,7 @@ class tableForms {
                                     <th>Fecha</th>
                                     <th>Hora</th>
                                     <th>Solicitante</th>
-                                    <th>Área</th>
-                                    <th>Solicitud</th>
-                                    <th>Para qué</th>
-                                    <th>Criterios</th>
+                                    <th>Area</th>
                                     <th>Estado</th>
                                     <th class='clm_btn_dlle'></th>
                                 </tr>
@@ -436,11 +488,8 @@ class tableForms {
                     $date = $value['Fecha'];
                     $hora = $value['Hora'];
                     $solicitante = $value['Solicitante'];
-                    $area = $value['Área'];
-                    $solicitud = $value['Solicitud'];
-                    $paraQue = $value['Para qué'];
+                    $area = $value['Area'];
                     $estado = $value['Estado'];
-                    $criterios = $value['Criterios de aceptación'];
 
                     if ($actualDate > $date || $estado != 'Solicitado') {
                         $html .= "
@@ -460,9 +509,6 @@ class tableForms {
                             <td>$hora</td>
                             <td>$solicitante</td>
                             <td>$area</td>
-                            <td>$solicitud</td>
-                            <td>$paraQue</td>
-                            <td>$criterios</td>
                             <td>$estado</td>
                             <td class='clm_btn_dlle'>
                                 <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>
@@ -480,7 +526,7 @@ class tableForms {
                 $html .= "
                 <div id='tables_tickets'>
                     <div class='cont_modal_not'>
-                        <p>No hay registros abiertos en la tabla 'Desarrollo'</p>
+                        <p>No hay registros en la tabla 'Desarrollo'</p>
                     </div>
                 ";
             }
@@ -496,12 +542,11 @@ class tableForms {
                                     <th>Consecutivo</th>
                                     <th>Fecha</th>
                                     <th>Hora</th>
-                                    <th>Quién reporta</th>
-                                    <th>Área</th>
-                                    <th>Descripción</th>
+                                    <th>Solicitante</th>
+                                    <th>Area</th>
                                     <th>Sede</th>
                                     <th>Estado</th>
-                                    <th class='clm_btn_dlle'></th>
+                                    <th class='clm_btn_spte'></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -512,10 +557,9 @@ class tableForms {
                     $date2 = $value['Fecha'];
                     $hora2 = $value['Hora'];
                     $solicitante2 = $value['Solicitante'];
-                    $area2 = $value['Área'];
-                    $descripcion = $value['Descripción'];
-                    $estado2 = $value['Estado'];
+                    $area2 = $value['Area'];
                     $sede = $value['Sede'];
+                    $estado2 = $value['Estado'];
 
                     if ($actualDate > $date2 || $estado2 != 'Solicitado') {
                         $html .= "
@@ -535,10 +579,9 @@ class tableForms {
                             <td>$hora2</td>
                             <td>$solicitante2</td>
                             <td>$area2</td>
-                            <td>$descripcion</td>
                             <td>$sede</td>
                             <td>$estado2</td>
-                            <td class='clm_btn_dlle'>
+                            <td class='clm_btn_spte'>
                                 <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2'>Detalle</a>
                             </td>
                         </tr>
@@ -555,7 +598,7 @@ class tableForms {
             } else {
                 $html .= "
                     <div class='cont_modal_not'>
-                        <p>No hay registros abiertos en la tabla 'Soporte'</p>
+                        <p>No hay registros en la tabla 'Soporte'</p>
                     </div>
                 </div>
                 ";
@@ -572,10 +615,7 @@ class tableForms {
                                 <th>Consecutivo</th>
                                 <th>Fecha</th>
                                 <th>Solicitante</th>
-                                <th>Área</th>
-                                <th>Solicitud</th>
-                                <th>Para qué</th>
-                                <th>Criterios</th>
+                                <th>Area</th>
                                 <th>Estado</th>
                                 <th class='clm_btn_dlle'></th>
                             </thead>
@@ -586,11 +626,8 @@ class tableForms {
                     $consecutivo = $value['Consecutivo'];
                     $date = $value['Fecha'];
                     $solicitante = $value['Solicitante'];
-                    $area = $value['Área'];
-                    $solicitud = $value['Solicitud'];
-                    $paraQue = $value['Para qué'];
+                    $area = $value['Area'];
                     $estado = $value['Estado'];
-                    $criterios = $value['Criterios de aceptación'];
 
                     $html .= "
                         <tr>
@@ -598,9 +635,6 @@ class tableForms {
                             <td>$date</td>
                             <td>$solicitante</td>
                             <td>$area</td>
-                            <td>$solicitud</td>
-                            <td>$paraQue</td>
-                            <td>$criterios</td>
                             <td>$estado</td>
                             <td class='clm_btn_dlle'>
                                 <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>
@@ -633,12 +667,11 @@ class tableForms {
                             <thead>
                                 <th>Consecutivo</th>
                                 <th>Fecha</th>
-                                <th>Quién reporta</th>
-                                <th>Área</th>
-                                <th>Descripción</th>
+                                <th>Solicitante</th>
+                                <th>Area</th>
                                 <th>Sede</th>
                                 <th>Estado</th>
-                                <th class='clm_btn_dlle'></th>
+                                <th class='clm_btn_spte'></th>
                             </thead>
                             <tbody>
                 ";
@@ -647,8 +680,7 @@ class tableForms {
                     $consecutivo2 = $value['Consecutivo'];
                     $date2 = $value['Fecha'];
                     $solicitante2 = $value['Solicitante'];
-                    $area2 = $value['Área'];
-                    $descripcion = $value['Descripción'];
+                    $area2 = $value['Area'];
                     $estado2 = $value['Estado'];
                     $sede = $value['Sede'];
         
@@ -658,10 +690,9 @@ class tableForms {
                             <td>$date2</td>
                             <td>$solicitante2</td>
                             <td>$area2</td>
-                            <td>$descripcion</td>
                             <td>$sede</td>
                             <td>$estado2</td>
-                            <td class='clm_btn_dlle'>
+                            <td class='clm_btn_spte'>
                                 <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2'>Detalle</a>
                             </td>
                         </tr>
@@ -695,10 +726,7 @@ class tableForms {
                                 <th>Consecutivo</th>
                                 <th>Fecha</th>
                                 <th>Solicitante</th>
-                                <th>Área</th>
-                                <th>Solicitud</th>
-                                <th>Para qué</th>
-                                <th>Criterios</th>
+                                <th>Area</th>
                                 <th>Estado</th>
                                 <th class='clm_btn_dlle'></th>
                             </thead>
@@ -709,11 +737,8 @@ class tableForms {
                     $consecutivo = $value['Consecutivo'];
                     $date = $value['Fecha'];
                     $solicitante = $value['Solicitante'];
-                    $area = $value['Área'];
-                    $solicitud = $value['Solicitud'];
-                    $paraQue = $value['Para qué'];
+                    $area = $value['Area'];
                     $estado = $value['Estado'];
-                    $criterios = $value['Criterios de aceptación'];
 
                     $html .= "
                         <tr>
@@ -721,9 +746,6 @@ class tableForms {
                             <td>$date</td>
                             <td>$solicitante</td>
                             <td>$area</td>
-                            <td>$solicitud</td>
-                            <td>$paraQue</td>
-                            <td>$criterios</td>
                             <td>$estado</td>
                             <td class='clm_btn_dlle'>
                                 <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>
@@ -756,12 +778,11 @@ class tableForms {
                             <thead>
                                 <th>Consecutivo</th>
                                 <th>Fecha</th>
-                                <th>Quién reporta</th>
-                                <th>Área</th>
-                                <th>Descripción</th>
+                                <th>Solicitante</th>
+                                <th>Area</th>
                                 <th>Sede</th>
                                 <th>Estado</th>
-                                <th class='clm_btn_dlle'></th>
+                                <th class='clm_btn_spte'></th>
                             </thead>
                             <tbody>
                 ";
@@ -770,10 +791,9 @@ class tableForms {
                     $consecutivo2 = $value['Consecutivo'];
                     $date2 = $value['Fecha'];
                     $solicitante2 = $value['Solicitante'];
-                    $area2 = $value['Área'];
-                    $descripcion = $value['Descripción'];
-                    $estado2 = $value['Estado'];
+                    $area2 = $value['Area'];
                     $sede = $value['Sede'];
+                    $estado2 = $value['Estado'];           
         
                     $html .= "
                         <tr>
@@ -781,10 +801,9 @@ class tableForms {
                             <td>$date2</td>
                             <td>$solicitante2</td>
                             <td>$area2</td>
-                            <td>$descripcion</td>
                             <td>$sede</td>
                             <td>$estado2</td>
-                            <td class='clm_btn_dlle'>
+                            <td class='clm_btn_spte'>
                                 <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2'>Detalle</a>
                             </td>
                         </tr>
@@ -821,10 +840,7 @@ class tableForms {
                                 <th>Fecha</th>
                                 <th>Hora</th>
                                 <th>Solicitante</th>
-                                <th>Área</th>
-                                <th>Solicitud</th>
-                                <th>Para qué</th>
-                                <th>Criterios</th>
+                                <th>Area</th>
                                 <th>Estado</th>
                                 <th class='clm_btn_dlle'></th>
                             </thead>
@@ -836,11 +852,8 @@ class tableForms {
                     $date = $value['Fecha'];
                     $hora = $value['Hora'];
                     $solicitante = $value['Solicitante'];
-                    $area = $value['Área'];
-                    $solicitud = $value['Solicitud'];
-                    $paraQue = $value['Para qué'];
+                    $area = $value['Area'];
                     $estado = $value['Estado'];
-                    $criterios = $value['Criterios de aceptación'];
 
                     if ($actualDate > $date || $estado != 'Solicitado') {
                         $html .= "
@@ -860,9 +873,6 @@ class tableForms {
                             <td>$hora</td>
                             <td>$solicitante</td>
                             <td>$area</td>
-                            <td>$solicitud</td>
-                            <td>$paraQue</td>
-                            <td>$criterios</td>
                             <td>$estado</td>
                             <td class='clm_btn_dlle'>
                                 <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>
@@ -897,12 +907,11 @@ class tableForms {
                                 <th>Consecutivo</th>
                                 <th>Fecha</th>
                                 <th>Hora</th>
-                                <th>Quién reporta</th>
-                                <th>Área</th>
-                                <th>Descripción</th>
+                                <th>Solicitante</th>
+                                <th>Area</th>
                                 <th>Sede</th>
                                 <th>Estado</th>
-                                <th class='clm_btn_dlle'></th>
+                                <th class='clm_btn_spte'></th>
                             </thead>
                             <tbody>
                 ";
@@ -912,8 +921,7 @@ class tableForms {
                     $date2 = $value['Fecha'];
                     $hora2 = $value['Hora'];
                     $solicitante2 = $value['Solicitante'];
-                    $area2 = $value['Área'];
-                    $descripcion = $value['Descripción'];
+                    $area2 = $value['Area'];
                     $estado2 = $value['Estado'];
                     $sede = $value['Sede'];
 
@@ -935,10 +943,9 @@ class tableForms {
                             <td>$hora2</td>
                             <td>$solicitante2</td>
                             <td>$area2</td>
-                            <td>$descripcion</td>
                             <td>$sede</td>
                             <td>$estado2</td>
-                            <td class='clm_btn_dlle'>
+                            <td class='clm_btn_spte'>
                                 <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2'>Detalle</a>
                             </td>
                         </tr>
@@ -975,12 +982,6 @@ class tableForms {
                 </div>
             ";
         } elseif ($tUrlId == 3 && empty($lista_formularios_rtasD3) && empty($lista_formularios_rtasS3)) {
-            $html = "
-                <div class='cont_modal_not'>
-                    <p>No hay registros</p>
-                </div>
-            ";
-        } elseif ($tUrlId == 4 && empty($lista_formularios_rtasD4) && empty($lista_formularios_rtasS4)) {
             $html = "
                 <div class='cont_modal_not'>
                     <p>No hay registros</p>
@@ -1041,7 +1042,7 @@ class tableForms {
 
     public function notification($insertado)
     {   
-        if ($insertado) {
+        if (!empty($insertado)) {
             $html = "
             <div aria-live='polite' aria-atomic='true' class='position-relative' id='cont_ntf'>
                 <!-- Position it: -->
@@ -1063,6 +1064,7 @@ class tableForms {
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
             ";
         }
@@ -1110,28 +1112,28 @@ class tableForms {
             }
 
             //admin----------------------------------------------------------------------------------------------
-            //abierto
+            //totales
             //mostrar-------------------------
-            $queryRtasD1 = "SELECT * FROM $tableR1 WHERE Estado != 'Cerrado' ORDER BY RespuestaId DESC";
+            $queryRtasD1 = "SELECT * FROM $tableR1 ORDER BY RespuestaId DESC" ;
             $lista_formularios_rtasD1 = $wpdb->get_results($queryRtasD1, ARRAY_A);
             if (empty($lista_formularios_rtasD1)) {
                 $lista_formularios_rtasD1 = array();
             }
 
-            $queryRtasS1 = "SELECT * FROM $tableR2 WHERE Estado != 'Cerrado' ORDER BY RespuestaId DESC";
+            $queryRtasS1 = "SELECT * FROM $tableR2 ORDER BY RespuestaId DESC";
             $lista_formularios_rtasS1 = $wpdb->get_results($queryRtasS1, ARRAY_A);
             if (empty($lista_formularios_rtasS1)) {
                 $lista_formularios_rtasS1 = array();
             }
 
             //count------------------
-            $queryCntD1 = "SELECT * FROM $tableR1 WHERE Estado != 'Cerrado'";
+            $queryCntD1 = "SELECT * FROM $tableR1";
             $itemsCntD1 = $wpdb->get_results($queryCntD1, ARRAY_A);
             if (empty($itemsCntD1)) {
                 $itemsCntD1 = array();
             }
 
-            $queryCntS1 = "SELECT * FROM $tableR2 WHERE Estado != 'Cerrado'";
+            $queryCntS1 = "SELECT * FROM $tableR2";
             $itemsCntS1 = $wpdb->get_results($queryCntS1, ARRAY_A);
             if (empty($itemsCntS1)) {
                 $itemsCntS1 = array();
@@ -1140,100 +1142,69 @@ class tableForms {
             $RegistrosD1 = count($itemsCntD1);
             $RegistrosS1 = count($itemsCntS1);
 
-            $numRegistrosAb = $RegistrosD1 + $RegistrosS1;
+            $numRegistrosTot= $RegistrosD1 + $RegistrosS1;
 
-            //cerrado
-            $queryRtasD2 = "SELECT * FROM $tableR1 WHERE Estado = 'Cerrado' ORDER BY RespuestaId DESC";
+            //contestado
+            $queryRtasD2 = "SELECT * FROM $tableR1 WHERE Estado != 'Solicitado' AND Estado != 'Cerrado' ORDER BY RespuestaId DESC";
             $lista_formularios_rtasD2 = $wpdb->get_results($queryRtasD2, ARRAY_A);
             if (empty($lista_formularios_rtasD2)) {
                 $lista_formularios_rtasD2 = array();
             }
 
-            $queryRtasS2 = "SELECT * FROM $tableR2 WHERE Estado = 'Cerrado' ORDER BY RespuestaId DESC";
+            $queryRtasS2 = "SELECT * FROM $tableR2 WHERE Estado != 'Solicitado' AND Estado != 'Cerrado' ORDER BY RespuestaId DESC";
             $lista_formularios_rtasS2 = $wpdb->get_results($queryRtasS2, ARRAY_A);
             if (empty($lista_formularios_rtasS2)) {
                 $lista_formularios_rtasS2 = array();
             }
 
             //count------------------
-            $queryCntD2 = "SELECT * FROM $tableR1 WHERE Estado = 'Cerrado'";
+            $queryCntD2 = "SELECT * FROM $tableR1 WHERE Estado != 'Solicitado' AND Estado != 'Cerrado'";
             $itemsCntD2 = $wpdb->get_results($queryCntD2, ARRAY_A);
             if (empty($itemsCntD2)) {
                 $itemsCntD2 = array();
             }
 
-            $queryCntS2 = "SELECT * FROM $tableR2 WHERE Estado = 'Cerrado'";
+            $queryCntS2 = "SELECT * FROM $tableR2 WHERE Estado != 'Solicitado' AND Estado != 'Cerrado'";
             $itemsCntS2 = $wpdb->get_results($queryCntS2, ARRAY_A);
             if (empty($itemsCntS2)) {
                 $itemsCntS2 = array();
             }
 
             $RegistrosD2 = count($itemsCntD2);
-            $RegistrosS2= count($itemsCntS2);
+            $RegistrosS2 = count($itemsCntS2);
 
-            $numRegistrosCe = $RegistrosD2 + $RegistrosS2;
+            $numRegistrosCon = $RegistrosD2 + $RegistrosS2;
 
-            //contestado
-            $queryRtasD3 = "SELECT * FROM $tableR1 WHERE Estado != 'Solicitado' AND Estado != 'Cerrado' ORDER BY RespuestaId DESC";
+            //cerrado
+            $queryRtasD3 = "SELECT * FROM $tableR1 WHERE Estado = 'Cerrado' ORDER BY RespuestaId DESC";
             $lista_formularios_rtasD3 = $wpdb->get_results($queryRtasD3, ARRAY_A);
             if (empty($lista_formularios_rtasD3)) {
                 $lista_formularios_rtasD3 = array();
             }
 
-            $queryRtasS3 = "SELECT * FROM $tableR2 WHERE Estado != 'Solicitado' AND Estado != 'Cerrado' ORDER BY RespuestaId DESC";
+            $queryRtasS3 = "SELECT * FROM $tableR2 WHERE Estado = 'Cerrado' ORDER BY RespuestaId DESC";
             $lista_formularios_rtasS3 = $wpdb->get_results($queryRtasS3, ARRAY_A);
             if (empty($lista_formularios_rtasS3)) {
                 $lista_formularios_rtasS3 = array();
             }
 
             //count------------------
-            $queryCntD3 = "SELECT * FROM $tableR1 WHERE Estado != 'Solicitado' AND Estado != 'Cerrado'";
+            $queryCntD3 = "SELECT * FROM $tableR1 WHERE Estado = 'Cerrado'";
             $itemsCntD3 = $wpdb->get_results($queryCntD3, ARRAY_A);
             if (empty($itemsCntD3)) {
                 $itemsCntD3 = array();
             }
 
-            $queryCntS3 = "SELECT * FROM $tableR2 WHERE Estado != 'Solicitado' AND Estado != 'Cerrado'";
+            $queryCntS3 = "SELECT * FROM $tableR2 WHERE Estado = 'Cerrado'";
             $itemsCntS3 = $wpdb->get_results($queryCntS3, ARRAY_A);
             if (empty($itemsCntS3)) {
                 $itemsCntS3 = array();
             }
 
             $RegistrosD3 = count($itemsCntD3);
-            $RegistrosS3 = count($itemsCntS3);
+            $RegistrosS3= count($itemsCntS3);
 
-            $numRegistrosCon = $RegistrosD3 + $RegistrosS3;
-
-            //total
-            $queryRtasD4 = "SELECT * FROM $tableR1 ORDER BY RespuestaId DESC" ;
-            $lista_formularios_rtasD4 = $wpdb->get_results($queryRtasD4, ARRAY_A);
-            if (empty($lista_formularios_rtasD4)) {
-                $lista_formularios_rtasD4 = array();
-            }
-
-            $queryRtasS4 = "SELECT * FROM $tableR2 ORDER BY RespuestaId DESC";
-            $lista_formularios_rtasS4 = $wpdb->get_results($queryRtasS4, ARRAY_A);
-            if (empty($lista_formularios_rtasS4)) {
-                $lista_formularios_rtasS4 = array();
-            }
-
-            //count------------------
-            $queryCntD4 = "SELECT * FROM $tableR1";
-            $itemsCntD4 = $wpdb->get_results($queryCntD4, ARRAY_A);
-            if (empty($itemsCntD4)) {
-                $itemsCntD4 = array();
-            }
-
-            $queryCntS4 = "SELECT * FROM $tableR2";
-            $itemsCntS4 = $wpdb->get_results($queryCntS4, ARRAY_A);
-            if (empty($itemsCntS4)) {
-                $itemsCntS4 = array();
-            }
-
-            $RegistrosD4 = count($itemsCntD4);
-            $RegistrosS4 = count($itemsCntS4);
-
-            $numRegistrosTot= $RegistrosD4 + $RegistrosS4;
+            $numRegistrosCe = $RegistrosD3 + $RegistrosS3;
 
             //html------------------------------------------------------------------------------------------
             $html = $this->head($tUrlId);
@@ -1241,10 +1212,10 @@ class tableForms {
             $html .= $this->buttonsNav();
 
             //tabla filtro
-            $html .= $this->conteoTickets($numRegistrosAb, $numRegistrosCe, $numRegistrosCon, $numRegistrosTot);
+            $html .= $this->conteoTickets($numRegistrosTot, $numRegistrosCe, $numRegistrosCon);
 
             //tabla respuestas
-            $html .= $this->structureTickets($tUrlId, $lista_formularios_rtasD1, $lista_formularios_rtasD2, $lista_formularios_rtasD3, $lista_formularios_rtasD4, $lista_formularios_rtasS1, $lista_formularios_rtasS2, $lista_formularios_rtasS3, $lista_formularios_rtasS4);
+            $html .= $this->structureTickets($tUrlId, $lista_formularios_rtasD1, $lista_formularios_rtasD2, $lista_formularios_rtasD3, $lista_formularios_rtasS1, $lista_formularios_rtasS2, $lista_formularios_rtasS3);
 
             $html .= $this->dataTableJquery();
 

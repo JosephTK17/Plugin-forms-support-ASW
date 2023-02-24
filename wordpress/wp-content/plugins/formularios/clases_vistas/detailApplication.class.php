@@ -244,9 +244,48 @@ class detailApplication {
 
             $html .= "
 
-                    #cpnt_menng_user{
+                    #cont_menng_user{
                         text-align: right;
                         font-size: 15px;
+                        padding-right: 15px;
+                    }
+
+                    #cont_menng_user label{
+                        font-size: 12px;
+                    }
+
+                    .cont_comt_user{
+                        display: flex;
+                        justify-content: right;
+                    }
+
+                    .cont_comt_user p{
+                        padding: 5px 10px 5px 10px;
+                        background-color: #D6D6D6;
+                        border-radius: 3px;
+                    }
+
+                    #cont_menng_admin{
+                        font-size: 15px;
+                        padding-left: 15px;
+                    }
+
+                    #cont_menng_admin label{
+                        font-size: 12px;
+                    }
+
+                    .menng_admin{
+                        margin-right: 0 30% 0 0%;
+                    }
+
+                    .cont_comt_admin{
+                        display: flex;
+                    }
+
+                    .cont_comt_admin p{
+                        padding: 5px 10px 5px 10px;
+                        background-color: #D6D6D6;
+                        border-radius: 3px;
                     }
                 
             ";
@@ -297,14 +336,14 @@ class detailApplication {
         if (is_super_admin()) {
             $html .= "
                     <div class='btn_nav' id='admin'>
-                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=4'>Ver Tickets</a>
+                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=1'>Ver Tickets</a>
                     </div>
                 </div>
             ";
         } else {
             $html .= "
                     <div class='btn_nav' id='user'>
-                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlIdUc=4'>Mis Tickets</a>
+                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlIdUc=1'>Mis Tickets</a>
                     </div>
                 </div>
             ";
@@ -324,11 +363,11 @@ class detailApplication {
                     $consecutivo = $value['Consecutivo'];
                     $date = $value['Fecha'];
                     $solicitante = $value['Solicitante'];
-                    $area = $value['Área'];
+                    $area = $value['Area'];
                     $solicitud = $value['Solicitud'];
-                    $paraQue = $value['Para qué'];
+                    $paraQue = $value['Para que'];
                     $estado = $value['Estado'];
-                    $criterios = $value['Criterios de aceptación'];
+                    $criterios = $value['Criterios de aceptacion'];
 
                     $html .= "
                     <h3 style='text-align: center;'>Estado Ticket</h3>
@@ -631,7 +670,7 @@ class detailApplication {
                             </div>
                             <div class='campos' id='area'>
                                 <div>
-                                    <label>Área:</label>
+                                    <label>Area:</label>
                                     <p>$area</p>
                                 </div>
                             </div>
@@ -640,7 +679,7 @@ class detailApplication {
                                 <p>$solicitud</p>
                             </div>
                             <div class='campos' id='para'>
-                                <label>Para qué:</label>
+                                <label>Para que:</label>
                                 <p>$paraQue</p>
                             </div>
                             <div class='campos' id='criterios'>
@@ -687,8 +726,8 @@ class detailApplication {
                 $consecutivo2 = $value['Consecutivo'];
                 $date2 = $value['Fecha'];
                 $solicitante2 = $value['Solicitante'];
-                $area = $value['Área'];
-                $descripcion = $value['Descripción'];
+                $area = $value['Area'];
+                $descripcion = $value['Descripcion'];
                 $estado2 = $value['Estado'];
                 $sede = $value['Sede'];
 
@@ -866,12 +905,12 @@ class detailApplication {
                         </div>
                         <div class='campos' id='area'>
                             <div>
-                                <label>Área:</label>
+                                <label>Area:</label>
                                 <p>$area</p>
                             </div>
                         </div>
                         <div class='campos' id='descripcion'>
-                            <label>Descripción:</label>
+                            <label>Descripcion:</label>
                             <p>$descripcion</p>
                         </div>
                         <div class='campos' id='sede'>
