@@ -1,5 +1,7 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer;
+
 class detailApplication {
 
     public function head()
@@ -11,50 +13,74 @@ class detailApplication {
                 <meta charset='UTF-8'>
                 <meta http-equiv='X-UA-Compatible' content='IE=edge'>
                 <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-                <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD' crossorigin='anonymous'>
-                <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js' integrity='sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN' crossorigin='anonymous'></script>
                 <style>
 
-                     #cont_btns_nav{
-                        height: 50px;
-                        width: 100%;
-                        background-color: #4f6df5;
+                    #general_cont{
+                        margin: auto;
+                        position: relative;
+                        border: solid 1px;
+                        padding: 30px 40px;
+                        width: 70%;
+                    }
+
+                    #cont_btns{
+                        height: 70px;
                         padding: 8px;
-                        text-align: center;
+                        border-radius: 5px;
+                        background-color: #4f6df5;
+                        margin: 0 0 15px 0;
                     }
 
-                    .btn_nav{
+                    .btns_nav ul{
+                        text-align: center;
+                        padding: 6px 0 0 0;
+                        margin: 0;
+                    }
+
+                    .btns_nav ul li{
                         display: inline-block;
-                        margin-top: 11px;
                         text-align: center;
                     }
 
-                    .btn_nav a:hover{
-                        background-color: #233170;
-                        transition: background-color 0.5s;
-                    }
-
-                    .btn_nav a {
-                        border-radius: 3px;
-                        background-color: #304293;
+                    .btns_nav ul li a{
                         text-decoration: none;
                         color: white;
+                        background-color: #304293;
+                        border-radius: 5px;
+                        display: block;
+                        min-height: 20px;
+                        min-width: 90px;
+                        padding: 15px 15px;
+                        font-weight: 700;
+                        font-size: 18px;
                     }
 
-                    #create{
+                    .btns_nav ul li a:hover{
+                        box-shadow: 0px 0px 5px black;
+                        transition: box-shadow 0.5s;
+                        background-color: #233170;
+                        transition: background 0.5s;
+                    }
+
+                    #create {
                         margin: 0 15% 0 0%;
                     }
 
-                    #create a{
-                        padding: 10px 22px 10px 22px;
+                    #create a {
+                        background-color: #808080;
+                    }
+
+                    #create a:hover{
+                        background-color: #6F6F6F;
+                        transition: background-color 0.5s;
                     }
 
                     #admin a{
-                        padding: 10px 30px 10px 30px;
+                        min-width: 110px !important;
                     }
 
                     #user a{
-                        padding: 10px 34px 10px 34px;
+                        min-width: 110px !important;
                     }
 
                     .stepwizard-step p {
@@ -239,6 +265,16 @@ class detailApplication {
                         border-radius: 3px;
                     }
 
+                    .cont_img{
+                        padding:  5px 5px 0 5px;
+                        background-color: #D6D6D6;
+                        border-radius: 3px;
+                    }
+
+                    .cont_img img{
+                        width: 500px;
+                    }
+
             ";
         } else {
 
@@ -287,11 +323,26 @@ class detailApplication {
                         background-color: #D6D6D6;
                         border-radius: 3px;
                     }
+
+                    .cont_img{
+                        padding:  5px 5px 0 5px;
+                        background-color: #D6D6D6;
+                        border-radius: 3px;
+                    }
+
+                    .cont_img img{
+                        width: 500px;
+                    }
                 
             ";
         }
 
         $html .= "
+
+                    #cont_form_comt{
+                        margin: 0 0 15px 0;
+                    }
+
                     #mensaje{
                         width: 80%;
                     }
@@ -312,6 +363,18 @@ class detailApplication {
                         transition: color 0.5s;
                     }
 
+                    #btnImage{
+                        cursor: pointer;
+                        border: none;
+                        background-color: transparent;
+                        color: #304293;
+                    }
+
+                    #btnImage:hover{
+                        color: #808080;
+                        transition: color 0.5s;
+                    }
+
                 </style>
             </head>    
         ";
@@ -326,24 +389,32 @@ class detailApplication {
         $html = "";
 
         $html .= "
-            <body>
-                <div id='cont_btns_nav'>
-                    <div class='btn_nav' id='create'>
-                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/formularios/'>Enviar Ticket</a>
-                    </div>
+        <body>
+        </div>
+            <div id='general_cont'>
+                <div id='cont_btns'>
+                    <div class='btns_nav'>
+                        <ul>
+                            <li id='create'>
+                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/formularios/'>Enviar Ticket</a>
+                            </li>
         ";
 
         if (is_super_admin()) {
             $html .= "
-                    <div class='btn_nav' id='admin'>
-                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=1'>Ver Tickets</a>
+                            <li id='admin'>
+                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=1'>Ver Tickets</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             ";
         } else {
             $html .= "
-                    <div class='btn_nav' id='user'>
-                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlIdUc=1'>Mis Tickets</a>
+                            <li id='user'>
+                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlIdUc=1'>Mis Tickets</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             ";
@@ -959,8 +1030,9 @@ class detailApplication {
         return $html;
     }
 
-    public function comentsDetail($id, $id2, $status, $status2, $list_mensajes)
-    {
+    public function comentsDetail($id, $id2, $status, $status2, $list_mensajes, $nomAdmin)
+    {   
+
         $html = "";
         if ($id[0]['FormularioId'] == 1) {
 
@@ -972,7 +1044,7 @@ class detailApplication {
                 ";
 
                 foreach ($list_mensajes as $key => $value) {
-                    $nombreUsuario = $value['Nombre usuario'];
+                    $nombreUsuario = $value['Nombre_usuario'];
                     $tipo = $value['Tipo'];
                     $fecha = $value['Fecha'];
                     $comentario = $value['Comentario'];
@@ -1020,7 +1092,7 @@ class detailApplication {
                                         <label>$fecha</label>
                                         <br>
                                         <div class='cont_comt_admin'>
-                                            <div>
+                                            <div class='cont_img'>
                                                 <img src='$imagen'>
                                             </div>
                                         </div>
@@ -1036,8 +1108,8 @@ class detailApplication {
                                         <label>$fecha</label>
                                         <br>
                                         <div class='cont_comt_user'>
-                                            <div>
-                                                $imagen
+                                            <div class='cont_img'>
+                                                <img src='$imagen'>
                                             </div>
                                         </div>
                                     </div>
@@ -1052,16 +1124,35 @@ class detailApplication {
                         </div>
                     </div>
                     <div class='cont_btn_chat'>
-                        <form method='POST'>
-                            <input type='file' name='imagen[]'>
-                            <textarea placeholder='Mensaje' id='mensaje' name='mensaje[]'></textarea>
-                            <button type='submit' id='btn_mensaje' name='btn_mensaje[]'><i class='bi bi-send-check-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' class='bi bi-send-check-fill' viewBox='0 0 16 16'><path d='M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 1.59 2.498C8 14 8 13 8 12.5a4.5 4.5 0 0 1 5.026-4.47L15.964.686Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z'/><path d='M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-1.993-1.679a.5.5 0 0 0-.686.172l-1.17 1.95-.547-.547a.5.5 0 0 0-.708.708l.774.773a.75.75 0 0 0 1.174-.144l1.335-2.226a.5.5 0 0 0-.172-.686Z'/>
-                          </svg></button>
-                        </form>
+                        <div id='cont_form_comt'>
+                            <form method='POST'>
+                                <textarea placeholder='Mensaje' id='mensaje' name='mensaje[]' maxlength='200' required></textarea>
+                                <button type='submit' id='btn_mensaje' name='btn_mensaje[]'><i class='bi bi-send-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='black' class='bi bi-send-fill' viewBox='0 0 16 16'>
+                                <path d='M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z'/>
+                              </svg></button>
+                            </form>
+                        </div>
+                        <div id='cont_form_image'>
+                            <form method='post' enctype='multipart/form-data'>
+                                <input type='file' name='imagen' required>
+                                <button type='submit' id='btnImage' name='btnImage'><i class='bi bi-send-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' class='bi bi-send-fill' viewBox='0 0 16 16'>
+                                <path d='M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z'/>
+                              </svg></button>
+                            </form>
+                        </div>
                     </div>
-                </div>
                 ";
 
+                if (!empty($nomAdmin)) {
+                    $html .= "
+                        <div>
+                            <label>Respondido por:</label>
+                            <span>$nomAdmin</span>
+                        </div>
+                    </div>
+                ";
+                }
+                
             } else {
 
                 $html .= "
@@ -1074,19 +1165,119 @@ class detailApplication {
             if ($status2[0]["Estado"] == "En revisión de detalles" || $status2[0]["Estado"] == "Respuesto/cambio solicitado a compras" || $status2[0]["Estado"] == "Terminado" || $status2[0]["Estado"] == "Cerraado") {
 
                 $html .= "
-                    <div>
+                    <div class='cont_chat'>
                         <div class='cont_mensajes'>
-                            <p></p>
+                ";
+
+                foreach ($list_mensajes as $key => $value) {
+                    $nombreUsuario = $value['Nombre_usuario'];
+                    $tipo = $value['Tipo'];
+                    $fecha = $value['Fecha'];
+                    $comentario = $value['Comentario'];
+                    $imagen = $value['Imagen'];
+
+                    if (!empty($comentario)) {
+
+                        if ($tipo == "Admin") {
+                            $html .= "
+                                <div class='texto' id='cont_menng_admin'>
+                                    <div class='menng_admin'>
+                                        <label>$nombreUsuario($tipo)</label>
+                                        <br>
+                                        <label>$fecha</label>
+                                        <br>
+                                        <div class='cont_comt_admin'>
+                                            <p>$comentario</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ";
+                        } elseif($tipo == "Solicitante") {
+                            $html .= "
+                                <div class='texto' id='cont_menng_user'>
+                                    <div class='menng_user'>
+                                        <label>$nombreUsuario($tipo)</label>
+                                        <br>
+                                        <label>$fecha</label>
+                                        <br>
+                                        <div class='cont_comt_user'>
+                                            <p>$comentario</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ";
+                        }
+                    } elseif(!empty($imagen)) {
+
+                        if ($tipo == "Admin") {
+                            $html .= "
+                                <div class='texto' id='cont_menng_admin'>
+                                    <div class='menng_admin'>
+                                        <label>$nombreUsuario($tipo)</label>
+                                        <br>
+                                        <label>$fecha</label>
+                                        <br>
+                                        <div class='cont_comt_admin'>
+                                            <div class='cont_img'>
+                                                <img src='$imagen'>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ";
+                        } elseif($tipo == "Solicitante") {
+                            $html .= "
+                                <div class='texto' id='cont_menng_user'>
+                                    <div class='menng_user'>
+                                        <label>$nombreUsuario($tipo)</label>
+                                        <br>
+                                        <label>$fecha</label>
+                                        <br>
+                                        <div class='cont_comt_user'>
+                                            <div class='cont_img'>
+                                                <img src='$imagen'>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ";
+                        }
+                    }
+                    
+                }
+
+                $html .= "
                         </div>
-                        <div>
+                    </div>
+                    <div class='cont_btn_chat'>
+                        <div id='cont_form_comt'>
                             <form method='POST'>
-                                <input type='text' placeholder='Mensaje' id='mensaje' name='mensaje[]'>
-                                <button type='submit' id='btn_mensaje' name='btn_mensaje[]'>Enviar</button>
+                                <textarea placeholder='Mensaje' id='mensaje' name='mensaje[]' maxlength='200' required></textarea>
+                                <button type='submit' id='btn_mensaje' name='btn_mensaje[]'><i class='bi bi-send-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='black' class='bi bi-send-fill' viewBox='0 0 16 16'>
+                                <path d='M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z'/>
+                              </svg></button>
+                            </form>
+                        </div>
+                        <div id='cont_form_image'>
+                            <form method='post' enctype='multipart/form-data'>
+                                <input type='file' name='imagen' required>
+                                <button type='submit' id='btnImage' name='btnImage'><i class='bi bi-send-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' class='bi bi-send-fill' viewBox='0 0 16 16'>
+                                <path d='M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z'/>
+                              </svg></button>
                             </form>
                         </div>
                     </div>
-                </div>
                 ";
+
+                if (!empty($nomAdmin)) {
+                    $html .= "
+                        <div>
+                            <label>Respondido por:</label>
+                            <span>$nomAdmin</span>
+                        </div>
+                    </div>
+                ";
+                }
 
             } else {
 
@@ -1096,50 +1287,6 @@ class detailApplication {
 
             }
         }
-
-        return $html;
-    }
-
-    public function notification()
-    {   
-        $html = "
-            <div aria-live='polite' aria-atomic='true' class='position-relative'>
-            <!-- Position it: -->
-            <!-- - `.toast-container` for spacing between toasts -->
-            <!-- - `.position-absolute`, `top-0` & `end-0` to position the toasts in the upper right corner -->
-            <!-- - `.p-3` to prevent the toasts from sticking to the edge of the container  -->
-            <div class='toast-container position-absolute top-0 end-0 p-3'>
-        
-            <!-- Then put toasts within -->
-            <div class='toast' role='alert' aria-live='assertive' aria-atomic='true'>
-                <div class='toast-header'>
-                    <img src='...' class='rounded me-2' alt='...'>
-                    <strong class='me-auto'>Bootstrap</strong>
-                    <button type='button' class='btn-close' data-bs-dismiss='toast' aria-label='Close'></button>
-                </div>
-                <div class='toast-body'>
-                    See? Just like this.
-                    <a href='#'>Ver</a>
-                </div>
-            </div>
-            </div>
-        </div>
-        ";
-
-        return $html;
-    }
-
-    public function notificationJquery()
-    {
-        $html = "
-            <script language='JavaScript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js' integrity='sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==' crossorigin='anonymous' referrerpolicy='no-referrer'></script>
-
-            <script language='JavaScript'>
-                $(document).ready(function(){
-                    $('.toast').toast('show');
-                })
-            </script>
-        ";
 
         return $html;
     }
@@ -1157,7 +1304,7 @@ class detailApplication {
         $lista_formularios = $wpdb->get_results($queryData, ARRAY_A);
         if (empty($lista_formularios)) {
             $lista_formularios = array();
-        }    
+        }
 
         //statusD
         $queryStatus = "SELECT Estado FROM $tableR1 WHERE Consecutivo = '$consecutivo'";
@@ -1211,14 +1358,218 @@ class detailApplication {
             $list_mensajes = array();
         }   
 
+        $sqlNomAdmin = "SELECT Nombre_usuario FROM $tableComt WHERE Consecutivo = '$consecutivo' AND Tipo = 'Admin'";
+        $resultNomAdmin = $wpdb->get_results($sqlNomAdmin, ARRAY_A);
+        if (empty($resultNomAdmin)) {
+            $resultNomAdmin = array();
+        }
+
+        $nomAdmin = $resultNomAdmin[0]['Nombre_usuario'];
+
+        $sqlNomUser = "SELECT Nombre_usuario FROM $tableComt WHERE Consecutivo = '$consecutivo' AND Tipo = 'Solicitante'";
+        $resultNomUser = $wpdb->get_results($sqlNomUser, ARRAY_A);
+        if (empty($resultNomUser)) {
+            $resultNomUser = array();
+        }
+
+        $nomUser = $resultNomUser[0]['Nombre_usuario'];
+
+        //email admis
+        $administradores = get_users('role=Administrator');
+        $loginName = array();
+        foreach ($administradores as $administrador) {
+            array_push($loginName, $administrador->user_login);
+        }
+
+        $admin = get_user_by( 'login', $nomAdmin);
+
+        $adminEmail = $admin->user_email;
+
+        //email user D
+        $sqlEmUserD = "SELECT Correo FROM $tableR1 WHERE Consecutivo = '$consecutivo'";
+        $resultEmUserD = $wpdb->get_results($sqlEmUserD, ARRAY_A);
+        if (empty($resultEmUserD)) {
+            $resultEmUserD = array();
+        }
+
+        $userEmailD = $resultEmUserD[0]['Correo'];
+
+        //email user D
+        $sqlEmUserS = "SELECT Correo FROM $tableR2 WHERE Consecutivo = '$consecutivo'";
+        $resultEmUserS = $wpdb->get_results($sqlEmUserS, ARRAY_A);
+        if (empty($resultEmUserS)) {
+            $resultEmUserS = array();
+        }
+
+        $userEmailS = $resultEmUserS[0]['Correo'];
+
+        //mensaje
+        $sqlMenss = "SELECT Comentario FROM $tableComt WHERE Consecutivo = '$consecutivo' ORDER BY ComentarioId DESC LIMIT 1";
+        $resulMenss = $wpdb->get_results($sqlMenss, ARRAY_A);
+        if (empty($resulMenss)) {
+            $resulMenss = array();
+        }
+
+        $comtMenss = $resulMenss[0]['Comentario'];
+
+        //mensaje img
+        $sqlImg = "SELECT Imagen FROM $tableComt WHERE Consecutivo = '$consecutivo' ORDER BY ComentarioId DESC LIMIT 1";
+        $resulImg = $wpdb->get_results($sqlImg, ARRAY_A);
+        if (empty($resulImg)) {
+            $resulImg = array();
+        }
+
+        $comtImg = $resulImg[0]['Imagen'];
+
+        //notificar mensaje
+        $mail = new PHPMailer(true);
+
+        if (is_super_admin()) {
+            if (isset($_POST['btn_mensaje']) && $comtImg == null) {
+
+                //Server settings
+                $mail->SMTPDebug = 0;                      //Enable verbose debug output
+                $mail->isSMTP();                                            //Send using SMTP
+                $mail->Host       = '';                     //Set the SMTP server to send through
+                $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                $mail->Username   = '';                     //SMTP username
+                $mail->Password   = '';                               //SMTP password
+                $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
+                $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+            
+                //Recipients
+                $mail->setFrom('', 'American School Way');
+    
+                if (!empty($userEmailD) && empty($userEmailS)) {
+                    $mail->AddAddress($userEmailD);
+                } elseif (!empty($userEmailS) && empty($userEmailD)) {
+                    $mail->AddAddress($userEmailS);
+                }
+                
+                //Content
+                $mail->isHTML(true);                                  //Set email format to HTML
+                $mail->Subject = 'Nuevo Mensaje';
+                    
+                $html = "
+                    <div>
+                        <h3>$nomAdmin</h3>
+                        <p>$comtMenss</p>
+                        <center><h1 style='color:white; background-color: #005199;'>$consecutivo</h1></center>
+                    </div>
+                ";
+
+                $mail->Body = $html;
+            
+                $mail->send();
+
+            } elseif (isset($_POST['btnImage']) && !empty($comtImg)) {
+                //Server settings
+                $mail->SMTPDebug = 0;                      //Enable verbose debug output
+                $mail->isSMTP();                                            //Send using SMTP
+                $mail->Host       = '';                     //Set the SMTP server to send through
+                $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                $mail->Username   = '';                     //SMTP username
+                $mail->Password   = '';                               //SMTP password
+                $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
+                $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+            
+                //Recipients
+                $mail->setFrom('', 'American School Way');
+    
+                if (!empty($userEmailD) && empty($userEmailS)) {
+                    $mail->AddAddress($userEmailD);
+                } elseif (!empty($userEmailS) && empty($userEmailD)) {
+                    $mail->AddAddress($userEmailS);
+                }
+            
+                //Content
+                $mail->isHTML(true);                                  //Set email format to HTML
+                $mail->Subject = 'Nuevo Mensaje';
+                    
+                $html = "
+                    <div>
+                        <h3>$nomAdmin</h3>
+                        //poner mensaje
+                        <center><h1 style='color:white; background-color: #005199;'>$consecutivo</h1></center>
+                    </div>
+                ";
+
+                $mail->Body = $html;
+            
+                $mail->send();
+            }
+        } else {
+            if (isset($_POST['btn_mensaje']) && $resulImg[0]['Imagen'] == null) {
+
+                //Server settings
+                $mail->SMTPDebug = 0;                      //Enable verbose debug output
+                $mail->isSMTP();                                            //Send using SMTP
+                $mail->Host       = '';                     //Set the SMTP server to send through
+                $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                $mail->Username   = '';                     //SMTP username
+                $mail->Password   = '';                               //SMTP password
+                $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
+                $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+            
+                //Recipients
+                $mail->setFrom('', 'American School Way');
+
+                $mail->AddAddress($adminEmail);
+            
+                //Content
+                $mail->isHTML(true);                                  //Set email format to HTML
+                $mail->Subject = 'Nuevo Mensaje';
+                    
+                $html = "
+                    <div>
+                        <h3>$nomUser</h3>
+                        <p>$comtMenss</p>
+                        <center><h1 style='color:white; background-color: #005199;'>$consecutivo</h1></center>
+                    </div>
+                ";
+
+                $mail->Body = $html;
+            
+                $mail->send();
+
+            } elseif (isset($_POST['btnImage']) && !empty($comtImg)) {
+                //Server settings
+                $mail->SMTPDebug = 0;                      //Enable verbose debug output
+                $mail->isSMTP();                                            //Send using SMTP
+                $mail->Host       = '';                     //Set the SMTP server to send through
+                $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                $mail->Username   = '';                     //SMTP username
+                $mail->Password   = '';                               //SMTP password
+                $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
+                $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+            
+                //Recipients
+                $mail->setFrom('', 'American School Way');
+    
+                $mail->AddAddress($adminEmail);
+            
+                //Content
+                $mail->isHTML(true);                                  //Set email format to HTML
+                $mail->Subject = 'Nuevo Mensaje';
+                    
+                $html = "
+                    <div>
+                        <h3>$nomUser</h3>
+                        <center><h1 style='color:white; background-color: #005199;'>$consecutivo</h1></center>
+                    </div>
+                ";
+
+                $mail->Body = $html;
+            
+                $mail->send();
+            }
+        }
+
         $html = $this->head();
 
         $html .= $this->buttonsNav();
         $html .= $this->showDetails($id, $id2, $lista_formularios, $lista_formularios2, $status, $status2);
-        $html .= $this->comentsDetail($id, $id2, $status, $status2, $list_mensajes);
-
-        $html .= $this->notification();
-        $html .= $this->notificationJquery();
+        $html .= $this->comentsDetail($id, $id2, $status, $status2, $list_mensajes, $nomAdmin);
 
         if ($_POST['cerrar'][0] == "solucionado") {
             $infoUpd = array(

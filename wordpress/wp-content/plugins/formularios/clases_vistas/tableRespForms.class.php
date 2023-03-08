@@ -26,7 +26,6 @@ class tableForms {
                 <meta name='viewport' content='width=device-width, initial-scale=1.0'>
                 <link rel='stylesheet' type='text/css' href='//cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css'>
                 <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD' crossorigin='anonymous'>
-                <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js' integrity='sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN' crossorigin='anonymous'></script>
                 <style>
 
                     #general_cont{
@@ -85,15 +84,12 @@ class tableForms {
                     
                     #admin a{
                         min-width: 138px !important;
+                        background-color: gray;
                     }
 
                     #admin a:hover{
                         background-color: #6F6F6F;
                         transition: background-color 0.5s;
-                    }
-
-                    #admin a{
-                        background-color: gray;
                     }
 
                     #cont_table_dllo{
@@ -412,8 +408,8 @@ class tableForms {
     public function buttonsNav()
     {
         $html = "
-            <body>
-            </div>
+        <body>
+        </div>
             <div id='general_cont'>
                 <div id='cont_btns'>
                     <div class='btns_nav'>
@@ -491,7 +487,7 @@ class tableForms {
                     $area = $value['Area'];
                     $estado = $value['Estado'];
 
-                    if ($actualDate > $date || $estado != 'Solicitado') {
+                    if ($estado != 'Solicitado') {
                         $html .= "
                         <tr>
                             <td></td>
@@ -561,7 +557,7 @@ class tableForms {
                     $sede = $value['Sede'];
                     $estado2 = $value['Estado'];
 
-                    if ($actualDate > $date2 || $estado2 != 'Solicitado') {
+                    if ($estado2 != 'Solicitado') {
                         $html .= "
                         <tr>
                             <td></td>
@@ -1040,53 +1036,7 @@ class tableForms {
         ";
     }
 
-    public function notification($insertado)
-    {   
-        if (!empty($insertado)) {
-            $html = "
-            <div aria-live='polite' aria-atomic='true' class='position-relative' id='cont_ntf'>
-                <!-- Position it: -->
-                <!-- - `.toast-container` for spacing between toasts -->
-                <!-- - `.position-absolute`, `top-0` & `end-0` to position the toasts in the upper right corner -->
-                <!-- - `.p-3` to prevent the toasts from sticking to the edge of the container  -->
-                <div class='toast-container position-absolute top-0 end-0 p-3'>
-            
-                    <!-- Then put toasts within -->
-                    <div class='toast' role='alert' aria-live='assertive' aria-atomic='true'>
-                        <div class='toast-header'>
-                            <img src='...' class='rounded me-2' alt='...'>
-                            <strong class='me-auto'>Bootstrap</strong>
-                            <button type='button' class='btn-close' data-bs-dismiss='toast' aria-label='Close'></button>
-                        </div>
-                        <div class='toast-body'>
-                            Se a creado un ticket
-                            <a href='#'>Ver</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </div>
-            ";
-        }
-
-        return $html;
-    }
-
-    public function notificationJquery()
-    {
-        $html = "
-
-            <script language='JavaScript'>
-                $(document).ready(function(){
-                    $('.toast').toast('show');
-                })
-            </script>
-        ";
-
-        return $html;
-    }
-
-    public function constructor($tUrlId, $insertado)
+    public function constructor($tUrlId)
     {
         global $wpdb;
 
@@ -1218,9 +1168,6 @@ class tableForms {
             $html .= $this->structureTickets($tUrlId, $lista_formularios_rtasD1, $lista_formularios_rtasD2, $lista_formularios_rtasD3, $lista_formularios_rtasS1, $lista_formularios_rtasS2, $lista_formularios_rtasS3);
 
             $html .= $this->dataTableJquery();
-
-            $html .= $this->notification($insertado);
-            $html .= $this->notificationJquery();
 
         } else {
             $html = "

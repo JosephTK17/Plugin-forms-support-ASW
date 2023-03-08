@@ -7,7 +7,7 @@ Version: 0.0.1
 */
 
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+// use PHPMailer\PHPMailer\Exception;
 
 require_once dirname(__FILE__). './../../../wp-includes/PHPMailer/Exception.php';
 require_once dirname(__FILE__). './../../../wp-includes/PHPMailer/PHPMailer.php';
@@ -34,6 +34,7 @@ function activar(){
         `Consecutivo` VARCHAR(7) NOT NULL, 
         `Fecha` DATETIME NULL,
         `Solicitante` VARCHAR(60) NULL,
+        `Correo` VARCHAR(100) NULL,
         `Area` VARCHAR(50) NULL, 
         `Solicitud` VARCHAR(200) NULL,
         `Para que` VARCHAR(200) NULL,
@@ -51,6 +52,7 @@ function activar(){
         `Fecha` DATE NULL,
         `Hora` TIME NULL,
         `Solicitante` VARCHAR(60) NULL,
+        `Correo` VARCHAR(100) NULL,
         `Area` VARCHAR(50) NULL, 
         `Descripcion` VARCHAR(200) NULL,
         `Sede` VARCHAR(50) NULL,
@@ -64,12 +66,12 @@ function activar(){
     $sql4 = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}comentarios_registrados_detalles(
         `ComentarioId` INT NOT NULL AUTO_INCREMENT,
         `Consecutivo` VARCHAR(7) NOT NULL,
-        `Nombre usuario` VARCHAR(60) NULL,
+        `Nombre_usuario` VARCHAR(60) NULL,
         `Tipo` VARCHAR(60) NULL,
         `Fecha` DATE NULL,
         `Hora` TIME NULL,
         `Comentario` VARCHAR(200) NULL,
-        `Imagen` LONGBLOB NULL,
+        `Imagen` VARCHAR(250) NULL,
         PRIMARY KEY (`ComentarioId`)
     );";
     $wpdb->query($sql4);
@@ -127,6 +129,23 @@ function shortCode2(){
     $numCon2P1 = $resultCnsId2[0]["MAX(RespuestaId) + 1"];
     $numCon2P2 = str_pad($numCon2P1, 6, "0", STR_PAD_LEFT);
 
+    //email User
+    $user = get_current_user_id();
+
+    if ($user != 0) {
+        
+        $userInfo = get_userdata($user);
+        $userEmail = $userInfo->user_email;
+
+    }
+
+    //email admis
+    $administradores = get_users('role=Administrator');
+    $correosAdmin = array();
+    foreach ($administradores as $administrador) {
+        array_push($correosAdmin, $administrador->user_email);
+    }
+
     if(isset($_POST['btnguardar1'])){
         $prefix1 = "D";
         $consecutivo = $prefix1.$numConP2;
@@ -145,6 +164,7 @@ function shortCode2(){
             'Fecha' => $actualDate,
             'Hora' => $actualHora,
             'Solicitante' => $solicitante,
+            'Correo' => $userEmail,
             'Area' => $area,
             'Solicitud' => $solicitud,
             'Para que' => $paraQue,
@@ -156,49 +176,58 @@ function shortCode2(){
         //Create an instance; passing `true` enables exceptions
         $mail = new PHPMailer(true);
 
-
         if (!empty($consecutivo) || !empty($actualDate) || !empty($solicitante) || !empty($area) || !empty($solicitud) || !empty($paraQue) || !empty($criterios)) {
 
-            $insertado = $wpdb->insert($tablaR1,$datos);
+            $wpdb->insert($tablaR1,$datos);
 
-            // //Server settings
-            // $mail->SMTPDebug = 0;                      //Enable verbose debug output
-            // $mail->isSMTP();                                            //Send using SMTP
-            // $mail->Host       = 'smtp-relay.sendinblue.com';                     //Set the SMTP server to send through
-            // $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-            // $mail->Username   = 'josephstevenbarretocabrera@gmail.com';                     //SMTP username
-            // $mail->Password   = 'Ozh45NIsqKg0CbjY';                               //SMTP password
-            // $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
-            // $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+            //Server settings
+            $mail->SMTPDebug = 0;                      //Enable verbose debug output
+            $mail->isSMTP();                                            //Send using SMTP
+            $mail->Host       = '';                     //Set the SMTP server to send through
+            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+            $mail->Username   = '';                     //SMTP username
+            $mail->Password   = '';                               //SMTP password
+            $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
+            $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
         
-            // //Recipients
-            // $mail->setFrom('josephstevenbarretocabrera@gmail.com', 'American School Way');
-            // $mail->addAddress($userEmail);     //Add a recipient
+            //Recipients
+            $mail->setFrom('', 'American School Way');
+
+            $mail->addAddress($userEmail);  //Add a recipient
+            for($i = 0; $i < count($correosAdmin); $i++) {
+                $mail->AddAddress($correosAdmin[$i]);
+                echo $correosAdmin[$i];
+            }
         
-            // //Content
-            // $mail->isHTML(true);                                  //Set email format to HTML
-            // $mail->Subject = 'Test mandar correo';
-            // $html = "
-            //     <div>
-            //         <h1>Numero Consecutivo</h1>
-            //         <p>Este es tu consecutivo <strong>'.$consecutivo.'</strong> cuando lo desees visita el apartado Mis Tickets para hacer la consulta del estado de tu solicitud</p>
-            //     </div>
-            // ";
-            // $mail->Body    = $html;
+            //Content
+            $mail->isHTML(true);                                  //Set email format to HTML
+            $mail->Subject = 'Ticket Desarrollo';
+
+            if (!empty($userEmail)) {
+    
+                $html = "
+                    <div>
+                        <p>Se creo un nuevo ticket para hacer su consulta visita el apartado <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>, su consecutivo es:</p>
+                        <center><h1 style='color:white; background-color: #005199;'>$consecutivo</h1></center>
+                    </div>
+                ";
+            }
+            $mail->Body    = $html;
         
-            // $mail->send();
+            $mail->send();
 
             echo "<script language='JavaScript'>
                 alert('Ticket creado, podras consultarlo con el siguiente consecutivo: $consecutivo');
                 window.location.href = 'http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo';
             </script>";
 
+
         } else {
             echo "<script language='JavaScript'>
                     alert('Ups... Ocurrio un error al enviar tu ticket, intentalo de nuevo')
                     window.location.href = 'http://localhost/formulario_soporte_desarrollo/wordpress/index.php/formularios/';
                 </script>";
-        }      
+        }
 
     } elseif (isset($_POST['btnguardar2'])){
         
@@ -218,6 +247,7 @@ function shortCode2(){
             'Fecha' => $actualDate2,
             'Hora' => $actualHora2,
             'Solicitante' => $solicitante2,
+            'Correo' => $userEmail,
             'Area' => $area2,
             'Descripcion' => $descripcion,
             'Sede' => $sede,
@@ -226,38 +256,47 @@ function shortCode2(){
         ];    
 
         if (!empty($consecutivo2) || !empty($actualDate2) || !empty($solicitante2) || !empty($area2) || !empty($descripcion) || !empty($sede)) {
-
-            $insertado = $wpdb->insert($tablaR2,$datos);
+            
+            $wpdb->insert($tablaR2,$datos);
 
             //Create an instance; passing `true` enables exceptions
             $mail = new PHPMailer(true);
 
-            // //Server settings
-            // $mail->SMTPDebug = 0;                      //Enable verbose debug output
-            // $mail->isSMTP();                                            //Send using SMTP
-            // $mail->Host       = '';                     //Set the SMTP server to send through
-            // $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-            // $mail->Username   = '';                     //SMTP username
-            // $mail->Password   = '';                               //SMTP password
-            // $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
-            // $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+            //Server settings
+            $mail->SMTPDebug = 0;                      //Enable verbose debug output
+            $mail->isSMTP();                                            //Send using SMTP
+            $mail->Host       = '';                     //Set the SMTP server to send through
+            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+            $mail->Username   = '';                     //SMTP username
+            $mail->Password   = '';                               //SMTP password
+            $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
+            $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
         
-            // //Recipients
-            // $mail->setFrom('Poner correo de envio', 'American School Way');
-            // $mail->addAddress($userEmail);     //Add a recipient
+            //Recipients
+            $mail->setFrom('', 'American School Way');
+
+            $mail->addAddress($userEmail);  //Add a recipient
+            for($i = 0; $i < count($correosAdmin); $i++) {
+                $mail->AddAddress($correosAdmin[$i]);
+                echo $correosAdmin[$i];
+            }
         
-            // //Content
-            // $mail->isHTML(true);                                  //Set email format to HTML
-            // $mail->Subject = 'Test mandar correo';
-            // $html = "
-            //     <div>
-            //         <h1>Numero Consecutivo</h1>
-            //         <p>Este es tu consecutivo <strong>'.$consecutivo2.'</strong> cuando lo desees visita el apartado Mis Tickets para hacer la consulta del estado de tu solicitud</p>
-            //     </div>
-            // ";
-            // $mail->Body    = $html;
+            //Content
+            $mail->isHTML(true);                                  //Set email format to HTML
+            $mail->Subject = 'Ticket Soporte';
+
+            if (!empty($userEmail)) {
+    
+                $html = "
+                    <div>
+                        <p>Se creo un nuevo ticket para hacer su consulta visita el apartado <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2'>Detalle</a>, su consecutivo es:</p>
+                        <center><h1 style='color:white; background-color: #005199;'>$consecutivo2</h1></center>
+                    </div>
+                ";
+            }
+            $mail->Body    = $html;
         
-            // $mail->send();
+            $mail->send();
 
             echo "<script language='JavaScript'>
                     alert('Ticket creado, podras consultarlo con el siguiente consecutivo: $consecutivo2');
@@ -276,21 +315,21 @@ function shortCode2(){
 
     $html = $_short->constructor($id, $consecutivo, $consecutivo2);
 
-    return $html;
 
-    shortCode3($insertado);
+    return $html;
 
 }
 
-function shortCode3($insertado)
+function shortCode3()
 {
 
     $_short = new tableForms;
     $tUrlId = $_GET['tUrlId'];
 
-    $html = $_short->constructor($tUrlId, $insertado);
+    $html = $_short->constructor($tUrlId);
 
     return $html;
+
 }
 
 function shortCode4()
@@ -321,11 +360,13 @@ function shortCode5()
     if ($user != 0) {
             
         $userInfo = get_userdata($user);
-        $userName = $userInfo->first_name;
+        // $first_name = get_user_meta($user, 'first_name', true);
+        // $last_name = get_user_meta($user, 'last_name', true);
+        $userName = $userInfo->user_login;
 
-        if (empty($userName)) {
-            $userName = $userInfo->user_login;
-        }
+        // if (empty($userName)) {
+        //     $userName = $userInfo->user_login;
+        // }
     }
 
     $tipo = "";
@@ -347,28 +388,33 @@ function shortCode5()
     $hora3 = new DateTime("now", new DateTimeZone('America/Bogota'));
     $actualDate3 = $hora3->format('y-m-d h:i:s');
 
-    if (isset($_POST['btn_mensaje'])) {
+    if (isset($_POST['btn_mensaje']) || isset($_POST['btnImage'])) {
 
-        $imagen = $_POST['imagen'][0];
+        if(isset($_FILES['imagen']) && $_FILES['imagen']['error'] == 0) {
+            $upload = wp_upload_bits($_FILES['imagen']['name'], null, file_get_contents($_FILES['imagen']['tmp_name']));
+            if(isset($upload['error']) && $upload['error'] != '') {
+               echo 'Error al cargar la imagen: ' . $upload['error'];
+            } else {
+               $imagen_url = $upload['url'];
+            }
+         }
+
         $mensaje = $_POST['mensaje'][0];
 
         $datos = [
             'ComentarioId' => NULL ,
             'Consecutivo' => $consecutivo,
-            'Nombre usuario' => $userName,
+            'Nombre_usuario' => $userName,
             'Tipo' => $tipo,
             'Fecha' => $actualDate3,
             'Comentario' => $mensaje,
-            'Imagen' => $imagen
+            'Imagen' => $imagen_url
         ];
-
-        var_dump($imagen);
-
-        if (!empty($mensaje) || !empty($imagen)) {
+        
+        if (!empty($mensaje) || !empty($imagen_url)) {
 
             $wpdb->insert($tableComt,$datos);
 
-            unset($_POST['imagen'][0]);
             unset($_POST['mensaje'][0]);
 
             header('Location: http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id='.$consecutivo);

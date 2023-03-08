@@ -67,6 +67,8 @@ class formFuntions{
                     .btns_nav ul li a:hover{
                         box-shadow: 0px 0px 5px black;
                         transition: box-shadow 0.5s;
+                        background-color: #233170;
+                        transition: background 0.5s;
                     }
 
                     #create {
@@ -84,11 +86,6 @@ class formFuntions{
 
                     #admin a{
                         min-width: 100px !important;
-                    }
-
-                    .btns_nav ul li a:hover{
-                        background-color: #233170;
-                        transition: background 0.5s;
                     }
 
                     #type{
@@ -272,7 +269,7 @@ class formFuntions{
                             <br>
                             <div class='cont_inpt_form'>
                                 <select class='inpt_form' name='area[]' id='area' class='col-sm-8' required>
-                                    <option value=''>Área</option>
+                                    <option value=''>selecciona el área</option>
                                     <option value='Academico'>Académico</option>
                                     <option value='Admisiones'>Admisiones</option>
                                     <option value='Administrativa'>Administrativa</option>
@@ -352,7 +349,7 @@ class formFuntions{
                             <br>
                             <div class='cont_inpt_form'>
                                 <select class='inpt_form' name='area2[]' id='area' class='col-sm-8' required>
-                                    <option value=''>Área</option>
+                                    <option value=''>selecciona el área</option>
                                     <option value='Academico'>Académico</option>
                                     <option value='Admisiones'>Admisiones</option>
                                     <option value='Administrativa'>Administrativa</option>
@@ -387,7 +384,7 @@ class formFuntions{
                             <br>
                             <div class='cont_inpt_form'>
                                 <select class='inpt_form' name='ciudades[]' id='ciudades' onchange='cambiar_sedes()' required>
-                                    <option value=''>Ciudad</option>
+                                    <option value=''>selecciona la ciudad</option>
                                     <option>Bogotá</option>
                                     <option>Soacha</option>
                                     <option>Mosquera</option>
@@ -405,7 +402,7 @@ class formFuntions{
                             <br>
                             <div class='cont_inpt_form'>
                                 <select class='inpt_form' name='sedes[]' id='sedes' required>
-                                    <option value=''>Sede</option>
+                                    <option value=''>selecciona la sede</option>
                                 </select>
                             </div>
                         </div>
@@ -429,11 +426,11 @@ class formFuntions{
         if ($user != 0) {
             
             $userInfo = get_userdata($user);
-            $userName = $userInfo->first_name;
+            $userName = $userInfo->user_login;
 
-            if (empty($userName)) {
-                $userName = $userInfo->user_login;
-            }
+            // if (empty($userName)) {
+            //     $userName = $userInfo->user_login;
+            // }
         }
 
         return $userName;
@@ -499,6 +496,13 @@ class formFuntions{
                     document.f3.sedes.options[0].selected = true;
                 }
             </script>";
+    }
+
+    public function sendEmailAdmin($adminEmail)
+    {
+        $email = $adminEmail;
+
+        var_dump($email);
     }
 
     public function constructor($FormularioId)
