@@ -4,7 +4,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 class detailApplication {
 
-    public function head()
+    public function head($status, $status2)
     {
         $html = "";
 
@@ -66,15 +66,6 @@ class detailApplication {
                         margin: 0 15% 0 0%;
                     }
 
-                    #create a {
-                        background-color: #808080;
-                    }
-
-                    #create a:hover{
-                        background-color: #6F6F6F;
-                        transition: background-color 0.5s;
-                    }
-
                     #admin a{
                         min-width: 110px !important;
                     }
@@ -96,6 +87,7 @@ class detailApplication {
                         display: table;
                         width: 100%;
                         position: relative;
+                        margin-bottom: 50px;
                     }
                     
                     .stepwizard-step button[disabled] {
@@ -132,9 +124,10 @@ class detailApplication {
                     }
 
                     .cont_detail{
+                        width: 80%;
                         padding: 15px;
                         box-shadow: 0px 0px 10px gray;
-                        margin-top: 50px;
+                        margin: auto;
                     }
 
                     #consecutivo{
@@ -192,18 +185,98 @@ class detailApplication {
                     #estado{
                         display: flex;
                         justify-content: center;
+                        margin: 15px 0 0 0;
                     }
 
                     #estado form{
                         text-align: center;
                     }
 
+                    #estado select{
+                        text-align: center;
+                        border: 2px solid #e0e0ec!important;
+                        border-radius: 0;
+                        padding: 0.25rem!important;
+                        box-shadow: inset 0 .25rem .125rem 0 rgba(0, 0, 0, .05)!important;
+                        width: 200px;
+                        margin: 10px 0 10px 0;
+                    }
+
+                    #estado button{
+                        cursor: pointer;
+                        font-weight: 700;
+                        font-size: 15px;
+                        height: 35px;
+                        width: 120px;
+                        border: none;
+                        border-radius: 5px;
+                        color: white;
+                        background-color: #304293;
+                    }
+
+                    #estado button:hover{
+                        background-color: #233170;
+                        transition: background-color 0.5s;
+                    }
+
+                ";
+
+        if ($status[0]["Estado"] == 'Cerrado' || $status2[0]["Estado"] == 'Cerrado') {
+            
+        $html .= "
+
+                    .btn_detail_desabled{
+                        pointer-events: none;
+                        opacity: 0.5;
+                    }
+
+                ";
+        }
+        
+        $html .= "
+
                     .cont_chat{
-                        height: 300px;
-                        width: 100%;
+                        margin: auto;
+                        width: 75%;
                         border: 1px solid #ddd;
                         background: #f1f1f1;
+                    }
+
+                    #cont_comt{
+                        height: 450px; 
                         overflow-y: scroll;
+                        scrollbar-width: none; 
+                    }
+
+                    #cont_comt::-webkit-scrollbar {
+                        -webkit-appearance: none;
+                    }
+                    
+                    #cont_comt::-webkit-scrollbar:vertical {
+                        width:10px;
+                    }
+                    
+                    #cont_comt::-webkit-scrollbar-button:increment,.cont_comt::-webkit-scrollbar-button {
+                        display: none;
+                    } 
+                    
+                    #cont_comt::-webkit-scrollbar:horizontal {
+                        height: 10px;
+                    }
+                    
+                    #cont_comt::-webkit-scrollbar-thumb {
+                        background-color: #797979;
+                        border-radius: 20px;
+                        border: 2px solid #f1f2f3;
+                    }
+
+                    #myDiv::-webkit-scrollbar {
+                        display: none
+                      }
+
+                    .cont_btn_chat{
+                        margin: auto;
+                        width: 70%;
                     }
 
                     .cont_mensajes{
@@ -234,6 +307,8 @@ class detailApplication {
                     .cont_comt_admin{
                         display: flex;
                         justify-content: right;
+                        text-align: left;
+                        padding-left: 20%;
                     }
 
                     .cont_comt_admin p{
@@ -316,6 +391,7 @@ class detailApplication {
 
                     .cont_comt_admin{
                         display: flex;
+                        text-align: left;
                     }
 
                     .cont_comt_admin p{
@@ -343,7 +419,20 @@ class detailApplication {
                         margin: 0 0 15px 0;
                     }
 
+                    #btn_change_img{
+                        cursor: pointer;
+                        border: none;
+                        background-color: transparent;
+                        color: #304293;
+                    }
+
+                    #btn_change_img:hover{
+                        color: #808080;
+                        transition: color 0.5s;
+                    }
+
                     #mensaje{
+                        border-radius: 5px;
                         width: 80%;
                     }
 
@@ -363,6 +452,18 @@ class detailApplication {
                         transition: color 0.5s;
                     }
 
+                    #btn_change_mens{
+                        cursor: pointer;
+                        border: none;
+                        background-color: transparent;
+                        color: #304293;
+                    }
+
+                    #btn_change_mens:hover{
+                        color: #808080;
+                        transition: color 0.5s;
+                    }
+
                     #btnImage{
                         cursor: pointer;
                         border: none;
@@ -374,6 +475,17 @@ class detailApplication {
                         color: #808080;
                         transition: color 0.5s;
                     }
+
+                    #modal-confirmacion {
+                        display: none;
+                        position: fixed;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        background-color: white;
+                        padding: 20px;
+                        border: 1px solid black;
+                      }
 
                 </style>
             </head>    
@@ -428,7 +540,7 @@ class detailApplication {
 
         $html = "";
 
-        if ($id[0]['FormularioId']  == 1 && $status[0]['Estado'] != "Cerrado") {
+        if ($id[0]['FormularioId']  == 1) {
 
             foreach ($lista_formularios as $key => $value) {
                     $consecutivo = $value['Consecutivo'];
@@ -441,7 +553,7 @@ class detailApplication {
                     $criterios = $value['Criterios de aceptacion'];
 
                     $html .= "
-                    <h3 style='text-align: center;'>Estado Ticket</h3>
+                    <h3 id='title_status' style='text-align: center; font-weight: 700; color: gray;'>Estado Ticket</h3>
                         <div class='stepwizard'>
                             <div class='stepwizard-row setup-panel'>
                     ";
@@ -450,8 +562,8 @@ class detailApplication {
 
                         $html .= "
                                 <div class='stepwizard-step'>
-                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline;'>Solicitado</p>
+                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Solicitado</p>
                                 </div>
                                 <div class='stepwizard-step'>
                                         <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
@@ -495,12 +607,12 @@ class detailApplication {
 
                         $html .= "
                                 <div class='stepwizard-step'>
-                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline;'>Solicitado</p>
+                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Solicitado</p>
                                 </div>
                                 <div class='stepwizard-step'>
-                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline;'>En revisión</p>
+                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>En revisión</p>
                                 </div>
                                 <div class='stepwizard-step'>
                                             <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
@@ -538,16 +650,16 @@ class detailApplication {
 
                         $html .= "
                                 <div class='stepwizard-step'>
-                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline;'>Solicitado</p>
+                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Solicitado</p>
                                 </div>
                                 <div class='stepwizard-step'>
-                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline;'>En revisión</p>
+                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>En revisión</p>
                                 </div>
                                 <div class='stepwizard-step'>
-                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline;'>En proceso</p>
+                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>En proceso</p>
                                 </div>
                                 <div class='stepwizard-step'>
                                         <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
@@ -579,20 +691,20 @@ class detailApplication {
 
                         $html .= "
                                 <div class='stepwizard-step'>
-                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline;'>Solicitado</p>
+                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Solicitado</p>
                                 </div>
                                 <div class='stepwizard-step'>
-                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline;'>En revisión</p>
+                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>En revisión</p>
                                 </div>
                                 <div class='stepwizard-step'>
-                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline;'>En proceso</p>
+                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>En proceso</p>
                                 </div>
                                 <div class='stepwizard-step'>
-                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline;'>Terminado</p>
+                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Terminado</p>
                                 </div>
                                 <div class='stepwizard-step'>
                                         <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
@@ -618,24 +730,24 @@ class detailApplication {
 
                         $html .= "
                                 <div class='stepwizard-step'>
-                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline;'>Solicitado</p>
+                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Solicitado</p>
                                 </div>
                                 <div class='stepwizard-step'>
-                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline;'>En revisión</p>
+                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>En revisión</p>
                                 </div>
                                 <div class='stepwizard-step'>
-                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline;'>En proceso</p>
+                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>En proceso</p>
                                 </div>
                                 <div class='stepwizard-step'>
-                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline;'>Terminado</p>
+                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Terminado</p>
                                 </div>
                                 <div class='stepwizard-step'>
-                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline;'>En pruebas</p>
+                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>En pruebas</p>
                                 </div>
                                 <div class='stepwizard-step'>
                                         <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
@@ -655,28 +767,28 @@ class detailApplication {
 
                         $html .= "
                                 <div class='stepwizard-step'>
-                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline;'>Solicitado</p>
+                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Solicitado</p>
                                 </div>
                                 <div class='stepwizard-step'>
-                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline;'>En revisión</p>
+                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>En revisión</p>
                                 </div>
                                 <div class='stepwizard-step'>
-                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline;'>En proceso</p>
+                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>En proceso</p>
                                 </div>
                                 <div class='stepwizard-step'>
-                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline;'>Terminado</p>
+                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Terminado</p>
                                 </div>
                                 <div class='stepwizard-step'>
-                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline;'>En pruebas</p>
+                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>En pruebas</p>
                                 </div>
                                 <div class='stepwizard-step'>
-                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline;'>Publicado</p>
+                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Publicado</p>
                                 </div>
                                 <div class='stepwizard-step'>
                                         <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
@@ -690,32 +802,32 @@ class detailApplication {
 
                         $html .= "
                                 <div class='stepwizard-step'>
-                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline;'>Solicitado</p>
+                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Solicitado</p>
                                 </div>
                                 <div class='stepwizard-step'>
-                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline;'>En revisión</p>
+                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>En revisión</p>
                                 </div>
                                 <div class='stepwizard-step'>
-                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline;'>En proceso</p>
+                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>En proceso</p>
                                 </div>
                                 <div class='stepwizard-step'>
-                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline;'>Terminado</p>
+                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Terminado</p>
                                 </div>
                                 <div class='stepwizard-step'>
-                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline;'>En pruebas</p>
+                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>En pruebas</p>
                                 </div>
                                 <div class='stepwizard-step'>
-                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline;'>Publicado</p>
+                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Publicado</p>
                                 </div>
                                 <div class='stepwizard-step'>
-                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline;'>Cerrado</p>
+                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Cerrado</p>
                                 </div>
                         ";
 
@@ -762,7 +874,7 @@ class detailApplication {
                     if (is_super_admin()) {
                         $html .= "
                             <div class='campos' id='estado'>
-                                <form method='POST'>
+                                <form method='POST' action='#title_status'>
                                     <label>Actualizar estado: </label>
                                     <br>
                                     <select name='select_status' required>
@@ -772,6 +884,7 @@ class detailApplication {
                                         <option>Terminado</option>
                                         <option>En pruebas</option>
                                         <option>Publicado</option>
+                                        <option>Cerrado</option>
                                     </select>
                                     <br>
                                     <button type='submit' name='update[]'>Actualizar</button>
@@ -782,8 +895,8 @@ class detailApplication {
                     } else {
                         $html .= "
                             <div class='campos' id='estado'>
-                                <form method='POST' name='btn_solucionado[]'>
-                                    <button type='submit' name='cerrar[]' value='solucionado'>Solucionado</button>
+                                <form method='POST' name='btn_solucionado[]' action='#title_status'>
+                                    <button id='btn_spt_cerrado' class='btn_detail_desabled' type='submit' name='cerrar[]' onclick='confirmCerrado()'value=''>Solucionado</button>
                                 </form>
                             </div>
                         </div>
@@ -791,7 +904,7 @@ class detailApplication {
                     }
                  
             }
-        } elseif ($id2[0]['FormularioId'] == 2 && $status2[0]['Estado'] != "Cerrado") {
+        } elseif ($id2[0]['FormularioId'] == 2) {
 
             foreach ($lista_formularios2 as $key => $value) {
                 $consecutivo2 = $value['Consecutivo'];
@@ -803,7 +916,7 @@ class detailApplication {
                 $sede = $value['Sede'];
 
                 $html .= "
-                    <h3 style='text-align: center;'>Estado Ticket</h3>
+                    <h3 id='#title_status' style='text-align: center;'>Estado Ticket</h3>
                         <div class='stepwizard'>
                             <div class='stepwizard-row setup-panel'>
                     ";
@@ -812,8 +925,8 @@ class detailApplication {
 
                     $html .= "
                             <div class='stepwizard-step'>
-                                    <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                <p style='text-decoration: underline;'>Solicitado</p>
+                                    <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Solicitado</p>
                             </div>
                             <div class='stepwizard-step'>
                                     <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
@@ -845,12 +958,12 @@ class detailApplication {
 
                     $html .= "
                             <div class='stepwizard-step'>
-                                    <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                <p style='text-decoration: underline;'>Solicitado</p>
+                                    <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Solicitado</p>
                             </div>
                             <div class='stepwizard-step'>
-                                    <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                <p style='text-decoration: underline;'>En revisión</p>
+                                    <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>En revisión</p>
                             </div>
                             <div class='stepwizard-step'>
                                     <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
@@ -876,16 +989,16 @@ class detailApplication {
 
                     $html .= "
                             <div class='stepwizard-step'>
-                                    <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                <p style='text-decoration: underline;'>Solicitado</p>
+                                    <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Solicitado</p>
                             </div>
                             <div class='stepwizard-step'>
-                                    <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                <p style='text-decoration: underline;'>En revisión</p>
+                                    <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>En revisión</p>
                             </div>
                             <div class='stepwizard-step'>
-                                    <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                <p style='text-decoration: underline;'>Respuesto</p>
+                                    <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Respuesto</p>
                             </div>
                             <div class='stepwizard-step'>
                                     <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
@@ -905,20 +1018,20 @@ class detailApplication {
 
                     $html .= "
                             <div class='stepwizard-step'>
-                                    <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                <p style='text-decoration: underline;'>Solicitado</p>
+                                    <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Solicitado</p>
                             </div>
                             <div class='stepwizard-step'>
-                                    <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                <p style='text-decoration: underline;'>En revisión</p>
+                                    <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>En revisión</p>
                             </div>
                             <div class='stepwizard-step'>
-                                    <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                <p style='text-decoration: underline;'>Respuesto</p>
+                                    <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Respuesto</p>
                             </div>
                             <div class='stepwizard-step'>
-                                    <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                <p style='text-decoration: underline;'>Terminado</p>
+                                    <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Terminado</p>
                             </div>
                             <div class='stepwizard-step'>
                                     <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
@@ -932,24 +1045,24 @@ class detailApplication {
 
                     $html .= "
                             <div class='stepwizard-step'>
-                                    <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                <p style='text-decoration: underline;'>Solicitado</p>
+                                    <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Solicitado</p>
                             </div>
                             <div class='stepwizard-step'>
-                                    <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                <p style='text-decoration: underline;'>En revisión</p>
+                                    <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>En revisión</p>
                             </div>
                             <div class='stepwizard-step'>
-                                    <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                <p style='text-decoration: underline;'>Respuesto</p>
+                                    <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Respuesto</p>
                             </div>
                             <div class='stepwizard-step'>
-                                    <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                <p style='text-decoration: underline;'>Terminado</p>
+                                    <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Terminado</p>
                             </div>
                             <div class='stepwizard-step'>
-                                    <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                <p style='text-decoration: underline;'>Cerrado</p>
+                                    <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
+                                <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Cerrado</p>
                             </div>
                     ";
 
@@ -993,7 +1106,7 @@ class detailApplication {
                 if (is_super_admin()) {
                     $html .= "
                         <div class='campos' id='estado'>
-                            <form method='POST'>
+                            <form method='POST' action='#title_status2'>
                                 <label>Actualizar estado: </label>
                                 <br>
                                 <select name='select_status' required>
@@ -1001,6 +1114,7 @@ class detailApplication {
                                     <option>En revisión de detalles</option>
                                     <option>Respuesto/cambio solicitado a compras</option>
                                     <option>Terminado</option>
+                                    <option>Cerrado</option>
                                 </select>
                                 <br>
                                 <button type='submit' name='update[]'>Actualizar</button>
@@ -1013,18 +1127,14 @@ class detailApplication {
                 if (!is_super_admin()) {
                     $html .= "
                         <div class='campos' id='estado'>
-                            <form method='POST' name='btn_solucionado[]'>
-                                <button type='submit' name='cerrar2[]' value='solucionado'>Solucionado</button>
+                            <form method='POST' name='btn_solucionado[]' action='#title_status2'>
+                                <button type='submit' id='btn_spt_cerrado' class='btn_detail_desabled' name='cerrar2[]' onclick='confirmCerrado()'  value=''>Solucionado</button>
                             </form>
                         </div>
                     </div>
                     ";
                 }
             }
-        } else if( $status[0]['Estado'] == "Cerrado" || $status2[0]['Estado'] == "Cerrado") {
-            $html = "
-                <h1>Cerrado</h1>
-            ";
         }
 
         return $html;
@@ -1034,12 +1144,17 @@ class detailApplication {
     {   
 
         $html = "";
+
+        $html .= "
+            <br id='espace_chat'>
+        ";
+        
         if ($id[0]['FormularioId'] == 1) {
 
-            if ($status[0]["Estado"] == "En revisión de detalles" || $status[0]["Estado"] == "En proceso" || $status[0]["Estado"] == "Terminado" || $status[0]["Estado"] == "En pruebas" || $status[0]["Estado"] == "Publicado" || $status[0]["Estado"] == "Cerraado") {
+            if ($status[0]["Estado"] == "En revisión de detalles" || $status[0]["Estado"] == "En proceso" || $status[0]["Estado"] == "Terminado" || $status[0]["Estado"] == "En pruebas" || $status[0]["Estado"] == "Publicado" || $status[0]["Estado"] == "Cerrado") {
 
                 $html .= "
-                    <div class='cont_chat'>
+                    <div class='cont_chat' id='cont_comt'>
                         <div class='cont_mensajes'>
                 ";
 
@@ -1123,19 +1238,22 @@ class detailApplication {
                 $html .= "
                         </div>
                     </div>
+                    <br>
                     <div class='cont_btn_chat'>
                         <div id='cont_form_comt'>
-                            <form method='POST'>
+                            <form method='POST' action='#espace_chat'>
+                                <button type='button' id='btn_change_img' class='btn_detail_desabled' onclick='changeImg()'><i class='bi bi-image'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='currentColor' class='bi bi-image' viewBox='0 0 16 16'><path d='M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z'/><path d='M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z'/></svg></button>
                                 <textarea placeholder='Mensaje' id='mensaje' name='mensaje[]' maxlength='200' required></textarea>
-                                <button type='submit' id='btn_mensaje' name='btn_mensaje[]'><i class='bi bi-send-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='black' class='bi bi-send-fill' viewBox='0 0 16 16'>
+                                <button type='submit' id='btn_mensaje' class='btn_detail_desabled' name='btn_mensaje[]'><i class='bi bi-send-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='currentColor' class='bi bi-send-fill' viewBox='0 0 16 16'>
                                 <path d='M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z'/>
                               </svg></button>
                             </form>
                         </div>
-                        <div id='cont_form_image'>
-                            <form method='post' enctype='multipart/form-data'>
+                        <div id='cont_form_image' style='display: none;'>
+                            <form method='post' enctype='multipart/form-data' action='#espace_chat'>
+                                <button type='button' id='btn_change_mens' onclick='changeMens()'><i class='bi bi-keyboard'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='currentColor' class='bi bi-keyboard' viewBox='0 0 16 16'><path d='M14 5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h12zM2 4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H2z'/><path d='M13 10.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm0-2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-5 0A.25.25 0 0 1 8.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 8 8.75v-.5zm2 0a.25.25 0 0 1 .25-.25h1.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-1.5a.25.25 0 0 1-.25-.25v-.5zm1 2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-5-2A.25.25 0 0 1 6.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 6 8.75v-.5zm-2 0A.25.25 0 0 1 4.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 4 8.75v-.5zm-2 0A.25.25 0 0 1 2.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 2 8.75v-.5zm11-2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-2 0a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-2 0A.25.25 0 0 1 9.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 9 6.75v-.5zm-2 0A.25.25 0 0 1 7.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 7 6.75v-.5zm-2 0A.25.25 0 0 1 5.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 5 6.75v-.5zm-3 0A.25.25 0 0 1 2.25 6h1.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-1.5A.25.25 0 0 1 2 6.75v-.5zm0 4a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm2 0a.25.25 0 0 1 .25-.25h5.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-5.5a.25.25 0 0 1-.25-.25v-.5z'/></svg></button>
                                 <input type='file' name='imagen' required>
-                                <button type='submit' id='btnImage' name='btnImage'><i class='bi bi-send-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' class='bi bi-send-fill' viewBox='0 0 16 16'>
+                                <button type='submit' id='btnImage' name='btnImage'><i class='bi bi-send-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='currentColor' class='bi bi-send-fill' viewBox='0 0 16 16'>
                                 <path d='M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z'/>
                               </svg></button>
                             </form>
@@ -1146,7 +1264,7 @@ class detailApplication {
                 if (!empty($nomAdmin)) {
                     $html .= "
                         <div>
-                            <label>Respondido por:</label>
+                            <label style='font-weight: 500;'>Respondido por:</label>
                             <span>$nomAdmin</span>
                         </div>
                     </div>
@@ -1162,10 +1280,10 @@ class detailApplication {
             }
         } elseif ($id2[0]['FormularioId'] == 2) {
 
-            if ($status2[0]["Estado"] == "En revisión de detalles" || $status2[0]["Estado"] == "Respuesto/cambio solicitado a compras" || $status2[0]["Estado"] == "Terminado" || $status2[0]["Estado"] == "Cerraado") {
+            if ($status2[0]["Estado"] == "En revisión de detalles" || $status2[0]["Estado"] == "Respuesto/cambio solicitado a compras" || $status2[0]["Estado"] == "Terminado" || $status2[0]["Estado"] == "Cerrado") {
 
                 $html .= "
-                    <div class='cont_chat'>
+                    <div class='cont_chat' id='cont_comt'>
                         <div class='cont_mensajes'>
                 ";
 
@@ -1242,26 +1360,28 @@ class detailApplication {
                                 </div>
                             ";
                         }
-                    }
-                    
+                    }   
                 }
 
                 $html .= "
                         </div>
                     </div>
+                    <br>
                     <div class='cont_btn_chat'>
                         <div id='cont_form_comt'>
-                            <form method='POST'>
+                            <form method='POST' action='#espace_chat'>
+                                <button type='button' id='btn_change_img' class='btn_detail_desabled' onclick='changeImg()'><i class='bi bi-image'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='currentColor' class='bi bi-image' viewBox='0 0 16 16'><path d='M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z'/><path d='M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z'/></svg></button>
                                 <textarea placeholder='Mensaje' id='mensaje' name='mensaje[]' maxlength='200' required></textarea>
-                                <button type='submit' id='btn_mensaje' name='btn_mensaje[]'><i class='bi bi-send-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='black' class='bi bi-send-fill' viewBox='0 0 16 16'>
+                                <button type='submit' id='btn_mensaje' class='btn_detail_desabled' name='btn_mensaje[]'><i class='bi bi-send-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='currentcolor' class='bi bi-send-fill' viewBox='0 0 16 16'>
                                 <path d='M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z'/>
                               </svg></button>
                             </form>
                         </div>
-                        <div id='cont_form_image'>
+                        <div id='cont_form_image' style='display: none;' action='#espace_chat'>
                             <form method='post' enctype='multipart/form-data'>
+                                <button type='button' id='btn_change_mens' onclick='changeMens()'><i class='bi bi-keyboard'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='currentColor' class='bi bi-keyboard' viewBox='0 0 16 16'><path d='M14 5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h12zM2 4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H2z'/><path d='M13 10.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm0-2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-5 0A.25.25 0 0 1 8.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 8 8.75v-.5zm2 0a.25.25 0 0 1 .25-.25h1.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-1.5a.25.25 0 0 1-.25-.25v-.5zm1 2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-5-2A.25.25 0 0 1 6.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 6 8.75v-.5zm-2 0A.25.25 0 0 1 4.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 4 8.75v-.5zm-2 0A.25.25 0 0 1 2.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 2 8.75v-.5zm11-2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-2 0a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-2 0A.25.25 0 0 1 9.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 9 6.75v-.5zm-2 0A.25.25 0 0 1 7.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 7 6.75v-.5zm-2 0A.25.25 0 0 1 5.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 5 6.75v-.5zm-3 0A.25.25 0 0 1 2.25 6h1.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-1.5A.25.25 0 0 1 2 6.75v-.5zm0 4a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm2 0a.25.25 0 0 1 .25-.25h5.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-5.5a.25.25 0 0 1-.25-.25v-.5z'/></svg></button>
                                 <input type='file' name='imagen' required>
-                                <button type='submit' id='btnImage' name='btnImage'><i class='bi bi-send-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' class='bi bi-send-fill' viewBox='0 0 16 16'>
+                                <button type='submit' id='btnImage' name='btnImage'><i class='bi bi-send-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='currentcolor' class='bi bi-send-fill' viewBox='0 0 16 16'>
                                 <path d='M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z'/>
                               </svg></button>
                             </form>
@@ -1272,7 +1392,7 @@ class detailApplication {
                 if (!empty($nomAdmin)) {
                     $html .= "
                         <div>
-                            <label>Respondido por:</label>
+                            <label style='font-weight: 500;'>Respondido por:</label>
                             <span>$nomAdmin</span>
                         </div>
                     </div>
@@ -1289,6 +1409,36 @@ class detailApplication {
         }
 
         return $html;
+    }
+
+    public function changeInputChat()
+    {
+        echo "
+            <script language='JavaScript'>
+                function changeImg(){
+                    document.getElementById('cont_form_comt').style.display = 'none';
+                    document.getElementById('cont_form_image').style.display = 'block';
+                }
+
+                function changeMens(){
+                    document.getElementById('cont_form_comt').style.display = 'block';
+                    document.getElementById('cont_form_image').style.display = 'none';
+                }
+            </script>
+        ";
+    }
+
+    public function confirmCerrado()
+    {
+        echo "
+            <script language='JavaScript'>
+                function confirmCerrado(){
+                    if(confirm('Al continuar se cerrará el ticket y no podras hacer ningun proceso')){
+                        document.getElementById('btn_spt_cerrado').value = 'solucionado';
+                    } 
+                }
+            </script>
+        ";
     }
 
     public function constructor($id, $id2, $consecutivo)
@@ -1352,7 +1502,7 @@ class detailApplication {
         $tableComt = "{$wpdb->prefix}comentarios_registrados_detalles";
 
         //comentarios
-        $queryComt = "SELECT * FROM $tableComt WHERE Consecutivo = '$consecutivo'";
+        $queryComt = "SELECT * FROM $tableComt WHERE Consecutivo = '$consecutivo' ORDER BY ComentarioId DESC";
         $list_mensajes = $wpdb->get_results($queryComt, ARRAY_A);
         if (empty($list_mensajes)) {
             $list_mensajes = array();
@@ -1426,7 +1576,7 @@ class detailApplication {
 
         if (is_super_admin()) {
             if (isset($_POST['btn_mensaje']) && $comtImg == null) {
-
+            
                 //Server settings
                 $mail->SMTPDebug = 0;                      //Enable verbose debug output
                 $mail->isSMTP();                                            //Send using SMTP
@@ -1452,9 +1602,12 @@ class detailApplication {
                     
                 $html = "
                     <div>
-                        <h3>$nomAdmin</h3>
+                        <center><h1 style='color:white; background-color: #005199; margin: auto; width: 60%;'>$consecutivo</h1></center>
+                        <br>
+                        <label style='font-weight: 700;'>Usuario: </label><span>$nomAdmin</span>
+                        <br>
                         <p>$comtMenss</p>
-                        <center><h1 style='color:white; background-color: #005199;'>$consecutivo</h1></center>
+                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo' style='display: flex; justify-content: center;'>Ver</a>
                     </div>
                 ";
 
@@ -1488,9 +1641,13 @@ class detailApplication {
                     
                 $html = "
                     <div>
-                        <h3>$nomAdmin</h3>
-                        //poner mensaje
-                        <center><h1 style='color:white; background-color: #005199;'>$consecutivo</h1></center>
+                        <center><h1 style='color:white; background-color: #005199; margin: auto; width: 60%;'>$consecutivo</h1></center>
+                        <br>
+                        <label style='font-weight: 700;'>Usuario: </label><span>$nomAdmin</span>
+                        <br>
+                        <span>Foto</span>
+                        <br>
+                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo' style='display: flex; justify-content: center;'>Ver</a>
                     </div>
                 ";
 
@@ -1522,9 +1679,12 @@ class detailApplication {
                     
                 $html = "
                     <div>
-                        <h3>$nomUser</h3>
+                        <center><h1 style='color:white; background-color: #005199; margin: auto; width: 60%;'>$consecutivo</h1></center>
+                        <br>
+                        <label style='font-weight: 700;'>Usuario: </label><span>$nomUser</span>
+                        <br>
                         <p>$comtMenss</p>
-                        <center><h1 style='color:white; background-color: #005199;'>$consecutivo</h1></center>
+                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo' style='display: flex; justify-content: center;'>Ver</a>
                     </div>
                 ";
 
@@ -1554,8 +1714,13 @@ class detailApplication {
                     
                 $html = "
                     <div>
-                        <h3>$nomUser</h3>
-                        <center><h1 style='color:white; background-color: #005199;'>$consecutivo</h1></center>
+                        <center><h1 style='color:white; background-color: #005199; margin: auto; width: 60%;'>$consecutivo</h1></center>
+                        <br>
+                        <label style='font-weight: 700;'>Usuario: </label><span>$nomUser</span>
+                        <br>
+                        <span>Foto</span>
+                        <br>
+                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo' style='display: flex; justify-content: center;'>Ver</a>
                     </div>
                 ";
 
@@ -1565,11 +1730,14 @@ class detailApplication {
             }
         }
 
-        $html = $this->head();
+        $html = $this->head($status, $status2);
 
         $html .= $this->buttonsNav();
         $html .= $this->showDetails($id, $id2, $lista_formularios, $lista_formularios2, $status, $status2);
         $html .= $this->comentsDetail($id, $id2, $status, $status2, $list_mensajes, $nomAdmin);
+
+        $html .= $this->changeInputChat();
+        $html .= $this->confirmCerrado();
 
         if ($_POST['cerrar'][0] == "solucionado") {
             $infoUpd = array(

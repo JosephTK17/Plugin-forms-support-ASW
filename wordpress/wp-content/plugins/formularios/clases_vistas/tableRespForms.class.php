@@ -25,7 +25,6 @@ class tableForms {
                 <meta http-equiv='X-UA-Compatible' content='IE=edge'>
                 <meta name='viewport' content='width=device-width, initial-scale=1.0'>
                 <link rel='stylesheet' type='text/css' href='//cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css'>
-                <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD' crossorigin='anonymous'>
                 <style>
 
                     #general_cont{
@@ -33,11 +32,11 @@ class tableForms {
                         position: relative;
                         border: solid 1px;
                         padding: 30px 40px;
-                        width: 76%;
+                        width: 70%;
                     }
 
                     #cont_btns{
-                        height: 82px;
+                        height: 70px;
                         padding: 8px;
                         border-radius: 5px;
                         background-color: #4f6df5;
@@ -83,7 +82,7 @@ class tableForms {
                     }
                     
                     #admin a{
-                        min-width: 138px !important;
+                        min-width: 110px !important;
                         background-color: gray;
                     }
 
@@ -100,10 +99,6 @@ class tableForms {
                         margin: 0px 0 20px 0;
                         text-decoration: underline;
                         text-decoration-color: gray;
-                    }
-
-                    #cont_table_spte{
-                        margin: 30px 0 0 0;
                     }
 
                     #cont_table_spte h4{
@@ -487,15 +482,21 @@ class tableForms {
                     $area = $value['Area'];
                     $estado = $value['Estado'];
 
-                    if ($estado != 'Solicitado') {
-                        $html .= "
+                    $html .= "
                         <tr>
-                            <td></td>
+                    ";
+
+                    if ($estado == 'Solicitado') {
+                        $html .= "
+                            <td><i class='bi bi-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='#1BDC00' class='bi bi-circle-fill' viewBox='0 0 16 16'><circle cx='8' cy='8' r='8'/></svg></td>
                         ";
-                    } else {
+                    } elseif ($estado == 'Cerrado') {
                         $html .= "
-                        <tr>
-                            <td><i class='bi bi-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='red' class='bi bi-circle-fill' viewBox='0 0 16 16'><circle cx='8' cy='8' r='8'/></svg></td>
+                            <td><i class='bi bi-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='#FF0000' class='bi bi-circle-fill' viewBox='0 0 16 16'><circle cx='8' cy='8' r='8'/></svg></td>
+                        ";
+                    } elseif ($estado != 'Solicitado' || $estado != 'Cerrado') {
+                        $html .= "
+                            <td><i class='bi bi-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='yellow' class='bi bi-circle-fill' viewBox='0 0 16 16'><circle cx='8' cy='8' r='8'/></svg></td>
                         ";
                     }
 
@@ -529,6 +530,8 @@ class tableForms {
 
             if (!empty($lista_formularios_rtasS1)) {
                 $html .= "
+                <br>
+                <br>
                     <div id='cont_table_spte'>
                         <h4>Soporte</h4>
                         <table class='table_form' id='myTable2' border=1>
@@ -557,15 +560,21 @@ class tableForms {
                     $sede = $value['Sede'];
                     $estado2 = $value['Estado'];
 
-                    if ($estado2 != 'Solicitado') {
-                        $html .= "
+                    $html .= "
                         <tr>
-                            <td></td>
+                    ";
+
+                    if ($estado2 == 'Solicitado') {
+                        $html .= "
+                            <td><i class='bi bi-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='#1BDC00' class='bi bi-circle-fill' viewBox='0 0 16 16'><circle cx='8' cy='8' r='8'/></svg></td>
                         ";
-                    } else {
+                    } elseif ($estado2 == 'Cerrado') {
                         $html .= "
-                        <tr>
-                            <td><i class='bi bi-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='red' class='bi bi-circle-fill' viewBox='0 0 16 16'><circle cx='8' cy='8' r='8'/></svg></td>
+                            <td><i class='bi bi-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='#FF0000' class='bi bi-circle-fill' viewBox='0 0 16 16'><circle cx='8' cy='8' r='8'/></svg></td>
+                        ";
+                    } elseif ($estado2 != 'Solicitado' || $estado2 != 'Cerrado') {
+                        $html .= "
+                            <td><i class='bi bi-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='yellow' class='bi bi-circle-fill' viewBox='0 0 16 16'><circle cx='8' cy='8' r='8'/></svg></td>
                         ";
                     }
         
@@ -650,13 +659,15 @@ class tableForms {
                 $html .= "
                 <div id='tables_tickets'>
                     <div class='cont_modal_not'>
-                        <p>No hay registros cerrados en la tabla 'Desarrollo'</p>
+                        <p>No hay registros contestados en la tabla 'Desarrollo'</p>
                     </div>
                 ";
             }
 
             if (!empty($lista_formularios_rtasS2)) {
                 $html .= "
+                <br>
+                <br>
                     <div id='cont_table_spte'>
                         <h4>Soporte</h4>
                         <table class='table_form' id='myTable2' border=1>
@@ -705,7 +716,7 @@ class tableForms {
             } else {
                 $html .= "
                     <div class='cont_modal_not'>
-                        <p>No hay registros cerrados en la tabla 'Soporte'</p>
+                        <p>No hay registros contestados en la tabla 'Soporte'</p>
                     </div>
                 </div>
                 ";
@@ -761,13 +772,15 @@ class tableForms {
                 $html .= "
                 <div id='tables_tickets'>
                     <div class='cont_modal_not'>
-                        <p>No hay registros contestados en la tabla 'Desarrollo'</p>
+                        <p>No hay registros cerrados en la tabla 'Desarrollo'</p>
                     </div>
                 ";
             }
 
             if (!empty($lista_formularios_rtasS3)) {
                 $html .= "
+                <br>
+                <br>
                     <div id='cont_table_spte'>
                         <h4>Soporte</h4>
                         <table class='table_form' id='myTable2' border=1>
@@ -816,154 +829,14 @@ class tableForms {
             } else {
                 $html .= "
                     <div class='cont_modal_not'>
-                        <p>No hay registros contestados en la tabla 'Soporte'</p>
+                        <p>No hay registros cerrados en la tabla 'Soporte'</p>
                     </div>
                 </div>
                 ";
             }
 
-        } elseif ($tUrlId == 4) {
+        }
 
-            if (!empty($lista_formularios_rtasD4)) {
-                $html .= "
-                <div id='tables_tickets'>
-                    <div id='cont_table_dllo'>
-                        <h4>Desarrollo</h4>
-                        <table class='table_form' id='myTable' border=1>
-                            <thead>
-                                <th></th>
-                                <th>Consecutivo</th>
-                                <th>Fecha</th>
-                                <th>Hora</th>
-                                <th>Solicitante</th>
-                                <th>Area</th>
-                                <th>Estado</th>
-                                <th class='clm_btn_dlle'></th>
-                            </thead>
-                            <tbody>
-                ";
-
-                foreach ($lista_formularios_rtasD4 as $key => $value) {
-                    $consecutivo = $value['Consecutivo'];
-                    $date = $value['Fecha'];
-                    $hora = $value['Hora'];
-                    $solicitante = $value['Solicitante'];
-                    $area = $value['Area'];
-                    $estado = $value['Estado'];
-
-                    if ($actualDate > $date || $estado != 'Solicitado') {
-                        $html .= "
-                        <tr>
-                            <td></td>
-                        ";
-                    } else {
-                        $html .= "
-                        <tr>
-                            <td><i class='bi bi-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='red' class='bi bi-circle-fill' viewBox='0 0 16 16'><circle cx='8' cy='8' r='8'/></svg></td>
-                        ";
-                    }
-
-                    $html .= "
-                            <td>$consecutivo</td>
-                            <td>$date</td>
-                            <td>$hora</td>
-                            <td>$solicitante</td>
-                            <td>$area</td>
-                            <td>$estado</td>
-                            <td class='clm_btn_dlle'>
-                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>
-                            </td>
-                        </tr>
-                    ";
-                }
-
-                $html .= "
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                ";
-
-            } else {
-                $html .= "
-                <div id='tables_tickets'>
-                    <div class='cont_modal_not'>
-                        <p>No hay registros en la tabla 'Desarrollo'</p>
-                    </div>
-                ";
-            }
-
-            if (!empty($lista_formularios_rtasS4)) {
-                $html .= "
-                    <div id='cont_table_spte'>
-                        <h4>Soporte</h4>
-                        <table class='table_form' id='myTable2' border=1>
-                            <thead>
-                                <th></th>
-                                <th>Consecutivo</th>
-                                <th>Fecha</th>
-                                <th>Hora</th>
-                                <th>Solicitante</th>
-                                <th>Area</th>
-                                <th>Sede</th>
-                                <th>Estado</th>
-                                <th class='clm_btn_spte'></th>
-                            </thead>
-                            <tbody>
-                ";
-
-                foreach ($lista_formularios_rtasS4 as $key => $value) {
-                    $consecutivo2 = $value['Consecutivo'];
-                    $date2 = $value['Fecha'];
-                    $hora2 = $value['Hora'];
-                    $solicitante2 = $value['Solicitante'];
-                    $area2 = $value['Area'];
-                    $estado2 = $value['Estado'];
-                    $sede = $value['Sede'];
-
-                    if ($actualDate > $date2 || $estado2 != 'Solicitado') {
-                        $html .= "
-                        <tr>
-                            <td></td>
-                        ";
-                    } else {
-                        $html .= "
-                        <tr>
-                            <td><i class='bi bi-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='red' class='bi bi-circle-fill' viewBox='0 0 16 16'><circle cx='8' cy='8' r='8'/></svg></td>
-                        ";
-                    }
-        
-                    $html .= "
-                            <td>$consecutivo2</td>
-                            <td>$date2</td>
-                            <td>$hora2</td>
-                            <td>$solicitante2</td>
-                            <td>$area2</td>
-                            <td>$sede</td>
-                            <td>$estado2</td>
-                            <td class='clm_btn_spte'>
-                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2'>Detalle</a>
-                            </td>
-                        </tr>
-                    ";
-                }
-
-                $html .= "
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                ";
-
-            } else {
-                $html .= "
-                    <div class='cont_modal_not'>
-                        <p>No hay registros en la tabla 'Soporte'</p>
-                    </div>
-                </div>
-                ";  
-            }
-        }    
         //verifica si hay datos en las tablas
         if ($tUrlId == 1 && empty($lista_formularios_rtasD1) && empty($lista_formularios_rtasS1)) {
             $html = "

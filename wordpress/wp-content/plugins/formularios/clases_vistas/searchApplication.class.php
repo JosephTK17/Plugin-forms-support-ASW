@@ -103,6 +103,22 @@ class searchApplication {
                         transition: background-color 0.5s;
                     }            
 
+                    #cont_table_dllo{
+                        margin: 30px 0 0 0;
+                    }
+
+                    #cont_table_dllo h4{
+                        margin: 0px 0 20px 0;
+                        text-decoration: underline;
+                        text-decoration-color: gray;
+                    }
+
+                    #cont_table_spte h4{
+                        margin: 0px 0 20px 0;
+                        text-decoration: underline;
+                        text-decoration-color: gray;
+                    }
+
                     .dataTables_length{
                         font-size: 15px;
                     }
@@ -152,15 +168,44 @@ class searchApplication {
 
                     .clm_btn_dlle{
                         background-color: white !important;
-                        // border-color: white;
+                        width: 90px;
+                        text-align: center;
                     }
 
                     .clm_btn_dlle a{
-                        // width: 50px;
-                        background-color: blue;
+                        background-color: #304293;
                         color: white;
                         text-decoration: none;
                         border-radius: 3px;
+                        padding: 5px 10px 5px 10px;
+                    }
+
+                    .clm_btn_dlle a:hover{
+                        background-color: #233170;
+                        box-shadow: 0px 0px 5px black;
+                        transition: background-color 0.5s;
+                        transition: box-shadow 0.4s;
+                    }
+
+                    .clm_btn_spte{
+                        background-color: white !important;
+                        width: 90px;
+                        text-align: center;
+                    }
+
+                    .clm_btn_spte a{
+                        background-color: #304293;
+                        color: white;
+                        text-decoration: none;
+                        border-radius: 3px;
+                        padding: 5px 10px 5px 10px;
+                    }
+
+                    .clm_btn_spte a:hover{
+                        background-color: #233170;
+                        box-shadow: 0px 0px 5px black;
+                        transition: background-color 0.5s;
+                        transition: box-shadow 0.4s;
                     }
 
                     .dataTables_wrapper .dataTables_paginate .paginate_button{
@@ -353,12 +398,13 @@ class searchApplication {
                     }
 
                     .cont_modal_not{
+                        margin: 20px 0 0 0;
                         display: flex;
                         justify-content: center;
                     }
 
                     .cont_modal_not p{
-                        width: 50%;
+                        width: 30%;
                         border: solid 1px;
                         text-align: center;
                     }
@@ -472,13 +518,15 @@ class searchApplication {
                 $html .= "
                 <div id='tables_tickets'>
                     <div class='cont_modal_not'>
-                        <p>No hay registros abiertos en la tabla 'Desarrollo'</p>
+                        <p>No hay registros en la tabla <strong>'Desarrollo'</strong></p>
                     </div>
                 ";
             }
 
             if (!empty($lista_formularios_rtasS1)) {
                 $html .= "
+                <br>
+                <br>
                     <div id='cont_table_spte'>
                         <h4>Soporte</h4>
                         <table class='table_form' id='myTable2' border=1>
@@ -529,7 +577,7 @@ class searchApplication {
             } else {
                 $html .= "
                     <div class='cont_modal_not'>
-                        <p>No hay registros abiertos en la tabla 'Soporte'</p>
+                        <p>No hay registros en la tabla <strong>'Soporte'</strong></p>
                     </div>
                 </div>
                 ";
@@ -584,13 +632,15 @@ class searchApplication {
                 $html .= "
                 <div id='tables_tickets'>
                     <div class='cont_modal_not'>
-                        <p>No hay registros cerrados en la tabla 'Desarrollo'</p>
+                        <p>No hay registros contestados en la tabla <strong>'Desarrollo'</strong></p>
                     </div>
                 ";
             }
 
             if (!empty($lista_formularios_rtasS2)) {
                 $html .= "
+                <br>
+                <br>
                     <div id='cont_table_spte'>
                         <h4>Soporte</h4>
                         <table class='table_form' id='myTable2' border=1>
@@ -638,7 +688,7 @@ class searchApplication {
             } else {
                 $html .= "
                     <div class='cont_modal_not'>
-                        <p>No hay registros cerrados en la tabla 'Soporte'</p>
+                        <p>No hay registros contestados en la tabla <strong>'Soporte'</strong></p>
                     </div>
                 </div>
                 ";
@@ -693,13 +743,15 @@ class searchApplication {
                 $html .= "
                 <div id='tables_tickets'>
                     <div class='cont_modal_not'>
-                        <p>No hay registros contretados en la tabla 'Desarrollo'</p>
+                        <p>No hay registros cerrados en la tabla <strong>'Desarrollo'</strong></p>
                     </div>
                 ";
             }
 
             if (!empty($lista_formularios_rtasS3)) {
                 $html .= "
+                <br>
+                <br>
                     <div id='cont_table_spte'>
                         <h4>Soporte</h4>
                         <table class='table_form' id='myTable2' border=1>
@@ -747,7 +799,7 @@ class searchApplication {
             } else {
                 $html .= "
                     <div class='cont_modal_not'>
-                        <p>No hay registros contestados en la tabla 'Soporte'</p>
+                        <p>No hay registros cerrados en la tabla <strong>'Soporte'</strong></p>
                     </div>
                 </div>
                 ";
@@ -759,19 +811,19 @@ class searchApplication {
         if ($tUrlIdUc == 1 && empty($lista_formularios_rtasD1) && empty($lista_formularios_rtasS1)) {
             $html = "
                 <div class='cont_modal_not'>
-                    <p>No hay registros</p>
+                    <h3>No hay registros</h3>
                 </div>
             ";
         } elseif ($tUrlIdUc == 2 && empty($lista_formularios_rtasD2) && empty($lista_formularios_rtasS2)) {
             $html = "
                 <div class='cont_modal_not'>
-                    <p>No hay registros</p>
+                    <h3>No hay registros</h3>
                 </div>
             ";
         } elseif ($tUrlIdUc == 3 && empty($lista_formularios_rtasD3) && empty($lista_formularios_rtasS3)) {
             $html = "
                 <div class='cont_modal_not'>
-                    <p>No hay registros</p>
+                    <h3>No hay registros</h3>
                 </div>
             ";
         }

@@ -196,7 +196,6 @@ function shortCode2(){
             $mail->addAddress($userEmail);  //Add a recipient
             for($i = 0; $i < count($correosAdmin); $i++) {
                 $mail->AddAddress($correosAdmin[$i]);
-                echo $correosAdmin[$i];
             }
         
             //Content
@@ -207,8 +206,11 @@ function shortCode2(){
     
                 $html = "
                     <div>
-                        <p>Se creo un nuevo ticket para hacer su consulta visita el apartado <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>, su consecutivo es:</p>
-                        <center><h1 style='color:white; background-color: #005199;'>$consecutivo</h1></center>
+                        <label style='font-weight: 700;'>Fecha: </label><span>$actualDate</span>
+                        <br>
+                        <label style='font-weight: 700;'>Hora: </label><span>$actualHora</span>
+                        <p>Se creo un nuevo ticket dirigido al area $area, para hacer su consulta visita el apartado <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>, su consecutivo es:</p>
+                        <center><h1 style='color:white; background-color: #005199; margin: auto; width: 60%;'>$consecutivo</h1></center>
                     </div>
                 ";
             }
@@ -278,7 +280,6 @@ function shortCode2(){
             $mail->addAddress($userEmail);  //Add a recipient
             for($i = 0; $i < count($correosAdmin); $i++) {
                 $mail->AddAddress($correosAdmin[$i]);
-                echo $correosAdmin[$i];
             }
         
             //Content
@@ -289,8 +290,11 @@ function shortCode2(){
     
                 $html = "
                     <div>
-                        <p>Se creo un nuevo ticket para hacer su consulta visita el apartado <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2'>Detalle</a>, su consecutivo es:</p>
-                        <center><h1 style='color:white; background-color: #005199;'>$consecutivo2</h1></center>
+                        <label style='font-weight: 700;'>Fecha: </label><span>$actualDate2</span>
+                        <br>
+                        <label style='font-weight: 700;'>Hora: </label><span>$actualHora2</span>
+                        <p>Se creo un nuevo ticket dirigido al area $area2 ubicada en la $sede, para hacer su consulta visita el apartado <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2'>Detalle</a>, su consecutivo es:</p>
+                        <center><h1 style='color:white; background-color: #005199; margin: auto; width: 60%;'>$consecutivo2</h1></center>
                     </div>
                 ";
             }
