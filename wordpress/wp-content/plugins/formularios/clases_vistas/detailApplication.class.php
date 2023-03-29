@@ -4,7 +4,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 class detailApplication {
 
-    public function head($status, $status2)
+    public function head($status, $status2, $user_role)
     {
         $html = "";
 
@@ -207,7 +207,7 @@ class detailApplication {
                         font-weight: 700;
                         font-size: 15px;
                         height: 35px;
-                        width: 120px;
+                        width: 130px;
                         border: none;
                         border-radius: 5px;
                         color: white;
@@ -221,11 +221,47 @@ class detailApplication {
 
                 ";
 
-        if ($status[0]["Estado"] == 'Cerrado' || $status2[0]["Estado"] == 'Cerrado') {
-            
-        $html .= "
+        if ( $status[0]["Estado"] == "Cerrado") {
+    
+            $html .= "
 
-                    .btn_detail_desabled{
+                    .btn_chatAd_desabled{
+                        pointer-events: none;
+                        opacity: 0.5;
+                    }
+
+                ";
+        }
+
+        if ( $status[0]["Estado"] != "Terminado" && $status[0]["Estado"] != "En pruebas") {
+            
+            $html .= "
+
+                    .btn_admin_desabled{
+                        pointer-events: none;
+                        opacity: 0.5;
+                    }
+
+                ";
+        }
+
+        if ( $status2[0]["Estado"] == "Cerrado") {
+    
+            $html .= "
+
+                    .btn_chatUs_desabled{
+                        pointer-events: none;
+                        opacity: 0.5;
+                    }
+
+                ";
+        }
+
+        if ( $status2[0]["Estado"] != "Terminado") {
+            
+            $html .= "
+
+                    .btn_user_desabled{
                         pointer-events: none;
                         opacity: 0.5;
                     }
@@ -290,7 +326,7 @@ class detailApplication {
 
         ";
 
-        if (is_super_admin()) {
+        if ($user_role == 'administrator' || $user_role == 'editor') {
 
             $html .= "
 
@@ -496,7 +532,7 @@ class detailApplication {
         return $html;
     }
 
-    public function buttonsNav()
+    public function buttonsNav($user_role)
     {
         $html = "";
 
@@ -508,14 +544,14 @@ class detailApplication {
                     <div class='btns_nav'>
                         <ul>
                             <li id='create'>
-                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/formularios/'>Enviar Ticket</a>
+                                <a href='src/formularios/'>Enviar Ticket</a>
                             </li>
         ";
 
-        if (is_super_admin()) {
+        if ($user_role == 'administrator' || $user_role == 'editor') {
             $html .= "
                             <li id='admin'>
-                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=1'>Ver Tickets</a>
+                                <a href='src/pagina-tickets/?tUrlId=1'>Ver Tickets</a>
                             </li>
                         </ul>
                     </div>
@@ -524,7 +560,7 @@ class detailApplication {
         } else {
             $html .= "
                             <li id='user'>
-                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlIdUc=1'>Mis Tickets</a>
+                                <a href='src/ver-tickets-user/?tUrlIdUc=1'>Mis Tickets</a>
                             </li>
                         </ul>
                     </div>
@@ -535,7 +571,7 @@ class detailApplication {
         return $html;
     }
 
-    public function showDetails($id, $id2, $lista_formularios, $lista_formularios2, $status, $status2)
+    public function showDetails($id, $id2, $lista_formularios, $lista_formularios2, $status, $status2, $user_role, $asigAdmin, $asigAdmin2)
     {
 
         $html = "";
@@ -581,19 +617,13 @@ class detailApplication {
                                         <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
                                         <path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/>
                                     </svg>
-                                    <p>Terminado</p>
-                                </div>
-                                <div class='stepwizard-step'>
-                                        <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
-                                        <path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/>
-                                    </svg>
                                     <p>En pruebas</p>
                                 </div>
                                 <div class='stepwizard-step'>
                                         <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
                                         <path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/>
                                     </svg>
-                                    <p>Publicado</p>
+                                    <p>Terminado</p>
                                 </div>
                                 <div class='stepwizard-step'>
                                         <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
@@ -615,35 +645,29 @@ class detailApplication {
                                     <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>En revisión</p>
                                 </div>
                                 <div class='stepwizard-step'>
-                                            <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
-                                            <path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/>
-                                        </svg>
-                                        <p>En proceso</p>
-                                    </div>
-                                    <div class='stepwizard-step'>
-                                            <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
-                                            <path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/>
-                                        </svg>
-                                        <p>Terminado</p>
-                                    </div>
-                                    <div class='stepwizard-step'>
-                                            <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
-                                            <path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/>
-                                        </svg>
-                                        <p>En pruebas</p>
-                                    </div>
-                                    <div class='stepwizard-step'>
-                                            <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
-                                            <path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/>
-                                        </svg>
-                                        <p>Publicado</p>
-                                    </div>
-                                    <div class='stepwizard-step'>
-                                            <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
-                                            <path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/>
-                                        </svg>
-                                        <p>Cerrado</p>
-                                    </div>
+                                        <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
+                                        <path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/>
+                                    </svg>
+                                    <p>En proceso</p>
+                                </div>
+                                <div class='stepwizard-step'>
+                                        <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
+                                        <path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/>
+                                    </svg>
+                                    <p>En pruebas</p>
+                                </div>
+                                <div class='stepwizard-step'>
+                                        <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
+                                        <path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/>
+                                    </svg>
+                                    <p>Terminado</p>
+                                </div>
+                                <div class='stepwizard-step'>
+                                        <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
+                                        <path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/>
+                                    </svg>
+                                    <p>Cerrado</p>
+                                </div>
                         ";
 
                     } else if($estado == 'En proceso') {
@@ -665,58 +689,13 @@ class detailApplication {
                                         <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
                                         <path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/>
                                     </svg>
+                                    <p>En pruebas</p>
+                                </div>
+                                <div class='stepwizard-step'>
+                                        <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
+                                        <path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/>
+                                    </svg>
                                     <p>Terminado</p>
-                                </div>
-                                <div class='stepwizard-step'>
-                                        <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
-                                        <path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/>
-                                    </svg>
-                                    <p>En pruebas</p>
-                                </div>
-                                <div class='stepwizard-step'>
-                                        <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
-                                        <path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/>
-                                    </svg>
-                                    <p>Publicado</p>
-                                </div>
-                                <div class='stepwizard-step'>
-                                        <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
-                                        <path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/>
-                                    </svg>
-                                    <p>Cerrado</p>
-                                </div>
-                        ";
-
-                    } else if($estado == 'Terminado') {
-
-                        $html .= "
-                                <div class='stepwizard-step'>
-                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Solicitado</p>
-                                </div>
-                                <div class='stepwizard-step'>
-                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>En revisión</p>
-                                </div>
-                                <div class='stepwizard-step'>
-                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>En proceso</p>
-                                </div>
-                                <div class='stepwizard-step'>
-                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Terminado</p>
-                                </div>
-                                <div class='stepwizard-step'>
-                                        <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
-                                        <path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/>
-                                    </svg>
-                                    <p>En pruebas</p>
-                                </div>
-                                <div class='stepwizard-step'>
-                                        <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
-                                        <path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/>
-                                    </svg>
-                                    <p>Publicado</p>
                                 </div>
                                 <div class='stepwizard-step'>
                                         <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
@@ -743,17 +722,13 @@ class detailApplication {
                                 </div>
                                 <div class='stepwizard-step'>
                                         <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Terminado</p>
-                                </div>
-                                <div class='stepwizard-step'>
-                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
                                     <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>En pruebas</p>
                                 </div>
                                 <div class='stepwizard-step'>
                                         <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
                                         <path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/>
                                     </svg>
-                                    <p>Publicado</p>
+                                    <p>Terminado</p>
                                 </div>
                                 <div class='stepwizard-step'>
                                         <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
@@ -763,7 +738,7 @@ class detailApplication {
                                 </div>
                         ";
 
-                    } else if($estado == 'Publicado') {
+                    } else if($estado == 'Terminado') {
 
                         $html .= "
                                 <div class='stepwizard-step'>
@@ -780,15 +755,11 @@ class detailApplication {
                                 </div>
                                 <div class='stepwizard-step'>
                                         <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Terminado</p>
-                                </div>
-                                <div class='stepwizard-step'>
-                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
                                     <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>En pruebas</p>
                                 </div>
                                 <div class='stepwizard-step'>
                                         <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Publicado</p>
+                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Terminado</p>
                                 </div>
                                 <div class='stepwizard-step'>
                                         <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
@@ -798,7 +769,7 @@ class detailApplication {
                                 </div>
                         ";
 
-                    } else if($estado == 'Cerrado') {
+                    }  else if($estado == 'Cerrado') {
 
                         $html .= "
                                 <div class='stepwizard-step'>
@@ -815,15 +786,11 @@ class detailApplication {
                                 </div>
                                 <div class='stepwizard-step'>
                                         <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Terminado</p>
-                                </div>
-                                <div class='stepwizard-step'>
-                                        <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
                                     <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>En pruebas</p>
                                 </div>
                                 <div class='stepwizard-step'>
                                         <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Publicado</p>
+                                    <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Terminado</p>
                                 </div>
                                 <div class='stepwizard-step'>
                                         <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
@@ -836,7 +803,7 @@ class detailApplication {
                     $html .= "
                             </div>
                         </div>
-                        <div class='cont_detail'>
+                        <div class='cont_detail' id='details_scroll'>
                             <div class='campos' id='consecutivo'>
                                 <label>Consecutivo:</label>
                                 <p>$consecutivo</p>
@@ -871,36 +838,188 @@ class detailApplication {
                             </div>
                     ";
 
-                    if (is_super_admin()) {
-                        $html .= "
-                            <div class='campos' id='estado'>
-                                <form method='POST' action='#title_status'>
-                                    <label>Actualizar estado: </label>
-                                    <br>
-                                    <select name='select_status' required>
-                                        <option value=''>Selecciona un estado</option>
-                                        <option>En revisión de detalles</option>
-                                        <option>En proceso</option>
-                                        <option>Terminado</option>
-                                        <option>En pruebas</option>
-                                        <option>Publicado</option>
-                                        <option>Cerrado</option>
-                                    </select>
-                                    <br>
-                                    <button type='submit' name='update[]'>Actualizar</button>
-                                </form>
+                    if ($user_role == 'administrator') {
+                        if (empty($asigAdmin)) {
+                            
+                            //names admis
+                            $administradores = get_users('role=Administrator');
+                            $editores = get_users('role=Editor');
+                            $namesAdmin = array();
+                            foreach ($administradores as $administrador) {
+                                array_push($namesAdmin, $administrador->user_login);
+                            }
+
+                            foreach ($editores as $editor) {
+                                array_push($namesAdmin, $editor->user_login);
+                            }
+
+                            $html .= "
+                                <div class='campos' id='estado'>
+                                    <form method='POST' action='#details_scroll'>
+                                        <input type='hidden' name='consecutivoAsig' value='$consecutivo'>
+                                        <label>Asignar Ticket: </label>
+                                        <br>
+                                        <select id='asignar_admin' name='asignar_admin' required>
+                                            <option value=''>Selecciona</option>
+                                    ";
+
+                                    foreach ($namesAdmin as $key => $value) {
+                                        $nameAdmin = $value;
+                                        $html .= "
+                                            <option value='$nameAdmin'>$nameAdmin</option>
+                                        ";
+                                    }
+
+                            $html .= "
+                                        </select>
+                                        <br>
+                                        <button id='asignado' type='submit' name='asignado'>Asignar</button>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                        ";
+                            ";
+
+                            if (isset($_POST['asignado'])) {
+                                global $wpdb;
+    
+                                //tabla desarrollo------------------------
+                                $tableR1 = "{$wpdb->prefix}formularios_respuestas_desarrollo";
+    
+                                $asignar = $_POST['asignar_admin'];
+                                $consecutivoAsig = $_POST['consecutivoAsig'];
+                                $infoUpd = array(
+                                    'Asignado' => $asignar
+                                );
+                                $wpdb->update($tableR1,$infoUpd, array('Consecutivo'=>$consecutivoAsig));
+    
+                                header("Location: src/detalles/?id=$consecutivoAsig"); 
+                            }
+                        } else {
+                            $html .= "
+                                <div class='campos' id='estado'>
+                                    <form method='POST' action='#title_status' name='form_select_status'>
+                                        <label>Actualizar estado: </label>
+                                        <br>
+                                        <select name='select_status' required>
+                                            <option value='' "; if ($estado == "") {$html .= "selected";} $html .= ">
+                                                Selecciona un estado
+                                            </option>
+                                            <option value='En revisión de detalles' "; if ($estado == 'En revisión de detalles') {$html .= "selected";} $html .= ">
+                                                En revisión de detalles
+                                            </option>
+                                            <option value='En proceso' "; if ($estado == "En proceso") {$html .= "selected";} $html .= ">
+                                                En proceso
+                                            </option>
+                                            <option value='En pruebas' "; if ($estado == "En pruebas") {$html .= "selected";} $html .= ">
+                                                En pruebas
+                                            </option>
+                                            <option value='Terminado' "; if ($estado == "Terminado") {$html .= "selected";} $html .= ">
+                                                Terminado
+                                            </option>
+                                        </select>
+                                        <br>
+                                        <button type='submit' name='update[]' id='actualizar' onclick='dobleClick()'>Actualizar</button>
+                                    </form>
+                                </div>
+                            </div>
+                            ";
+                        }
+                    } elseif ($user_role == 'editor') {
+                        if (empty($asigAdmin)) {
+                            //getUser
+                            $user = get_current_user_id();
+
+                            if ($user != 0) {
+                                
+                                $userInfo = get_userdata($user);
+                                $userLogin = $userInfo->user_login;
+
+                            }
+
+                            $html .= "
+                                <div class='campos' id='estado'>
+                                    <form method='POST' action='#details_scroll'>
+                                        <input type='hidden' value='$consecutivo' name='consecutivoAgarr'>
+                                        <input type='hidden' value='$userLogin' name='agarrar_ticket'>
+                                        <button type='submit' name='btn_agarrar'>Guardar</button>
+                                    </form>
+                                </div>
+                            </div>
+                            ";
+
+                            if (isset($_POST['btn_agarrar'])) {
+                                global $wpdb;
+
+                                //tabla desarrollo------------------------
+                                $tableR1 = "{$wpdb->prefix}formularios_respuestas_desarrollo";
+
+                                $agarrar = $_POST['agarrar_ticket'];
+                                $consecutivoAgarr = $_POST['consecutivoAgarr'];
+
+                                $infoUpd = array(
+                                    'Asignado' => $agarrar
+                                );
+                                $wpdb->update($tableR1,$infoUpd, array('Consecutivo'=>$consecutivoAgarr));
+
+                                header("Location: src/detalles/?id=$consecutivo"); 
+                            }
+                    
+                        } else {
+                            $html .= "
+                                <div class='campos' id='estado'>
+                                    <form method='POST' action='#title_status' name='form_select_status'>
+                                        <label>Actualizar estado: </label>
+                                        <br>
+                                        <select name='select_status' required>
+                                            <option value='' "; if ($estado == "") {$html .= "selected";} $html .= ">
+                                                Selecciona un estado
+                                            </option>
+                                            <option value='En revisión de detalles' "; if ($estado == 'En revisión de detalles') {$html .= "selected";} $html .= ">
+                                                En revisión de detalles
+                                            </option>
+                                            <option value='En proceso' "; if ($estado == "En proceso") {$html .= "selected";} $html .= ">
+                                                En proceso
+                                            </option>
+                                            <option value='En pruebas' "; if ($estado == "En pruebas") {$html .= "selected";} $html .= ">
+                                                En pruebas
+                                            </option>
+                                            <option value='Terminado' "; if ($estado == "Terminado") {$html .= "selected";} $html .= ">
+                                                Terminado
+                                            </option>
+                                        </select>
+                                        <br>
+                                        <button type='submit' name='update[]' onclick='dobleClick()'>Actualizar</button>
+                                    </form>
+                                </div>
+                            </div>
+                            ";
+                        }
                     } else {
                         $html .= "
                             <div class='campos' id='estado'>
                                 <form method='POST' name='btn_solucionado[]' action='#title_status'>
-                                    <button id='btn_spt_cerrado' class='btn_detail_desabled' type='submit' name='cerrar[]' onclick='confirmCerrado()'value=''>Solucionado</button>
+                                    <button id='btn_cerrado' class='btn_admin_desabled' type='submit' name='cerrar[]' onclick='confirmCerrado()' value=''>Solucionado</button>
+                                    <button id='btn_nocerrado' class='btn_admin_desabled' type='submit' name='btn_nocerrado' onclick='confirmNoCerrado()' value='En revisión de detalles'>No Solucionado</button>
                                 </form>
                             </div>
                         </div>
                         ";
+
+                        if (isset($_POST['btn_nocerrado'])) {
+                            global $wpdb;
+
+                            //tabla desarrollo------------------------
+                            $tableR1 = "{$wpdb->prefix}formularios_respuestas_desarrollo";
+
+                            $noCerrado = $_POST['btn_nocerrado'];
+
+                            $infoUpd = array(
+                                'Estado' => $noCerrado
+                            );
+                            $wpdb->update($tableR1,$infoUpd, array('Consecutivo'=>$consecutivo));
+
+                            header("Location: src/detalles/?id=$consecutivo");
+                        }
                     }
                  
             }
@@ -916,7 +1035,7 @@ class detailApplication {
                 $sede = $value['Sede'];
 
                 $html .= "
-                    <h3 id='#title_status' style='text-align: center;'>Estado Ticket</h3>
+                    <h3 id='title_status2' style='text-align: center; font-weight: 700; color: gray;'>Estado Ticket</h3>
                         <div class='stepwizard'>
                             <div class='stepwizard-row setup-panel'>
                     ";
@@ -933,12 +1052,6 @@ class detailApplication {
                                     <path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/>
                                 </svg>
                                 <p>En revisión</p>
-                            </div>
-                            <div class='stepwizard-step'>
-                                    <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
-                                    <path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/>
-                                </svg>
-                                <p>Respuesto</p>
                             </div>
                             <div class='stepwizard-step'>
                                     <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
@@ -969,12 +1082,6 @@ class detailApplication {
                                     <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
                                     <path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/>
                                 </svg>
-                                <p>Respuesto</p>
-                            </div>
-                            <div class='stepwizard-step'>
-                                    <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
-                                    <path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/>
-                                </svg>
                                 <p>Terminado</p>
                             </div>
                             <div class='stepwizard-step'>
@@ -985,7 +1092,7 @@ class detailApplication {
                             </div>
                     ";
 
-                } else if($estado2 == 'Respuesto/cambio solicitado a compras') {
+                } else if($estado2 == 'Repuesto/cambio solicitado a compras') {
 
                     $html .= "
                             <div class='stepwizard-step'>
@@ -995,10 +1102,6 @@ class detailApplication {
                             <div class='stepwizard-step'>
                                     <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
                                 <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>En revisión</p>
-                            </div>
-                            <div class='stepwizard-step'>
-                                    <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Respuesto</p>
                             </div>
                             <div class='stepwizard-step'>
                                     <i class='bi bi-circle'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='gray' class='bi bi-circle' viewBox='0 0 16 16'>
@@ -1027,10 +1130,6 @@ class detailApplication {
                             </div>
                             <div class='stepwizard-step'>
                                     <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Respuesto</p>
-                            </div>
-                            <div class='stepwizard-step'>
-                                    <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
                                 <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Terminado</p>
                             </div>
                             <div class='stepwizard-step'>
@@ -1054,10 +1153,6 @@ class detailApplication {
                             </div>
                             <div class='stepwizard-step'>
                                     <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
-                                <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Respuesto</p>
-                            </div>
-                            <div class='stepwizard-step'>
-                                    <i class='bi bi-check-circle-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='#304293' class='bi bi-check-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/></svg>
                                 <p style='text-decoration: underline; text-decoration-color: gray; font-weight: 500;'>Terminado</p>
                             </div>
                             <div class='stepwizard-step'>
@@ -1072,7 +1167,7 @@ class detailApplication {
                 $html .= "
                         </div>
                     </div>
-                    <div class='cont_detail'>
+                    <div class='cont_detail' id='details_scroll'>
                         <div class='campos' id='consecutivo'>
                             <label>Consecutivo:</label>
                             <p>$consecutivo2</p>
@@ -1103,36 +1198,180 @@ class detailApplication {
                         </div>
                 ";
 
-                if (is_super_admin()) {
-                    $html .= "
-                        <div class='campos' id='estado'>
-                            <form method='POST' action='#title_status2'>
-                                <label>Actualizar estado: </label>
-                                <br>
-                                <select name='select_status' required>
-                                    <option value=''>Selecciona un estado</option>
-                                    <option>En revisión de detalles</option>
-                                    <option>Respuesto/cambio solicitado a compras</option>
-                                    <option>Terminado</option>
-                                    <option>Cerrado</option>
-                                </select>
-                                <br>
-                                <button type='submit' name='update[]'>Actualizar</button>
-                            </form>
+                if ($user_role == 'administrator') {
+                    if (empty($asigAdmin2)) {
+                        
+                        //names admis
+                        $administradores = get_users('role=Administrator');
+                        $editores = get_users('role=Editor');
+                        $namesAdmin = array();
+                        foreach ($administradores as $administrador) {
+                            array_push($namesAdmin, $administrador->user_login);
+                        }
+
+                        foreach ($editores as $editor) {
+                            array_push($namesAdmin, $editor->user_login);
+                        }
+
+                        $html .= "
+                            <div class='campos' id='estado'>
+                                <form method='POST' action='#details_scroll'>
+                                    <input type='hidden' name='consecutivoAsig2' value='$consecutivo2'>
+                                    <select id='asignar_admin2' name='asignar_admin2' required>
+                                        <option value=''>Selecciona</option>
+                                ";
+
+                                foreach ($namesAdmin as $key => $value) {
+                                    $nameAdmin = $value;
+                                    $html .= "
+                                        <option value='$nameAdmin'>$nameAdmin</option>
+                                    ";
+                                }
+
+                        $html .= "
+                                    </select>
+                                    <br>
+                                    <button id='asignado2' type='submit' name='asignado2'>Asignar</button>
+                                </form>
+                            </div>
                         </div>
-                    </div>
-                    ";
-                }
-                
-                if (!is_super_admin()) {
+                        ";
+
+                        if (isset($_POST['asignado2'])) {
+                            global $wpdb;
+
+                            //tabla soporte------------------------------
+                            $tableR2 = "{$wpdb->prefix}formularios_respuestas_soporte";
+
+                            $asignar2 = $_POST['asignar_admin2'];
+                            $consecutivoAsig2 = $_POST['consecutivoAsig2'];
+                            $infoUpd = array(
+                                'Asignado' => $asignar2
+                            );
+                            $wpdb->update($tableR2,$infoUpd, array('Consecutivo'=>$consecutivoAsig2));
+
+                            header("Location: src/detalles/?id=$consecutivoAsig2"); 
+                        }
+                    } else {
+                        $html .= "
+                            <div class='campos' id='estado'>
+                                <form method='POST' action='#title_status2'>
+                                    <label>Actualizar estado: </label>
+                                    <br>
+                                    <select name='select_status2' required>
+                                        <option value='' "; if ($estado2 == "") {$html .= "selected";} $html .= ">
+                                            Selecciona un estado
+                                        </option>
+                                        <option value='En revisión de detalles' "; if ($estado2 == "En revisión de detalles") {$html .= "selected";} $html .= ">
+                                            En revisión de detalles
+                                        </option>
+                                        <option value='Repuesto/cambio solicitado a compras' "; if ($estado2 == "Repuesto/cambio solicitado a compras") {$html .= "selected";} $html .= ">
+                                            Repuesto/cambio solicitado a compras
+                                        </option>
+                                        <option value='Terminado' "; if ($estado2 == "Terminado") {$html .= "selected";} $html .= ">
+                                            Terminado
+                                        </option>
+                                    </select>
+                                    <br>
+                                    <button type='submit' name='update2[]' id='btn_update'>Actualizar</button>
+                                </form>
+                            </div>
+                        </div>
+                        ";
+                    }
+                } elseif ($user_role == 'editor') {
+                    if (empty($asigAdmin2)) {
+
+                        //getUser
+                        $user = get_current_user_id();
+
+                        if ($user != 0) {
+                            
+                            $userInfo = get_userdata($user);
+                            $userLogin = $userInfo->user_login;
+
+                        }
+
+                        $html .= "
+                            <div class='campos' id='estado'>
+                                <form method='POST' action='#details_scroll'>
+                                    <input type='hidden' value='$consecutivo2' name='consecutivoAgarr2'>
+                                    <input type='hidden' value='$userLogin' name='agarrar_ticket2'>
+                                    <button type='submit' name='btn_agarrar2'>Seleccionar</button>
+                                </form>
+                            </div>
+                        </div>
+                        ";
+
+                        if (isset($_POST['btn_agarrar2'])) {
+                            global $wpdb;
+
+                            //tabla soporte------------------------------
+                            $tableR2 = "{$wpdb->prefix}formularios_respuestas_soporte";
+
+                            $agarrar2 = $_POST['agarrar_ticket2'];
+                            $consecutivoAgarr2 = $_POST['consecutivoAgarr2'];
+
+                            $infoUpd = array(
+                                'Asignado' => $agarrar2
+                            );
+                            $wpdb->update($tableR2,$infoUpd, array('Consecutivo'=>$consecutivoAgarr2));
+
+                            header("Location: src/detalles/?id=$consecutivo2"); 
+                        }
+                    } else {
+                        $html .= "
+                            <div class='campos' id='estado'>
+                                <form method='POST' action='#title_status2'>
+                                    <label>Actualizar estado: </label>
+                                    <br>
+                                    <select name='select_status2' required>
+                                        <option value='' "; if ($estado2 == "") {$html .= "selected";} $html .= ">
+                                            Selecciona un estado
+                                        </option>
+                                        <option value='En revisión de detalles' "; if ($estado2 == "En revisión de detalles") {$html .= "selected";} $html .= ">
+                                            En revisión de detalles
+                                        </option>
+                                        <option value='Repuesto/cambio solicitado a compras' "; if ($estado2 == "Repuesto/cambio solicitado a compras") {$html .= "selected";} $html .= ">
+                                            Repuesto/cambio solicitado a compras
+                                        </option>
+                                        <option value='Terminado' "; if ($estado2 == "Terminado") {$html .= "selected";} $html .= ">
+                                            Terminado
+                                        </option>
+                                    </select>
+                                    <br>
+                                    <button type='submit' name='update2[]' id='btn_update'>Actualizar</button>
+                                </form>
+                            </div>
+                        </div>
+                        ";
+                    }
+                } else {
                     $html .= "
                         <div class='campos' id='estado'>
                             <form method='POST' name='btn_solucionado[]' action='#title_status2'>
-                                <button type='submit' id='btn_spt_cerrado' class='btn_detail_desabled' name='cerrar2[]' onclick='confirmCerrado()'  value=''>Solucionado</button>
+                                <button type='submit' id='btn_cerrado' class='btn_user_desabled' name='cerrar2[]' onclick='confirmCerrado()'  value=''>Solucionado</button>
+                                <button id='btn_nocerrado2' class='btn_user_desabled' type='submit' name='btn_nocerrado2' onclick='confirmNoCerrado()' value='En revisión de detalles'>No Solucionado</button>
                             </form>
                         </div>
                     </div>
                     ";
+
+                    if (isset($_POST['btn_nocerrado2'])) {
+                        global $wpdb;
+
+                        //tabla soporte
+                        $tableR2 = "{$wpdb->prefix}formularios_respuestas_soporte";
+
+                        $noCerrado2 = $_POST['btn_nocerrado2'];
+
+                        $infoUpd = array(
+                            'Estado' => $noCerrado2
+                        );
+                        $wpdb->update($tableR2,$infoUpd, array('Consecutivo'=>$consecutivo2));
+
+                        header("Location: src/detalles/?id=$consecutivo2");
+                    }
                 }
             }
         }
@@ -1144,14 +1383,35 @@ class detailApplication {
     {   
 
         $html = "";
-
-        $html .= "
-            <br id='espace_chat'>
-        ";
         
         if ($id[0]['FormularioId'] == 1) {
 
             if ($status[0]["Estado"] == "En revisión de detalles" || $status[0]["Estado"] == "En proceso" || $status[0]["Estado"] == "Terminado" || $status[0]["Estado"] == "En pruebas" || $status[0]["Estado"] == "Publicado" || $status[0]["Estado"] == "Cerrado") {
+
+                $html .= "
+                <br id='espace_chat'>
+                    <div class='cont_btn_chat'>
+                        <div id='cont_form_comt'>
+                            <form method='POST' action='#espace_chat'>
+                                <button type='button' id='btn_change_img' class='btn_chatAd_desabled' onclick='changeImg()'><i class='bi bi-image'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='currentColor' class='bi bi-image' viewBox='0 0 16 16'><path d='M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z'/><path d='M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z'/></svg></button>
+                                <textarea placeholder='Descripción' id='mensaje' name='mensaje[]' maxlength='200' required></textarea>
+                                <button type='submit' id='btn_mensaje' class='btn_chatAd_desabled' name='btn_mensaje[]'><i class='bi bi-send-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='currentColor' class='bi bi-send-fill' viewBox='0 0 16 16'>
+                                <path d='M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z'/>
+                              </svg></button>
+                            </form>
+                        </div>
+                        <div id='cont_form_image' style='display: none;'>
+                            <form method='post' enctype='multipart/form-data' action='#espace_chat'>
+                                <button type='button' id='btn_change_mens' onclick='changeMens()'><i class='bi bi-keyboard'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='currentColor' class='bi bi-keyboard' viewBox='0 0 16 16'><path d='M14 5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h12zM2 4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H2z'/><path d='M13 10.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm0-2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-5 0A.25.25 0 0 1 8.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 8 8.75v-.5zm2 0a.25.25 0 0 1 .25-.25h1.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-1.5a.25.25 0 0 1-.25-.25v-.5zm1 2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-5-2A.25.25 0 0 1 6.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 6 8.75v-.5zm-2 0A.25.25 0 0 1 4.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 4 8.75v-.5zm-2 0A.25.25 0 0 1 2.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 2 8.75v-.5zm11-2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-2 0a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-2 0A.25.25 0 0 1 9.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 9 6.75v-.5zm-2 0A.25.25 0 0 1 7.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 7 6.75v-.5zm-2 0A.25.25 0 0 1 5.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 5 6.75v-.5zm-3 0A.25.25 0 0 1 2.25 6h1.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-1.5A.25.25 0 0 1 2 6.75v-.5zm0 4a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm2 0a.25.25 0 0 1 .25-.25h5.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-5.5a.25.25 0 0 1-.25-.25v-.5z'/></svg></button>
+                                <input type='file' name='imagen' required>
+                                <button type='submit' id='btnImage' name='btnImage'><i class='bi bi-send-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='currentColor' class='bi bi-send-fill' viewBox='0 0 16 16'>
+                                <path d='M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z'/>
+                              </svg></button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                ";
 
                 $html .= "
                     <div class='cont_chat' id='cont_comt'>
@@ -1238,27 +1498,7 @@ class detailApplication {
                 $html .= "
                         </div>
                     </div>
-                    <br>
-                    <div class='cont_btn_chat'>
-                        <div id='cont_form_comt'>
-                            <form method='POST' action='#espace_chat'>
-                                <button type='button' id='btn_change_img' class='btn_detail_desabled' onclick='changeImg()'><i class='bi bi-image'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='currentColor' class='bi bi-image' viewBox='0 0 16 16'><path d='M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z'/><path d='M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z'/></svg></button>
-                                <textarea placeholder='Mensaje' id='mensaje' name='mensaje[]' maxlength='200' required></textarea>
-                                <button type='submit' id='btn_mensaje' class='btn_detail_desabled' name='btn_mensaje[]'><i class='bi bi-send-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='currentColor' class='bi bi-send-fill' viewBox='0 0 16 16'>
-                                <path d='M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z'/>
-                              </svg></button>
-                            </form>
-                        </div>
-                        <div id='cont_form_image' style='display: none;'>
-                            <form method='post' enctype='multipart/form-data' action='#espace_chat'>
-                                <button type='button' id='btn_change_mens' onclick='changeMens()'><i class='bi bi-keyboard'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='currentColor' class='bi bi-keyboard' viewBox='0 0 16 16'><path d='M14 5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h12zM2 4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H2z'/><path d='M13 10.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm0-2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-5 0A.25.25 0 0 1 8.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 8 8.75v-.5zm2 0a.25.25 0 0 1 .25-.25h1.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-1.5a.25.25 0 0 1-.25-.25v-.5zm1 2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-5-2A.25.25 0 0 1 6.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 6 8.75v-.5zm-2 0A.25.25 0 0 1 4.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 4 8.75v-.5zm-2 0A.25.25 0 0 1 2.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 2 8.75v-.5zm11-2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-2 0a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-2 0A.25.25 0 0 1 9.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 9 6.75v-.5zm-2 0A.25.25 0 0 1 7.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 7 6.75v-.5zm-2 0A.25.25 0 0 1 5.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 5 6.75v-.5zm-3 0A.25.25 0 0 1 2.25 6h1.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-1.5A.25.25 0 0 1 2 6.75v-.5zm0 4a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm2 0a.25.25 0 0 1 .25-.25h5.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-5.5a.25.25 0 0 1-.25-.25v-.5z'/></svg></button>
-                                <input type='file' name='imagen' required>
-                                <button type='submit' id='btnImage' name='btnImage'><i class='bi bi-send-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='currentColor' class='bi bi-send-fill' viewBox='0 0 16 16'>
-                                <path d='M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z'/>
-                              </svg></button>
-                            </form>
-                        </div>
-                    </div>
+                <br>
                 ";
 
                 if (!empty($nomAdmin)) {
@@ -1280,7 +1520,31 @@ class detailApplication {
             }
         } elseif ($id2[0]['FormularioId'] == 2) {
 
-            if ($status2[0]["Estado"] == "En revisión de detalles" || $status2[0]["Estado"] == "Respuesto/cambio solicitado a compras" || $status2[0]["Estado"] == "Terminado" || $status2[0]["Estado"] == "Cerrado") {
+            if ($status2[0]["Estado"] == "En revisión de detalles" || $status2[0]["Estado"] == "Repuesto/cambio solicitado a compras" || $status2[0]["Estado"] == "Terminado" || $status2[0]["Estado"] == "Cerrado") {
+
+                $html .= "
+                <br id='espace_chat'>
+                    <div class='cont_btn_chat'>
+                        <div id='cont_form_comt'>
+                            <form method='POST' action='#espace_chat'>
+                                <button type='button' id='btn_change_img' class='btn_chatUs_desabled' onclick='changeImg()'><i class='bi bi-image'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='currentColor' class='bi bi-image' viewBox='0 0 16 16'><path d='M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z'/><path d='M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z'/></svg></button>
+                                <textarea placeholder='Descripción' id='mensaje' name='mensaje[]' maxlength='200' required></textarea>
+                                <button type='submit' id='btn_mensaje' class='btn_chatUs_desabled' name='btn_mensaje[]'><i class='bi bi-send-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='currentcolor' class='bi bi-send-fill' viewBox='0 0 16 16'>
+                                <path d='M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z'/>
+                              </svg></button>
+                            </form>
+                        </div>
+                        <div id='cont_form_image' style='display: none;' action='#espace_chat'>
+                            <form method='post' enctype='multipart/form-data'>
+                                <button type='button' id='btn_change_mens' onclick='changeMens()'><i class='bi bi-keyboard'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='currentColor' class='bi bi-keyboard' viewBox='0 0 16 16'><path d='M14 5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h12zM2 4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H2z'/><path d='M13 10.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm0-2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-5 0A.25.25 0 0 1 8.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 8 8.75v-.5zm2 0a.25.25 0 0 1 .25-.25h1.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-1.5a.25.25 0 0 1-.25-.25v-.5zm1 2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-5-2A.25.25 0 0 1 6.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 6 8.75v-.5zm-2 0A.25.25 0 0 1 4.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 4 8.75v-.5zm-2 0A.25.25 0 0 1 2.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 2 8.75v-.5zm11-2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-2 0a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-2 0A.25.25 0 0 1 9.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 9 6.75v-.5zm-2 0A.25.25 0 0 1 7.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 7 6.75v-.5zm-2 0A.25.25 0 0 1 5.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 5 6.75v-.5zm-3 0A.25.25 0 0 1 2.25 6h1.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-1.5A.25.25 0 0 1 2 6.75v-.5zm0 4a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm2 0a.25.25 0 0 1 .25-.25h5.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-5.5a.25.25 0 0 1-.25-.25v-.5z'/></svg></button>
+                                <input type='file' name='imagen' required>
+                                <button type='submit' id='btnImage' name='btnImage'><i class='bi bi-send-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='currentcolor' class='bi bi-send-fill' viewBox='0 0 16 16'>
+                                <path d='M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z'/>
+                              </svg></button>
+                            </form>
+                        </div>
+                    </div>
+                ";
 
                 $html .= "
                     <div class='cont_chat' id='cont_comt'>
@@ -1366,31 +1630,11 @@ class detailApplication {
                 $html .= "
                         </div>
                     </div>
-                    <br>
-                    <div class='cont_btn_chat'>
-                        <div id='cont_form_comt'>
-                            <form method='POST' action='#espace_chat'>
-                                <button type='button' id='btn_change_img' class='btn_detail_desabled' onclick='changeImg()'><i class='bi bi-image'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='currentColor' class='bi bi-image' viewBox='0 0 16 16'><path d='M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z'/><path d='M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z'/></svg></button>
-                                <textarea placeholder='Mensaje' id='mensaje' name='mensaje[]' maxlength='200' required></textarea>
-                                <button type='submit' id='btn_mensaje' class='btn_detail_desabled' name='btn_mensaje[]'><i class='bi bi-send-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='currentcolor' class='bi bi-send-fill' viewBox='0 0 16 16'>
-                                <path d='M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z'/>
-                              </svg></button>
-                            </form>
-                        </div>
-                        <div id='cont_form_image' style='display: none;' action='#espace_chat'>
-                            <form method='post' enctype='multipart/form-data'>
-                                <button type='button' id='btn_change_mens' onclick='changeMens()'><i class='bi bi-keyboard'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='currentColor' class='bi bi-keyboard' viewBox='0 0 16 16'><path d='M14 5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h12zM2 4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H2z'/><path d='M13 10.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm0-2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-5 0A.25.25 0 0 1 8.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 8 8.75v-.5zm2 0a.25.25 0 0 1 .25-.25h1.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-1.5a.25.25 0 0 1-.25-.25v-.5zm1 2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-5-2A.25.25 0 0 1 6.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 6 8.75v-.5zm-2 0A.25.25 0 0 1 4.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 4 8.75v-.5zm-2 0A.25.25 0 0 1 2.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 2 8.75v-.5zm11-2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-2 0a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-2 0A.25.25 0 0 1 9.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 9 6.75v-.5zm-2 0A.25.25 0 0 1 7.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 7 6.75v-.5zm-2 0A.25.25 0 0 1 5.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 5 6.75v-.5zm-3 0A.25.25 0 0 1 2.25 6h1.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-1.5A.25.25 0 0 1 2 6.75v-.5zm0 4a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm2 0a.25.25 0 0 1 .25-.25h5.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-5.5a.25.25 0 0 1-.25-.25v-.5z'/></svg></button>
-                                <input type='file' name='imagen' required>
-                                <button type='submit' id='btnImage' name='btnImage'><i class='bi bi-send-fill'></i><svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='currentcolor' class='bi bi-send-fill' viewBox='0 0 16 16'>
-                                <path d='M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z'/>
-                              </svg></button>
-                            </form>
-                        </div>
-                    </div>
                 ";
 
                 if (!empty($nomAdmin)) {
                     $html .= "
+                    <br>
                         <div>
                             <label style='font-weight: 500;'>Respondido por:</label>
                             <span>$nomAdmin</span>
@@ -1410,6 +1654,19 @@ class detailApplication {
 
         return $html;
     }
+
+    // public function validationStatusMess()
+    // {
+    //     echo "
+    //         <script lang='javascript'>
+
+    //             function dobleClick(){
+    //                 document.getElementById('btn_mensaje').click();
+    //             }
+                
+    //         </script>
+    //     ";
+    // }
 
     public function changeInputChat()
     {
@@ -1434,8 +1691,12 @@ class detailApplication {
             <script language='JavaScript'>
                 function confirmCerrado(){
                     if(confirm('Al continuar se cerrará el ticket y no podras hacer ningun proceso')){
-                        document.getElementById('btn_spt_cerrado').value = 'solucionado';
+                        document.getElementById('btn_cerrado').value = 'solucionado';
                     } 
+                }
+
+                function confirmNoCerrado(){
+                    alert('Dinos porqué no fue solucionada tu solicitud por medio de un comentario')
                 }
             </script>
         ";
@@ -1446,8 +1707,17 @@ class detailApplication {
 
         global $wpdb;
 
+        //obtener rol
+        $current_user = wp_get_current_user();
+
+        $user_info = get_userdata($current_user->ID);
+        $user_role = $user_info->roles[0];
+
         //tabla desarrollo
         $tableR1 = "{$wpdb->prefix}formularios_respuestas_desarrollo";
+
+        //tabla soporte
+        $tableR2 = "{$wpdb->prefix}formularios_respuestas_soporte";
 
         //dataTableD
         $queryData = "SELECT * FROM $tableR1 WHERE Consecutivo = '$consecutivo'";
@@ -1456,13 +1726,6 @@ class detailApplication {
             $lista_formularios = array();
         }
 
-        //statusD
-        $queryStatus = "SELECT Estado FROM $tableR1 WHERE Consecutivo = '$consecutivo'";
-        $status = $wpdb->get_results($queryStatus, ARRAY_A);
-
-        //tabla soporte
-        $tableR2 = "{$wpdb->prefix}formularios_respuestas_soporte";
-
         //dataTableS
         $queryData2 = "SELECT * FROM $tableR2 WHERE Consecutivo = '$consecutivo'";
         $lista_formularios2 = $wpdb->get_results($queryData2, ARRAY_A);
@@ -1470,36 +1733,241 @@ class detailApplication {
             $lista_formularios2 = array();
         }
 
+        //tabla mnsajes
+        $tableComt = "{$wpdb->prefix}comentarios_registrados_detalles";
+
+        //mensaje
+        $sqlMenss = "SELECT Comentario FROM $tableComt WHERE Consecutivo = '$consecutivo' ORDER BY ComentarioId DESC LIMIT 1";
+        $resulMenss = $wpdb->get_results($sqlMenss, ARRAY_A);
+        if (empty($resulMenss)) {
+            $resulMenss = array();
+        }
+
+        $comtMenss = $resulMenss[0]['Comentario'];
+
+        //imagen
+        $sqlImg = "SELECT Imagen FROM $tableComt WHERE Consecutivo = '$consecutivo' ORDER BY ComentarioId DESC LIMIT 1";
+        $resulImg = $wpdb->get_results($sqlImg, ARRAY_A);
+        if (empty($resulImg)) {
+            $resulImg = array();
+        }
+
+        $comtImg = $resulMenss[0]['Imagen'];
+
+        //statusD
+        $queryStatus = "SELECT Estado FROM $tableR1 WHERE Consecutivo = '$consecutivo'";
+        $status = $wpdb->get_results($queryStatus, ARRAY_A);
+
         //statusS
         $queryStatus2 = "SELECT Estado FROM $tableR2 WHERE Consecutivo = '$consecutivo'";
         $status2 = $wpdb->get_results($queryStatus2, ARRAY_A);
 
         //actualizar
-        if (isset($_POST['update'])) {
+        $estadoUpd = $_POST['select_status'];
 
-            $estadoUpd = $_POST['select_status'];
-            
-            if ($id[0]['FormularioId'] == 1) {
-                $infoUpd = array(
-                    'Estado' => $estadoUpd
-                );
-                $wpdb->update($tableR1,$infoUpd, array('Consecutivo'=>$consecutivo));
+        //asignado
+        $sqlAsignado = "SELECT Asignado FROM $tableR1 WHERE Consecutivo = '$consecutivo'";
+        $resultAsig = $wpdb->get_results($sqlAsignado, ARRAY_A);
 
-                header("Location: http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo");
+        $asigAdmin = $resultAsig[0]['Asignado'];
 
-            } elseif ($id2[0]['FormularioId'] == 2){
-                $infoUpd = array(
-                    'Estado' => $estadoUpd
-                );
-                $wpdb->update($tableR2,$infoUpd, array('Consecutivo'=>$consecutivo));
+        //actualizacion y verificacion de estado
+        if (isset($_POST['update'])) { 
+            //verificacion estado form_detalle
+            if ($status[0]['Estado'] == 'Solicitado') {
+                if (!empty($asigAdmin) && $estadoUpd == 'En proceso' || $estadoUpd == 'En pruebas' || $estadoUpd == 'Terminado' || $estadoUpd == 'Cerrado') {
+                    echo "
+                        <script language='JavaScript'>
+                            alert('Debes pasar por el estado En revisión para continuar');
+                        </script>
+                    ";
+                } elseif (empty($asigAdmin) && $estadoUpd == 'En revisión de detalles' || $estadoUpd == 'En proceso' || $estadoUpd == 'En pruebas' ||  $estadoUpd == 'Terminado' || $estadoUpd == 'Cerrado') {
+                    echo "
+                        <script lang='javascript'>
+                            alert('Debes asignarte o que te asignen este ticket para continuar');
+                        </script>
+                    ";
+                } else {
+                    if ($id[0]['FormularioId'] == 1) {
+                        $infoUpd = array(
+                            'Estado' => $estadoUpd
+                        );
+                        $wpdb->update($tableR1,$infoUpd, array('Consecutivo'=>$consecutivo));
 
-                header("Location: http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo");
+                        header("Location: src/detalles/?id=$consecutivo");
 
+                    }
+                }
+                
+            } elseif($status[0]['Estado'] == 'En revisión de detalles') {
+                if ($estadoUpd == 'En pruebas' || $estadoUpd == 'Terminado' || $estadoUpd == 'Cerrado') {
+                    echo "
+                        <script language='JavaScript'>
+                            alert('Debes pasar por el estado En proceso para continuar');
+                        </script>
+                    ";
+                } else {
+                    if (empty($comtMenss)) {
+                        echo "
+                            <script language='JavaScript'>
+                                alert('Para cambiar el estado de la solicitud a En proceso debes responderlo.');
+                            </script>
+                        ";
+                    } else {
+                        if ($id[0]['FormularioId'] == 1) {
+                            $infoUpd = array(
+                                'Estado' => $estadoUpd
+                            );
+                            $wpdb->update($tableR1,$infoUpd, array('Consecutivo'=>$consecutivo));
+
+                            header("Location: src/detalles/?id=$consecutivo");
+
+                        }
+                    }
+                }
+            } elseif ($status[0]['Estado'] == 'En proceso'){
+                if ($estadoUpd == 'Terminado' || $estadoUpd == 'Cerrado') {
+                    echo "
+                        <script language='JavaScript'>
+                            alert('Debes pasar por el estado En pruebas para continuar');
+                        </script>
+                    ";
+                }else {
+                    if ($id[0]['FormularioId'] == 1) {
+                        $infoUpd = array(
+                            'Estado' => $estadoUpd
+                        );
+                        $wpdb->update($tableR1,$infoUpd, array('Consecutivo'=>$consecutivo));
+
+                        header("Location: src/detalles/?id=$consecutivo");
+
+                    }
+                }
+            } elseif ($status[0]['Estado'] == 'En pruebas'){
+                if ($estadoUpd == 'Cerrado') {
+                    echo "
+                        <script language='JavaScript'>
+                            alert('Debes pasar por el estado Terminado para continuar');
+                        </script>
+                    ";
+                } else {
+                    if ($id[0]['FormularioId'] == 1) {
+                        $infoUpd = array(
+                            'Estado' => $estadoUpd
+                        );
+                        $wpdb->update($tableR1,$infoUpd, array('Consecutivo'=>$consecutivo));
+
+                        header("Location: src/detalles/?id=$consecutivo");
+
+                    }
+                }
+            } else {
+                if ($id[0]['FormularioId'] == 1) {
+                    $infoUpd = array(
+                        'Estado' => $estadoUpd
+                    );
+                    $wpdb->update($tableR1,$infoUpd, array('Consecutivo'=>$consecutivo));
+
+                    header("Location: src/detalles/?id=$consecutivo");
+
+                }
             }
         }
 
-        //tabla mnsajes
-        $tableComt = "{$wpdb->prefix}comentarios_registrados_detalles";
+        // if (isset($_POST['update']) && !isset($_POST['mensaje'][0])) {
+        //     # code...
+        // }
+
+        $sqlAsignado2 = "SELECT Asignado FROM $tableR2 WHERE Consecutivo = '$consecutivo'";
+        $resultAsig2 = $wpdb->get_results($sqlAsignado2, ARRAY_A);
+
+        $asigAdmin2 = $resultAsig2[0]['Asignado'];
+
+        //actualizacion
+        $estadoUpd2 = $_POST['select_status2'];
+
+        //actualizacion estado form_soporte
+        if (isset($_POST['update2'])) {
+            if ($status2[0]['Estado'] == 'Solicitado') {
+                if (!empty($asigAdmin2) && $estadoUpd2 == 'Repuesto/cambio solicitado a compras' || $estadoUpd2 == 'Terminado' || $estadoUpd2 == 'Cerrado') {
+                    echo "
+                        <script language='JavaScript'>
+                            alert('Debes pasar por el estado En revisión para continuar');
+                        </script>
+                    ";
+                } elseif (empty($asigAdmin2) && $estadoUpd2 == 'En revisión de detalles' || $estadoUpd2 == 'Repuesto/cambio solicitado a compras' || $estadoUpd2 == 'Terminado' || $estadoUpd2 == 'Cerrado') {
+                    echo "
+                        <script lang='javascript'>
+                            alert('Debes asignarte o que te asignen este ticket para continuar');
+                        </script>
+                    ";
+                } else {
+                    if ($id2[0]['FormularioId'] == 2) {
+                        $infoUpd = array(
+                            'Estado' => $estadoUpd2
+                        );
+                        $wpdb->update($tableR2,$infoUpd, array('Consecutivo'=>$consecutivo));
+
+                        header("Location: src/detalles/?id=$consecutivo");
+
+                    }
+                }
+            } elseif($status2[0]['Estado'] == 'En revisión de detalles') {
+                if ($estadoUpd2 == 'Cerrado') {
+                    echo "
+                        <script language='JavaScript'>
+                            alert('Debes pasar por el estado Repuesto/cambio solicitado a compras o Terminado para continuar');
+                        </script>
+                    ";
+                } elseif($estadoUpd2 == 'Repuesto/cambio solicitado a compras' || $estadoUpd2 == 'Terminado'){
+                    if (empty($comtMenss)) {
+                        echo "
+                            <script language='JavaScript'>
+                                alert('Para cambiar el estado de la solicitud a $estadoUpd2 debes responderlo.');
+                            </script>
+                        ";
+                    } else {
+                        if ($id2[0]['FormularioId'] == 2) {
+                            $infoUpd = array(
+                                'Estado' => $estadoUpd2
+                            );
+                            $wpdb->update($tableR2,$infoUpd, array('Consecutivo'=>$consecutivo));
+
+                            header("Location: src/detalles/?id=$consecutivo");
+
+                        }
+                    }
+                }
+            } elseif ($status2[0]['Estado'] == 'Repuesto/cambio solicitado a compras'){
+                if ($estadoUpd2 == 'Cerrado') {
+                    echo "
+                        <script language='JavaScript'>
+                            alert('Debes pasar por el estado Terminado para continuar');
+                        </script>
+                    ";
+                } else {
+                    if ($id2[0]['FormularioId'] == 2) {
+                        $infoUpd = array(
+                            'Estado' => $estadoUpd2
+                        );
+                        $wpdb->update($tableR2,$infoUpd, array('Consecutivo'=>$consecutivo));
+
+                        header("Location: src/detalles/?id=$consecutivo");
+
+                    }
+                }
+            } else {
+                if ($id2[0]['FormularioId'] == 2) {
+                    $infoUpd = array(
+                        'Estado' => $estadoUpd2
+                    );
+                    $wpdb->update($tableR2,$infoUpd, array('Consecutivo'=>$consecutivo));
+
+                    header("Location: src/detalles/?id=$consecutivo");
+
+                }
+            }
+        }
 
         //comentarios
         $queryComt = "SELECT * FROM $tableComt WHERE Consecutivo = '$consecutivo' ORDER BY ComentarioId DESC";
@@ -1574,7 +2042,7 @@ class detailApplication {
         //notificar mensaje
         $mail = new PHPMailer(true);
 
-        if (is_super_admin()) {
+        if ($user_role == 'administrator' || $user_role == 'editor') {
             if (isset($_POST['btn_mensaje']) && $comtImg == null) {
             
                 //Server settings
@@ -1598,16 +2066,27 @@ class detailApplication {
                 
                 //Content
                 $mail->isHTML(true);                                  //Set email format to HTML
-                $mail->Subject = 'Nuevo Mensaje';
+                $mail->Subject = 'Aviso de actividad';
                     
                 $html = "
                     <div>
                         <center><h1 style='color:white; background-color: #005199; margin: auto; width: 60%;'>$consecutivo</h1></center>
                         <br>
+                        <p>Se ha echo un comentario en respuesta a tu solicitud...</p>
                         <label style='font-weight: 700;'>Usuario: </label><span>$nomAdmin</span>
                         <br>
-                        <p>$comtMenss</p>
-                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo' style='display: flex; justify-content: center;'>Ver</a>
+                        <label style='font-weight: 700;'>Comentario:</label>
+                        <p style='margin: 0 0 0 20px;'>$comtMenss</p>
+                        <br>
+                        <div>
+                            <center>
+                                <a href='src/detalles/?id=$consecutivo' style='text-decoration: none; background-color: #005199; color: white; padding: 5px 10px 5px 10px; border-radius: 5px; font-size: 20px;'>Ver</a>
+                            </center>
+                        </div>
+                        <br>
+                        <div>
+                            <img alt='Banner' width='514' src='http://intranet.americanschoolway.edu.co/wp-content/uploads/2021/08/firma-asw_2.gif' style='margin:0px; vertical-align:middle; box-sizing:border-box; width:514px; height:auto'>
+                        </div>
                     </div>
                 ";
 
@@ -1645,9 +2124,20 @@ class detailApplication {
                         <br>
                         <label style='font-weight: 700;'>Usuario: </label><span>$nomAdmin</span>
                         <br>
-                        <span>Foto</span>
+                        <label style='font-weight: 700;'>Comentario:</label>
+                        <div>
+                            <img src='$comtImg' style='margin: 0 0 0 20px;'>
+                        </div>
                         <br>
-                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo' style='display: flex; justify-content: center;'>Ver</a>
+                        <div>   
+                            <center>
+                                <a href='src/detalles/?id=$consecutivo' style='text-decoration: none; background-color: #005199; color: white; padding: 5px 10px 5px 10px; border-radius: 5px; font-size: 20px;'>Ver</a>
+                            </center>
+                        </div>
+                        <br>
+                        <div>
+                            <img alt='Banner' width='514' src='http://intranet.americanschoolway.edu.co/wp-content/uploads/2021/08/firma-asw_2.gif' style='margin:0px; vertical-align:middle; box-sizing:border-box; width:514px; height:auto'>
+                        </div>
                     </div>
                 ";
 
@@ -1655,6 +2145,104 @@ class detailApplication {
             
                 $mail->send();
             }
+
+            // if ($status[0]['Estado'] != 'En pruebas') {
+            //     //nada
+            // } else {
+
+            //     if (isset($_POST['update']) && $estadoUpd == 'Terminado') {
+            //         //Server settings
+            //         $mail->SMTPDebug = 0;                      //Enable verbose debug output
+            //         $mail->isSMTP();                                            //Send using SMTP
+            //         $mail->Host       = '';                     //Set the SMTP server to send through
+            //         $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+            //         $mail->Username   = '';                     //SMTP username
+            //         $mail->Password   = '';                               //SMTP password
+            //         $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
+            //         $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+                
+            //         //Recipients
+            //         $mail->setFrom('', 'American School Way');
+        
+            //         if (!empty($userEmailD) && empty($userEmailS)) {
+            //             $mail->AddAddress($userEmailD);
+            //         } elseif (!empty($userEmailS) && empty($userEmailD)) {
+            //             $mail->AddAddress($userEmailS);
+            //         }
+                
+            //         //Content
+            //         $mail->isHTML(true);                                  //Set email format to HTML
+            //         $mail->Subject = 'Ticket Desarrollo';
+                        
+            //         $html = "
+            //             <div>
+            //                 <center><h1 style='color:white; background-color: #005199; margin: auto; width: 60%;'>$consecutivo</h1></center>
+            //                 <br>
+            //                 <p>Su ticket a pasado a estado <strong>Terminado</strong></p>
+            //                 <p style='text-align: center;'>Su solicitud fue solucionada?</p>
+            //                 <form method='POST'>
+            //                     <div style='text-align: center;'>
+            //                         <button type='submit' style='background-color: #304293; color: white; font-size: 20px; border: none; border-radius: 5px; width: 70px;'>SI</button>
+            //                         <button type='submit' style='background-color: #304293; color: white; font-size: 20px; border: none; border-radius: 5px; width: 70px;'>NO</button>
+            //                     </div>
+            //                 </form>
+            //                 <br>
+            //                 <div>
+            //                     <img alt='Banner' width='514' src='http://intranet.americanschoolway.edu.co/wp-content/uploads/2021/08/firma-asw_2.gif' style='margin:0px; vertical-align:middle; box-sizing:border-box; width:514px; height:auto'>
+            //                 </div>
+            //             </div>
+            //         ";
+
+            //         $mail->Body = $html;
+                
+            //         $mail->send();
+
+            //     } elseif (isset($_POST['update2']) && $estadoUpd2 == 'Terminado') {
+            //         //Server settings
+            //         $mail->SMTPDebug = 0;                      //Enable verbose debug output
+            //         $mail->isSMTP();                                            //Send using SMTP
+            //         $mail->Host       = '';                     //Set the SMTP server to send through
+            //         $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+            //         $mail->Username   = '';                     //SMTP username
+            //         $mail->Password   = '';                               //SMTP password
+            //         $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
+            //         $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+                
+            //         //Recipients
+            //         $mail->setFrom('', 'American School Way');
+        
+            //         if (!empty($userEmailD) && empty($userEmailS)) {
+            //             $mail->AddAddress($userEmailD);
+            //         } elseif (!empty($userEmailS) && empty($userEmailD)) {
+            //             $mail->AddAddress($userEmailS);
+            //         }
+                
+            //         //Content
+            //         $mail->isHTML(true);                                  //Set email format to HTML
+            //         $mail->Subject = 'Ticket Soporte';
+                        
+            //         $html = "
+            //             <div>
+            //                 <center><h1 style='color:white; background-color: #005199; margin: auto; width: 60%;'>$consecutivo</h1></center>
+            //                 <br>
+            //                 <p>Su ticket a pasado a estado <strong>Terminado</strong></p>
+            //                 <p style='text-align: center;'>Su solicitud fue solucionada?</p>
+            //                 <form method='POST'>
+            //                     <button type='submit'>SI</button>
+            //                     <button type='submit'>NO</button>
+            //                 </form>
+            //                 <br>
+            //                 <div>
+            //                     <img alt='Banner' width='514' src='http://intranet.americanschoolway.edu.co/wp-content/uploads/2021/08/firma-asw_2.gif' style='margin:0px; vertical-align:middle; box-sizing:border-box; width:514px; height:auto'>
+            //                 </div>
+            //             </div>
+            //         ";
+
+            //         $mail->Body = $html;
+                
+            //         $mail->send();
+            //     }
+            // }
         } else {
             if (isset($_POST['btn_mensaje']) && $resulImg[0]['Imagen'] == null) {
 
@@ -1683,7 +2271,15 @@ class detailApplication {
                         <br>
                         <label style='font-weight: 700;'>Usuario: </label><span>$nomUser</span>
                         <br>
-                        <p>$comtMenss</p>
+                        <label style='font-weight: 700;'>Comentario:</label>
+                        <p style='margin: 0 0 0 20px;'>$comtMenss</p>
+                        <br>
+                        <div>
+                            <center>
+                                <a href='src/detalles/?id=$consecutivo' style='text-decoration: none; background-color: #005199; color: white; padding: 5px 10px 5px 10px; border-radius: 5px; font-size: 20px;'>Ver</a>
+                            </center>
+                        </div>
+                        <br>
                         <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo' style='display: flex; justify-content: center;'>Ver</a>
                     </div>
                 ";
@@ -1718,7 +2314,16 @@ class detailApplication {
                         <br>
                         <label style='font-weight: 700;'>Usuario: </label><span>$nomUser</span>
                         <br>
-                        <span>Foto</span>
+                        <label style='font-weight: 700;'>Comentario:</label>
+                        <div>
+                            <img src='$comtImg' style='margin: 0 0 0 20px;'>
+                        </div>
+                        <br>
+                        <div>   
+                            <center>
+                                <a href='src/detalles/?id=$consecutivo' style='text-decoration: none; background-color: #005199; color: white; padding: 5px 10px 5px 10px; border-radius: 5px; font-size: 20px;'>Ver</a>
+                            </center>
+                        </div>
                         <br>
                         <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo' style='display: flex; justify-content: center;'>Ver</a>
                     </div>
@@ -1730,12 +2335,13 @@ class detailApplication {
             }
         }
 
-        $html = $this->head($status, $status2);
+        $html = $this->head($status, $status2, $user_role);
 
-        $html .= $this->buttonsNav();
-        $html .= $this->showDetails($id, $id2, $lista_formularios, $lista_formularios2, $status, $status2);
+        $html .= $this->buttonsNav($user_role);
+        $html .= $this->showDetails($id, $id2, $lista_formularios, $lista_formularios2, $status, $status2, $user_role, $asigAdmin, $asigAdmin2);
         $html .= $this->comentsDetail($id, $id2, $status, $status2, $list_mensajes, $nomAdmin);
 
+        // $html .= $this->validationStatusMess();
         $html .= $this->changeInputChat();
         $html .= $this->confirmCerrado();
 
@@ -1745,7 +2351,7 @@ class detailApplication {
             );
             $wpdb->update($tableR1,$infoUpd, array('Consecutivo'=>$consecutivo));
 
-            header("Location: http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo");
+            header("Location: src/detalles/?id=$consecutivo");
 
         } elseif($_POST['cerrar2'][0] == "solucionado"){
             $infoUpd = array(
@@ -1753,7 +2359,7 @@ class detailApplication {
             );
             $wpdb->update($tableR2,$infoUpd, array('Consecutivo'=>$consecutivo));
 
-            header("Location: http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo");
+            header("Location: src/detalles/?id=$consecutivo");
         }
 
         return $html;

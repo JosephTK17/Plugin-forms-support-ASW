@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name: Test Formulario Plugin
-Plugin URI: http://localhost/formulario_soporte_desarrollo/wordpress
-Description: Formulario de soporte y desarrollo
+Plugin Name: Tickets Soporte Plugin
+Plugin URI: src/wordpress
+Description: Formulario de soporte y desarrollo para la creación de tickets
 Version: 0.0.1
 */
 
@@ -15,9 +15,10 @@ require_once dirname(__FILE__). './../../../wp-includes/PHPMailer/SMTP.php';
 
 require_once dirname(__FILE__). '/clases_vistas/index.class.php';
 require_once dirname(__FILE__). '/clases_vistas/formFunctions.class.php';
-require_once dirname(__FILE__). '/clases_vistas/tableRespForms.class.php';
+require_once dirname(__FILE__). '/clases_vistas/tableSuperAdmin.class.php';
 require_once dirname(__FILE__). '/clases_vistas/searchApplication.class.php';
 require_once dirname(__FILE__). '/clases_vistas/detailApplication.class.php';
+require_once dirname(__FILE__). '/clases_vistas/menuDelayedTickets.class.php';
 
 function activar(){
     global $wpdb;
@@ -40,6 +41,7 @@ function activar(){
         `Para que` VARCHAR(200) NULL,
         `Criterios de aceptacion` VARCHAR(200) NULL,
         `Estado` VARCHAR(50) NULL,
+        `Asignado` VARCHAR(50) NULL,
         `FormularioId` INT NOT NULL,
         PRIMARY KEY (`RespuestaId`),
         FOREIGN KEY (FormularioId) REFERENCES fsd_formularios(FormularioId)
@@ -57,6 +59,7 @@ function activar(){
         `Descripcion` VARCHAR(200) NULL,
         `Sede` VARCHAR(50) NULL,
         `Estado` VARCHAR(50) NULL,
+        `Asignado` VARCHAR(50) NULL,
         `FormularioId` INT NOT NULL,
         PRIMARY KEY (`RespuestaId`),
         FOREIGN KEY (FormularioId) REFERENCES fsd_formularios(FormularioId)
@@ -141,9 +144,15 @@ function shortCode2(){
 
     //email admis
     $administradores = get_users('role=Administrator');
+    $editores = get_users('role=Editor');
+
     $correosAdmin = array();
     foreach ($administradores as $administrador) {
         array_push($correosAdmin, $administrador->user_email);
+    }
+
+    foreach ($editores as $editor) {
+        array_push($correosAdmin, $editor->user_email);
     }
 
     if(isset($_POST['btnguardar1'])){
@@ -197,37 +206,48 @@ function shortCode2(){
             for($i = 0; $i < count($correosAdmin); $i++) {
                 $mail->AddAddress($correosAdmin[$i]);
             }
+
+            //obtener rol
+            $current_user = wp_get_current_user();
+
+            $user_info = get_userdata($current_user->ID);
+            $user_role = $user_info->roles[0];
         
             //Content
             $mail->isHTML(true);                                  //Set email format to HTML
             $mail->Subject = 'Ticket Desarrollo';
 
             if (!empty($userEmail)) {
-    
                 $html = "
                     <div>
                         <label style='font-weight: 700;'>Fecha: </label><span>$actualDate</span>
                         <br>
                         <label style='font-weight: 700;'>Hora: </label><span>$actualHora</span>
-                        <p>Se creo un nuevo ticket dirigido al area $area, para hacer su consulta visita el apartado <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>, su consecutivo es:</p>
-                        <center><h1 style='color:white; background-color: #005199; margin: auto; width: 60%;'>$consecutivo</h1></center>
+                        <br>
+                        <label style='font-weight: 700;'>Area: </label><span>$area</span>
+                        <p>Se creo un nuevo ticket dirigido a <strong>Desarrollo</strong>, para hacer su consulta visita el apartado <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>, su consecutivo es:</p>
+                        <center><h1 style='color:white; background-color: #005199; margin: auto; width: 60%;'>$consecutivo</h1></center> 
+                        <br>
+                        <div>
+                            <img alt='Banner' width='514' src='http://intranet.americanschoolway.edu.co/wp-content/uploads/2021/08/firma-asw_2.gif' style='margin:0px; vertical-align:middle; box-sizing:border-box; width:514px; height:auto'>
+                        </div>
                     </div>
                 ";
             }
-            $mail->Body    = $html;
+            $mail->Body = $html;
         
             $mail->send();
 
             echo "<script language='JavaScript'>
                 alert('Ticket creado, podras consultarlo con el siguiente consecutivo: $consecutivo');
-                window.location.href = 'http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo';
+                window.location.href = 'src/detalles/?id=$consecutivo';
             </script>";
 
 
         } else {
             echo "<script language='JavaScript'>
                     alert('Ups... Ocurrio un error al enviar tu ticket, intentalo de nuevo')
-                    window.location.href = 'http://localhost/formulario_soporte_desarrollo/wordpress/index.php/formularios/';
+                    window.location.href = 'src/formularios/';
                 </script>";
         }
 
@@ -293,23 +313,31 @@ function shortCode2(){
                         <label style='font-weight: 700;'>Fecha: </label><span>$actualDate2</span>
                         <br>
                         <label style='font-weight: 700;'>Hora: </label><span>$actualHora2</span>
-                        <p>Se creo un nuevo ticket dirigido al area $area2 ubicada en la $sede, para hacer su consulta visita el apartado <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2'>Detalle</a>, su consecutivo es:</p>
+                        <br>
+                        <label style='font-weight: 700;'>Area: </label><span>$area2</span>
+                        <br>
+                        <label style='font-weight: 700;'>Sede: </label><span>$sede</span>
+                        <p>Se creo un nuevo ticket dirigido a <strong>Soporte</strong>, para hacer su consulta visita el apartado <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2'>Detalle</a>, su consecutivo es:</p>
                         <center><h1 style='color:white; background-color: #005199; margin: auto; width: 60%;'>$consecutivo2</h1></center>
+                        <br>
+                        <div>
+                            <img alt='Banner' width='514' src='http://intranet.americanschoolway.edu.co/wp-content/uploads/2021/08/firma-asw_2.gif' style='margin:0px; vertical-align:middle; box-sizing:border-box; width:514px; height:auto'>
+                        </div>
                     </div>
                 ";
             }
-            $mail->Body    = $html;
+            $mail->Body = $html;
         
             $mail->send();
 
             echo "<script language='JavaScript'>
                     alert('Ticket creado, podras consultarlo con el siguiente consecutivo: $consecutivo2');
-                    window.location.href = 'http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2';
+                    window.location.href = 'src/detalles/?id=$consecutivo2';
                 </script>";
         } else {
             echo "<script language='JavaScript'>
                     alert('Ups... Ocurrio un error al enviar tu ticket, intentalo de nuevo')
-                    window.location.href = 'http://localhost/formulario_soporte_desarrollo/wordpress/index.php/formularios/';
+                    window.location.href = 'src/formularios/';
                 </script>";
         }      
     }
@@ -327,7 +355,7 @@ function shortCode2(){
 function shortCode3()
 {
 
-    $_short = new tableForms;
+    $_short = new tableSuperAdmin;
     $tUrlId = $_GET['tUrlId'];
 
     $html = $_short->constructor($tUrlId);
@@ -373,9 +401,15 @@ function shortCode5()
         // }
     }
 
+    //obtener rol
+    $current_user = wp_get_current_user();
+
+    $user_info = get_userdata($current_user->ID);
+    $user_role = $user_info->roles[0];
+
     $tipo = "";
 
-    if (is_super_admin()) {
+    if ($user_role == 'administrator' || $user_role == 'editor') {
         $tipo = "Admin";
     } else {
         $tipo = "Solicitante";
@@ -401,7 +435,7 @@ function shortCode5()
             } else {
                $imagen_url = $upload['url'];
             }
-         }
+        }
 
         $mensaje = $_POST['mensaje'][0];
 
@@ -421,7 +455,7 @@ function shortCode5()
 
             unset($_POST['mensaje'][0]);
 
-            header('Location: http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id='.$consecutivo);
+            header('Location: src/detalles/?id='.$consecutivo);
 
         }
 
@@ -434,9 +468,19 @@ function shortCode5()
     return $html;
 }
 
+function shortCode6()
+{
+    $_short = new menuDelayedTickets;
+
+    $html = $_short->constructor();
+
+    return $html;
+}
+
 add_action('admin_menu', 'createMenu');
 add_shortcode("Index", "shortCode1");
 add_shortcode("Form", "shortCode2");
-add_shortcode("Table", "shortCode3");
-add_shortcode("Search", "shortCode4");
+add_shortcode("SupAdminTable", "shortCode3");
+add_shortcode("ComunUserTable", "shortCode4");
 add_shortcode("Details", "shortCode5");
+add_shortcode("Delayed", "shortCode6");

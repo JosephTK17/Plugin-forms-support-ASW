@@ -25,6 +25,10 @@ class formFuntions{
                 <meta name='viewport' content='width=device-width, initial-scale=1.0'>
                 <style>
 
+                    .wp-block-post-title{
+                        display: none;
+                    }
+
                     #general_cont{
                         margin: auto;
                         position: relative;
@@ -207,10 +211,16 @@ class formFuntions{
                             </li>
         ";
 
-        if (is_super_admin()) {
+        //obtener rol
+        $current_user = wp_get_current_user();
+
+        $user_info = get_userdata($current_user->ID);
+        $user_role = $user_info->roles[0];
+
+        if ($user_role == 'administrator' || $user_role == 'editor') {
             $html .= "
                             <li id='admin'>
-                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/pagina-tickets/?tUrlId=1'>Ver Tickets</a>
+                                <a href='src/pagina-tickets/?tUrlId=1'>Ver Tickets</a>
                             </li>
                         </ul>
                     </div>
@@ -219,14 +229,13 @@ class formFuntions{
         } else {
             $html .= "
                             <li id='user'>
-                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlIdUc=1'>Mis Tickets</a>
+                                <a href='src/ver-tickets-user/?tUrlIdUc=1'>Mis Tickets</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             ";
         }
-        
 
         return $html;
     }
@@ -264,7 +273,7 @@ class formFuntions{
                         </div>
 
                         <div>
-                            <label>Área</label>
+                            <label>Área a la que perteneces</label>
                             <span style='color: red;'>*</span>
                             <br>
                             <div class='cont_inpt_form'>
@@ -294,7 +303,7 @@ class formFuntions{
                             <span style='color: red;'>*</span>
                             <br>
                             <div class='cont_inpt_form'>
-                                <textarea class='inpt_form' name='solicitud[]' id='solicitud' maxlength='200' required></textarea>
+                                <textarea class='inpt_form' name='solicitud[]' id='solicitud' minlength='20' maxlength='200' required></textarea>
                             </div>
                         </div>
                         <br>
@@ -304,7 +313,7 @@ class formFuntions{
                             <span style='color: red;'>*</span>
                             <br>
                             <div class='cont_inpt_form'>
-                                <textarea class='inpt_form' name='paraQue[]' id='paraQue' maxlength='200' required></textarea>
+                                <textarea class='inpt_form' name='paraQue[]' id='paraQue' minlength='20' maxlength='200' required></textarea>
                             </div>
                         </div>
 
@@ -313,7 +322,7 @@ class formFuntions{
                             <span style='color: red;'>*</span>
                             <br>
                             <div class='cont_inpt_form'>
-                                <textarea class='inpt_form' name='criterios[]' id='criterios' maxlength='200' required></textarea>
+                                <textarea class='inpt_form' name='criterios[]' id='criterios' minlength='20' maxlength='200' required></textarea>
                             </div>
                         </div>
 
@@ -344,7 +353,7 @@ class formFuntions{
                         </div>
 
                         <div>
-                            <label>Área</label>
+                            <label>Área a la que perteneces</label>
                             <span style='color: red;'>*</span>
                             <br>
                             <div class='cont_inpt_form'>
@@ -374,7 +383,7 @@ class formFuntions{
                             <span style='color: red;'>*</span>
                             <br>
                             <div class='cont_inpt_form'>
-                                <textarea class='inpt_form' name='descripcion[]' id='descripcion' maxlength='200' required></textarea>
+                                <textarea class='inpt_form' name='descripcion[]' id='descripcion' minlength='20' maxlength='200' required></textarea>
                             </div>
                         </div>
 
@@ -461,13 +470,13 @@ class formFuntions{
     {
         echo "<script language='JavaScript'>
             
-                var sedes_Bogotá = new Array ('Sede', 'Sede Álamos', 'Sede Chapinero calle 45', 'Sede Corferias', 'Sede La Felicidad - Fontibón', 'Sede Norte', 'Sede Paseo Villa del Rio', 'Sede Plaza de las Américas', 'Sede Bosa', 'Sede Restrepo', 'Sede Suba', 'Sede Titán Plaza', 'Sede Tunal')
-                var sedes_Soacha = new Array ('Sede', 'Sede Soacha')
-                var sedes_Mosquera = new Array ('Sede', 'Sede Mosquera')
-                var sedes_Cali = new Array ('Sede', 'Sede Cali Av. Estación')
-                var sedes_Manizales = new Array ('Sede', 'Sede Manizales Sect. Triángulo')
-                var sedes_Medellín = new Array ('Sede', 'Sede Medellín Florida', 'Sede Medellín Premium', 'Sede Itagüí')
-                var sedes_Villavicencio = new Array ('Sede', 'Sede Villavicencio Llano Centro')
+                var sedes_Bogotá = new Array ('Sede', 'Álamos', 'Chapinero calle 45', 'Corferias', 'La Felicidad - Fontibón', 'Norte', 'Paseo Villa del Rio', 'Plaza de las Américas', 'Bosa', 'Restrepo', 'Suba', 'Titán Plaza', 'Tunal')
+                var sedes_Soacha = new Array ('Sede', 'Soacha')
+                var sedes_Mosquera = new Array ('Sede', 'Mosquera')
+                var sedes_Cali = new Array ('Sede', 'Cali Av. Estación')
+                var sedes_Manizales = new Array ('Sede', 'Manizales Sect. Triangulo')
+                var sedes_Medellín = new Array ('Sede', 'Medellin Florida', 'Medellin Premium', 'Itagüi')
+                var sedes_Villavicencio = new Array ('Sede', 'Villavicencio Llano Centro')
 
                 //filtro de sedes según la ciudad
                 function cambiar_sedes(){

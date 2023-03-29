@@ -39,6 +39,10 @@ class searchApplication {
                 <link rel='stylesheet' type='text/css' href='//cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css'>
                 <style>
 
+                    .wp-block-post-title{
+                        display: none;
+                    }
+
                     #general_cont{
                         margin: auto;
                         position: relative;
@@ -289,13 +293,14 @@ class searchApplication {
                         border: solid 1px gray;
                         padding: 10px;
                         margin: auto;
-                        width: 70%;
+                        width: 80%;
+                        display: flex;
+                        justify-content: space-between;
                     }
 
                     .btn_num_tick{
-                        display: inline-block;
                         border: solid 1px gray;
-                        width: 120px;
+                        width: 130px;
                     }
 
                     .btn_num_tick a{
@@ -305,21 +310,21 @@ class searchApplication {
 
         if ($tUrlIdUc == 1) {
             $html .= "
-                    #totales{
-                        margin: 0px 39px 0px 0px;
-                        border-color: #1BDC00;
-                        box-shadow: 0px 0px 3px #1BDC00;
+                    #solicitados{
+                        margin: 0px 0px 0px 0px;
+                        border-color: #FF0000;
+                        box-shadow: 0px 0px 3px #FF0000;
                     }
             ";
         } else {
             $html .= "
-                    #totales{
-                        margin: 0px 39px 0px 0px;
+                    #solicitados{
+                        margin: 0px 0px 0px 0px;
                     }
 
-                    #totale:hover{
+                    #solicitados:hover{
                         box-shadow: 0px 0px 3px black;
-                        border-color: #1BDC00;
+                        border-color: #FF0000;
                         transition: border-color 0.5s;
                         transition: box-shadow 0.4s;
                     }
@@ -329,20 +334,20 @@ class searchApplication {
         if ($tUrlIdUc == 2) {
             $html .= "
                     #contestados{
-                        margin: 0px 39px 0px 0px;
-                        border-color: #CACD00;
-                        box-shadow: 0px 0px 3px #CACD00;
+                        margin: 0px 0px 0px 0px;
+                        border-color: #ffc000;
+                        box-shadow: 0px 0px 3px #ffc000;
                     }
             ";
         } else {
             $html .= "
                     #contestados{
-                        margin: 0px 39px 0px 0px;
+                        margin: 0px 0px 0px 0px;
                     }
 
                     #contestados:hover{
                         box-shadow: 0px 0px 3px black;
-                        border-color: #CACD00;
+                        border-color: #ffc000;
                         transition: border-color 0.5s;
                         transition: box-shadow 0.4s;
                     }
@@ -353,8 +358,8 @@ class searchApplication {
             $html .= "
                     #cerrados{
                         margin: 0px 0px 0px 0px;
-                        border-color:#FF0000;
-                        box-shadow: 0px 0px 3px #FF0000;
+                        border-color:#1BDC00;
+                        box-shadow: 0px 0px 3px #1BDC00;
                     }
             ";
         } else {
@@ -365,7 +370,30 @@ class searchApplication {
 
                     #cerrados:hover{
                         box-shadow: 0px 0px 3px black;
-                        border-color: #FF0000;
+                        border-color: #1BDC00;
+                        transition: border-color 0.5s;
+                        transition: box-shadow 0.4s;
+                    }
+            ";
+        }
+
+        if ($tUrlIdUc == 4) {
+            $html .= "
+                    #totales{
+                        margin: 0px 0px 0px 0px;
+                        border-color: black;
+                        box-shadow: 0px 0px 3px black;
+                    }
+            ";
+        } else {
+            $html .= "
+                    #totales{
+                        margin: 0px 0px 0px 0px;
+                    }
+
+                    #totale:hover{
+                        box-shadow: 0px 0px 3px black;
+                        border-color: black;
                         transition: border-color 0.5s;
                         transition: box-shadow 0.4s;
                     }
@@ -374,26 +402,23 @@ class searchApplication {
 
         $html .="
 
-                    #totales{
-                        margin: 0px 39px 0px 0px;
-                    }
-
-                    #totales a{
-                        color: #1BDC00;
-                        padding: 0 10px 0 10px;
-                    }
-
-                    #cerrados{
-                        margin: 0 0px 0 0;
-                    }
-
-                    #cerrados a{
+                    #solicitados a{
                         color: #FF0000;
-                        padding: 0 12px 0 12px;
+                        width: 50px;
                     }
 
                     #contestados a{
-                        color: #CACD00;
+                        color: #ffc000;
+                        padding: 0 2px 0 2px;
+                    }
+
+                    #cerrados a{
+                        color: #1BDC00;
+                        padding: 0 12px 0 12px;
+                    }
+
+                    #totales a{
+                        color: black;
                         padding: 0 2px 0 2px;
                     }
 
@@ -403,9 +428,8 @@ class searchApplication {
                         justify-content: center;
                     }
 
-                    .cont_modal_not p{
-                        width: 30%;
-                        border: solid 1px;
+                    .cont_modal_not h3{
+                        width: 50%;
                         text-align: center;
                     }
 
@@ -426,7 +450,7 @@ class searchApplication {
                     <div class='btns_nav'>
                         <ul>
                             <li id='create'>
-                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/formularios/'>Enviar Ticket</a>
+                                <a href='src/formularios/'>Enviar Ticket</a>
                             </li>
                             <li id='user'>
                                 <a href='#'>Mis Ticket</a>
@@ -439,19 +463,22 @@ class searchApplication {
         return $html;
     }
 
-    public function conteoTickets($numRegistrosTot2, $numRegistrosCon2, $numRegistrosCe2)
+    public function conteoTickets($numRegistrosSol2, $numRegistrosCon2, $numRegistrosCe2, $numRegistrosTot2)
     {
 
         $html = "
             <div class='cont_num_tickest'>
-                <div class='btn_num_tick' id='totales'>  
-                    <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlIdUc=1' name='table[]'>Totales ($numRegistrosTot2)</a>
+                <div class='btn_num_tick' id='solicitados'>  
+                    <a href='src/ver-tickets-user/?tUrlIdUc=1' name='table[]'>Solicitados ($numRegistrosSol2)</a>
                 </div>
                 <div class='btn_num_tick' id='contestados'>
-                    <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlIdUc=2' name='table[]'>Contestado ($numRegistrosCon2)</a>
+                    <a href='src/ver-tickets-user/?tUrlIdUc=2' name='table[]'>En proceso ($numRegistrosCon2)</a>
                 </div>
                 <div class='btn_num_tick' id='cerrados'>
-                    <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/ver-tickets-user/?tUrlIdUc=3' name='table[]'>Cerrados ($numRegistrosCe2)</a>
+                    <a href='src/ver-tickets-user/?tUrlIdUc=3' name='table[]'>Cerrados ($numRegistrosCe2)</a>
+                </div>
+                <div class='btn_num_tick' id='totales'>  
+                    <a href='src/ver-tickets-user/?tUrlIdUc=4' name='table[]'>Totales ($numRegistrosTot2)</a>
                 </div>
             </div>
         ";
@@ -459,7 +486,7 @@ class searchApplication {
         return $html;
     }
 
-    public function structureTickets($tUrlIdUc, $lista_formularios_rtasD1, $lista_formularios_rtasD2, $lista_formularios_rtasD3,$lista_formularios_rtasS1, $lista_formularios_rtasS2, $lista_formularios_rtasS3)
+    public function structureTickets($tUrlIdUc, $lista_formularios_rtasD1, $lista_formularios_rtasD2, $lista_formularios_rtasD3, $lista_formularios_rtasD4, $lista_formularios_rtasS1, $lista_formularios_rtasS2, $lista_formularios_rtasS3, $lista_formularios_rtasS4)
     {
         $html = "";
 
@@ -502,7 +529,7 @@ class searchApplication {
                             <td>$area</td>
                             <td>$estado</td>
                             <td class='clm_btn_dlle'>
-                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>
+                                <a href='src/detalles/?id=$consecutivo'>Detalle</a>
                             </td>
                         </tr>
                     ";
@@ -518,14 +545,13 @@ class searchApplication {
                 $html .= "
                 <div id='tables_tickets'>
                     <div class='cont_modal_not'>
-                        <p>No hay registros en la tabla <strong>'Desarrollo'</strong></p>
+                        <h3>No hay registros en la tabla <strong>'Desarrollo'</strong></h3>
                     </div>
                 ";
             }
 
             if (!empty($lista_formularios_rtasS1)) {
                 $html .= "
-                <br>
                 <br>
                     <div id='cont_table_spte'>
                         <h4>Soporte</h4>
@@ -562,7 +588,7 @@ class searchApplication {
                             <td>$sede</td>
                             <td>$estado2</td>
                             <td class='clm_btn_dlle'>
-                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2'>Detalle</a>
+                                <a href='src/detalles/?id=$consecutivo2'>Detalle</a>
                             </td>
                         </tr>
                     ";
@@ -577,7 +603,7 @@ class searchApplication {
             } else {
                 $html .= "
                     <div class='cont_modal_not'>
-                        <p>No hay registros en la tabla <strong>'Soporte'</strong></p>
+                        <h3>No hay registros en la tabla <strong>'Soporte'</strong></h3>
                     </div>
                 </div>
                 ";
@@ -617,7 +643,7 @@ class searchApplication {
                             <td>$area</td>
                             <td>$estado</td>
                             <td class='clm_btn_dlle'>
-                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>
+                                <a href='src/detalles/?id=$consecutivo'>Detalle</a>
                             </td>
                         </tr>
                     ";
@@ -632,14 +658,13 @@ class searchApplication {
                 $html .= "
                 <div id='tables_tickets'>
                     <div class='cont_modal_not'>
-                        <p>No hay registros contestados en la tabla <strong>'Desarrollo'</strong></p>
+                        <h3>No hay registros contestados en la tabla <strong>'Desarrollo'</strong></h3>
                     </div>
                 ";
             }
 
             if (!empty($lista_formularios_rtasS2)) {
                 $html .= "
-                <br>
                 <br>
                     <div id='cont_table_spte'>
                         <h4>Soporte</h4>
@@ -673,7 +698,7 @@ class searchApplication {
                             <td>$sede</td>
                             <td>$estado2</td>
                             <td class='clm_btn_dlle'>
-                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2'>Detalle</a>
+                                <a href='src/detalles/?id=$consecutivo2'>Detalle</a>
                             </td>
                         </tr>
                     ";
@@ -688,7 +713,7 @@ class searchApplication {
             } else {
                 $html .= "
                     <div class='cont_modal_not'>
-                        <p>No hay registros contestados en la tabla <strong>'Soporte'</strong></p>
+                        <h3>No hay registros contestados en la tabla <strong>'Soporte'</strong></h3>
                     </div>
                 </div>
                 ";
@@ -727,7 +752,7 @@ class searchApplication {
                             <td>$area</td>
                             <td>$estado</td>
                             <td class='clm_btn_dlle'>
-                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo'>Detalle</a>
+                                <a href='src/detalles/?id=$consecutivo'>Detalle</a>
                             </td>
                         </tr>
                     ";
@@ -743,14 +768,13 @@ class searchApplication {
                 $html .= "
                 <div id='tables_tickets'>
                     <div class='cont_modal_not'>
-                        <p>No hay registros cerrados en la tabla <strong>'Desarrollo'</strong></p>
+                        <h3>No hay registros cerrados en la tabla <strong>'Desarrollo'</strong></h3>
                     </div>
                 ";
             }
 
             if (!empty($lista_formularios_rtasS3)) {
                 $html .= "
-                <br>
                 <br>
                     <div id='cont_table_spte'>
                         <h4>Soporte</h4>
@@ -784,7 +808,7 @@ class searchApplication {
                             <td>$sede</td>
                             <td>$estado2</td>
                             <td class='clm_btn_dlle'>
-                                <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo2'>Detalle</a>
+                                <a href='src/detalles/?id=$consecutivo2'>Detalle</a>
                             </td>
                         </tr>
                     ";
@@ -799,28 +823,149 @@ class searchApplication {
             } else {
                 $html .= "
                     <div class='cont_modal_not'>
-                        <p>No hay registros cerrados en la tabla <strong>'Soporte'</strong></p>
+                        <h3>No hay registros cerrados en la tabla <strong>'Soporte'</strong></h3>
                     </div>
                 </div>
                 ";
             }
 
-        } 
+        } elseif ($tUrlIdUc == 4) {
+            if (!empty($lista_formularios_rtasD4)) {
+            $html .= "
+            <div id='tables_tickets'>
+                <div id='cont_table_dllo'>
+                    <h4>Desarrollo</h4>
+                    <table class='table_form' id='myTable' border=1>
+                        <thead>
+                            <th>Consecutivo</th>
+                            <th>Fecha</th>
+                            <th>Hora</th>
+                            <th>Solicitante</th>
+                            <th>Area</th>
+                            <th>Estado</th>
+                            <th></th>
+                        </thead>
+                        <tbody>
+            ";
+
+            foreach ($lista_formularios_rtasD4 as $key => $value) {
+                $consecutivo = $value['Consecutivo'];
+                $date = $value['Fecha'];
+                $hora = $value['Hora'];
+                $solicitante = $value['Solicitante'];
+                $area = $value['Area'];
+                $estado = $value['Estado'];
+
+                $html .= "
+                    <tr>
+                        <td>$consecutivo</td>
+                        <td>$date</td>
+                        <td>$hora</td>
+                        <td>$solicitante</td>
+                        <td>$area</td>
+                        <td>$estado</td>
+                        <td class='clm_btn_dlle'>
+                            <a href='src/detalles/?id=$consecutivo'>Detalle</a>
+                        </td>
+                    </tr>
+                ";
+            }
+
+            $html .= "
+                    </tbody>
+                </table>
+            </div>
+            ";
+
+            } else {
+                $html .= "
+                <div id='tables_tickets'>
+                    <div class='cont_modal_not'>
+                        <h3>No hay registros en la tabla <strong>'Desarrollo'</strong></h3>
+                    </div>
+                ";
+            }
+
+            if (!empty($lista_formularios_rtasS4)) {
+                $html .= "
+                <br>
+                    <div id='cont_table_spte'>
+                        <h4>Soporte</h4>
+                        <table class='table_form' id='myTable2' border=1>
+                            <thead>
+                                <th>Consecutivo</th>
+                                <th>Fecha</th>
+                                <th>Hora</th>
+                                <th>Solicitante</th>
+                                <th>Area</th>
+                                <th>Sede</th>
+                                <th>Estado</th>
+                                <th></th>
+                            </thead>
+                            <tbody>
+                ";
+
+                foreach ($lista_formularios_rtasS4 as $key => $value) {
+                    $consecutivo2 = $value['Consecutivo'];
+                    $date2 = $value['Fecha'];
+                    $hora2 = $value['Hora'];
+                    $solicitante2 = $value['Solicitante'];
+                    $area2 = $value['Area'];
+                    $estado2 = $value['Estado'];
+                    $sede = $value['Sede'];
+        
+                    $html .= "
+                        <tr>
+                            <td>$consecutivo2</td>
+                            <td>$date2</td>
+                            <td>$hora2</td>
+                            <td>$solicitante2</td>
+                            <td>$area2</td>
+                            <td>$sede</td>
+                            <td>$estado2</td>
+                            <td class='clm_btn_dlle'>
+                                <a href='src/detalles/?id=$consecutivo2'>Detalle</a>
+                            </td>
+                        </tr>
+                    ";
+                }
+
+                $html .= "
+                        </tbody>
+                    </table>
+                </div>
+                ";
+
+            } else {
+                $html .= "
+                    <div class='cont_modal_not'>
+                        <h3>No hay registros en la tabla <strong>'Soporte'</strong></h3>
+                    </div>
+                </div>
+                ";
+            }
+        }
 
         //verifica si hay datos en las tablas
         if ($tUrlIdUc == 1 && empty($lista_formularios_rtasD1) && empty($lista_formularios_rtasS1)) {
             $html = "
                 <div class='cont_modal_not'>
-                    <h3>No hay registros</h3>
+                    <h3>No hay registros Solicitados</h3>
                 </div>
             ";
         } elseif ($tUrlIdUc == 2 && empty($lista_formularios_rtasD2) && empty($lista_formularios_rtasS2)) {
             $html = "
                 <div class='cont_modal_not'>
-                    <h3>No hay registros</h3>
+                    <h3>No hay registros En proceso</h3>
                 </div>
             ";
         } elseif ($tUrlIdUc == 3 && empty($lista_formularios_rtasD3) && empty($lista_formularios_rtasS3)) {
+            $html = "
+                <div class='cont_modal_not'>
+                    <h3>No hay registros Cerrados</h3>
+                </div>
+            ";
+        } elseif ($tUrlIdUc == 4 && empty($lista_formularios_rtasD4) && empty($lista_formularios_rtasS4)) {
             $html = "
                 <div class='cont_modal_not'>
                     <h3>No hay registros</h3>
@@ -903,27 +1048,27 @@ class searchApplication {
         $tableR2 = "{$wpdb->prefix}formularios_respuestas_soporte";
 
         //user----------------------------------------------------------------------------------------------
-        //total
-        $queryRtasD1 = "SELECT * FROM $tableR1 WHERE Solicitante = '$userName'" ;
+        //Solicitados
+        $queryRtasD1 = "SELECT * FROM $tableR1 WHERE Solicitante = '$userName' AND Estado = 'Solicitado'" ;
         $lista_formularios_rtasD1 = $wpdb->get_results($queryRtasD1, ARRAY_A);
         if (empty($lista_formularios_rtasD1)) {
             $lista_formularios_rtasD1 = array();
         }
 
-        $queryRtasS1 = "SELECT * FROM $tableR2 WHERE Solicitante = '$userName'";
+        $queryRtasS1 = "SELECT * FROM $tableR2 WHERE Solicitante = '$userName' AND Estado = 'Solicitado'";
         $lista_formularios_rtasS1 = $wpdb->get_results($queryRtasS1, ARRAY_A);
         if (empty($lista_formularios_rtasS1)) {
             $lista_formularios_rtasS1 = array();
         }
 
         //count------------------
-        $queryCntD1 = "SELECT * FROM $tableR1 WHERE Solicitante = '$userName'";
+        $queryCntD1 = "SELECT * FROM $tableR1 WHERE Solicitante = '$userName' AND Estado = 'Solicitado'";
         $itemsCntD1 = $wpdb->get_results($queryCntD1, ARRAY_A);
         if (empty($itemsCntD1)) {
             $itemsCntD1 = array();
         }
 
-        $queryCntS1 = "SELECT * FROM $tableR2 WHERE Solicitante = '$userName'";
+        $queryCntS1 = "SELECT * FROM $tableR2 WHERE Solicitante = '$userName' AND Estado = 'Solicitado'";
         $itemsCntS1 = $wpdb->get_results($queryCntS1, ARRAY_A);
         if (empty($itemsCntS1)) {
             $itemsCntS1 = array();
@@ -932,9 +1077,9 @@ class searchApplication {
         $RegistrosD1 = count($itemsCntD1);
         $RegistrosS1 = count($itemsCntS1);
 
-        $numRegistrosTot2 = $RegistrosD1 + $RegistrosS1;
+        $numRegistrosSol2 = $RegistrosD1 + $RegistrosS1;
 
-        //contestado
+        //en proceso
         $queryRtasD2 = "SELECT * FROM $tableR1 WHERE Estado != 'Solicitado' AND Estado != 'Cerrado' AND Solicitante = '$userName'";
         $lista_formularios_rtasD2 = $wpdb->get_results($queryRtasD2, ARRAY_A);
         if (empty($lista_formularios_rtasD2)) {
@@ -996,18 +1141,45 @@ class searchApplication {
 
         $numRegistrosCe2 = $RegistrosD3 + $RegistrosS3;
 
+        //total
+        $queryRtasD4 = "SELECT * FROM $tableR1 WHERE Solicitante = '$userName'" ;
+        $lista_formularios_rtasD4 = $wpdb->get_results($queryRtasD4, ARRAY_A);
+        if (empty($lista_formularios_rtasD4)) {
+            $lista_formularios_rtasD4 = array();
+        }
+
+        $queryRtasS4 = "SELECT * FROM $tableR2 WHERE Solicitante = '$userName'";
+        $lista_formularios_rtasS4 = $wpdb->get_results($queryRtasS4, ARRAY_A);
+        if (empty($lista_formularios_rtasS4)) {
+            $lista_formularios_rtasS4 = array();
+        }
+
+        //count------------------
+        $queryCntD4 = "SELECT * FROM $tableR1 WHERE Solicitante = '$userName'";
+        $itemsCntD4 = $wpdb->get_results($queryCntD4, ARRAY_A);
+        if (empty($itemsCntD4)) {
+            $itemsCntD4 = array();
+        }
+
+        $queryCntS4 = "SELECT * FROM $tableR2 WHERE Solicitante = '$userName'";
+        $itemsCntS4 = $wpdb->get_results($queryCntS4, ARRAY_A);
+        if (empty($itemsCntS4)) {
+            $itemsCntS4 = array();
+        }
+
+        $RegistrosD4 = count($itemsCntD4);
+        $RegistrosS4 = count($itemsCntS4);
+
+        $numRegistrosTot2 = $RegistrosD4 + $RegistrosS4;
+
         //html---------------------------------------------------------------------------------------------------
         $html = $this->getApplication($consecutivo);
         $html = $this->head($tUrlIdUc);
         
         $html .= $this->buttonsNav();
-        $html .= $this->conteoTickets($numRegistrosTot2, $numRegistrosCon2, $numRegistrosCe2);
-        // $html .= $this->search();
-        // $html .= $this->openTableApplication($conseId, $conseId2, $lista_formularios_filter, $lista_formularios_filter2);
-        // $html .= $this->dataTableApplication($conseId, $conseId2, $lista_formularios_filter, $lista_formularios_filter2);
-        // $html .= $this->closeTableApplication();
+        $html .= $this->conteoTickets($numRegistrosSol2, $numRegistrosCon2, $numRegistrosCe2, $numRegistrosTot2);
 
-        $html .= $this->structureTickets($tUrlIdUc, $lista_formularios_rtasD1, $lista_formularios_rtasD2, $lista_formularios_rtasD3, $lista_formularios_rtasS1, $lista_formularios_rtasS2, $lista_formularios_rtasS3);
+        $html .= $this->structureTickets($tUrlIdUc, $lista_formularios_rtasD1, $lista_formularios_rtasD2, $lista_formularios_rtasD3, $lista_formularios_rtasD4, $lista_formularios_rtasS1, $lista_formularios_rtasS2, $lista_formularios_rtasS3, $lista_formularios_rtasS4);
 
         $html .= $this->dataTableJquery();
 
