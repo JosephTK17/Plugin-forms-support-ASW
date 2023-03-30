@@ -1878,10 +1878,6 @@ class detailApplication {
             }
         }
 
-        // if (isset($_POST['update']) && !isset($_POST['mensaje'][0])) {
-        //     # code...
-        // }
-
         $sqlAsignado2 = "SELECT Asignado FROM $tableR2 WHERE Consecutivo = '$consecutivo'";
         $resultAsig2 = $wpdb->get_results($sqlAsignado2, ARRAY_A);
 
@@ -2043,6 +2039,12 @@ class detailApplication {
 
         $comtImg = $resulImg[0]['Imagen'];
 
+        //credenciales
+        $serverSmtp = '';
+        $userNameSmtp = '';
+        $passwordSmtp = '';
+        $setFromSmtp = '';
+
         //notificar mensaje
         $mail = new PHPMailer(true);
 
@@ -2052,15 +2054,15 @@ class detailApplication {
                 //Server settings
                 $mail->SMTPDebug = 0;                      //Enable verbose debug output
                 $mail->isSMTP();                                            //Send using SMTP
-                $mail->Host       = '';                     //Set the SMTP server to send through
+                $mail->Host       = $serverSmtp;                     //Set the SMTP server to send through
                 $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-                $mail->Username   = '';                     //SMTP username
-                $mail->Password   = '';                               //SMTP password
+                $mail->Username   = $userNameSmtp;                     //SMTP username
+                $mail->Password   = $passwordSmtp;                               //SMTP password
                 $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
                 $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
             
                 //Recipients
-                $mail->setFrom('', 'American School Way');
+                $mail->setFrom($setFromSmtp, 'American School Way');
     
                 if (!empty($userEmailD) && empty($userEmailS)) {
                     $mail->AddAddress($userEmailD);
@@ -2102,15 +2104,15 @@ class detailApplication {
                 //Server settings
                 $mail->SMTPDebug = 0;                      //Enable verbose debug output
                 $mail->isSMTP();                                            //Send using SMTP
-                $mail->Host       = '';                     //Set the SMTP server to send through
+                $mail->Host       = $serverSmtp;                     //Set the SMTP server to send through
                 $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-                $mail->Username   = '';                     //SMTP username
-                $mail->Password   = '';                               //SMTP password
+                $mail->Username   = $userNameSmtp;                     //SMTP username
+                $mail->Password   = $passwordSmtp;                               //SMTP password
                 $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
                 $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
             
                 //Recipients
-                $mail->setFrom('', 'American School Way');
+                $mail->setFrom($setFromSmtp, 'American School Way');
     
                 if (!empty($userEmailD) && empty($userEmailS)) {
                     $mail->AddAddress($userEmailD);
@@ -2120,7 +2122,7 @@ class detailApplication {
             
                 //Content
                 $mail->isHTML(true);                                  //Set email format to HTML
-                $mail->Subject = 'Nuevo Mensaje';
+                $mail->Subject = 'Aviso de actividad';
                     
                 $html = "
                     <div>
@@ -2158,15 +2160,15 @@ class detailApplication {
                     //Server settings
                     $mail->SMTPDebug = 0;                      //Enable verbose debug output
                     $mail->isSMTP();                                            //Send using SMTP
-                    $mail->Host       = '';                     //Set the SMTP server to send through
+                    $mail->Host       = $serverSmtp;                     //Set the SMTP server to send through
                     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-                    $mail->Username   = '';                     //SMTP username
-                    $mail->Password   = '';                               //SMTP password
+                    $mail->Username   = $userNameSmtp;                     //SMTP username
+                    $mail->Password   = $passwordSmtp;                               //SMTP password
                     $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
                     $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
                 
                     //Recipients
-                    $mail->setFrom('', 'American School Way');
+                    $mail->setFrom($setFromSmtp, 'American School Way');
         
                     if (!empty($userEmailD) && empty($userEmailS)) {
                         $mail->AddAddress($userEmailD);
@@ -2205,15 +2207,15 @@ class detailApplication {
                     //Server settings
                     $mail->SMTPDebug = 0;                      //Enable verbose debug output
                     $mail->isSMTP();                                            //Send using SMTP
-                    $mail->Host       = '';                     //Set the SMTP server to send through
+                    $mail->Host       = $serverSmtp;                     //Set the SMTP server to send through
                     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-                    $mail->Username   = '';                     //SMTP username
-                    $mail->Password   = '';                               //SMTP password
+                    $mail->Username   = $userNameSmtp;                     //SMTP username
+                    $mail->Password   = $passwordSmtp;                               //SMTP password
                     $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
                     $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
                 
                     //Recipients
-                    $mail->setFrom('', 'American School Way');
+                    $mail->setFrom($setFromSmtp, 'American School Way');
         
                     if (!empty($userEmailD) && empty($userEmailS)) {
                         $mail->AddAddress($userEmailD);
@@ -2253,21 +2255,21 @@ class detailApplication {
                 //Server settings
                 $mail->SMTPDebug = 0;                      //Enable verbose debug output
                 $mail->isSMTP();                                            //Send using SMTP
-                $mail->Host       = '';                     //Set the SMTP server to send through
+                $mail->Host       = $serverSmtp;                     //Set the SMTP server to send through
                 $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-                $mail->Username   = '';                     //SMTP username
-                $mail->Password   = '';                               //SMTP password
+                $mail->Username   = $userNameSmtp;                     //SMTP username
+                $mail->Password   = $passwordSmtp;                               //SMTP password
                 $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
                 $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
             
                 //Recipients
-                $mail->setFrom('', 'American School Way');
+                $mail->setFrom($setFromSmtp, 'American School Way');
 
                 $mail->AddAddress($adminEmail);
             
                 //Content
                 $mail->isHTML(true);                                  //Set email format to HTML
-                $mail->Subject = 'Nuevo Mensaje';
+                $mail->Subject = 'Aviso de actividad';
                     
                 $html = "
                     <div>
@@ -2283,8 +2285,6 @@ class detailApplication {
                                 <a href='src/detalles/?id=$consecutivo' style='text-decoration: none; background-color: #005199; color: white; padding: 5px 10px 5px 10px; border-radius: 5px; font-size: 20px;'>Ver</a>
                             </center>
                         </div>
-                        <br>
-                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo' style='display: flex; justify-content: center;'>Ver</a>
                     </div>
                 ";
 
@@ -2296,21 +2296,21 @@ class detailApplication {
                 //Server settings
                 $mail->SMTPDebug = 0;                      //Enable verbose debug output
                 $mail->isSMTP();                                            //Send using SMTP
-                $mail->Host       = '';                     //Set the SMTP server to send through
+                $mail->Host       = $serverSmtp;                     //Set the SMTP server to send through
                 $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-                $mail->Username   = '';                     //SMTP username
-                $mail->Password   = '';                               //SMTP password
+                $mail->Username   = $userNameSmtp;                     //SMTP username
+                $mail->Password   = $passwordSmtp;                               //SMTP password
                 $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
                 $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
             
                 //Recipients
-                $mail->setFrom('', 'American School Way');
+                $mail->setFrom($setFromSmtp, 'American School Way');
     
                 $mail->AddAddress($adminEmail);
             
                 //Content
                 $mail->isHTML(true);                                  //Set email format to HTML
-                $mail->Subject = 'Nuevo Mensaje';
+                $mail->Subject = 'Aviso de actividad';
                     
                 $html = "
                     <div>
@@ -2328,8 +2328,49 @@ class detailApplication {
                                 <a href='src/detalles/?id=$consecutivo' style='text-decoration: none; background-color: #005199; color: white; padding: 5px 10px 5px 10px; border-radius: 5px; font-size: 20px;'>Ver</a>
                             </center>
                         </div>
+                    </div>
+                ";
+
+                $mail->Body = $html;
+            
+                $mail->send();
+            }
+
+            if (isset($_POST['btn_nocerrado'])) {
+                //Server settings
+                $mail->SMTPDebug = 0;                      //Enable verbose debug output
+                $mail->isSMTP();                                            //Send using SMTP
+                $mail->Host       = $serverSmtp;                     //Set the SMTP server to send through
+                $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                $mail->Username   = $userNameSmtp;                     //SMTP username
+                $mail->Password   = $passwordSmtp;                               //SMTP password
+                $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
+                $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+            
+                //Recipients
+                $mail->setFrom($setFromSmtp, 'American School Way');
+    
+                $mail->AddAddress($adminEmail);
+            
+                //Content
+                $mail->isHTML(true);                                  //Set email format to HTML
+                $mail->Subject = 'Aviso de actividad';
+                    
+                $html = "
+                    <div>
+                        <center><h1 style='color:white; background-color: #005199; margin: auto; width: 60%;'>$consecutivo</h1></center>
                         <br>
-                        <a href='http://localhost/formulario_soporte_desarrollo/wordpress/index.php/detalles/?id=$consecutivo' style='display: flex; justify-content: center;'>Ver</a>
+                        <label style='font-weight: 700;'>Usuario: </label><span>$nomUser</span>
+                        <br>
+                        <div>
+                            <p style='margin: 0 0 0 20px;'>El ticket se ha marcado como <strong>No solucionado</strong>, por favor revisa la razon por la cual no se soluciono la solucitud del usuario.</p>
+                        </div>
+                        <br>
+                        <div>   
+                            <center>
+                                <a href='src/detalles/?id=$consecutivo' style='text-decoration: none; background-color: #005199; color: white; padding: 5px 10px 5px 10px; border-radius: 5px; font-size: 20px;'>Ver</a>
+                            </center>
+                        </div>
                     </div>
                 ";
 

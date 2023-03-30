@@ -155,6 +155,12 @@ function shortCode2(){
         array_push($correosAdmin, $editor->user_email);
     }
 
+    //credenciales
+    $serverSmtp = '';
+    $userNameSmtp = '';
+    $passwordSmtp = '';
+    $setFromSmtp = '';
+
     if(isset($_POST['btnguardar1'])){
         $prefix1 = "D";
         $consecutivo = $prefix1.$numConP2;
@@ -192,15 +198,15 @@ function shortCode2(){
             //Server settings
             $mail->SMTPDebug = 0;                      //Enable verbose debug output
             $mail->isSMTP();                                            //Send using SMTP
-            $mail->Host       = '';                     //Set the SMTP server to send through
+            $mail->Host       = $serverSmtp;                     //Set the SMTP server to send through
             $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-            $mail->Username   = '';                     //SMTP username
-            $mail->Password   = '';                               //SMTP password
+            $mail->Username   = $userNameSmtp;                     //SMTP username
+            $mail->Password   = $passwordSmtp;                               //SMTP password
             $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
             $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
         
             //Recipients
-            $mail->setFrom('', 'American School Way');
+            $mail->setFrom($setFromSmtp, 'American School Way');
 
             $mail->addAddress($userEmail);  //Add a recipient
             for($i = 0; $i < count($correosAdmin); $i++) {
@@ -287,15 +293,15 @@ function shortCode2(){
             //Server settings
             $mail->SMTPDebug = 0;                      //Enable verbose debug output
             $mail->isSMTP();                                            //Send using SMTP
-            $mail->Host       = '';                     //Set the SMTP server to send through
+            $mail->Host       = $serverSmtp;                     //Set the SMTP server to send through
             $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-            $mail->Username   = '';                     //SMTP username
-            $mail->Password   = '';                               //SMTP password
+            $mail->Username   = $userNameSmtp;                     //SMTP username
+            $mail->Password   = $passwordSmtp;                               //SMTP password
             $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
             $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
         
             //Recipients
-            $mail->setFrom('', 'American School Way');
+            $mail->setFrom($setFromSmtp, 'American School Way');
 
             $mail->addAddress($userEmail);  //Add a recipient
             for($i = 0; $i < count($correosAdmin); $i++) {
