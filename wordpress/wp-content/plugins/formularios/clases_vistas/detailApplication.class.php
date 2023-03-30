@@ -2150,103 +2150,103 @@ class detailApplication {
                 $mail->send();
             }
 
-            // if ($status[0]['Estado'] != 'En pruebas') {
-            //     //nada
-            // } else {
+            if ($status[0]['Estado'] != 'En pruebas') {
+                //nada
+            } else {
 
-            //     if (isset($_POST['update']) && $estadoUpd == 'Terminado') {
-            //         //Server settings
-            //         $mail->SMTPDebug = 0;                      //Enable verbose debug output
-            //         $mail->isSMTP();                                            //Send using SMTP
-            //         $mail->Host       = '';                     //Set the SMTP server to send through
-            //         $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-            //         $mail->Username   = '';                     //SMTP username
-            //         $mail->Password   = '';                               //SMTP password
-            //         $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
-            //         $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+                if (isset($_POST['update']) && $estadoUpd == 'Terminado') {
+                    //Server settings
+                    $mail->SMTPDebug = 0;                      //Enable verbose debug output
+                    $mail->isSMTP();                                            //Send using SMTP
+                    $mail->Host       = '';                     //Set the SMTP server to send through
+                    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                    $mail->Username   = '';                     //SMTP username
+                    $mail->Password   = '';                               //SMTP password
+                    $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
+                    $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
                 
-            //         //Recipients
-            //         $mail->setFrom('', 'American School Way');
+                    //Recipients
+                    $mail->setFrom('', 'American School Way');
         
-            //         if (!empty($userEmailD) && empty($userEmailS)) {
-            //             $mail->AddAddress($userEmailD);
-            //         } elseif (!empty($userEmailS) && empty($userEmailD)) {
-            //             $mail->AddAddress($userEmailS);
-            //         }
+                    if (!empty($userEmailD) && empty($userEmailS)) {
+                        $mail->AddAddress($userEmailD);
+                    } elseif (!empty($userEmailS) && empty($userEmailD)) {
+                        $mail->AddAddress($userEmailS);
+                    }
                 
-            //         //Content
-            //         $mail->isHTML(true);                                  //Set email format to HTML
-            //         $mail->Subject = 'Ticket Desarrollo';
+                    //Content
+                    $mail->isHTML(true);                                  //Set email format to HTML
+                    $mail->Subject = 'Ticket Desarrollo';
                         
-            //         $html = "
-            //             <div>
-            //                 <center><h1 style='color:white; background-color: #005199; margin: auto; width: 60%;'>$consecutivo</h1></center>
-            //                 <br>
-            //                 <p>Su ticket a pasado a estado <strong>Terminado</strong></p>
-            //                 <p style='text-align: center;'>Su solicitud fue solucionada?</p>
-            //                 <form method='POST'>
-            //                     <div style='text-align: center;'>
-            //                         <button type='submit' style='background-color: #304293; color: white; font-size: 20px; border: none; border-radius: 5px; width: 70px;'>SI</button>
-            //                         <button type='submit' style='background-color: #304293; color: white; font-size: 20px; border: none; border-radius: 5px; width: 70px;'>NO</button>
-            //                     </div>
-            //                 </form>
-            //                 <br>
-            //                 <div>
-            //                     <img alt='Banner' width='514' src='http://intranet.americanschoolway.edu.co/wp-content/uploads/2021/08/firma-asw_2.gif' style='margin:0px; vertical-align:middle; box-sizing:border-box; width:514px; height:auto'>
-            //                 </div>
-            //             </div>
-            //         ";
+                    $html = "
+                        <div>
+                            <center><h1 style='color:white; background-color: #005199; margin: auto; width: 60%;'>$consecutivo</h1></center>
+                            <br>
+                            <p>Su ticket a pasado a estado <strong>Terminado</strong></p>
+                            <p style='text-align: center;'>Su solicitud fue solucionada?</p>
+                            <form method='POST'>
+                                <div style='text-align: center;'>
+                                    <button type='submit' style='background-color: #304293; color: white; font-size: 20px; border: none; border-radius: 5px; width: 70px;'>SI</button>
+                                    <button type='submit' style='background-color: #304293; color: white; font-size: 20px; border: none; border-radius: 5px; width: 70px;'>NO</button>
+                                </div>
+                            </form>
+                            <br>
+                            <div>
+                                <img alt='Banner' width='514' src='http://intranet.americanschoolway.edu.co/wp-content/uploads/2021/08/firma-asw_2.gif' style='margin:0px; vertical-align:middle; box-sizing:border-box; width:514px; height:auto'>
+                            </div>
+                        </div>
+                    ";
 
-            //         $mail->Body = $html;
+                    $mail->Body = $html;
                 
-            //         $mail->send();
+                    $mail->send();
 
-            //     } elseif (isset($_POST['update2']) && $estadoUpd2 == 'Terminado') {
-            //         //Server settings
-            //         $mail->SMTPDebug = 0;                      //Enable verbose debug output
-            //         $mail->isSMTP();                                            //Send using SMTP
-            //         $mail->Host       = '';                     //Set the SMTP server to send through
-            //         $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-            //         $mail->Username   = '';                     //SMTP username
-            //         $mail->Password   = '';                               //SMTP password
-            //         $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
-            //         $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+                } elseif (isset($_POST['update2']) && $estadoUpd2 == 'Terminado') {
+                    //Server settings
+                    $mail->SMTPDebug = 0;                      //Enable verbose debug output
+                    $mail->isSMTP();                                            //Send using SMTP
+                    $mail->Host       = '';                     //Set the SMTP server to send through
+                    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                    $mail->Username   = '';                     //SMTP username
+                    $mail->Password   = '';                               //SMTP password
+                    $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
+                    $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
                 
-            //         //Recipients
-            //         $mail->setFrom('', 'American School Way');
+                    //Recipients
+                    $mail->setFrom('', 'American School Way');
         
-            //         if (!empty($userEmailD) && empty($userEmailS)) {
-            //             $mail->AddAddress($userEmailD);
-            //         } elseif (!empty($userEmailS) && empty($userEmailD)) {
-            //             $mail->AddAddress($userEmailS);
-            //         }
+                    if (!empty($userEmailD) && empty($userEmailS)) {
+                        $mail->AddAddress($userEmailD);
+                    } elseif (!empty($userEmailS) && empty($userEmailD)) {
+                        $mail->AddAddress($userEmailS);
+                    }
                 
-            //         //Content
-            //         $mail->isHTML(true);                                  //Set email format to HTML
-            //         $mail->Subject = 'Ticket Soporte';
+                    //Content
+                    $mail->isHTML(true);                                  //Set email format to HTML
+                    $mail->Subject = 'Ticket Soporte';
                         
-            //         $html = "
-            //             <div>
-            //                 <center><h1 style='color:white; background-color: #005199; margin: auto; width: 60%;'>$consecutivo</h1></center>
-            //                 <br>
-            //                 <p>Su ticket a pasado a estado <strong>Terminado</strong></p>
-            //                 <p style='text-align: center;'>Su solicitud fue solucionada?</p>
-            //                 <form method='POST'>
-            //                     <button type='submit'>SI</button>
-            //                     <button type='submit'>NO</button>
-            //                 </form>
-            //                 <br>
-            //                 <div>
-            //                     <img alt='Banner' width='514' src='http://intranet.americanschoolway.edu.co/wp-content/uploads/2021/08/firma-asw_2.gif' style='margin:0px; vertical-align:middle; box-sizing:border-box; width:514px; height:auto'>
-            //                 </div>
-            //             </div>
-            //         ";
+                    $html = "
+                        <div>
+                            <center><h1 style='color:white; background-color: #005199; margin: auto; width: 60%;'>$consecutivo</h1></center>
+                            <br>
+                            <p>Su ticket a pasado a estado <strong>Terminado</strong></p>
+                            <p style='text-align: center;'>Su solicitud fue solucionada?</p>
+                            <form method='POST'>
+                                <button type='submit'>SI</button>
+                                <button type='submit'>NO</button>
+                            </form>
+                            <br>
+                            <div>
+                                <img alt='Banner' width='514' src='http://intranet.americanschoolway.edu.co/wp-content/uploads/2021/08/firma-asw_2.gif' style='margin:0px; vertical-align:middle; box-sizing:border-box; width:514px; height:auto'>
+                            </div>
+                        </div>
+                    ";
 
-            //         $mail->Body = $html;
+                    $mail->Body = $html;
                 
-            //         $mail->send();
-            //     }
-            // }
+                    $mail->send();
+                }
+            }
         } else {
             if (isset($_POST['btn_mensaje']) && $resulImg[0]['Imagen'] == null) {
 
