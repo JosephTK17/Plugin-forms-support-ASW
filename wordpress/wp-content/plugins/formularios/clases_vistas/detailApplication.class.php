@@ -15,10 +15,13 @@ class detailApplication {
                 <meta name='viewport' content='width=device-width, initial-scale=1.0'>
                 <style>
 
+                    .wp-block-post-title{
+                        display: none;
+                    }
+
                     #general_cont{
                         margin: auto;
                         position: relative;
-                        border: solid 1px;
                         padding: 30px 40px;
                         width: 70%;
                     }
@@ -274,7 +277,8 @@ class detailApplication {
                     .cont_chat{
                         margin: auto;
                         width: 75%;
-                        border: 1px solid #ddd;
+                        border: 1px solid #4F4F4F;
+                        border-radius: 5px;
                         background: #f1f1f1;
                     }
 

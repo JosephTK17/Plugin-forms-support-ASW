@@ -18,7 +18,6 @@ class index{
                     #general_cont{
                         margin: auto;
                         position: relative;
-                        border: solid 1px;
                         padding: 30px 40px;
                         width: 70%;
                     }
